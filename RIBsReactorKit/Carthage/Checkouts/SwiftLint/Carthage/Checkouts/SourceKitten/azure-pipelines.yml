@@ -1,0 +1,102 @@
+# Available Xcode versions can be found here:
+# https://github.com/Microsoft/azure-pipelines-image-generation/blob/master/images/macos/macos-10.14-Readme.md#xcode
+
+trigger:
+- master
+
+jobs:
+- job: linux
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  strategy:
+    maxParallel: 10
+    matrix:
+      swift50:
+        containerImage: norionomura/swiftlint:swift-5.0
+      swift51:
+        containerImage: swift:5.1
+  container: $[ variables['containerImage'] ]
+  steps:
+    - script: swift test --parallel
+      displayName: swift test
+    - script: |
+        set -o pipefail
+        mkdir -p build/reports/
+        swiftlint lint --strict --reporter junit > build/reports/swiftlint.xml
+      displayName: swiftlint
+      condition: contains(variables['containerImage'], 'swiftlint')
+    - task: PublishTestResults@2
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: build/reports/**
+        failOnStandardError: 'true'
+      condition: failed()
+
+- job: macOS
+  pool:
+    vmImage: 'macOS 10.14'
+  strategy:
+    maxParallel: 10
+    matrix:
+      xcode102:
+        DEVELOPER_DIR: /Applications/Xcode_10.2.app
+      xcode103:
+        DEVELOPER_DIR: /Applications/Xcode_10.3.app
+      xcode11:
+        DEVELOPER_DIR: /Applications/Xcode_11.app
+      xcode113:
+        DEVELOPER_DIR: /Applications/Xcode_11.3.app
+  steps:
+    - script: git submodule update --init --recursive
+      displayName: Update git submodules
+    - script: xcodebuild -version
+      displayName: xcodebuild -version
+    - script: >
+        set -o pipefail &&
+        xcodebuild -workspace SourceKitten.xcworkspace -scheme sourcekitten -parallel-testing-enabled NO test |
+        xcpretty -r junit -o build/reports/xcodebuild-macos.xml
+      displayName: xcodebuild test
+      condition: succeededOrFailed()
+    - script: >
+        set -o pipefail &&
+        swift test --parallel
+      displayName: swift test
+      condition: succeededOrFailed()
+    - task: PublishTestResults@2
+      inputs:
+        testRunner: JUnit
+        testResultsFiles: build/reports/**
+        failOnStandardError: 'true'
+      condition: succeededOrFailed()
+
+- job: CocoaPods
+  pool:
+    vmImage: 'macOS 10.14'
+  variables:
+    DEVELOPER_DIR: /Applications/Xcode_11.3.app
+  steps:
+    - script: bundle install --path vendor/bundle
+      displayName: bundle install
+    - script: bundle exec pod repo update
+      displayName: pod repo update
+    - script: bundle exec pod lib lint
+      displayName: pod lib lint
+
+- job: Jazzy
+  pool:
+    vmImage: 'macOS 10.14'
+  variables:
+    DEVELOPER_DIR: /Applications/Xcode_11.3.app
+  steps:
+    - script: swift build
+      displayName: swift build
+    - script: swift run sourcekitten doc --spm-module SourceKittenFramework > SourceKittenFramework.json
+      displayName: Generate documentation json
+    - script: bundle install --path vendor/bundle
+      displayName: bundle install
+    - script: bundle exec jazzy --clean --sourcekitten-sourcefile SourceKittenFramework.json
+      displayName: Run jazzy
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'API Docs'
+        targetPath: 'docs'

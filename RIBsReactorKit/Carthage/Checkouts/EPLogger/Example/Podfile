@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'EPLogger_Example' do
+  pod 'EPLogger', :path => '../'
+
+  target 'EPLogger_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
