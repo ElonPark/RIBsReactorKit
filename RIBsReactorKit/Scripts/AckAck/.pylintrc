@@ -1,0 +1,7 @@
+[MASTER]
+ignore=.git
+
+[MESSAGES CONTROL]
+disable=C0301
+
+# C0301 = Line too long

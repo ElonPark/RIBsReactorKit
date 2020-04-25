@@ -1,0 +1,6 @@
+$(SRCROOT)/Carthage/Build/iOS/Quick.framework
+$(SRCROOT)/Carthage/Build/iOS/Nimble.framework
+$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework
+$(SRCROOT)/Carthage/Build/iOS/RxNimbleRxBlocking.framework
+$(SRCROOT)/Carthage/Build/iOS/RxTest.framework
+$(SRCROOT)/Carthage/Build/iOS/RxNimbleRxTest.framework

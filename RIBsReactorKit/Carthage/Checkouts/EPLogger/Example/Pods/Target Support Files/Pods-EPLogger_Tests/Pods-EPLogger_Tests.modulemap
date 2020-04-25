@@ -1,0 +1,6 @@
+framework module Pods_EPLogger_Tests {
+  umbrella header "Pods-EPLogger_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
