@@ -9,7 +9,7 @@
 import RIBs
 
 protocol RootDependency: Dependency {
- 
+
 }
 
 final class RootComponent: Component<RootDependency> {

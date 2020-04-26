@@ -9,6 +9,11 @@
 import XCTest
 @testable import RIBsReactorKit
 
+import Quick
+import Nimble
+import RxNimbleRxTest
+import RxNimbleRxBlocking
+
 class RIBsReactorKitTests: XCTestCase {
 
     override func setUp() {
