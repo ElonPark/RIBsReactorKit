@@ -17,13 +17,11 @@
 		DBC141FB2448B6C900A9F3F6 /* ReactorKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E82448B6C900A9F3F6 /* ReactorKitRuntime.framework */; };
 		DBC141FC2448B6C900A9F3F6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E92448B6C900A9F3F6 /* Alamofire.framework */; };
 		DBC141FD2448B6C900A9F3F6 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EA2448B6C900A9F3F6 /* RxMoya.framework */; };
-		DBC141FF2448B6C900A9F3F6 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EC2448B6C900A9F3F6 /* SWXMLHash.framework */; };
 		DBC142022448B6C900A9F3F6 /* ReactorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EF2448B6C900A9F3F6 /* ReactorKit.framework */; };
 		DBC142032448B6C900A9F3F6 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F02448B6C900A9F3F6 /* RxSwift.framework */; };
 		DBC142052448B6C900A9F3F6 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F22448B6C900A9F3F6 /* RxCocoa.framework */; };
 		DBC142062448B6C900A9F3F6 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F32448B6C900A9F3F6 /* Kingfisher.framework */; };
 		DBC142072448B6C900A9F3F6 /* EPLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F42448B6C900A9F3F6 /* EPLogger.framework */; };
-		DBC142082448B6C900A9F3F6 /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F52448B6C900A9F3F6 /* Yams.framework */; };
 		DBC142092448B6C900A9F3F6 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F62448B6C900A9F3F6 /* SnapKit.framework */; };
 		DBC1420C2448B7A600A9F3F6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141ED2448B6C900A9F3F6 /* Nimble.framework */; };
 		DBC1420D2448B7A600A9F3F6 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F72448B6C900A9F3F6 /* Quick.framework */; };
@@ -133,8 +131,6 @@
 				DBC142062448B6C900A9F3F6 /* Kingfisher.framework in Frameworks */,
 				DBC142092448B6C900A9F3F6 /* SnapKit.framework in Frameworks */,
 				DBC142072448B6C900A9F3F6 /* EPLogger.framework in Frameworks */,
-				DBC141FF2448B6C900A9F3F6 /* SWXMLHash.framework in Frameworks */,
-				DBC142082448B6C900A9F3F6 /* Yams.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,13 +570,13 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"$(SRCROOT)/xcfilelist/input.xcfilelist",
+				"$(SRCROOT)/Carthage/xcfilelist/input.xcfilelist",
 			);
 			inputPaths = (
 			);
 			name = carthage;
 			outputFileListPaths = (
-				"$(SRCROOT)/xcfilelist/output.xcfilelist",
+				"$(SRCROOT)/Carthage/xcfilelist/output.xcfilelist",
 			);
 			outputPaths = (
 			);
