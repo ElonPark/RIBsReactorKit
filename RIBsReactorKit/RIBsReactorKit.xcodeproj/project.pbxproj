@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB09E82124572A7F00FAB536 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB09E82024572A7F00FAB536 /* Moya.framework */; };
+		DB09E82224572A7F00FAB536 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB09E82024572A7F00FAB536 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E283244721DF00B26BD3 /* AppDelegate.swift */; };
 		DB35E28D244721E000B26BD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB35E28C244721E000B26BD3 /* Assets.xcassets */; };
 		DB35E290244721E000B26BD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB35E28E244721E000B26BD3 /* LaunchScreen.storyboard */; };
@@ -65,7 +67,22 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DB09E82324572A7F00FAB536 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DB09E82224572A7F00FAB536 /* Moya.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		DB09E82024572A7F00FAB536 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		DB35E280244721DF00B26BD3 /* RIBsReactorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RIBsReactorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB35E283244721DF00B26BD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB35E28C244721E000B26BD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -119,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB09E82124572A7F00FAB536 /* Moya.framework in Frameworks */,
 				DBC141F92448B6C900A9F3F6 /* RIBs.framework in Frameworks */,
 				DBC142022448B6C900A9F3F6 /* ReactorKit.framework in Frameworks */,
 				DBC141FB2448B6C900A9F3F6 /* ReactorKitRuntime.framework in Frameworks */,
@@ -225,6 +243,7 @@
 		DBC141E42448B6C900A9F3F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB09E82024572A7F00FAB536 /* Moya.framework */,
 				DBC141E92448B6C900A9F3F6 /* Alamofire.framework */,
 				DBC141F42448B6C900A9F3F6 /* EPLogger.framework */,
 				DBC141F32448B6C900A9F3F6 /* Kingfisher.framework */,
@@ -419,9 +438,10 @@
 				DB35E27C244721DF00B26BD3 /* Sources */,
 				DB35E27D244721DF00B26BD3 /* Frameworks */,
 				DB35E27E244721DF00B26BD3 /* Resources */,
-				DBC141E32448B5F600A9F3F6 /* carthage */,
+				DBC141E32448B5F600A9F3F6 /* Carthage */,
 				DBC142182448B99100A9F3F6 /* AckAck */,
 				DB0B83B42454627500FA83D7 /* SwifLint */,
+				DB09E82324572A7F00FAB536 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -564,7 +584,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		DBC141E32448B5F600A9F3F6 /* carthage */ = {
+		DBC141E32448B5F600A9F3F6 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -574,7 +594,7 @@
 			);
 			inputPaths = (
 			);
-			name = carthage;
+			name = Carthage;
 			outputFileListPaths = (
 				"$(SRCROOT)/Carthage/xcfilelist/output.xcfilelist",
 			);
