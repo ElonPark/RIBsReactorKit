@@ -12,13 +12,14 @@ github "Moya/Moya" ~> 14.0
 # Image
 github "onevcat/Kingfisher" ~> 5.0
 
+# UI
+github "Juanpe/SkeletonView" ~> 1.8.6
+
 # Layout
 github "SnapKit/SnapKit" ~> 5.0.0
 
 # ETC
 github "ElonPark/EPLogger" ~> 1.3.4
-# github "devxoul/Then" ~> 2.6.0
-# github "realm/SwiftLint" ~> 0.39.2
 
 # Test
 github "Quick/Quick" ~> 2.2.0
