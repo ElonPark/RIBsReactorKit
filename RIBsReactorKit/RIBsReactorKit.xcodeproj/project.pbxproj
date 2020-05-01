@@ -16,6 +16,8 @@
 		2F8CC9758B5BDBE9958AD2BA /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC635BBE9F813D0D549F3 /* Login.swift */; };
 		2F8CC9F999E5E2D8B17C6242 /* Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC8BFC57F4D47EBF0BFFC /* Name.swift */; };
 		2F8CCB2C832787ED3CC6FB03 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC2131D7BE492B33D499D /* Picture.swift */; };
+		DB09E82124572A7F00FAB536 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB09E82024572A7F00FAB536 /* Moya.framework */; };
+		DB09E82224572A7F00FAB536 /* Moya.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DB09E82024572A7F00FAB536 /* Moya.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E283244721DF00B26BD3 /* AppDelegate.swift */; };
 		DB35E28D244721E000B26BD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB35E28C244721E000B26BD3 /* Assets.xcassets */; };
 		DB35E290244721E000B26BD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB35E28E244721E000B26BD3 /* LaunchScreen.storyboard */; };
@@ -29,13 +31,11 @@
 		DBC141FB2448B6C900A9F3F6 /* ReactorKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E82448B6C900A9F3F6 /* ReactorKitRuntime.framework */; };
 		DBC141FC2448B6C900A9F3F6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E92448B6C900A9F3F6 /* Alamofire.framework */; };
 		DBC141FD2448B6C900A9F3F6 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EA2448B6C900A9F3F6 /* RxMoya.framework */; };
-		DBC141FF2448B6C900A9F3F6 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EC2448B6C900A9F3F6 /* SWXMLHash.framework */; };
 		DBC142022448B6C900A9F3F6 /* ReactorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EF2448B6C900A9F3F6 /* ReactorKit.framework */; };
 		DBC142032448B6C900A9F3F6 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F02448B6C900A9F3F6 /* RxSwift.framework */; };
 		DBC142052448B6C900A9F3F6 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F22448B6C900A9F3F6 /* RxCocoa.framework */; };
 		DBC142062448B6C900A9F3F6 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F32448B6C900A9F3F6 /* Kingfisher.framework */; };
 		DBC142072448B6C900A9F3F6 /* EPLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F42448B6C900A9F3F6 /* EPLogger.framework */; };
-		DBC142082448B6C900A9F3F6 /* Yams.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F52448B6C900A9F3F6 /* Yams.framework */; };
 		DBC142092448B6C900A9F3F6 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F62448B6C900A9F3F6 /* SnapKit.framework */; };
 		DBC1420C2448B7A600A9F3F6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141ED2448B6C900A9F3F6 /* Nimble.framework */; };
 		DBC1420D2448B7A600A9F3F6 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F72448B6C900A9F3F6 /* Quick.framework */; };
@@ -87,13 +87,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		DBDD9ACA24547D5400DBF510 /* Embed Frameworks */ = {
+		DB09E82324572A7F00FAB536 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DBDD9AC924547D5400DBF510 /* Moya.framework in Embed Frameworks */,
+				DB09E82224572A7F00FAB536 /* Moya.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,6 +110,7 @@
 		2F8CCABBA7AC704411D50C63 /* RandomUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomUser.swift; sourceTree = "<group>"; };
 		2F8CCC11679B3396B4B1AE7B /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timezone.swift; sourceTree = "<group>"; };
 		2F8CCF2EDD407D3BC80B5385 /* ID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
+		DB09E82024572A7F00FAB536 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		DB35E280244721DF00B26BD3 /* RIBsReactorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RIBsReactorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB35E283244721DF00B26BD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB35E28C244721E000B26BD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -172,6 +173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB09E82124572A7F00FAB536 /* Moya.framework in Frameworks */,
 				DBC141F92448B6C900A9F3F6 /* RIBs.framework in Frameworks */,
 				DBDD9AC824547D5400DBF510 /* Moya.framework in Frameworks */,
 				DBC142022448B6C900A9F3F6 /* ReactorKit.framework in Frameworks */,
@@ -185,8 +187,6 @@
 				DBEB564E24559D6B0054D41E /* Then in Frameworks */,
 				DBC142092448B6C900A9F3F6 /* SnapKit.framework in Frameworks */,
 				DBC142072448B6C900A9F3F6 /* EPLogger.framework in Frameworks */,
-				DBC141FF2448B6C900A9F3F6 /* SWXMLHash.framework in Frameworks */,
-				DBC142082448B6C900A9F3F6 /* Yams.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +289,7 @@
 		DBC141E42448B6C900A9F3F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DBDD9AC724547D5400DBF510 /* Moya.framework */,
+				DB09E82024572A7F00FAB536 /* Moya.framework */,
 				DBC141E92448B6C900A9F3F6 /* Alamofire.framework */,
 				DBC141F42448B6C900A9F3F6 /* EPLogger.framework */,
 				DBC141F32448B6C900A9F3F6 /* Kingfisher.framework */,
@@ -525,10 +525,10 @@
 				DB35E27C244721DF00B26BD3 /* Sources */,
 				DB35E27D244721DF00B26BD3 /* Frameworks */,
 				DB35E27E244721DF00B26BD3 /* Resources */,
-				DBC141E32448B5F600A9F3F6 /* carthage */,
+				DBC141E32448B5F600A9F3F6 /* Carthage */,
 				DBC142182448B99100A9F3F6 /* AckAck */,
 				DB0B83B42454627500FA83D7 /* SwifLint */,
-				DBDD9ACA24547D5400DBF510 /* Embed Frameworks */,
+				DB09E82324572A7F00FAB536 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -671,19 +671,19 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		DBC141E32448B5F600A9F3F6 /* carthage */ = {
+		DBC141E32448B5F600A9F3F6 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"$(SRCROOT)/xcfilelist/input.xcfilelist",
+				"$(SRCROOT)/Carthage/xcfilelist/input.xcfilelist",
 			);
 			inputPaths = (
 			);
-			name = carthage;
+			name = Carthage;
 			outputFileListPaths = (
-				"$(SRCROOT)/xcfilelist/output.xcfilelist",
+				"$(SRCROOT)/Carthage/xcfilelist/output.xcfilelist",
 			);
 			outputPaths = (
 			);
