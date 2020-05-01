@@ -13,12 +13,21 @@ extension UICollectionView {
     self.register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
   }
     
-  func register<View: UICollectionReusableView>(_: View.Type) where View: Reusable & HasElementKind {
-    self.register(View.self, forSupplementaryViewOfKind: View.elementKind, withReuseIdentifier: View.identifier)
+  func register<View: UICollectionReusableView>(
+    _: View.Type
+  ) where View: Reusable & HasElementKind {
+    self.register(
+      View.self,
+      forSupplementaryViewOfKind: View.elementKind,
+      withReuseIdentifier: View.identifier
+    )
   }
     
   // swiftlint:disable force_cast
-  func dequeue<Cell: UICollectionViewCell>(_: Cell.Type, indexPath: IndexPath) -> Cell  where Cell: Reusable {
+  func dequeue<Cell: UICollectionViewCell>(
+    _: Cell.Type,
+    indexPath: IndexPath
+  ) -> Cell  where Cell: Reusable {
     return self.dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as! Cell
   }
   

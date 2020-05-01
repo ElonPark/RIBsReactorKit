@@ -20,15 +20,16 @@ colon: error
 force_cast: warning # 암시적으로 지정
 force_try:
   severity: warning # 명시적으로 지정
+line_length: 100
+function_parameter_count: 6
 # 경고 및 에러 둘 다 존재하는 룰의 경우 값을 하나만 지정하면 암시적으로 경고 수준에 설정됨
-line_length: 120
 # 값을 나열해서 암시적으로 양쪽 다 지정할 수 있음
 type_body_length:
   - 300 # 경고
   - 400 # 에러
 # 둘 다 명시적으로 지정할 수도 있음
 file_length:
-  warning: 500
+  warning: 1000
   error: 1200
 # 네이밍 룰은 경고/에러에 min_length와 max_length를 각각 설정 가능
 # 제외할 이름을 설정할 수 있음
@@ -37,7 +38,9 @@ type_name:
   max_length: # 경고와 에러 둘 다 적용
     warning: 70
     error: 80
-  excluded: iPhone # 제외할 문자열 값 사용
+  excluded: # 제외할 문자열 값 사용
+   - iPhone
+   - ID
 identifier_name:
   min_length: # min_length에서
     error: 2 # 에러만 적용

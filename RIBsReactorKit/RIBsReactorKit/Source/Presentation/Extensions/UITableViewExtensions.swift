@@ -16,9 +16,12 @@ extension UITableView {
   func register<View: UITableViewHeaderFooterView>(_: View.Type) where View: Reusable {
     self.register(View.self, forHeaderFooterViewReuseIdentifier: View.identifier)
   }
-    
+  
   // swiftlint:disable force_cast
-  func dequeue<Cell: UITableViewCell>(_: Cell.Type, indexPath: IndexPath) -> Cell where Cell: Reusable {
+  func dequeue<Cell: UITableViewCell>(
+    _: Cell.Type,
+    indexPath: IndexPath
+  ) -> Cell where Cell: Reusable {
     return self.dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as! Cell
   }
   

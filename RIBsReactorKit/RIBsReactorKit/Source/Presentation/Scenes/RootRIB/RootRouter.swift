@@ -18,7 +18,10 @@ protocol RootViewControllable: ViewControllable {
   func dismiss(viewController: ViewControllable)
 }
 
-final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
+final class RootRouter:
+  LaunchRouter<RootInteractable, RootViewControllable>,
+  RootRouting
+{
   
   // MARK: - Initialization & Deinitialization
 

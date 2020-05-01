@@ -30,7 +30,7 @@ final class RootInteractor:
   
   weak var router: RootRouting?
   weak var listener: RootListener?
-    
+
   // MARK: - Initialization & Deinitialization
 
   // in constructor.
