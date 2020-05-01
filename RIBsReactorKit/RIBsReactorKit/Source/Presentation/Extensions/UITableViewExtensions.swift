@@ -18,7 +18,10 @@ extension UITableView {
   }
   
   // swiftlint:disable force_cast
-  func dequeue<Cell: UITableViewCell>(_: Cell.Type, indexPath: IndexPath) -> Cell where Cell: Reusable {
+  func dequeue<Cell: UITableViewCell>(
+    _: Cell.Type,
+    indexPath: IndexPath
+  ) -> Cell where Cell: Reusable {
     return self.dequeueReusableCell(withIdentifier: Cell.identifier, for: indexPath) as! Cell
   }
   
