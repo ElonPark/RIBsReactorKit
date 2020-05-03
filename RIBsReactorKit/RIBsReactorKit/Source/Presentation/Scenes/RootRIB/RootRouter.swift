@@ -8,14 +8,17 @@
 
 import RIBs
 
-protocol RootInteractable: Interactable {
+protocol RootInteractable:
+  Interactable,
+  MainTabBarListener
+{
   var router: RootRouting? { get set }
   var listener: RootListener? { get set }
 }
 
 protocol RootViewControllable: ViewControllable {
-  func present(viewController: ViewControllable)
-  func dismiss(viewController: ViewControllable)
+  func present(viewController: ViewControllable, animated: Bool)
+  func dismiss(viewController: ViewControllable, animated: Bool)
 }
 
 final class RootRouter:
@@ -23,12 +26,20 @@ final class RootRouter:
   RootRouting
 {
   
+  // MARK: - Properties
+  
+  private var currentChild: ViewableRouting?
+  private var mainTabBarBuilder: MainTabBarBuildable
+  
   // MARK: - Initialization & Deinitialization
 
-  override init(
+  init(
+    mainTabBarBuilder: MainTabBarBuildable,
     interactor: RootInteractable,
     viewController: RootViewControllable
   ) {
+    self.mainTabBarBuilder = mainTabBarBuilder
+
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
@@ -37,5 +48,16 @@ final class RootRouter:
   
   override func didLoad() {
     super.didLoad()
+    attachMainTapBarRIB()
+  }
+}
+
+// MARK: - RootRouting
+extension RootRouter {
+  func attachMainTapBarRIB() {
+    let router = mainTabBarBuilder.build(withListener: interactor)
+    currentChild = router
+    attachChild(router)
+    viewController.present(viewController: router.viewControllable, animated: false)
   }
 }

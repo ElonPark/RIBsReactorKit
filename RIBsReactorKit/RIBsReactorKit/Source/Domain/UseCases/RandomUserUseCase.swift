@@ -10,11 +10,10 @@ import RxSwift
 import RxCocoa
 
 protocol RandomUserUseCase {
-  var requestItemCount: Int { get }
   var isLastItems: Bool { get }
-  var provider: UserModelProvider { get }
+  var translator: UserModelTranslator { get }
   var repository: RandomUserRepository { get }
-  var userModels: BehaviorRelay<[UserModel]> { get }
+  var mutableUserModelsStream: MutableUserModelsStream { get }
 
   func loadData(isRefresh: Bool) -> Observable<Void>
 }
@@ -23,22 +22,26 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   
   // MARK: - Properties
   
-  let requestItemCount: Int
+  let itemCount: Int = 50
   
   private (set) var isLastItems: Bool = false
   
   let repository: RandomUserRepository
   
-  let provider: UserModelProvider
+  let translator: UserModelTranslator
   
-  let userModels: BehaviorRelay<[UserModel]> = .init(value: [])
+  let mutableUserModelsStream: MutableUserModelsStream
   
   // MARK: - Con(De)structor
 
-  init(requestItemCount: Int, repository: RandomUserRepository, provider: UserModelProvider) {
-    self.requestItemCount = requestItemCount
+  init(
+    repository: RandomUserRepository,
+    translator: UserModelTranslator,
+    mutableUserModelsStream: MutableUserModelsStream
+  ) {
     self.repository = repository
-    self.provider = provider
+    self.translator = translator
+    self.mutableUserModelsStream = mutableUserModelsStream
   }
   
   // MARK: - Internal methods
@@ -47,9 +50,9 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
     let randomUsers: Single<RandomUser>
     if let info = repository.info, !isRefresh {
       let page = info.page + 1
-      randomUsers = repository.randomUsers(with: page, count: requestItemCount, seed: info.seed)
+      randomUsers = repository.randomUsers(with: page, count: itemCount, seed: info.seed)
     } else {
-      randomUsers = repository.randomUsers(with: requestItemCount)
+      randomUsers = repository.randomUsers(with: itemCount)
     }
     
     return randomUsers
@@ -57,7 +60,11 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
       .map { $0.results }
       .do(onNext: { [weak self] results in
         self?.setIsLastItems(by: results)
-        self?.updateUserModels(by: results)
+        if isRefresh {
+          self?.updateUserModels(by: results)
+        } else {
+          self?.appendUserModels(by: results)
+        }
       })
       .map { _ in Void() }
   }
@@ -65,12 +72,16 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   // MARK: - Private methods
   
   private func setIsLastItems(by results: [User]) {
-    isLastItems = results.isEmpty || results.count < requestItemCount
+    isLastItems = results.isEmpty || results.count < itemCount
   }
   
   private func updateUserModels(by results: [User]) {
-    var models = userModels.value
-    models.append(contentsOf: provider.makeUserModel(by: results))
-    userModels.accept(models)
+    let userModels = translator.translateToUserModel(by: results)
+    mutableUserModelsStream.updateUserModals(with: userModels)
+  }
+  
+  private func appendUserModels(by results: [User]) {
+    let userModels = translator.translateToUserModel(by: results)
+    mutableUserModelsStream.appendUserModals(with: userModels)
   }
 }

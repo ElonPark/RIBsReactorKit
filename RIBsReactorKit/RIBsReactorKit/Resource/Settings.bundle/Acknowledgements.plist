@@ -54,6 +54,14 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>Acknowledgements/R.swift.Library</string>
+			<key>Title</key>
+			<string>R.swift.Library</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>Acknowledgements/RIBs</string>
 			<key>Title</key>
 			<string>RIBs</string>

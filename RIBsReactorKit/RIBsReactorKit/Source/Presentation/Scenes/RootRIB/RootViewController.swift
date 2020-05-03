@@ -33,11 +33,11 @@ final class RootViewController:
   
   // MARK: - RootViewControllable
   
-  func present(viewController: ViewControllable) {
-    present(viewController.uiviewController, animated: true, completion: nil)
+  func present(viewController: ViewControllable, animated: Bool) {
+    present(viewController.uiviewController, animated: animated)
   }
   
-  func dismiss(viewController: ViewControllable) {
+  func dismiss(viewController: ViewControllable, animated: Bool) {
     guard presentedViewController === viewController.uiviewController else { return }
     dismiss(animated: true, completion: nil)
   }

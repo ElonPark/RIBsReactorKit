@@ -14,7 +14,7 @@ protocol RootDependency: Dependency {
 
 final class RootComponent: Component<RootDependency> {
   
-  // MARK: - Constants
+  // MARK: - Properties
 
   let rootViewController: RootViewController
   
@@ -50,8 +50,14 @@ final class RootBuilder:
 
   func build() -> LaunchRouting {
     let viewController = RootViewController()
-    _ = RootComponent(dependency: dependency, rootViewController: viewController)
+    let rootComponent = RootComponent(dependency: dependency, rootViewController: viewController)
     let interactor = RootInteractor(presenter: viewController)
-    return RootRouter(interactor: interactor, viewController: viewController)
+    
+    let mainTabBarBuilder = MainTabBarBuilder(dependency: rootComponent)
+    return RootRouter(
+      mainTabBarBuilder: mainTabBarBuilder,
+      interactor: interactor,
+      viewController: viewController
+    )
   }
 }
