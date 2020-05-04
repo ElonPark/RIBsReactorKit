@@ -22,11 +22,24 @@
 		DB35E290244721E000B26BD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB35E28E244721E000B26BD3 /* LaunchScreen.storyboard */; };
 		DB35E29B244721E000B26BD3 /* RIBsReactorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E29A244721E000B26BD3 /* RIBsReactorKitTests.swift */; };
 		DB35E2A6244721E000B26BD3 /* RIBsReactorKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */; };
-		DB4242DC245C851B0068C6BF /* UserModelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4242DB245C851B0068C6BF /* UserModelProvider.swift */; };
+		DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */; };
 		DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AC52454783200DBF510 /* Networking.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
 		DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */; };
-		DBA28BAB2455EEFB0071160B /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BAA2455EEFB0071160B /* UserModel.swift */; };
+		DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */; };
+		DBA43B93245C9B6400C82D7E /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B8F245C9B6400C82D7E /* MainTabBarViewController.swift */; };
+		DBA43B94245C9B6400C82D7E /* MainTabBarBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B90245C9B6400C82D7E /* MainTabBarBuilder.swift */; };
+		DBA43B95245C9B6400C82D7E /* MainTabBarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B91245C9B6400C82D7E /* MainTabBarInteractor.swift */; };
+		DBA43B9C245C9C2100C82D7E /* UserListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B98245C9C2100C82D7E /* UserListRouter.swift */; };
+		DBA43B9D245C9C2100C82D7E /* UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B99245C9C2100C82D7E /* UserListViewController.swift */; };
+		DBA43B9E245C9C2100C82D7E /* UserListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B9A245C9C2100C82D7E /* UserListBuilder.swift */; };
+		DBA43B9F245C9C2100C82D7E /* UserListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B9B245C9C2100C82D7E /* UserListInteractor.swift */; };
+		DBA43BA4245C9CA700C82D7E /* UserCollectionRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BA0245C9CA700C82D7E /* UserCollectionRouter.swift */; };
+		DBA43BA5245C9CA700C82D7E /* UserCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BA1245C9CA700C82D7E /* UserCollectionViewController.swift */; };
+		DBA43BA6245C9CA700C82D7E /* UserCollectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BA2245C9CA700C82D7E /* UserCollectionBuilder.swift */; };
+		DBA43BA7245C9CA700C82D7E /* UserCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BA3245C9CA700C82D7E /* UserCollectionInteractor.swift */; };
+		DBA43BAB245DCFBA00C82D7E /* UserModelsStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */; };
+		DBA43BBA245EF50000C82D7E /* RootComponent+MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BB9245EF50000C82D7E /* RootComponent+MainTabBar.swift */; };
 		DBC141F92448B6C900A9F3F6 /* RIBs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E62448B6C900A9F3F6 /* RIBs.framework */; };
 		DBC141FA2448B6C900A9F3F6 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E72448B6C900A9F3F6 /* RxRelay.framework */; };
 		DBC141FB2448B6C900A9F3F6 /* ReactorKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E82448B6C900A9F3F6 /* ReactorKitRuntime.framework */; };
@@ -59,13 +72,18 @@
 		DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */; };
 		DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEB2454560800BCFEBB /* BaseView.swift */; };
 		DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DFC2454563200BCFEBB /* AppComponent.swift */; };
-		DBDD9AC824547D5400DBF510 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBDD9AC724547D5400DBF510 /* Moya.framework */; };
+		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
+		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
 		DBDD9AD02454D6A300DBF510 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACF2454D6A300DBF510 /* User.swift */; };
 		DBDD9AD22454D6BA00DBF510 /* Dob.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AD12454D6BA00DBF510 /* Dob.swift */; };
 		DBEB564E24559D6B0054D41E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DBC142132448B84500A9F3F6 /* Then */; };
 		DBEB56502455AB4E0054D41E /* RandomUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEB564F2455AB4E0054D41E /* RandomUserService.swift */; };
 		DBEB56532455B15F0054D41E /* RandomUserFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEB56522455B15F0054D41E /* RandomUserFixture.swift */; };
+		DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */; };
+		DBEF8B36245F055700A37587 /* MainTabBarComponent+UserCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */; };
+		DBEF8B42245F511E00A37587 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8B41245F511E00A37587 /* R.generated.swift */; };
+		DBEF8B45245F56B600A37587 /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEF8B3A245F4BE800A37587 /* Rswift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,10 +124,23 @@
 		DB35E2A1244721E000B26BD3 /* RIBsReactorKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RIBsReactorKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIBsReactorKitUITests.swift; sourceTree = "<group>"; };
 		DB35E2A7244721E000B26BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DB4242DB245C851B0068C6BF /* UserModelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelProvider.swift; sourceTree = "<group>"; };
+		DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTranslator.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
 		DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserUseCase.swift; sourceTree = "<group>"; };
-		DBA28BAA2455EEFB0071160B /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
+		DBA43B8F245C9B6400C82D7E /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		DBA43B90245C9B6400C82D7E /* MainTabBarBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarBuilder.swift; sourceTree = "<group>"; };
+		DBA43B91245C9B6400C82D7E /* MainTabBarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarInteractor.swift; sourceTree = "<group>"; };
+		DBA43B98245C9C2100C82D7E /* UserListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListRouter.swift; sourceTree = "<group>"; };
+		DBA43B99245C9C2100C82D7E /* UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewController.swift; sourceTree = "<group>"; };
+		DBA43B9A245C9C2100C82D7E /* UserListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListBuilder.swift; sourceTree = "<group>"; };
+		DBA43B9B245C9C2100C82D7E /* UserListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListInteractor.swift; sourceTree = "<group>"; };
+		DBA43BA0245C9CA700C82D7E /* UserCollectionRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionRouter.swift; sourceTree = "<group>"; };
+		DBA43BA1245C9CA700C82D7E /* UserCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewController.swift; sourceTree = "<group>"; };
+		DBA43BA2245C9CA700C82D7E /* UserCollectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionBuilder.swift; sourceTree = "<group>"; };
+		DBA43BA3245C9CA700C82D7E /* UserCollectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionInteractor.swift; sourceTree = "<group>"; };
+		DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelsStream.swift; sourceTree = "<group>"; };
+		DBA43BB9245EF50000C82D7E /* RootComponent+MainTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RootComponent+MainTabBar.swift"; sourceTree = "<group>"; };
 		DBC141E52448B6C900A9F3F6 /* RxNimbleRxTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxNimbleRxTest.framework; path = Carthage/Build/iOS/RxNimbleRxTest.framework; sourceTree = "<group>"; };
 		DBC141E62448B6C900A9F3F6 /* RIBs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RIBs.framework; path = Carthage/Build/iOS/RIBs.framework; sourceTree = "<group>"; };
 		DBC141E72448B6C900A9F3F6 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
@@ -145,6 +176,8 @@
 		DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBC52DEB2454560800BCFEBB /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DBC52DFC2454563200BCFEBB /* AppComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
+		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
+		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
 		DBDD9AC724547D5400DBF510 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		DBDD9ACD2454D68F00DBF510 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
@@ -152,6 +185,10 @@
 		DBDD9AD12454D6BA00DBF510 /* Dob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dob.swift; sourceTree = "<group>"; };
 		DBEB564F2455AB4E0054D41E /* RandomUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserService.swift; sourceTree = "<group>"; };
 		DBEB56522455B15F0054D41E /* RandomUserFixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserFixture.swift; sourceTree = "<group>"; };
+		DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabBarComponent+UserList.swift"; sourceTree = "<group>"; };
+		DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabBarComponent+UserCollection.swift"; sourceTree = "<group>"; };
+		DBEF8B3A245F4BE800A37587 /* Rswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rswift.framework; path = Carthage/Build/iOS/Rswift.framework; sourceTree = "<group>"; };
+		DBEF8B41245F511E00A37587 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,7 +198,6 @@
 			files = (
 				DB09E82124572A7F00FAB536 /* Moya.framework in Frameworks */,
 				DBC141F92448B6C900A9F3F6 /* RIBs.framework in Frameworks */,
-				DBDD9AC824547D5400DBF510 /* Moya.framework in Frameworks */,
 				DBC142022448B6C900A9F3F6 /* ReactorKit.framework in Frameworks */,
 				DBC141FB2448B6C900A9F3F6 /* ReactorKitRuntime.framework in Frameworks */,
 				DBC142032448B6C900A9F3F6 /* RxSwift.framework in Frameworks */,
@@ -172,6 +208,7 @@
 				DBC142062448B6C900A9F3F6 /* Kingfisher.framework in Frameworks */,
 				DBEB564E24559D6B0054D41E /* Then in Frameworks */,
 				DBC142092448B6C900A9F3F6 /* SnapKit.framework in Frameworks */,
+				DBEF8B45245F56B600A37587 /* Rswift.framework in Frameworks */,
 				DBC142072448B6C900A9F3F6 /* EPLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,6 +310,19 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		DB9C7EF3245C97EC003AB2E7 /* MainTabBarRIB */ = {
+			isa = PBXGroup;
+			children = (
+				DBA43B90245C9B6400C82D7E /* MainTabBarBuilder.swift */,
+				DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */,
+				DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */,
+				DBA43B91245C9B6400C82D7E /* MainTabBarInteractor.swift */,
+				DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */,
+				DBA43B8F245C9B6400C82D7E /* MainTabBarViewController.swift */,
+			);
+			path = MainTabBarRIB;
+			sourceTree = "<group>";
+		};
 		DBA28BA32455B8220071160B /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -281,9 +331,32 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		DBA43B96245C9BED00C82D7E /* UserListRIB */ = {
+			isa = PBXGroup;
+			children = (
+				DBA43B9A245C9C2100C82D7E /* UserListBuilder.swift */,
+				DBA43B9B245C9C2100C82D7E /* UserListInteractor.swift */,
+				DBA43B98245C9C2100C82D7E /* UserListRouter.swift */,
+				DBA43B99245C9C2100C82D7E /* UserListViewController.swift */,
+			);
+			path = UserListRIB;
+			sourceTree = "<group>";
+		};
+		DBA43B97245C9BF800C82D7E /* UserCollectionRIB */ = {
+			isa = PBXGroup;
+			children = (
+				DBA43BA2245C9CA700C82D7E /* UserCollectionBuilder.swift */,
+				DBA43BA3245C9CA700C82D7E /* UserCollectionInteractor.swift */,
+				DBA43BA0245C9CA700C82D7E /* UserCollectionRouter.swift */,
+				DBA43BA1245C9CA700C82D7E /* UserCollectionViewController.swift */,
+			);
+			path = UserCollectionRIB;
+			sourceTree = "<group>";
+		};
 		DBC141E42448B6C900A9F3F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DBEF8B3A245F4BE800A37587 /* Rswift.framework */,
 				DB09E82024572A7F00FAB536 /* Moya.framework */,
 				DBC141E92448B6C900A9F3F6 /* Alamofire.framework */,
 				DBC141F42448B6C900A9F3F6 /* EPLogger.framework */,
@@ -350,25 +423,25 @@
 		DBC52DCE2454560800BCFEBB /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				DBC52DCF2454560800BCFEBB /* Providers */,
+				DBC52DCF2454560800BCFEBB /* Translators */,
 				DBC52DD02454560800BCFEBB /* Models */,
 				DBC52DD12454560800BCFEBB /* UseCases */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		DBC52DCF2454560800BCFEBB /* Providers */ = {
+		DBC52DCF2454560800BCFEBB /* Translators */ = {
 			isa = PBXGroup;
 			children = (
-				DB4242DB245C851B0068C6BF /* UserModelProvider.swift */,
+				DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */,
 			);
-			path = Providers;
+			path = Translators;
 			sourceTree = "<group>";
 		};
 		DBC52DD02454560800BCFEBB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DBA28BAA2455EEFB0071160B /* UserModel.swift */,
+				DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -429,6 +502,7 @@
 		DBC52DD72454560800BCFEBB /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				DBEF8B43245F51F500A37587 /* Utilities */,
 				DBC52DDE2454560800BCFEBB /* Extensions */,
 				DBC52DE32454560800BCFEBB /* Protocols */,
 				DBC52DE72454560800BCFEBB /* Base */,
@@ -440,6 +514,9 @@
 		DBC52DD82454560800BCFEBB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				DBA43B97245C9BF800C82D7E /* UserCollectionRIB */,
+				DBA43B96245C9BED00C82D7E /* UserListRIB */,
+				DB9C7EF3245C97EC003AB2E7 /* MainTabBarRIB */,
 				DBC52DD92454560800BCFEBB /* RootRIB */,
 			);
 			path = Scenes;
@@ -449,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				DBC52DDD2454560800BCFEBB /* RootBuilder.swift */,
+				DBA43BB9245EF50000C82D7E /* RootComponent+MainTabBar.swift */,
 				DBC52DDA2454560800BCFEBB /* RootInteractor.swift */,
 				DBC52DDC2454560800BCFEBB /* RootRouter.swift */,
 				DBC52DDB2454560800BCFEBB /* RootViewController.swift */,
@@ -511,6 +589,16 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		DBEF8B43245F51F500A37587 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				DBEF8B41245F511E00A37587 /* R.generated.swift */,
+				DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */,
+				DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -518,6 +606,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DB35E2AA244721E000B26BD3 /* Build configuration list for PBXNativeTarget "RIBsReactorKit" */;
 			buildPhases = (
+				DBEF8B44245F525000A37587 /* R Swift */,
 				DB35E27C244721DF00B26BD3 /* Sources */,
 				DB35E27D244721DF00B26BD3 /* Frameworks */,
 				DB35E27E244721DF00B26BD3 /* Resources */,
@@ -723,6 +812,27 @@
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/AckAck/ackack.py\n";
 		};
+		DBEF8B44245F525000A37587 /* R Swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"",
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = "R Swift";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/RIBsReactorKit/Source/Presentation/Utilities/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rswift generate \"$SRCROOT/RIBsReactorKit/Source/Presentation/Utilities/R.generated.swift\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -733,36 +843,54 @@
 				DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */,
 				DBC52DF22454560800BCFEBB /* UICollectionViewExtensions.swift in Sources */,
 				DBC52DF52454560800BCFEBB /* Reusable.swift in Sources */,
+				DBA43BA6245C9CA700C82D7E /* UserCollectionBuilder.swift in Sources */,
 				DBC52DF12454560800BCFEBB /* UITableViewExtensions.swift in Sources */,
 				DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */,
+				DBA43B9E245C9C2100C82D7E /* UserListBuilder.swift in Sources */,
 				DBDD9AD02454D6A300DBF510 /* User.swift in Sources */,
 				DBC52DED2454560800BCFEBB /* RootInteractor.swift in Sources */,
 				DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */,
 				DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */,
-				DBA28BAB2455EEFB0071160B /* UserModel.swift in Sources */,
+				DBA43B9C245C9C2100C82D7E /* UserListRouter.swift in Sources */,
 				DBC52DEF2454560800BCFEBB /* RootRouter.swift in Sources */,
 				DBDD9AD22454D6BA00DBF510 /* Dob.swift in Sources */,
 				DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */,
 				DBC52DF82454560800BCFEBB /* BaseViewController.swift in Sources */,
 				DBC52DF32454560800BCFEBB /* UINavigationControllerExtensions.swift in Sources */,
 				DBC52DF62454560800BCFEBB /* HasElementKind.swift in Sources */,
-				DB4242DC245C851B0068C6BF /* UserModelProvider.swift in Sources */,
+				DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */,
 				DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */,
+				DBA43BA7245C9CA700C82D7E /* UserCollectionInteractor.swift in Sources */,
+				DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */,
+				DBA43BAB245DCFBA00C82D7E /* UserModelsStream.swift in Sources */,
 				DBC52DEE2454560800BCFEBB /* RootViewController.swift in Sources */,
 				DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */,
 				DBC52DF92454560800BCFEBB /* BaseTableViewCell.swift in Sources */,
+				DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */,
+				DBA43B93245C9B6400C82D7E /* MainTabBarViewController.swift in Sources */,
 				DBC52DF02454560800BCFEBB /* RootBuilder.swift in Sources */,
+				DBEF8B42245F511E00A37587 /* R.generated.swift in Sources */,
 				2F8CC3DF8C8CBBFAEAFAFF77 /* ID.swift in Sources */,
+				DBA43BA4245C9CA700C82D7E /* UserCollectionRouter.swift in Sources */,
+				DBA43B9D245C9C2100C82D7E /* UserListViewController.swift in Sources */,
 				2F8CC7732D37533292D8F598 /* RandomUser.swift in Sources */,
 				2F8CC1354EA8D8ECC74D97DD /* Location.swift in Sources */,
+				DBA43BBA245EF50000C82D7E /* RootComponent+MainTabBar.swift in Sources */,
 				DBEB56502455AB4E0054D41E /* RandomUserService.swift in Sources */,
 				DBEB56532455B15F0054D41E /* RandomUserFixture.swift in Sources */,
+				DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */,
+				DBEF8B36245F055700A37587 /* MainTabBarComponent+UserCollection.swift in Sources */,
+				DBA43B9F245C9C2100C82D7E /* UserListInteractor.swift in Sources */,
 				2F8CC1CD9159BF337376D20A /* Coordinates.swift in Sources */,
+				DBA43B94245C9B6400C82D7E /* MainTabBarBuilder.swift in Sources */,
+				DBA43BA5245C9CA700C82D7E /* UserCollectionViewController.swift in Sources */,
 				2F8CC81A19C9D12A4373BD26 /* Street.swift in Sources */,
 				DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */,
 				2F8CC75D8643D497469F2A8E /* Timezone.swift in Sources */,
+				DBA43B95245C9B6400C82D7E /* MainTabBarInteractor.swift in Sources */,
 				2F8CC9758B5BDBE9958AD2BA /* Login.swift in Sources */,
 				2F8CC9F999E5E2D8B17C6242 /* Name.swift in Sources */,
+				DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */,
 				2F8CCB2C832787ED3CC6FB03 /* Picture.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

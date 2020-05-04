@@ -9,7 +9,7 @@
 import RIBs
 
 protocol RootRouting: ViewableRouting {
-
+  func attachMainTapBarRIB()
 }
 
 protocol RootPresentable: Presentable {
