@@ -72,6 +72,8 @@
 		DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */; };
 		DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEB2454560800BCFEBB /* BaseView.swift */; };
 		DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DFC2454563200BCFEBB /* AppComponent.swift */; };
+		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
+		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
 		DBDD9AD02454D6A300DBF510 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACF2454D6A300DBF510 /* User.swift */; };
 		DBDD9AD22454D6BA00DBF510 /* Dob.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AD12454D6BA00DBF510 /* Dob.swift */; };
@@ -174,6 +176,8 @@
 		DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBC52DEB2454560800BCFEBB /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DBC52DFC2454563200BCFEBB /* AppComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
+		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
+		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
 		DBDD9AC724547D5400DBF510 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		DBDD9ACD2454D68F00DBF510 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
@@ -589,6 +593,8 @@
 			isa = PBXGroup;
 			children = (
 				DBEF8B41245F511E00A37587 /* R.generated.swift */,
+				DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */,
+				DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -855,10 +861,12 @@
 				DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */,
 				DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */,
 				DBA43BA7245C9CA700C82D7E /* UserCollectionInteractor.swift in Sources */,
+				DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */,
 				DBA43BAB245DCFBA00C82D7E /* UserModelsStream.swift in Sources */,
 				DBC52DEE2454560800BCFEBB /* RootViewController.swift in Sources */,
 				DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */,
 				DBC52DF92454560800BCFEBB /* BaseTableViewCell.swift in Sources */,
+				DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */,
 				DBA43B93245C9B6400C82D7E /* MainTabBarViewController.swift in Sources */,
 				DBC52DF02454560800BCFEBB /* RootBuilder.swift in Sources */,
 				DBEF8B42245F511E00A37587 /* R.generated.swift in Sources */,

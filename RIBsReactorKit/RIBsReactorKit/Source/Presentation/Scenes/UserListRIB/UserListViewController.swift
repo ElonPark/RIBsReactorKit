@@ -49,3 +49,26 @@ final class UserListViewController:
     )
   }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+private let deviceNames: [String] = [
+  "iPhone SE",
+  "iPhone 11 Pro Max"
+]
+
+@available(iOS 13.0, *)
+struct UserListViewControllerPreview: PreviewProvider {
+  static var previews: some View {
+    ForEach(deviceNames, id: \.self) { deviceName in
+      UIViewControllerPreview {
+        let viewController = UserListViewController()
+        return UINavigationController(rootViewController: viewController)
+      }
+      .previewDevice(PreviewDevice(rawValue: deviceName))
+      .previewDisplayName(deviceName)
+    }
+  }
+}
+#endif

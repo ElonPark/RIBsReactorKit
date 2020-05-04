@@ -58,3 +58,30 @@ extension MainTabBarViewController {
     navigationController?.popToViewController(viewController.uiviewController, animated: animated)
   }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+private let deviceNames: [String] = [
+  "iPhone SE",
+  "iPhone 11 Pro Max"
+]
+
+@available(iOS 13.0, *)
+struct MainTabBarViewControllerPreview: PreviewProvider {
+  static var previews: some View {
+    ForEach(deviceNames, id: \.self) { deviceName in
+      UIViewControllerPreview {
+        let viewControllers = [
+          UserListViewController(),
+          UserCollectionViewController()
+        ].map { UINavigationController(rootViewController: $0) }
+    
+        return MainTabBarViewController(viewControllers: viewControllers)
+      }
+      .previewDevice(PreviewDevice(rawValue: deviceName))
+      .previewDisplayName(deviceName)
+    }
+  }
+}
+#endif
