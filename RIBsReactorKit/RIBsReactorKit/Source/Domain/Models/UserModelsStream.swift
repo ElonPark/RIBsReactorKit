@@ -35,19 +35,19 @@ extension UserModel: Equatable {
 }
 
 protocol UserModelsStream {
-  var userModals: Observable<[UserModel]> { get }
+  var userModels: Observable<[UserModel]> { get }
 }
 
 protocol MutableUserModelsStream: UserModelsStream {
-  func updateUserModals(with userModals: [UserModel])
-  func appendUserModals(with userModals: [UserModel])
+  func updateUserModels(with userModels: [UserModel])
+  func appendUserModels(with userModels: [UserModel])
 }
 
 final class UserModelsStreamImpl: MutableUserModelsStream {
   
   // MARK: - Properties
 
-  var userModals: Observable<[UserModel]> {
+  var userModels: Observable<[UserModel]> {
     return userModalsRelay
     .asObservable()
   }
@@ -56,14 +56,14 @@ final class UserModelsStreamImpl: MutableUserModelsStream {
   
   // MARK: - Internal methods
 
-  func updateUserModals(with userModals: [UserModel]) {
-    userModalsRelay.accept(userModals)
+  func updateUserModels(with userModels: [UserModel]) {
+    userModalsRelay.accept(userModels)
   }
   
-  func appendUserModals(with userModals: [UserModel]) {
+  func appendUserModels(with userModels: [UserModel]) {
     var newUserModals: [UserModel] {
       var modals = userModalsRelay.value
-      modals.append(contentsOf: userModals)
+      modals.append(contentsOf: userModels)
       return modals
     }
     

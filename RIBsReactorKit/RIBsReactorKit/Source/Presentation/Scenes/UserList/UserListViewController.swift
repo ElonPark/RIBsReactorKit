@@ -21,6 +21,12 @@ final class UserListViewController:
   UserListViewControllable
 {
   
+  enum Action {
+    case refresh
+    case loadMore
+    case itemSelected(IndexPath)
+  }
+  
   // MARK: - Properties
 
   weak var listener: UserListPresentableListener?

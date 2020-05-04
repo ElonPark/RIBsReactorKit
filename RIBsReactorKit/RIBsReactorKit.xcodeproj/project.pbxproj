@@ -24,6 +24,7 @@
 		DB35E2A6244721E000B26BD3 /* RIBsReactorKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */; };
 		DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */; };
 		DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AC52454783200DBF510 /* Networking.swift */; };
+		DB630219246071CD00C47E09 /* UserListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB630218246071CD00C47E09 /* UserListState.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
 		DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */; };
 		DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */; };
@@ -125,6 +126,7 @@
 		DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIBsReactorKitUITests.swift; sourceTree = "<group>"; };
 		DB35E2A7244721E000B26BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTranslator.swift; sourceTree = "<group>"; };
+		DB630218246071CD00C47E09 /* UserListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListState.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
 		DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserUseCase.swift; sourceTree = "<group>"; };
 		DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
@@ -310,7 +312,7 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		DB9C7EF3245C97EC003AB2E7 /* MainTabBarRIB */ = {
+		DB9C7EF3245C97EC003AB2E7 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
 				DBA43B90245C9B6400C82D7E /* MainTabBarBuilder.swift */,
@@ -320,7 +322,7 @@
 				DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */,
 				DBA43B8F245C9B6400C82D7E /* MainTabBarViewController.swift */,
 			);
-			path = MainTabBarRIB;
+			path = MainTabBar;
 			sourceTree = "<group>";
 		};
 		DBA28BA32455B8220071160B /* Services */ = {
@@ -331,7 +333,7 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		DBA43B96245C9BED00C82D7E /* UserListRIB */ = {
+		DBA43B96245C9BED00C82D7E /* UserList */ = {
 			isa = PBXGroup;
 			children = (
 				DBA43B9A245C9C2100C82D7E /* UserListBuilder.swift */,
@@ -339,10 +341,10 @@
 				DBA43B98245C9C2100C82D7E /* UserListRouter.swift */,
 				DBA43B99245C9C2100C82D7E /* UserListViewController.swift */,
 			);
-			path = UserListRIB;
+			path = UserList;
 			sourceTree = "<group>";
 		};
-		DBA43B97245C9BF800C82D7E /* UserCollectionRIB */ = {
+		DBA43B97245C9BF800C82D7E /* UserCollection */ = {
 			isa = PBXGroup;
 			children = (
 				DBA43BA2245C9CA700C82D7E /* UserCollectionBuilder.swift */,
@@ -350,7 +352,7 @@
 				DBA43BA0245C9CA700C82D7E /* UserCollectionRouter.swift */,
 				DBA43BA1245C9CA700C82D7E /* UserCollectionViewController.swift */,
 			);
-			path = UserCollectionRIB;
+			path = UserCollection;
 			sourceTree = "<group>";
 		};
 		DBC141E42448B6C900A9F3F6 /* Frameworks */ = {
@@ -442,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */,
+				DB630218246071CD00C47E09 /* UserListState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -514,15 +517,15 @@
 		DBC52DD82454560800BCFEBB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				DBA43B97245C9BF800C82D7E /* UserCollectionRIB */,
-				DBA43B96245C9BED00C82D7E /* UserListRIB */,
-				DB9C7EF3245C97EC003AB2E7 /* MainTabBarRIB */,
-				DBC52DD92454560800BCFEBB /* RootRIB */,
+				DBA43B97245C9BF800C82D7E /* UserCollection */,
+				DBA43B96245C9BED00C82D7E /* UserList */,
+				DB9C7EF3245C97EC003AB2E7 /* MainTabBar */,
+				DBC52DD92454560800BCFEBB /* Root */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		DBC52DD92454560800BCFEBB /* RootRIB */ = {
+		DBC52DD92454560800BCFEBB /* Root */ = {
 			isa = PBXGroup;
 			children = (
 				DBC52DDD2454560800BCFEBB /* RootBuilder.swift */,
@@ -531,7 +534,7 @@
 				DBC52DDC2454560800BCFEBB /* RootRouter.swift */,
 				DBC52DDB2454560800BCFEBB /* RootViewController.swift */,
 			);
-			path = RootRIB;
+			path = Root;
 			sourceTree = "<group>";
 		};
 		DBC52DDE2454560800BCFEBB /* Extensions */ = {
@@ -856,6 +859,7 @@
 				DBDD9AD22454D6BA00DBF510 /* Dob.swift in Sources */,
 				DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */,
 				DBC52DF82454560800BCFEBB /* BaseViewController.swift in Sources */,
+				DB630219246071CD00C47E09 /* UserListState.swift in Sources */,
 				DBC52DF32454560800BCFEBB /* UINavigationControllerExtensions.swift in Sources */,
 				DBC52DF62454560800BCFEBB /* HasElementKind.swift in Sources */,
 				DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */,
