@@ -25,6 +25,7 @@
 		DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */; };
 		DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AC52454783200DBF510 /* Networking.swift */; };
 		DB630219246071CD00C47E09 /* UserListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB630218246071CD00C47E09 /* UserListState.swift */; };
+		DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
 		DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */; };
 		DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */; };
@@ -127,6 +128,7 @@
 		DB35E2A7244721E000B26BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTranslator.swift; sourceTree = "<group>"; };
 		DB630218246071CD00C47E09 /* UserListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListState.swift; sourceTree = "<group>"; };
+		DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllableExtensions.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
 		DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserUseCase.swift; sourceTree = "<group>"; };
 		DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				DBC52DE12454560800BCFEBB /* UINavigationControllerExtensions.swift */,
+				DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */,
 			);
 			path = "RIBs+Extensions";
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 				DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */,
 				DBC52DF92454560800BCFEBB /* BaseTableViewCell.swift in Sources */,
 				DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */,
+				DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */,
 				DBA43B93245C9B6400C82D7E /* MainTabBarViewController.swift in Sources */,
 				DBC52DF02454560800BCFEBB /* RootBuilder.swift in Sources */,
 				DBEF8B42245F511E00A37587 /* R.generated.swift in Sources */,

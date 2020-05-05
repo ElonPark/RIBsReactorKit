@@ -18,9 +18,7 @@ protocol MainTabBarInteractable:
 }
 
 protocol MainTabBarViewControllable: ViewControllable {
-  func push(viewController: ViewControllable, animated: Bool)
-  func pop(animated: Bool)
-  func pop(to viewController : ViewControllable, animated: Bool)
+
 }
 
 final class MainTabBarRouter:

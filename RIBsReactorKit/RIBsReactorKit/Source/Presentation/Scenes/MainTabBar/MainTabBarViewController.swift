@@ -45,20 +45,6 @@ final class MainTabBarViewController:
   }
 }
 
-extension MainTabBarViewController {
-  func push(viewController: ViewControllable, animated: Bool) {
-    navigationController?.pushViewController(viewController.uiviewController, animated: animated)
-  }
-  
-  func pop(animated: Bool) {
-    navigationController?.popViewController(animated: animated)
-  }
-  
-  func pop(to viewController: ViewControllable, animated: Bool) {
-    navigationController?.popToViewController(viewController.uiviewController, animated: animated)
-  }
-}
-
 #if canImport(SwiftUI) && DEBUG
 import SwiftUI
 
