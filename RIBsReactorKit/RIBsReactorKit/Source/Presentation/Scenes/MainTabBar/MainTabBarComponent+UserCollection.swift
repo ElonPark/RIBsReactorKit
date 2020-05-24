@@ -13,5 +13,7 @@ protocol MainTabBarDependencyUserCollection: Dependency {
 }
 
 extension MainTabBarComponent: UserCollectionDependency {
-
+  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
+    return UserCollectionViewController()
+  }
 }

@@ -9,21 +9,11 @@
 import RIBs
 
 protocol MainTabBarDependency: Dependency {
-  var userListViewController: UserListPresentable & UserListViewControllable { get }
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
+
 }
 
 final class MainTabBarComponent: Component<MainTabBarDependency> {
 
-  var userListViewController: UserListPresentable & UserListViewControllable {
-    return dependency.userListViewController
-  }
-
-  var userCollectionViewController: UserCollectionPresentable &
-    UserCollectionViewControllable {
-    return dependency.userCollectionViewController
-  }
-  
   fileprivate var randomUserService: Networking<RandomUserService> {
     return Networking<RandomUserService>()
   }

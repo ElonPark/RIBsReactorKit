@@ -13,11 +13,5 @@ protocol RootDependencyMainTabBar: Dependency {
 }
 
 extension RootComponent: MainTabBarDependency {
-  var userListViewController: UserListPresentable & UserListViewControllable {
-    return UserListViewController()
-  }
-  
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
-    return UserCollectionViewController()
-  }
+
 }

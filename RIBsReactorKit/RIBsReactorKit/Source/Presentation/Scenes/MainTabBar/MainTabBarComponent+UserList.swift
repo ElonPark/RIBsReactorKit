@@ -13,5 +13,7 @@ protocol MainTabBarDependencyUserList: Dependency {
 }
 
 extension MainTabBarComponent: UserListDependency {
-
+  var userListViewController: UserListPresentable & UserListViewControllable {
+    return UserListViewController()
+  }
 }
