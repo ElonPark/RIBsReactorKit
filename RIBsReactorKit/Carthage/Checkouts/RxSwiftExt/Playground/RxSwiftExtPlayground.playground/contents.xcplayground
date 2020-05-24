@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='rendered' last-migration='0900'>
+    <pages>
+        <page name='Index'/>
+        <page name='apply'/>
+        <page name='bufferWithTrigger'/>
+        <page name='cascade'/>
+        <page name='catchErrorJustComplete'/>
+        <page name='count'/>
+        <page name='distinct'/>
+        <page name='ignore'/>
+        <page name='not'/>
+        <page name='once'/>
+        <page name='pausable'/>
+        <page name='pausableBuffered'/>
+        <page name='repeatWithBehavior'/>
+        <page name='retryWithBehavior'/>
+        <page name='unwrap'/>
+        <page name='filterMap'/>
+        <page name='mapAt'/>
+        <page name='mapTo'/>
+        <page name='fromAsync'/>
+        <page name='and'/>
+        <page name='nwise'/>
+        <page name='zipWith'/>
+        <page name='mergeWith'/>
+        <page name='ofType'/>
+        <page name='mapMany'/>
+        <page name='toSortedArray'/>
+        <page name='UIViewPropertyAnimator.animate'/>
+        <page name='UIViewPropertyAnimator.fractionComplete'/>
+        <page name='withUnretained'/>
+    </pages>
+</playground>

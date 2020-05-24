@@ -17,9 +17,7 @@ protocol MainTabBarInteractable:
   var listener: MainTabBarListener? { get set }
 }
 
-protocol MainTabBarViewControllable: ViewControllable {
-
-}
+protocol MainTabBarViewControllable: ViewControllable {}
 
 final class MainTabBarRouter:
   ViewableRouter<MainTabBarInteractable, MainTabBarViewControllable>,
@@ -31,8 +29,8 @@ final class MainTabBarRouter:
   private let userListBuilder: UserListBuildable
   private let userCollectionBuilder: UserCollectionBuildable
   
-  private var userListRouter: ViewableRouting?
-  private var userCollectionRouter: ViewableRouting?
+  private var userListRouter: UserListRouting?
+  private var userCollectionRouter: UserCollectionRouting?
   
   // MARK: - Initialization & Deinitialization
 

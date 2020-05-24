@@ -2,6 +2,7 @@ disabled_rules: # 실행에서 제외할 룰 식별자들
   - trailing_whitespace
   - colon
   - opening_brace
+  - nesting
 opt_in_rules: # 일부 룰은 옵트 인 형태로 제공
   - empty_count
   - missing_docs
@@ -42,6 +43,7 @@ type_name:
   excluded: # 제외할 문자열 값 사용
    - iPhone
    - ID
+   - UI
 identifier_name:
   min_length: # min_length에서
     error: 2 # 에러만 적용

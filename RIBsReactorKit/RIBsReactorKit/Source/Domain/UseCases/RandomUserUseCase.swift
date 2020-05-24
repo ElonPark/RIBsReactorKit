@@ -24,7 +24,7 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   
   let itemCount: Int = 50
   
-  private (set) var isLastItems: Bool = false
+  private(set) var isLastItems: Bool = false
   
   let repository: RandomUserRepository
   

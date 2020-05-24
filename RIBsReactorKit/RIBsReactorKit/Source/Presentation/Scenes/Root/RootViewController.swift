@@ -10,9 +10,7 @@ import UIKit
 
 import RIBs
 
-protocol RootPresentableListener: class {
-
-}
+protocol RootPresentableListener: class {}
 
 final class RootViewController:
   BaseViewController,

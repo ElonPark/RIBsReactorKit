@@ -14,12 +14,26 @@ protocol UserListDependency: Dependency {
 }
 
 final class UserListComponent: Component<UserListDependency> {
-  fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
-    return dependency.userListViewController
+  
+  fileprivate var initialState: UserListPresentableState {
+    // for skeleton view animation
+    let dummySectionItems: [UserListSectionItem] = (1...20).map { _ in .user(nil) }
+    return UserListPresentableState(
+      isLoading: true,
+      userListSections: [.randomUser(dummySectionItems)]
+    )
   }
   
   fileprivate var randomUserUseCase: RandomUserUseCase {
-    return dependency.randomUserUseCase
+    dependency.randomUserUseCase
+  }
+  
+  fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
+    dependency.userListViewController
+  }
+  
+  fileprivate var userInfomationAdapter: UserInfomationAdapterBuildable {
+    UserInfomationAdapter()
   }
 }
 
@@ -45,11 +59,14 @@ final class UserListBuilder:
   func build(withListener listener: UserListListener) -> UserListRouting {
     let component = UserListComponent(dependency: dependency)
     let interactor = UserListInteractor(
+      initialState: component.initialState,
       randomUserUseCase: component.randomUserUseCase,
       presenter: component.userListViewController
     )
     interactor.listener = listener
+    
     return UserListRouter(
+      userInfomationAdapter: component.userInfomationAdapter,
       interactor: interactor,
       viewController: component.userListViewController
     )

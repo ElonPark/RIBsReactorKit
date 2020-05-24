@@ -8,22 +8,17 @@
   <a href="https://github.com/ReactorKit/ReactorKit" target="_blank">
     <img alt="Platform" src="https://img.shields.io/cocoapods/p/ReactorKit.svg?style=flat">
   </a>
-  <a href="https://travis-ci.org/ReactorKit/ReactorKit" target="_blank">
-    <img alt="Build Status" src="https://travis-ci.org/ReactorKit/ReactorKit.svg?branch=master">
+  <a href="https://github.com/ReactorKit/ReactorKit/actions" target="_blank">
+    <img alt="CI" src="https://github.com/ReactorKit/ReactorKit/workflows/CI/badge.svg">
   </a>
   <a href="https://codecov.io/gh/ReactorKit/ReactorKit/" target="_blank">
     <img alt="Codecov" src="https://img.shields.io/codecov/c/github/ReactorKit/ReactorKit.svg">
-  </a>
-  <a href="http://reactorkit.io/docs/latest/" target="_blank">
-    <img alt="CocoaDocs" src="http://reactorkit.io/docs/latest/badge.svg">
   </a>
 </p>
 
 ReactorKit is a framework for a reactive and unidirectional Swift application architecture. This repository introduces the basic concept of ReactorKit and describes how to build an application using ReactorKit.
 
-You may want to see the [Examples](#examples) section first if you'd like to see the actual code. Visit the [API Reference](http://reactorkit.io/docs/latest/) for code-level documentation.
-
-For an overview of ReactorKit's features and the reasoning behind its creation, you may also check the slides from this introductory presentation over at [SlideShare](https://www.slideshare.net/devxoul/hello-reactorkit).
+You may want to see the [Examples](#examples) section first if you'd like to see the actual code. For an overview of ReactorKit's features and the reasoning behind its creation, you may also check the slides from this introductory presentation over at [SlideShare](https://www.slideshare.net/devxoul/hello-reactorkit).
 
 ## Table of Contents
 
@@ -35,6 +30,7 @@ For an overview of ReactorKit's features and the reasoning behind its creation, 
     * [Global States](#global-states)
     * [View Communication](#view-communication)
     * [Testing](#testing)
+    * [Scheduling](#scheduling)
 * [Examples](#examples)
 * [Dependencies](#dependencies)
 * [Requirements](#requirements)
@@ -347,6 +343,22 @@ func testIsLoading() {
 }
 ```
 
+### Scheduling
+
+Define `scheduler` property to specify which scheduler is used for reducing and observing the state stream. Note that this queue **must be** a serial queue. The default scheduler is `CurrentThreadScheduler`.
+
+```swift
+final class MyReactor: Reactor {
+  let scheduler: Scheduler = SerialDispatchQueueScheduler(qos: .default)
+
+  func reduce(state: State, mutation: Mutation) -> State {
+    // executed in a background thread
+    heavyAndImportantCalculation()
+    return state
+  }
+}
+```
+
 ## Examples
 
 * [Counter](https://github.com/ReactorKit/ReactorKit/tree/master/Examples/Counter): The most simple and basic example of ReactorKit
@@ -434,7 +446,9 @@ Any discussions and pull requests are welcomed 💖
   <a href="https://www.constantcontact.com"><img align="center" height="44" alt="Constant Contact" hspace="15" src="https://user-images.githubusercontent.com/931655/43634090-2cb30c7e-9746-11e8-8e18-e4fcf87a08cc.png"></a>
   <a href="https://www.kt.com"><img align="center" height="42" alt="KT" hspace="15" src="https://user-images.githubusercontent.com/931655/43634093-2ec9e94c-9746-11e8-9213-75c352e0c147.png"></a>
   <br><br>
-  <a href="https://hyperconnect.com/"><img align="center" height="48" alt="Hyperconnect" hspace="15" src="https://user-images.githubusercontent.com/931655/50819891-aa89d200-136e-11e9-8b19-780e64e54b2a.png"></a>
+  <a href="https://hyperconnect.com/"><img align="center" height="62" alt="Hyperconnect" hspace="15" src="https://user-images.githubusercontent.com/931655/50819891-aa89d200-136e-11e9-8b19-780e64e54b2a.png"></a>
+  <a href="https://toss.im/career/?category=engineering&positionId=7"><img align="center" height="28" alt="Toss" hspace="15" src="https://user-images.githubusercontent.com/931655/65512318-ede39b00-df13-11e9-874c-f1e478bda6c8.png"></a>
+  <a href="https://pay.line.me"><img align="center" height="58" alt="LINE Pay" hspace="15" src="https://user-images.githubusercontent.com/68603/68569839-7efdd980-04a2-11ea-8d7e-673831b1b658.png"></a>
   <br><br>
 </p>
 

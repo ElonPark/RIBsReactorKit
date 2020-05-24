@@ -8,12 +8,6 @@
 
 import RIBs
 
-protocol MainTabBarDependencyUserList: Dependency {
+protocol MainTabBarDependencyUserList: Dependency {}
 
-}
-
-extension MainTabBarComponent: UserListDependency {
-  var userListViewController: UserListPresentable & UserListViewControllable {
-    return UserListViewController()
-  }
-}
+extension MainTabBarComponent: UserListDependency {}

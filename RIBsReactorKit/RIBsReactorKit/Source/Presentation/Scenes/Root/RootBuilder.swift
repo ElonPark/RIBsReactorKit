@@ -8,9 +8,7 @@
 
 import RIBs
 
-protocol RootDependency: Dependency {
-
-}
+protocol RootDependency: Dependency {}
 
 final class RootComponent: Component<RootDependency> {
   

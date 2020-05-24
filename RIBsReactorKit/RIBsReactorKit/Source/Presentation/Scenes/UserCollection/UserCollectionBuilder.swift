@@ -14,12 +14,13 @@ protocol UserCollectionDependency: Dependency {
 }
 
 final class UserCollectionComponent: Component<UserCollectionDependency> {
+  
   fileprivate var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
-    return dependency.userCollectionViewController
+    dependency.userCollectionViewController
   }
   
   fileprivate var randomUserUseCase: RandomUserUseCase {
-    return dependency.randomUserUseCase
+    dependency.randomUserUseCase
   }
 }
 

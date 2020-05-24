@@ -11,9 +11,7 @@ import UIKit
 import RIBs
 import RxSwift
 
-protocol UserCollectionPresentableListener: class {
-
-}
+protocol UserCollectionPresentableListener: class {}
 
 final class UserCollectionViewController:
   BaseViewController,

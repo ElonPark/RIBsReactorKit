@@ -8,12 +8,14 @@
 
 import RIBs
 
-protocol MainTabBarDependency: Dependency {
-
-}
+protocol MainTabBarDependency: Dependency {}
 
 final class MainTabBarComponent: Component<MainTabBarDependency> {
 
+  var userListViewController: UserListPresentable & UserListViewControllable
+  
+  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable
+  
   fileprivate var randomUserService: Networking<RandomUserService> {
     return Networking<RandomUserService>()
   }
@@ -36,6 +38,12 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
       translator: userModelTranslator,
       mutableUserModelsStream: mutableUserModelsStream
     )
+  }
+  
+  override init(dependency: MainTabBarDependency) {
+    userListViewController = UserListViewController()
+    userCollectionViewController = UserCollectionViewController()
+    super.init(dependency: dependency)
   }
 }
 
@@ -64,8 +72,7 @@ final class MainTabBarBuilder:
     let viewControllers = [
       component.userListViewController,
       component.userCollectionViewController
-      ]
-      .map { UINavigationController(root: $0) }
+      ].map { UINavigationController(root: $0) }
     
     let viewController = MainTabBarViewController(viewControllers: viewControllers)
     let interactor = MainTabBarInteractor(presenter: viewController)

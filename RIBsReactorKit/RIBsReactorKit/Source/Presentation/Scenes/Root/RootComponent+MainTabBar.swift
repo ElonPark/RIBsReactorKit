@@ -8,10 +8,6 @@
 
 import RIBs
 
-protocol RootDependencyMainTabBar: Dependency {
-  
-}
+protocol RootDependencyMainTabBar: Dependency {}
 
-extension RootComponent: MainTabBarDependency {
-
-}
+extension RootComponent: MainTabBarDependency {}

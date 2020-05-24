@@ -41,6 +41,8 @@ final class RandomUserRepositoryImpl: RandomUserRepository {
         this.userByUUID = result.results.reduce(into: this.userByUUID) { userDictionary, user in
           userDictionary[user.login.uuid] = user
         }
+        }, onError: { error in
+          Log.error(error.localizedDescription, error)
       })
   }
   
@@ -53,6 +55,8 @@ final class RandomUserRepositoryImpl: RandomUserRepository {
         this.userByUUID = result.results.reduce(into: this.userByUUID) { userDictionary, user in
           userDictionary[user.login.uuid] = user
         }
+        }, onError: { error in
+          Log.error(error.localizedDescription, error)
       })
   }
 }

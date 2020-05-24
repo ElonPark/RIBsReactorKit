@@ -6,7 +6,8 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import MapKit
+import Foundation
+import CoreLocation.CLLocation
 
 import RxSwift
 import RxRelay
@@ -47,10 +48,7 @@ final class UserModelsStreamImpl: MutableUserModelsStream {
   
   // MARK: - Properties
 
-  var userModels: Observable<[UserModel]> {
-    return userModalsRelay
-    .asObservable()
-  }
+  lazy var userModels: Observable<[UserModel]> = userModalsRelay.asObservable()
   
   private let userModalsRelay = BehaviorRelay<[UserModel]>(value: [])
   

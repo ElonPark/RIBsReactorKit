@@ -7,6 +7,7 @@
 //
 
 import RxSwift
+import WeakMapTable
 
 @available(*, obsoleted: 0, renamed: "Never")
 public typealias NoAction = Never
@@ -18,7 +19,7 @@ public typealias NoMutation = Never
 /// reactor is to separate control flow from a view. Every view has its corresponding reactor and
 /// delegates all logic to its reactor. A reactor has no dependency to a view, so it can be easily
 /// tested.
-public protocol Reactor: class, AssociatedObjectStore {
+public protocol Reactor: class {
   /// An action represents user actions.
   associatedtype Action
 
@@ -27,6 +28,8 @@ public protocol Reactor: class, AssociatedObjectStore {
 
   /// A State represents the current state of a view.
   associatedtype State
+
+  typealias Scheduler = ImmediateSchedulerType
 
   /// The action from the view. Bind user inputs to this subject.
   var action: ActionSubject<Action> { get }
@@ -39,6 +42,9 @@ public protocol Reactor: class, AssociatedObjectStore {
 
   /// The state stream. Use this observable to observe the state changes.
   var state: Observable<State> { get }
+
+  /// A scheduler for reducing and observing the state stream. Defaults to `CurrentThreadScheduler`.
+  var scheduler: Scheduler { get }
 
   /// Transforms the action. Use this function to combine with other observables. This method is
   /// called once before the state stream is created.
@@ -63,14 +69,18 @@ public protocol Reactor: class, AssociatedObjectStore {
 }
 
 
-// MARK: - Associated Object Keys
+// MARK: - Map Tables
 
-private var actionKey = "action"
-private var currentStateKey = "currentState"
-private var stateKey = "state"
-private var disposeBagKey = "disposeBag"
-private var isStubEnabledKey = "isStubEnabled"
-private var stubKey = "stub"
+private typealias AnyReactor = AnyObject
+
+private enum MapTables {
+  static let action = WeakMapTable<AnyReactor, AnyObject>()
+  static let currentState = WeakMapTable<AnyReactor, Any>()
+  static let state = WeakMapTable<AnyReactor, AnyObject>()
+  static let disposeBag = WeakMapTable<AnyReactor, DisposeBag>()
+  static let isStubEnabled = WeakMapTable<AnyReactor, Bool>()
+  static let stub = WeakMapTable<AnyReactor, AnyObject>()
+}
 
 
 // MARK: - Default Implementations
@@ -80,7 +90,7 @@ extension Reactor {
     if self.isStubEnabled {
       return self.stub.action
     } else {
-      return self.associatedObject(forKey: &actionKey, default: .init())
+      return MapTables.action.forceCastedValue(forKey: self, default: .init())
     }
   }
   public var action: ActionSubject<Action> {
@@ -93,15 +103,15 @@ extension Reactor {
   }
 
   public internal(set) var currentState: State {
-    get { return self.associatedObject(forKey: &currentStateKey, default: self.initialState) }
-    set { self.setAssociatedObject(newValue, forKey: &currentStateKey) }
+    get { return MapTables.currentState.forceCastedValue(forKey: self, default: self.initialState) }
+    set { MapTables.currentState.setValue(newValue, forKey: self) }
   }
 
   private var _state: Observable<State> {
     if self.isStubEnabled {
       return self.stub.state.asObservable()
     } else {
-      return self.associatedObject(forKey: &stateKey, default: self.createStateStream())
+      return MapTables.state.forceCastedValue(forKey: self, default: self.createStateStream())
     }
   }
   public var state: Observable<State> {
@@ -110,12 +120,16 @@ extension Reactor {
     return self._state
   }
 
+  public var scheduler: Scheduler {
+    return CurrentThreadScheduler.instance
+  }
+
   fileprivate var disposeBag: DisposeBag {
-    get { return self.associatedObject(forKey: &disposeBagKey, default: DisposeBag()) }
+    return MapTables.disposeBag.value(forKey: self, default: DisposeBag())
   }
 
   public func createStateStream() -> Observable<State> {
-    let action = self._action.asObservable()
+    let action = self._action.observeOn(self.scheduler)
     let transformedAction = self.transform(action: action)
     let mutation = transformedAction
       .flatMap { [weak self] action -> Observable<Mutation> in
@@ -123,14 +137,13 @@ extension Reactor {
         return self.mutate(action: action).catchError { _ in .empty() }
       }
     let transformedMutation = self.transform(mutation: mutation)
-    let state = transformedMutation
+    let state = transformedMutation         
       .scan(self.initialState) { [weak self] state, mutation -> State in
         guard let `self` = self else { return state }
         return self.reduce(state: state, mutation: mutation)
       }
       .catchError { _ in .empty() }
       .startWith(self.initialState)
-      .observeOn(MainScheduler.instance)
     let transformedState = self.transform(state: state)
       .do(onNext: { [weak self] state in
         self?.currentState = state
@@ -172,14 +185,11 @@ extension Reactor where Action == Mutation {
 
 extension Reactor {
   public var isStubEnabled: Bool {
-    set { self.setAssociatedObject(newValue, forKey: &isStubEnabledKey) }
-    get { return self.associatedObject(forKey: &isStubEnabledKey, default: false) }
+    get { return MapTables.isStubEnabled.value(forKey: self, default: false) }
+    set { MapTables.isStubEnabled.setValue(newValue, forKey: self) }
   }
 
   public var stub: Stub<Self> {
-    return self.associatedObject(
-      forKey: &stubKey,
-      default: .init(reactor: self, disposeBag: self.disposeBag)
-    )
+    return MapTables.stub.forceCastedValue(forKey: self, default: .init(reactor: self, disposeBag: self.disposeBag))
   }
 }

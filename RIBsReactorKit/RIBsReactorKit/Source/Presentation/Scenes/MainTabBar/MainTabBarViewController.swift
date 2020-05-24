@@ -11,9 +11,7 @@ import UIKit
 import RIBs
 import RxSwift
 
-protocol MainTabBarPresentableListener: class {
-
-}
+protocol MainTabBarPresentableListener: class {}
 
 final class MainTabBarViewController:
   UITabBarController,
