@@ -54,7 +54,7 @@ final class UserListRouter:
   func dettachUserInfomationRIB() {
     guard let router = userInfomationRouter else { return }
     detachChild(router)
-    viewController.dismissPresentedViewController()
+    viewController.dismiss(router.viewControllable)
     userInfomationRouter = nil
   }
 }

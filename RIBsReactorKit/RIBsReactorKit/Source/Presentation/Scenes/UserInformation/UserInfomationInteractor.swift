@@ -19,7 +19,7 @@ protocol UserInfomationPresentable: Presentable {
 }
 
 protocol UserInfomationListener: class {
-  // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+  func dettachUserInfomationRIB()
 }
 
 final class UserInfomationInteractor: PresentableInteractor<UserInfomationPresentable>, UserInfomationInteractable, UserInfomationPresentableListener {
@@ -44,5 +44,9 @@ final class UserInfomationInteractor: PresentableInteractor<UserInfomationPresen
   override func willResignActive() {
     super.willResignActive()
     // TODO: Pause any business logic.
+  }
+  
+  func dettach() {
+    listener?.dettachUserInfomationRIB()
   }
 }

@@ -269,7 +269,7 @@
 			path = "UIKit+Extensions";
 			sourceTree = "<group>";
 		};
-		DB177CBA24A23D5C0050C343 /* UserInfomation */ = {
+		DB177CBA24A23D5C0050C343 /* UserInformation */ = {
 			isa = PBXGroup;
 			children = (
 				DB177CC324A2477F0050C343 /* UserInfomationAdapter.swift */,
@@ -278,7 +278,7 @@
 				DB177CBB24A23D7C0050C343 /* UserInfomationRouter.swift */,
 				DB177CBC24A23D7C0050C343 /* UserInfomationViewController.swift */,
 			);
-			path = UserInfomation;
+			path = UserInformation;
 			sourceTree = "<group>";
 		};
 		DB35E277244721DF00B26BD3 = {
@@ -557,7 +557,7 @@
 			isa = PBXGroup;
 			children = (
 				DB63021C2461B82200C47E09 /* Views */,
-				DB177CBA24A23D5C0050C343 /* UserInfomation */,
+				DB177CBA24A23D5C0050C343 /* UserInformation */,
 				DBA43B97245C9BF800C82D7E /* UserCollection */,
 				DBA43B96245C9BED00C82D7E /* UserList */,
 				DB9C7EF3245C97EC003AB2E7 /* MainTabBar */,

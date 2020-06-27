@@ -73,7 +73,7 @@ final class UserListViewController:
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setUpUI()
+    setupUI()
     bindView()
     bind(listener: listener)
   }
@@ -204,7 +204,7 @@ final class UserListViewController:
 
 // MARK: - Layout
 extension UserListViewController {
-  private func setUpUI() {
+  private func setupUI() {
     view.addSubview(tableView)
     setRefreshControl()
     layout()
