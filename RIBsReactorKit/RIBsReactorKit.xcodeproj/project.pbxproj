@@ -16,14 +16,23 @@
 		2F8CC9758B5BDBE9958AD2BA /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC635BBE9F813D0D549F3 /* Login.swift */; };
 		2F8CC9F999E5E2D8B17C6242 /* Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC8BFC57F4D47EBF0BFFC /* Name.swift */; };
 		2F8CCB2C832787ED3CC6FB03 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC2131D7BE492B33D499D /* Picture.swift */; };
-		DB09E82124572A7F00FAB536 /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB09E82024572A7F00FAB536 /* Moya.framework */; };
+		DB177CBF24A23D7C0050C343 /* UserInfomationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CBB24A23D7C0050C343 /* UserInfomationRouter.swift */; };
+		DB177CC024A23D7C0050C343 /* UserInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CBC24A23D7C0050C343 /* UserInfomationViewController.swift */; };
+		DB177CC124A23D7C0050C343 /* UserInfomationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CBD24A23D7C0050C343 /* UserInfomationBuilder.swift */; };
+		DB177CC224A23D7C0050C343 /* UserInfomationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CBE24A23D7C0050C343 /* UserInfomationInteractor.swift */; };
+		DB177CC424A2477F0050C343 /* UserInfomationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CC324A2477F0050C343 /* UserInfomationAdapter.swift */; };
 		DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E283244721DF00B26BD3 /* AppDelegate.swift */; };
 		DB35E28D244721E000B26BD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB35E28C244721E000B26BD3 /* Assets.xcassets */; };
 		DB35E290244721E000B26BD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB35E28E244721E000B26BD3 /* LaunchScreen.storyboard */; };
 		DB35E29B244721E000B26BD3 /* RIBsReactorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E29A244721E000B26BD3 /* RIBsReactorKitTests.swift */; };
 		DB35E2A6244721E000B26BD3 /* RIBsReactorKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */; };
+		DB35FABA248D4D8700416963 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */; };
 		DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */; };
 		DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AC52454783200DBF510 /* Networking.swift */; };
+		DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB630218246071CD00C47E09 /* UserListPresentableState.swift */; };
+		DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */; };
+		DB63021E2461B85F00C47E09 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021D2461B85F00C47E09 /* UserListCell.swift */; };
+		DB70253024A2644100866A81 /* PullToRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB70252F24A2644100866A81 /* PullToRefreshable.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
 		DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */; };
 		DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */; };
@@ -40,17 +49,6 @@
 		DBA43BA7245C9CA700C82D7E /* UserCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BA3245C9CA700C82D7E /* UserCollectionInteractor.swift */; };
 		DBA43BAB245DCFBA00C82D7E /* UserModelsStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */; };
 		DBA43BBA245EF50000C82D7E /* RootComponent+MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43BB9245EF50000C82D7E /* RootComponent+MainTabBar.swift */; };
-		DBC141F92448B6C900A9F3F6 /* RIBs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E62448B6C900A9F3F6 /* RIBs.framework */; };
-		DBC141FA2448B6C900A9F3F6 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E72448B6C900A9F3F6 /* RxRelay.framework */; };
-		DBC141FB2448B6C900A9F3F6 /* ReactorKitRuntime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E82448B6C900A9F3F6 /* ReactorKitRuntime.framework */; };
-		DBC141FC2448B6C900A9F3F6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E92448B6C900A9F3F6 /* Alamofire.framework */; };
-		DBC141FD2448B6C900A9F3F6 /* RxMoya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EA2448B6C900A9F3F6 /* RxMoya.framework */; };
-		DBC142022448B6C900A9F3F6 /* ReactorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EF2448B6C900A9F3F6 /* ReactorKit.framework */; };
-		DBC142032448B6C900A9F3F6 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F02448B6C900A9F3F6 /* RxSwift.framework */; };
-		DBC142052448B6C900A9F3F6 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F22448B6C900A9F3F6 /* RxCocoa.framework */; };
-		DBC142062448B6C900A9F3F6 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F32448B6C900A9F3F6 /* Kingfisher.framework */; };
-		DBC142072448B6C900A9F3F6 /* EPLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F42448B6C900A9F3F6 /* EPLogger.framework */; };
-		DBC142092448B6C900A9F3F6 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F62448B6C900A9F3F6 /* SnapKit.framework */; };
 		DBC1420C2448B7A600A9F3F6 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141ED2448B6C900A9F3F6 /* Nimble.framework */; };
 		DBC1420D2448B7A600A9F3F6 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F72448B6C900A9F3F6 /* Quick.framework */; };
 		DBC1420E2448B7A600A9F3F6 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141EB2448B6C900A9F3F6 /* RxBlocking.framework */; };
@@ -72,6 +70,13 @@
 		DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */; };
 		DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEB2454560800BCFEBB /* BaseView.swift */; };
 		DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DFC2454563200BCFEBB /* AppComponent.swift */; };
+		DBCD8AEF2483C09400A34108 /* HasCompositeDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AEE2483C09400A34108 /* HasCompositeDisposable.swift */; };
+		DBCD8AF12483C11800A34108 /* HasDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF02483C11800A34108 /* HasDisposeBag.swift */; };
+		DBCD8AF62483C84500A34108 /* DisposableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */; };
+		DBCD8AF82483CECE00A34108 /* DisposablesManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */; };
+		DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFB2483EED800A34108 /* HasTableView.swift */; };
+		DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */; };
+		DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */; };
 		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
 		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
@@ -83,7 +88,7 @@
 		DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */; };
 		DBEF8B36245F055700A37587 /* MainTabBarComponent+UserCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */; };
 		DBEF8B42245F511E00A37587 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8B41245F511E00A37587 /* R.generated.swift */; };
-		DBEF8B45245F56B600A37587 /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBEF8B3A245F4BE800A37587 /* Rswift.framework */; };
+		DBF7909524854C1D007F6F3B /* UserListSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7909424854C1D007F6F3B /* UserListSectionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +119,11 @@
 		2F8CCC11679B3396B4B1AE7B /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timezone.swift; sourceTree = "<group>"; };
 		2F8CCF2EDD407D3BC80B5385 /* ID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
 		DB09E82024572A7F00FAB536 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
+		DB177CBB24A23D7C0050C343 /* UserInfomationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomationRouter.swift; sourceTree = "<group>"; };
+		DB177CBC24A23D7C0050C343 /* UserInfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomationViewController.swift; sourceTree = "<group>"; };
+		DB177CBD24A23D7C0050C343 /* UserInfomationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomationBuilder.swift; sourceTree = "<group>"; };
+		DB177CBE24A23D7C0050C343 /* UserInfomationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomationInteractor.swift; sourceTree = "<group>"; };
+		DB177CC324A2477F0050C343 /* UserInfomationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomationAdapter.swift; sourceTree = "<group>"; };
 		DB35E280244721DF00B26BD3 /* RIBsReactorKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RIBsReactorKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB35E283244721DF00B26BD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB35E28C244721E000B26BD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,7 +134,12 @@
 		DB35E2A1244721E000B26BD3 /* RIBsReactorKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RIBsReactorKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIBsReactorKitUITests.swift; sourceTree = "<group>"; };
 		DB35E2A7244721E000B26BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTranslator.swift; sourceTree = "<group>"; };
+		DB630218246071CD00C47E09 /* UserListPresentableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresentableState.swift; sourceTree = "<group>"; };
+		DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllableExtensions.swift; sourceTree = "<group>"; };
+		DB63021D2461B85F00C47E09 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
+		DB70252F24A2644100866A81 /* PullToRefreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshable.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
 		DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserUseCase.swift; sourceTree = "<group>"; };
 		DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
@@ -176,6 +191,17 @@
 		DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBC52DEB2454560800BCFEBB /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DBC52DFC2454563200BCFEBB /* AppComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
+		DBCD8AEE2483C09400A34108 /* HasCompositeDisposable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasCompositeDisposable.swift; sourceTree = "<group>"; };
+		DBCD8AF02483C11800A34108 /* HasDisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasDisposeBag.swift; sourceTree = "<group>"; };
+		DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposableExtensions.swift; sourceTree = "<group>"; };
+		DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposablesManageable.swift; sourceTree = "<group>"; };
+		DBCD8AFB2483EED800A34108 /* HasTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasTableView.swift; sourceTree = "<group>"; };
+		DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasCollectionView.swift; sourceTree = "<group>"; };
+		DBCD8B26248400CD00A34108 /* SkeletonView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SkeletonView.framework; path = Carthage/Build/iOS/SkeletonView.framework; sourceTree = "<group>"; };
+		DBCD8B27248400CD00A34108 /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
+		DBCD8B28248400CD00A34108 /* RxViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxViewController.framework; path = Carthage/Build/iOS/RxViewController.framework; sourceTree = "<group>"; };
+		DBCD8B29248400CD00A34108 /* KingfisherSwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KingfisherSwiftUI.framework; path = Carthage/Build/iOS/KingfisherSwiftUI.framework; sourceTree = "<group>"; };
+		DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerRxExtensions.swift; sourceTree = "<group>"; };
 		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
 		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
@@ -189,6 +215,7 @@
 		DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainTabBarComponent+UserCollection.swift"; sourceTree = "<group>"; };
 		DBEF8B3A245F4BE800A37587 /* Rswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rswift.framework; path = Carthage/Build/iOS/Rswift.framework; sourceTree = "<group>"; };
 		DBEF8B41245F511E00A37587 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		DBF7909424854C1D007F6F3B /* UserListSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListSectionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,20 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB09E82124572A7F00FAB536 /* Moya.framework in Frameworks */,
-				DBC141F92448B6C900A9F3F6 /* RIBs.framework in Frameworks */,
-				DBC142022448B6C900A9F3F6 /* ReactorKit.framework in Frameworks */,
-				DBC141FB2448B6C900A9F3F6 /* ReactorKitRuntime.framework in Frameworks */,
-				DBC142032448B6C900A9F3F6 /* RxSwift.framework in Frameworks */,
-				DBC142052448B6C900A9F3F6 /* RxCocoa.framework in Frameworks */,
-				DBC141FA2448B6C900A9F3F6 /* RxRelay.framework in Frameworks */,
-				DBC141FC2448B6C900A9F3F6 /* Alamofire.framework in Frameworks */,
-				DBC141FD2448B6C900A9F3F6 /* RxMoya.framework in Frameworks */,
-				DBC142062448B6C900A9F3F6 /* Kingfisher.framework in Frameworks */,
 				DBEB564E24559D6B0054D41E /* Then in Frameworks */,
-				DBC142092448B6C900A9F3F6 /* SnapKit.framework in Frameworks */,
-				DBEF8B45245F56B600A37587 /* Rswift.framework in Frameworks */,
-				DBC142072448B6C900A9F3F6 /* EPLogger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				DBC52DE12454560800BCFEBB /* UINavigationControllerExtensions.swift */,
+				DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */,
 			);
 			path = "RIBs+Extensions";
 			sourceTree = "<group>";
@@ -249,8 +264,21 @@
 			children = (
 				DBC52DDF2454560800BCFEBB /* UITableViewExtensions.swift */,
 				DBC52DE02454560800BCFEBB /* UICollectionViewExtensions.swift */,
+				DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */,
 			);
 			path = "UIKit+Extensions";
+			sourceTree = "<group>";
+		};
+		DB177CBA24A23D5C0050C343 /* UserInfomation */ = {
+			isa = PBXGroup;
+			children = (
+				DB177CC324A2477F0050C343 /* UserInfomationAdapter.swift */,
+				DB177CBD24A23D7C0050C343 /* UserInfomationBuilder.swift */,
+				DB177CBE24A23D7C0050C343 /* UserInfomationInteractor.swift */,
+				DB177CBB24A23D7C0050C343 /* UserInfomationRouter.swift */,
+				DB177CBC24A23D7C0050C343 /* UserInfomationViewController.swift */,
+			);
+			path = UserInfomation;
 			sourceTree = "<group>";
 		};
 		DB35E277244721DF00B26BD3 = {
@@ -310,7 +338,15 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		DB9C7EF3245C97EC003AB2E7 /* MainTabBarRIB */ = {
+		DB63021C2461B82200C47E09 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DB63021D2461B85F00C47E09 /* UserListCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DB9C7EF3245C97EC003AB2E7 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
 				DBA43B90245C9B6400C82D7E /* MainTabBarBuilder.swift */,
@@ -320,7 +356,7 @@
 				DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */,
 				DBA43B8F245C9B6400C82D7E /* MainTabBarViewController.swift */,
 			);
-			path = MainTabBarRIB;
+			path = MainTabBar;
 			sourceTree = "<group>";
 		};
 		DBA28BA32455B8220071160B /* Services */ = {
@@ -331,7 +367,7 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		DBA43B96245C9BED00C82D7E /* UserListRIB */ = {
+		DBA43B96245C9BED00C82D7E /* UserList */ = {
 			isa = PBXGroup;
 			children = (
 				DBA43B9A245C9C2100C82D7E /* UserListBuilder.swift */,
@@ -339,10 +375,10 @@
 				DBA43B98245C9C2100C82D7E /* UserListRouter.swift */,
 				DBA43B99245C9C2100C82D7E /* UserListViewController.swift */,
 			);
-			path = UserListRIB;
+			path = UserList;
 			sourceTree = "<group>";
 		};
-		DBA43B97245C9BF800C82D7E /* UserCollectionRIB */ = {
+		DBA43B97245C9BF800C82D7E /* UserCollection */ = {
 			isa = PBXGroup;
 			children = (
 				DBA43BA2245C9CA700C82D7E /* UserCollectionBuilder.swift */,
@@ -350,12 +386,16 @@
 				DBA43BA0245C9CA700C82D7E /* UserCollectionRouter.swift */,
 				DBA43BA1245C9CA700C82D7E /* UserCollectionViewController.swift */,
 			);
-			path = UserCollectionRIB;
+			path = UserCollection;
 			sourceTree = "<group>";
 		};
 		DBC141E42448B6C900A9F3F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DBCD8B29248400CD00A34108 /* KingfisherSwiftUI.framework */,
+				DBCD8B27248400CD00A34108 /* RxSwiftExt.framework */,
+				DBCD8B28248400CD00A34108 /* RxViewController.framework */,
+				DBCD8B26248400CD00A34108 /* SkeletonView.framework */,
 				DBEF8B3A245F4BE800A37587 /* Rswift.framework */,
 				DB09E82024572A7F00FAB536 /* Moya.framework */,
 				DBC141E92448B6C900A9F3F6 /* Alamofire.framework */,
@@ -442,6 +482,8 @@
 			isa = PBXGroup;
 			children = (
 				DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */,
+				DB630218246071CD00C47E09 /* UserListPresentableState.swift */,
+				DBF7909424854C1D007F6F3B /* UserListSectionModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -505,7 +547,7 @@
 				DBEF8B43245F51F500A37587 /* Utilities */,
 				DBC52DDE2454560800BCFEBB /* Extensions */,
 				DBC52DE32454560800BCFEBB /* Protocols */,
-				DBC52DE72454560800BCFEBB /* Base */,
+				DBC52DE72454560800BCFEBB /* BaseComponents */,
 				DBC52DD82454560800BCFEBB /* Scenes */,
 			);
 			path = Presentation;
@@ -514,15 +556,17 @@
 		DBC52DD82454560800BCFEBB /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				DBA43B97245C9BF800C82D7E /* UserCollectionRIB */,
-				DBA43B96245C9BED00C82D7E /* UserListRIB */,
-				DB9C7EF3245C97EC003AB2E7 /* MainTabBarRIB */,
-				DBC52DD92454560800BCFEBB /* RootRIB */,
+				DB63021C2461B82200C47E09 /* Views */,
+				DB177CBA24A23D5C0050C343 /* UserInfomation */,
+				DBA43B97245C9BF800C82D7E /* UserCollection */,
+				DBA43B96245C9BED00C82D7E /* UserList */,
+				DB9C7EF3245C97EC003AB2E7 /* MainTabBar */,
+				DBC52DD92454560800BCFEBB /* Root */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		DBC52DD92454560800BCFEBB /* RootRIB */ = {
+		DBC52DD92454560800BCFEBB /* Root */ = {
 			isa = PBXGroup;
 			children = (
 				DBC52DDD2454560800BCFEBB /* RootBuilder.swift */,
@@ -531,7 +575,7 @@
 				DBC52DDC2454560800BCFEBB /* RootRouter.swift */,
 				DBC52DDB2454560800BCFEBB /* RootViewController.swift */,
 			);
-			path = RootRIB;
+			path = Root;
 			sourceTree = "<group>";
 		};
 		DBC52DDE2454560800BCFEBB /* Extensions */ = {
@@ -539,6 +583,7 @@
 			children = (
 				DB0B83B624546E5C00FA83D7 /* UIKit+Extensions */,
 				DB0B83B524546E4000FA83D7 /* RIBs+Extensions */,
+				DBCD8AF22483C28C00A34108 /* Rx+Extensions */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -547,20 +592,35 @@
 			isa = PBXGroup;
 			children = (
 				DBC52DE42454560800BCFEBB /* Reusable.swift */,
+				DBCD8AFB2483EED800A34108 /* HasTableView.swift */,
+				DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */,
 				DBC52DE52454560800BCFEBB /* HasElementKind.swift */,
+				DBCD8AF02483C11800A34108 /* HasDisposeBag.swift */,
+				DBCD8AEE2483C09400A34108 /* HasCompositeDisposable.swift */,
+				DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */,
+				DB70252F24A2644100866A81 /* PullToRefreshable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		DBC52DE72454560800BCFEBB /* Base */ = {
+		DBC52DE72454560800BCFEBB /* BaseComponents */ = {
 			isa = PBXGroup;
 			children = (
+				DBC52DEB2454560800BCFEBB /* BaseView.swift */,
 				DBC52DE82454560800BCFEBB /* BaseViewController.swift */,
 				DBC52DE92454560800BCFEBB /* BaseTableViewCell.swift */,
 				DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */,
-				DBC52DEB2454560800BCFEBB /* BaseView.swift */,
 			);
-			path = Base;
+			path = BaseComponents;
+			sourceTree = "<group>";
+		};
+		DBCD8AF22483C28C00A34108 /* Rx+Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */,
+				DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */,
+			);
+			path = "Rx+Extensions";
 			sourceTree = "<group>";
 		};
 		DBDD9AC42454782200DBF510 /* Network */ = {
@@ -576,17 +636,9 @@
 		DBEB56512455B1420054D41E /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
-				DBEB56542455B7CB0054D41E /* Services */,
 				DBEB56522455B15F0054D41E /* RandomUserFixture.swift */,
 			);
 			path = Fixtures;
-			sourceTree = "<group>";
-		};
-		DBEB56542455B7CB0054D41E /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		DBEF8B43245F51F500A37587 /* Utilities */ = {
@@ -840,33 +892,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */,
 				DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */,
 				DBC52DF22454560800BCFEBB /* UICollectionViewExtensions.swift in Sources */,
+				DB177CC024A23D7C0050C343 /* UserInfomationViewController.swift in Sources */,
 				DBC52DF52454560800BCFEBB /* Reusable.swift in Sources */,
 				DBA43BA6245C9CA700C82D7E /* UserCollectionBuilder.swift in Sources */,
 				DBC52DF12454560800BCFEBB /* UITableViewExtensions.swift in Sources */,
+				DB177CC224A23D7C0050C343 /* UserInfomationInteractor.swift in Sources */,
 				DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */,
 				DBA43B9E245C9C2100C82D7E /* UserListBuilder.swift in Sources */,
 				DBDD9AD02454D6A300DBF510 /* User.swift in Sources */,
 				DBC52DED2454560800BCFEBB /* RootInteractor.swift in Sources */,
 				DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */,
+				DBCD8AF62483C84500A34108 /* DisposableExtensions.swift in Sources */,
 				DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */,
 				DBA43B9C245C9C2100C82D7E /* UserListRouter.swift in Sources */,
 				DBC52DEF2454560800BCFEBB /* RootRouter.swift in Sources */,
+				DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */,
+				DB177CBF24A23D7C0050C343 /* UserInfomationRouter.swift in Sources */,
 				DBDD9AD22454D6BA00DBF510 /* Dob.swift in Sources */,
 				DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */,
+				DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */,
 				DBC52DF82454560800BCFEBB /* BaseViewController.swift in Sources */,
+				DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */,
 				DBC52DF32454560800BCFEBB /* UINavigationControllerExtensions.swift in Sources */,
 				DBC52DF62454560800BCFEBB /* HasElementKind.swift in Sources */,
 				DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */,
 				DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */,
 				DBA43BA7245C9CA700C82D7E /* UserCollectionInteractor.swift in Sources */,
 				DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */,
+				DBCD8AF82483CECE00A34108 /* DisposablesManageable.swift in Sources */,
+				DB177CC424A2477F0050C343 /* UserInfomationAdapter.swift in Sources */,
 				DBA43BAB245DCFBA00C82D7E /* UserModelsStream.swift in Sources */,
 				DBC52DEE2454560800BCFEBB /* RootViewController.swift in Sources */,
 				DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */,
+				DB35FABA248D4D8700416963 /* ArrayExtensions.swift in Sources */,
 				DBC52DF92454560800BCFEBB /* BaseTableViewCell.swift in Sources */,
+				DBCD8AF12483C11800A34108 /* HasDisposeBag.swift in Sources */,
 				DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */,
+				DBF7909524854C1D007F6F3B /* UserListSectionModel.swift in Sources */,
+				DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */,
 				DBA43B93245C9B6400C82D7E /* MainTabBarViewController.swift in Sources */,
 				DBC52DF02454560800BCFEBB /* RootBuilder.swift in Sources */,
 				DBEF8B42245F511E00A37587 /* R.generated.swift in Sources */,
@@ -878,12 +944,16 @@
 				DBA43BBA245EF50000C82D7E /* RootComponent+MainTabBar.swift in Sources */,
 				DBEB56502455AB4E0054D41E /* RandomUserService.swift in Sources */,
 				DBEB56532455B15F0054D41E /* RandomUserFixture.swift in Sources */,
+				DB63021E2461B85F00C47E09 /* UserListCell.swift in Sources */,
 				DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */,
 				DBEF8B36245F055700A37587 /* MainTabBarComponent+UserCollection.swift in Sources */,
 				DBA43B9F245C9C2100C82D7E /* UserListInteractor.swift in Sources */,
+				DB177CC124A23D7C0050C343 /* UserInfomationBuilder.swift in Sources */,
+				DBCD8AEF2483C09400A34108 /* HasCompositeDisposable.swift in Sources */,
 				2F8CC1CD9159BF337376D20A /* Coordinates.swift in Sources */,
 				DBA43B94245C9B6400C82D7E /* MainTabBarBuilder.swift in Sources */,
 				DBA43BA5245C9CA700C82D7E /* UserCollectionViewController.swift in Sources */,
+				DB70253024A2644100866A81 /* PullToRefreshable.swift in Sources */,
 				2F8CC81A19C9D12A4373BD26 /* Street.swift in Sources */,
 				DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */,
 				2F8CC75D8643D497469F2A8E /* Timezone.swift in Sources */,
@@ -1071,7 +1141,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.elonparks.RIBsReactorKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1094,7 +1164,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.elonparks.RIBsReactorKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

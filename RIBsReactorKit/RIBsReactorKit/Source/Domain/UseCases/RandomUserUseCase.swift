@@ -24,7 +24,7 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   
   let itemCount: Int = 50
   
-  private (set) var isLastItems: Bool = false
+  private(set) var isLastItems: Bool = false
   
   let repository: RandomUserRepository
   
@@ -77,11 +77,11 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   
   private func updateUserModels(by results: [User]) {
     let userModels = translator.translateToUserModel(by: results)
-    mutableUserModelsStream.updateUserModals(with: userModels)
+    mutableUserModelsStream.updateUserModels(with: userModels)
   }
   
   private func appendUserModels(by results: [User]) {
     let userModels = translator.translateToUserModel(by: results)
-    mutableUserModelsStream.appendUserModals(with: userModels)
+    mutableUserModelsStream.appendUserModels(with: userModels)
   }
 }

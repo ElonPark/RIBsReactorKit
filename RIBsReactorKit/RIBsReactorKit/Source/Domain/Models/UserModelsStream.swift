@@ -6,7 +6,8 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import MapKit
+import Foundation
+import CoreLocation.CLLocation
 
 import RxSwift
 import RxRelay
@@ -35,35 +36,32 @@ extension UserModel: Equatable {
 }
 
 protocol UserModelsStream {
-  var userModals: Observable<[UserModel]> { get }
+  var userModels: Observable<[UserModel]> { get }
 }
 
 protocol MutableUserModelsStream: UserModelsStream {
-  func updateUserModals(with userModals: [UserModel])
-  func appendUserModals(with userModals: [UserModel])
+  func updateUserModels(with userModels: [UserModel])
+  func appendUserModels(with userModels: [UserModel])
 }
 
 final class UserModelsStreamImpl: MutableUserModelsStream {
   
   // MARK: - Properties
 
-  var userModals: Observable<[UserModel]> {
-    return userModalsRelay
-    .asObservable()
-  }
+  lazy var userModels: Observable<[UserModel]> = userModalsRelay.asObservable()
   
   private let userModalsRelay = BehaviorRelay<[UserModel]>(value: [])
   
   // MARK: - Internal methods
 
-  func updateUserModals(with userModals: [UserModel]) {
-    userModalsRelay.accept(userModals)
+  func updateUserModels(with userModels: [UserModel]) {
+    userModalsRelay.accept(userModels)
   }
   
-  func appendUserModals(with userModals: [UserModel]) {
+  func appendUserModels(with userModels: [UserModel]) {
     var newUserModals: [UserModel] {
       var modals = userModalsRelay.value
-      modals.append(contentsOf: userModals)
+      modals.append(contentsOf: userModels)
       return modals
     }
     

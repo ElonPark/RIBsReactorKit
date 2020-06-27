@@ -1,7 +1,9 @@
 $(SRCROOT)/Carthage/Build/iOS/RxSwift.framework
 $(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework
 $(SRCROOT)/Carthage/Build/iOS/RxRelay.framework
+$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework
 $(SRCROOT)/Carthage/Build/iOS/RIBs.framework
+$(SRCROOT)/Carthage/Build/iOS/WeakMapTable.framework
 $(SRCROOT)/Carthage/Build/iOS/ReactorKit.framework
 $(SRCROOT)/Carthage/Build/iOS/ReactorKitRuntime.framework
 $(SRCROOT)/Carthage/Build/iOS/Alamofire.framework
@@ -10,5 +12,7 @@ $(SRCROOT)/Carthage/Build/iOS/RxMoya.framework
 $(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework
 $(SRCROOT)/Carthage/Build/iOS/Rswift.framework
 $(SRCROOT)/Carthage/Build/iOS/SkeletonView.framework
+$(SRCROOT)/Carthage/Build/iOS/Differentiator.framework
+$(SRCROOT)/Carthage/Build/iOS/RxDataSources.framework
 $(SRCROOT)/Carthage/Build/iOS/SnapKit.framework
 $(SRCROOT)/Carthage/Build/iOS/EPLogger.framework

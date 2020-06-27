@@ -1,7 +1,33 @@
 # master
 *Please add new entries at the top.*
 
+# 6.3.0
+1. `Property` and `MutableProperty` can now be used as property wrapper. Note that they remain a reference type container, so it may not be appropriate to use them in types requiring value semantics. (#781)
+   ```swift
+   class ViewModel {
+     @MutableProperty var count: Int = 0
+
+     func subscribe() {
+       self.$count.producer.startWithValues {
+         print("`count` has changed to \(count)")
+       }
+     }
+
+     func increment() {
+       print("count prior to increment: \(count)")
+       self.$count.modify { $0 += 1 }
+     }
+   }
+   ```
+
+1. When `combineLatest` or `zip` over a sequence of `SignalProducer`s or `Property`s, you can now specify an optional `emptySentinel` parameter, which would be used when the sequence is empty.
+
+   This becomes relevant, when the sequence of producers is calculated from some other Signal and the signal resulting from the joined producers is observed. If no value is sent when the sequence is empty, the observer gets terminated silently, and, e.g., the UI would not be updated.
+
+  (#774, kudos to @rocketnik)
+
 # 6.2.1
+
 1. Improved performance of joining signals by a factor of around 5. This enables joining of 1000 and more signals in a reasonable amount of time.
 1. Fixed `SignalProducer.debounce` operator that, when started more than once, would not deliver values on producers started after the first time. (#772, kudos to @gpambrozio)
 1. `FlattenStrategy.throttle` is introduced. (#713, kudos to @inamiy)
@@ -20,6 +46,7 @@
 1. Add `<~` binding operator to `Signal.Observer` (#635, kudos to @Marcocanc)
 
 # 6.0.0
+
 1. Dropped support for Swift 4.2 (Xcode 9)
 2. Removed dependency on https://github.com/antitypical/Result (#702, kudos to @NachoSoto and @mdiep)
 
@@ -30,6 +57,7 @@
 * Replace all cases where `AnyError` was used in a `Signal` or `SignalProducer` with `Swift.Error`
 
 # 5.0.1
+
 1. Fix warnings in Xcode 10.2
 
 # 5.0.0
@@ -40,6 +68,7 @@
 1. New operator `materializeResults` and `dematerializeResults` (#679, kudos to @ra1028)
 1. New convenience initializer for `Action` that takes a `ValidatingProperty` as its state (#637, kudos to @Marcocanc)
 1. Fix legacy date implementation. (#683, kudos to @shoheiyokoyama)
+1. New operator `scanMap`. (#695, kudos to @inamiy)
 
 # 4.0.0
 

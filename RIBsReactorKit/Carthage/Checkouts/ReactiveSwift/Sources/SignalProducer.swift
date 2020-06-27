@@ -1493,6 +1493,34 @@ extension SignalProducer {
 		return core.flatMapEvent(Signal.Event.scan(into: initialResult, nextPartialResult))
 	}
 
+	/// Accumulate all values from `self` as `State`, and send the value as `U`.
+	///
+	/// - parameters:
+	///   - initialState: The state to use as the initial accumulating state.
+	///   - next: A closure that combines the accumulating state and the latest value
+	///           from `self`. The result would be "next state" and "output" where
+	///           "output" would be forwarded and "next state" would be used in the
+	///           next call of `next`.
+	///
+	/// - returns: A producer that sends the output that is computed from the accumuation.
+	public func scanMap<State, U>(_ initialState: State, _ next: @escaping (State, Value) -> (State, U)) -> SignalProducer<U, Error> {
+		return core.flatMapEvent(Signal.Event.scanMap(initialState, next))
+	}
+
+	/// Accumulate all values from `self` as `State`, and send the value as `U`.
+	///
+	/// - parameters:
+	///   - initialState: The state to use as the initial accumulating state.
+	///   - next: A closure that combines the accumulating state and the latest value
+	///           from `self`. The result would be "next state" and "output" where
+	///           "output" would be forwarded and "next state" would be used in the
+	///           next call of `next`.
+	///
+	/// - returns: A producer that sends the output that is computed from the accumuation.
+	public func scanMap<State, U>(into initialState: State, _ next: @escaping (inout State, Value) -> U) -> SignalProducer<U, Error> {
+		return core.flatMapEvent(Signal.Event.scanMap(into: initialState, next))
+	}
+
 	/// Forward only values from `self` that are not considered equivalent to its
 	/// immediately preceding value.
 	///
@@ -2102,6 +2130,12 @@ extension SignalProducer {
 		return start(producers, Signal.combineLatest)
 	}
 
+	/// Combines the values of all the given producers, in the manner described by
+	/// `combineLatest(with:)`. If no producer is given, the resulting producer will constantly return `emptySentinel`.
+	public static func combineLatest<S: Sequence>(_ producers: S, emptySentinel: [S.Iterator.Element.Value]) -> SignalProducer<[Value], Error> where S.Iterator.Element: SignalProducerConvertible, S.Iterator.Element.Value == Value, S.Iterator.Element.Error == Error {
+		return start(producers, emptySentinel: emptySentinel, Signal.combineLatest)
+	}
+
 	/// Zips the values of all the given producers, in the manner described by
 	/// `zip(with:)`.
 	public static func zip<A: SignalProducerConvertible, B: SignalProducerConvertible>(_ a: A, _ b: B) -> SignalProducer<(Value, B.Value), Error> where A.Value == Value, A.Error == Error, B.Error == Error {
@@ -2180,7 +2214,18 @@ extension SignalProducer {
 		return start(producers, Signal.zip)
 	}
 
-	private static func start<S: Sequence>(_ producers: S, _ transform: @escaping (AnySequence<Signal<Value, Error>>) -> Signal<[Value], Error>) -> SignalProducer<[Value], Error> where S.Iterator.Element: SignalProducerConvertible, S.Iterator.Element.Value == Value, S.Iterator.Element.Error == Error
+	/// Combines the values of all the given producers, in the manner described by
+	/// `zip(with:)`. If no producer is given, the resulting producer will constantly return `emptySentinel`.
+	public static func zip<S: Sequence>(_ producers: S, emptySentinel: [S.Iterator.Element.Value]) -> SignalProducer<[Value], Error> where S.Iterator.Element: SignalProducerConvertible, S.Iterator.Element.Value == Value, S.Iterator.Element.Error == Error {
+		return start(producers, emptySentinel: emptySentinel, Signal.zip)
+	}
+
+	private static func start<S: Sequence>(
+		_ producers: S,
+		emptySentinel: [S.Iterator.Element.Value]? = nil,
+		_ transform: @escaping (AnySequence<Signal<Value, Error>>) -> Signal<[Value], Error>
+	) -> SignalProducer<[Value], Error>
+		where S.Iterator.Element: SignalProducerConvertible, S.Iterator.Element.Value == Value, S.Iterator.Element.Error == Error
 	{
 		return SignalProducer<[Value], Error> { observer, lifetime in
 			let setup = producers.map {
@@ -2188,6 +2233,10 @@ extension SignalProducer {
 			}
 			
 			guard !setup.isEmpty else {
+				if let emptySentinel = emptySentinel {
+					observer.send(value: emptySentinel)
+				}
+
 				observer.sendCompleted()
 				return
 			}
@@ -2712,15 +2761,19 @@ extension SignalProducer where Value == Bool {
 	
 	/// Create a producer that computes a logical AND between the latest values of `booleans`.
 	///
+	/// If no producer is given in `booleans`, the resulting producer constantly emits `true`.
+	///
 	/// - parameters:
 	///   - booleans: A collection of boolean producers to be combined.
 	///
 	/// - returns: A producer that emits the logical AND results.
 	public static func all<BooleansCollection: Collection>(_ booleans: BooleansCollection) -> SignalProducer<Value, Error> where BooleansCollection.Element == SignalProducer<Value, Error> {
-		return combineLatest(booleans).map { $0.reduce(true) { $0 && $1 } }
+		return combineLatest(booleans, emptySentinel: []).map { $0.reduce(true) { $0 && $1 } }
 	}
 	
 	/// Create a producer that computes a logical AND between the latest values of `booleans`.
+    ///
+    /// If no producer is given in `booleans`, the resulting producer constantly emits `true`.
 	///
 	/// - parameters:
 	///   - booleans: A collection of boolean producers to be combined.
@@ -2754,15 +2807,19 @@ extension SignalProducer where Value == Bool {
 	
 	/// Create a producer that computes a logical OR between the latest values of `booleans`.
 	///
+	/// If no producer is given in `booleans`, the resulting producer constantly emits `false`.
+	///
 	/// - parameters:
 	///   - booleans: A collection of boolean producers to be combined.
 	///
 	/// - returns: A producer that emits the logical OR results.
 	public static func any<BooleansCollection: Collection>(_ booleans: BooleansCollection) -> SignalProducer<Value, Error> where BooleansCollection.Element == SignalProducer<Value, Error> {
-		return combineLatest(booleans).map { $0.reduce(false) { $0 || $1 } }
+		return combineLatest(booleans, emptySentinel: []).map { $0.reduce(false) { $0 || $1 } }
 	}
 	
 	/// Create a producer that computes a logical OR between the latest values of `booleans`.
+	///
+	/// If no producer is given in `booleans`, the resulting producer constantly emits `false`.
 	///
 	/// - parameters:
 	///   - booleans: A collection of boolean producers to be combined.

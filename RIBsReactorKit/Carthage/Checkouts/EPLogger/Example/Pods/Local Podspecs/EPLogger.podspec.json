@@ -1,6 +1,6 @@
 {
   "name": "EPLogger",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "summary": "Just simple Logger",
   "description": "Just simple Logger\n\n```swift\n\n   // Log level. default is verbose\n   Log.config(level: .debug)\n\n   Log.verbose(\"verbose\")\n   Log.debug(\"debug\")\n   Log.warning(\"warning\")\n   Log.error(\"error\")\n```",
   "homepage": "https://github.com/ElonPark/EPLogger",
@@ -17,7 +17,7 @@
   },
   "source": {
     "git": "https://github.com/ElonPark/EPLogger.git",
-    "tag": "1.3.4"
+    "tag": "1.3.5"
   },
   "platforms": {
     "ios": "8.0"

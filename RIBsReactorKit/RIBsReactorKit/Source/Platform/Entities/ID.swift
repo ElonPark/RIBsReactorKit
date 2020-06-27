@@ -11,5 +11,5 @@ import Foundation
 // MARK: - ID
 struct ID: Codable {
   let name: String
-  let value: String
+  let value: String?
 }

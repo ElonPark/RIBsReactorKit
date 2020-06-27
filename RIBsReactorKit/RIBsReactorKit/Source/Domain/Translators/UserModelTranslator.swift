@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MapKit
+import CoreLocation.CLLocation
 
 protocol UserModelTranslator {
   func translateToUserModel(by result: [User]) -> [UserModel]

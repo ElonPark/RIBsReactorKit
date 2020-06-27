@@ -19,7 +19,7 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
     function: String = #function,
     line: UInt = #line
   ) -> Single<Response> {
-    let requestString = "\(target.method) \(target.path)"
+    let requestString = "\(target.method.rawValue) \(target.path)"
     
     return self.rx.request(target)
       .filterSuccessfulStatusCodes()
