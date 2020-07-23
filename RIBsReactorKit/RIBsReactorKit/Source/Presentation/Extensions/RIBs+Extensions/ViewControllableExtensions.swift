@@ -18,37 +18,56 @@ extension ViewControllable {
     )
   }
   
-  func pop(animated: Bool = true) {
-    uiviewController.navigationController?.popViewController(animated: animated)
+  func pop(
+    to viewController: ViewControllable,
+    animated: Bool = true,
+    needToDismissPresentedViewController: Bool = true,
+    dismissAnimated: Bool = false
+  ) {
+    if needToDismissPresentedViewController,
+      let presentedViewController = viewController.uiviewController.presentedViewController {
+      presentedViewController.dismiss(animated: dismissAnimated) { [weak self] in
+        self?.uiviewController.navigationController?.popToViewController(
+          viewController.uiviewController,
+          animated: animated
+        )
+      }
+    } else {
+      uiviewController.navigationController?.popToViewController(
+        viewController.uiviewController,
+        animated: animated
+      )
+    }
   }
   
-  func pop(to viewController: ViewControllable, animated: Bool = true) {
-    uiviewController.navigationController?.popToViewController(
-      viewController.uiviewController,
-      animated: animated
+  func pop(
+    _ viewController: ViewControllable,
+    animated: Bool = true,
+    needToDismissPresentedViewController: Bool = true,
+    dismissAnimated: Bool = false
+  ) {
+    guard !viewController.uiviewController.isMovingFromParent else { return }
+    pop(
+      to: self,
+      animated: animated,
+      needToDismissPresentedViewController: needToDismissPresentedViewController,
+      dismissAnimated: dismissAnimated
     )
   }
   
-  func pop(_ viewController: ViewControllable, animated: Bool = true) {
-    guard !viewController.uiviewController.isMovingFromParent else { return }
-    pop(to: self)
-    
-    // FIXME: - remove after test 2020-06-28 03:03:13
-    /*
-    let hasViewControllerInNvaigationStack = uiviewController
-      .navigationController?
-      .viewControllers
-      .contains {
-        $0 === viewController.uiviewController
-      } ?? false
-    
-    guard hasViewControllerInNvaigationStack else { return }
-    pop(animated: animated)
-  */
-  }
-  
-  func popToRootViewController(animated: Bool = true) {
-    uiviewController.navigationController?.popToRootViewController(animated: animated)
+  func popToRootViewController(
+    animated: Bool = true,
+    needToDismissPresentedViewController: Bool = true,
+    dismissAnimated: Bool = false
+  ) {
+    if needToDismissPresentedViewController,
+      let presentedViewController = uiviewController.presentedViewController {
+      presentedViewController.dismiss(animated: dismissAnimated) { [weak self] in
+        self?.uiviewController.navigationController?.popToRootViewController(animated: animated)
+      }
+    } else {
+      uiviewController.navigationController?.popToRootViewController(animated: animated)
+    }
   }
   
   func present(
@@ -63,12 +82,29 @@ extension ViewControllable {
     )
   }
   
+  func presentNavigationViewController(
+    root: ViewControllable,
+    animated: Bool = true,
+    completion: (() -> Void)? = nil
+  ) {
+    let navigationController = UINavigationController(rootViewController: root.uiviewController)
+    uiviewController.present(
+      navigationController,
+      animated: animated,
+      completion: completion
+    )
+  }
+  
   func dismiss(
     _ viewController: ViewControllable,
     animated: Bool = true,
     completion: (() -> Void)? = nil
   ) {
-    guard !viewController.uiviewController.isBeingDismissed else { return }
+    guard !viewController.uiviewController.isBeingDismissed else {
+      completion?()
+      return
+    }
+    
     viewController.uiviewController.dismiss(
       animated: animated,
       completion: completion
