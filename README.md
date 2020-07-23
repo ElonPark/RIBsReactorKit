@@ -6,5 +6,5 @@ RIBs + ReactorKit Sample
 ### install
 
 ```shell
-$ sh intsll.sh
+$ sh install.sh
 ```
