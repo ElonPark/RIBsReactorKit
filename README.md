@@ -10,7 +10,7 @@ $ sh install.sh
 ```
 
 ---
-## RIBsTreeViewer
+## Use RIBsTreeViewer
 
 ### Installing 
 
