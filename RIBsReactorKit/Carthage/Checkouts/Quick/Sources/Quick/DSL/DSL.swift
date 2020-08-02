@@ -1,3 +1,5 @@
+// swiftlint:disable line_length
+
 /**
     Defines a closure to be run prior to any examples in the test suite.
     You may define an unlimited number of these closures, but there is no
@@ -198,7 +200,7 @@ public func pending(_ description: String, closure: () -> Void) {
     Use this to quickly mark a `describe` closure as pending.
     This disables all examples within the closure.
 */
-public func xdescribe(_ description: String, flags: FilterFlags, closure: () -> Void) {
+public func xdescribe(_ description: String, flags: FilterFlags = [:], closure: () -> Void) {
     World.sharedWorld.xdescribe(description, flags: flags, closure: closure)
 }
 
@@ -206,7 +208,7 @@ public func xdescribe(_ description: String, flags: FilterFlags, closure: () -> 
     Use this to quickly mark a `context` closure as pending.
     This disables all examples within the closure.
 */
-public func xcontext(_ description: String, flags: FilterFlags, closure: () -> Void) {
+public func xcontext(_ description: String, flags: FilterFlags = [:], closure: () -> Void) {
     xdescribe(description, flags: flags, closure: closure)
 }
 
@@ -269,3 +271,5 @@ public func fitBehavesLike(_ name: String, flags: FilterFlags = [:], file: FileS
 public func fitBehavesLike<C>(_ behavior: Behavior<C>.Type, flags: FilterFlags = [:], file: FileString = #file, line: UInt = #line, context: @escaping () -> C) {
     World.sharedWorld.fitBehavesLike(behavior, context: context, flags: flags, file: file, line: line)
 }
+
+// swiftlint:enable line_length

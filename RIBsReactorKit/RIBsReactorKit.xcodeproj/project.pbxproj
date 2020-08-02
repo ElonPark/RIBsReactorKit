@@ -136,6 +136,12 @@
 		DB35E2A7244721E000B26BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTranslator.swift; sourceTree = "<group>"; };
+		DB61D34F24C9A5E7004652F1 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
+		DB61D35024C9A5E7004652F1 /* WeakMapTable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeakMapTable.framework; path = Carthage/Build/iOS/WeakMapTable.framework; sourceTree = "<group>"; };
+		DB61D35124C9A5E7004652F1 /* RxCocoaRuntime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoaRuntime.framework; path = Carthage/Build/iOS/RxCocoaRuntime.framework; sourceTree = "<group>"; };
+		DB61D35224C9A5E7004652F1 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
+		DB61D35324C9A5E7004652F1 /* RxDataSources.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxDataSources.framework; path = Carthage/Build/iOS/RxDataSources.framework; sourceTree = "<group>"; };
+		DB61D35424C9A5E7004652F1 /* Differentiator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Differentiator.framework; path = Carthage/Build/iOS/Differentiator.framework; sourceTree = "<group>"; };
 		DB630218246071CD00C47E09 /* UserListPresentableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresentableState.swift; sourceTree = "<group>"; };
 		DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllableExtensions.swift; sourceTree = "<group>"; };
 		DB63021D2461B85F00C47E09 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
@@ -392,6 +398,12 @@
 		DBC141E42448B6C900A9F3F6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DB61D35424C9A5E7004652F1 /* Differentiator.framework */,
+				DB61D34F24C9A5E7004652F1 /* ReactiveMoya.framework */,
+				DB61D35224C9A5E7004652F1 /* ReactiveSwift.framework */,
+				DB61D35124C9A5E7004652F1 /* RxCocoaRuntime.framework */,
+				DB61D35324C9A5E7004652F1 /* RxDataSources.framework */,
+				DB61D35024C9A5E7004652F1 /* WeakMapTable.framework */,
 				DBCD8B29248400CD00A34108 /* KingfisherSwiftUI.framework */,
 				DBCD8B27248400CD00A34108 /* RxSwiftExt.framework */,
 				DBCD8B28248400CD00A34108 /* RxViewController.framework */,
@@ -659,12 +671,12 @@
 			buildConfigurationList = DB35E2AA244721E000B26BD3 /* Build configuration list for PBXNativeTarget "RIBsReactorKit" */;
 			buildPhases = (
 				DBEF8B44245F525000A37587 /* R Swift */,
+				DBC142182448B99100A9F3F6 /* AckAck */,
+				DB0B83B42454627500FA83D7 /* SwifLint */,
 				DB35E27C244721DF00B26BD3 /* Sources */,
 				DB35E27D244721DF00B26BD3 /* Frameworks */,
 				DB35E27E244721DF00B26BD3 /* Resources */,
 				DBC141E32448B5F600A9F3F6 /* Carthage */,
-				DBC142182448B99100A9F3F6 /* AckAck */,
-				DB0B83B42454627500FA83D7 /* SwifLint */,
 			);
 			buildRules = (
 			);
