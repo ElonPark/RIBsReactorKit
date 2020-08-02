@@ -275,7 +275,11 @@ final class SessionTestCase: BaseTestCase {
 
             let osName: String = {
                 #if os(iOS)
+                #if targetEnvironment(macCatalyst)
+                return "macOS(Catalyst)"
+                #else
                 return "iOS"
+                #endif
                 #elseif os(watchOS)
                 return "watchOS"
                 #elseif os(tvOS)
@@ -411,12 +415,12 @@ final class SessionTestCase: BaseTestCase {
 
         // When
         let request = session.request(urlRequest)
-            .resume()
-            .cancel()
             .response { resp in
                 response = resp
                 expectation.fulfill()
             }
+            .resume()
+            .cancel()
 
         waitForExpectations(timeout: timeout, handler: nil)
 
