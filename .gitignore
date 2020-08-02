@@ -62,9 +62,8 @@ playground.xcworkspace
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build/
+**/Carthage/Checkouts/
+**/Carthage/Build/
 
 # Accio dependency management
 Dependencies/
@@ -88,5 +87,7 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+
 .idea
 node_modules
