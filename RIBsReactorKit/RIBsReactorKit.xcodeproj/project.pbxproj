@@ -108,6 +108,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		DB1687F224D731E400785305 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2F8CC2131D7BE492B33D499D /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		2F8CC340461EAD51A402EBC2 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -617,8 +630,8 @@
 		DBCD8AF22483C28C00A34108 /* Rx+Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */,
 				DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */,
+				DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */,
 			);
 			path = "Rx+Extensions";
 			sourceTree = "<group>";
@@ -663,8 +676,10 @@
 				DB35E27D244721DF00B26BD3 /* Frameworks */,
 				DB35E27E244721DF00B26BD3 /* Resources */,
 				DBC141E32448B5F600A9F3F6 /* Carthage */,
+				DBD0876E24D738410078E7BD /* Carthage Debug only */,
 				DBC142182448B99100A9F3F6 /* AckAck */,
 				DB0B83B42454627500FA83D7 /* SwifLint */,
+				DB1687F224D731E400785305 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -863,6 +878,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/Scripts/AckAck/ackack.py\n";
+		};
+		DBD0876E24D738410078E7BD /* Carthage Debug only */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/Carthage/xcfilelist/debug_input.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "Carthage Debug only";
+			outputFileListPaths = (
+				"$(SRCROOT)/Carthage/xcfilelist/debug_output.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ${CONFIGURATION%%-*} == \"Debug\" ]; then\n  /usr/local/bin/carthage copy-frameworks\nfi\n";
 		};
 		DBEF8B44245F525000A37587 /* R Swift */ = {
 			isa = PBXShellScriptBuildPhase;
