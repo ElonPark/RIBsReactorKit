@@ -16,7 +16,7 @@ if which yarn >/dev/null; then
   npx webpack
   open ./public/index.html
 
-  cd ../RIBsTreeViewer/WebSocketServer
+  cd ../WebSocketServer
   npx yarn install
   node index.js
 else
