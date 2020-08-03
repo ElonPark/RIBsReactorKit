@@ -1,6 +1,6 @@
 //
 //  UINavigationControllerExtensions.swift
-//  Smithsonian
+//  RIBsReactorKit
 //
 //  Created by Elon on 2020/03/08.
 //  Copyright © 2020 Elon. All rights reserved.
