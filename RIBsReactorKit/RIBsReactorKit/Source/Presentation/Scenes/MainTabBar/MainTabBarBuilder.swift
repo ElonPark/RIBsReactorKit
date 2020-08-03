@@ -12,9 +12,9 @@ protocol MainTabBarDependency: Dependency {}
 
 final class MainTabBarComponent: Component<MainTabBarDependency> {
 
-  var userListViewController: UserListPresentable & UserListViewControllable
+  let userListViewController: UserListPresentable & UserListViewControllable
   
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable
+  let userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable
   
   fileprivate var randomUserService: Networking<RandomUserService> {
     return Networking<RandomUserService>()

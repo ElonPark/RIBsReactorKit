@@ -77,6 +77,7 @@ final class UserListInteractor:
 }
 
 // MARK: - Reactor
+
 extension UserListInteractor {
   
   // MARK: - mutate
