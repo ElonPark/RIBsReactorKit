@@ -677,6 +677,7 @@
 				DB35E27D244721DF00B26BD3 /* Frameworks */,
 				DB35E27E244721DF00B26BD3 /* Resources */,
 				DBC141E32448B5F600A9F3F6 /* Carthage */,
+				DBBAF05C24D74DC60032B435 /* Carthage debug only */,
 			);
 			buildRules = (
 			);
@@ -818,6 +819,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		DBBAF05C24D74DC60032B435 /* Carthage debug only */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/Carthage/xcfilelist/debug_input.xcfilelist",
+			);
+			inputPaths = (
+			);
+			name = "Carthage debug only";
+			outputFileListPaths = (
+				"$(SRCROOT)/Carthage/xcfilelist/debug_output.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ${CONFIGURATION%%-*} == \"Debug\" ]; then\n  /usr/local/bin/carthage copy-frameworks\nfi\n";
 		};
 		DBC141E32448B5F600A9F3F6 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;

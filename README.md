@@ -8,3 +8,29 @@ RIBs + ReactorKit Sample
 ```shell
 $ sh install.sh
 ```
+
+---
+## Use RIBsTreeViewer
+
+### Installing 
+
+```
+$ npm install yarn
+```
+
+### Starting the websocke server
+
+```shell
+$ cd ./RIBsTreeViewer/WebSocketServer
+$ npx yarn install
+$ node index.js
+```
+
+## Open the page.
+
+```shell
+$ cd ./RIBsTreeViewer/Browser
+$ npx yarn install
+$ npx webpack
+$ open ./public/index.html
+```
