@@ -18,18 +18,21 @@ class UserListCell: BaseTableViewCell {
   // MARK: - Constants
   
   private enum UI {
+    // - profileImageView
     static let profileImageViewTopMargin: CGFloat = 8
     static let profileImageViewBottomMargin: CGFloat = 8
     static let profileImageViewLeadingMargin: CGFloat = 8
     static let profileImageViewSize: CGSize = CGSize(width: 50, height: 50)
     
+    // - nameLabel
     static let nameLabelTopMargin: CGFloat = 10
     static let nameLabelLeadingMargin: CGFloat = 8
-    static let nameLabeltrailingMargin: CGFloat = 8
+    static let nameLabelTrailingMargin: CGFloat = 8
     
+    // - locationLabel
     static let locationLabelTopMargin: CGFloat = 5
     static let locationLabelBottomMargin: CGFloat = 8
-    static let locationLabeltrailingMargin: CGFloat = 8
+    static let locationLabelTrailingMargin: CGFloat = 8
   }
   
   // MARK: - Properties
@@ -121,11 +124,9 @@ class UserListCell: BaseTableViewCell {
   }
   
   private func hideSkeletonAnimation() {
-    views.forEach {
-      if $0.isSkeletonActive {
-        $0.hideSkeleton(transition: .crossDissolve(0.25))
-      }
-    }
+    views
+      .filter(\.isSkeletonActive)
+      .forEach { $0.hideSkeleton(transition: .crossDissolve(0.25)) }
   }
 }
 
@@ -153,14 +154,14 @@ extension UserListCell {
     nameLabel.snp.makeConstraints {
       $0.top.equalTo(profileImageView.snp.top)
       $0.leading.equalTo(profileImageView.snp.trailing).offset(UI.nameLabelLeadingMargin)
-      $0.trailing.lessThanOrEqualToSuperview().offset(-UI.nameLabeltrailingMargin)
+      $0.trailing.lessThanOrEqualToSuperview().offset(-UI.nameLabelTrailingMargin)
     }
     
     locationLabel.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(UI.locationLabelTopMargin)
       $0.bottom.lessThanOrEqualTo(profileImageView.snp.bottom)
       $0.leading.equalTo(nameLabel.snp.leading)
-      $0.trailing.lessThanOrEqualToSuperview().offset(-UI.locationLabeltrailingMargin)
+      $0.trailing.lessThanOrEqualToSuperview().offset(-UI.locationLabelTrailingMargin)
     }
   }
 }
