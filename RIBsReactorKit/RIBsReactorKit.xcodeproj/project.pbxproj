@@ -14,8 +14,10 @@
 		2F8CC7732D37533292D8F598 /* RandomUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CCABBA7AC704411D50C63 /* RandomUser.swift */; };
 		2F8CC81A19C9D12A4373BD26 /* Street.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC41BE9BD1D6E92622696 /* Street.swift */; };
 		2F8CC9758B5BDBE9958AD2BA /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC635BBE9F813D0D549F3 /* Login.swift */; };
+		2F8CC9D4CF076149713337C3 /* BlurEffectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC27233D243A7CCAB0CAC /* BlurEffectImageView.swift */; };
 		2F8CC9F999E5E2D8B17C6242 /* Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC8BFC57F4D47EBF0BFFC /* Name.swift */; };
 		2F8CCB2C832787ED3CC6FB03 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CC2131D7BE492B33D499D /* Picture.swift */; };
+		2F8CCBF4F330D66609862007 /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8CCD98ADCEA8F885113A2C /* UserProfileCell.swift */; };
 		DB177CBF24A23D7C0050C343 /* UserInfomationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CBB24A23D7C0050C343 /* UserInfomationRouter.swift */; };
 		DB177CC024A23D7C0050C343 /* UserInfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CBC24A23D7C0050C343 /* UserInfomationViewController.swift */; };
 		DB177CC124A23D7C0050C343 /* UserInfomationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB177CBD24A23D7C0050C343 /* UserInfomationBuilder.swift */; };
@@ -33,6 +35,8 @@
 		DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */; };
 		DB63021E2461B85F00C47E09 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021D2461B85F00C47E09 /* UserListCell.swift */; };
 		DB70253024A2644100866A81 /* PullToRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB70252F24A2644100866A81 /* PullToRefreshable.swift */; };
+		DB979C4E24D992D600E34DE6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DBC142132448B84500A9F3F6 /* Then */; };
+		DB979C5024D9A0A800E34DE6 /* SkeletonAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB979C4F24D9A0A800E34DE6 /* SkeletonAnimatable.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
 		DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */; };
 		DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */; };
@@ -82,7 +86,6 @@
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
 		DBDD9AD02454D6A300DBF510 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACF2454D6A300DBF510 /* User.swift */; };
 		DBDD9AD22454D6BA00DBF510 /* Dob.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AD12454D6BA00DBF510 /* Dob.swift */; };
-		DBEB564E24559D6B0054D41E /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DBC142132448B84500A9F3F6 /* Then */; };
 		DBEB56502455AB4E0054D41E /* RandomUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEB564F2455AB4E0054D41E /* RandomUserService.swift */; };
 		DBEB56532455B15F0054D41E /* RandomUserFixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEB56522455B15F0054D41E /* RandomUserFixture.swift */; };
 		DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */; };
@@ -110,6 +113,7 @@
 
 /* Begin PBXFileReference section */
 		2F8CC2131D7BE492B33D499D /* Picture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		2F8CC27233D243A7CCAB0CAC /* BlurEffectImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurEffectImageView.swift; sourceTree = "<group>"; };
 		2F8CC340461EAD51A402EBC2 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		2F8CC39FB513FB73FA57C3DB /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		2F8CC41BE9BD1D6E92622696 /* Street.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Street.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 		2F8CC8BFC57F4D47EBF0BFFC /* Name.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Name.swift; sourceTree = "<group>"; };
 		2F8CCABBA7AC704411D50C63 /* RandomUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomUser.swift; sourceTree = "<group>"; };
 		2F8CCC11679B3396B4B1AE7B /* Timezone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timezone.swift; sourceTree = "<group>"; };
+		2F8CCD98ADCEA8F885113A2C /* UserProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
 		2F8CCF2EDD407D3BC80B5385 /* ID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
 		DB09E82024572A7F00FAB536 /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/iOS/Moya.framework; sourceTree = "<group>"; };
 		DB177CBB24A23D7C0050C343 /* UserInfomationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomationRouter.swift; sourceTree = "<group>"; };
@@ -146,6 +151,7 @@
 		DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllableExtensions.swift; sourceTree = "<group>"; };
 		DB63021D2461B85F00C47E09 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		DB70252F24A2644100866A81 /* PullToRefreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshable.swift; sourceTree = "<group>"; };
+		DB979C4F24D9A0A800E34DE6 /* SkeletonAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonAnimatable.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
 		DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserUseCase.swift; sourceTree = "<group>"; };
 		DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarRouter.swift; sourceTree = "<group>"; };
@@ -229,7 +235,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBEB564E24559D6B0054D41E /* Then in Frameworks */,
+				DB979C4E24D992D600E34DE6 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,6 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				DB63021D2461B85F00C47E09 /* UserListCell.swift */,
+				2F8CCD98ADCEA8F885113A2C /* UserProfileCell.swift */,
+				2F8CC27233D243A7CCAB0CAC /* BlurEffectImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -611,6 +619,7 @@
 				DBCD8AEE2483C09400A34108 /* HasCompositeDisposable.swift */,
 				DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */,
 				DB70252F24A2644100866A81 /* PullToRefreshable.swift */,
+				DB979C4F24D9A0A800E34DE6 /* SkeletonAnimatable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -949,6 +958,7 @@
 				DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */,
 				DBC52DF82454560800BCFEBB /* BaseViewController.swift in Sources */,
 				DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */,
+				DB979C5024D9A0A800E34DE6 /* SkeletonAnimatable.swift in Sources */,
 				DBC52DF32454560800BCFEBB /* UINavigationControllerExtensions.swift in Sources */,
 				DBC52DF62454560800BCFEBB /* HasElementKind.swift in Sources */,
 				DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */,
@@ -995,6 +1005,8 @@
 				2F8CC9F999E5E2D8B17C6242 /* Name.swift in Sources */,
 				DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */,
 				2F8CCB2C832787ED3CC6FB03 /* Picture.swift in Sources */,
+				2F8CCBF4F330D66609862007 /* UserProfileCell.swift in Sources */,
+				2F8CC9D4CF076149713337C3 /* BlurEffectImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
