@@ -13,7 +13,10 @@ import Kingfisher
 import SnapKit
 import SkeletonView
 
-class UserListCell: BaseTableViewCell {
+class UserListCell:
+  BaseTableViewCell,
+  SkeletonAnimatable
+{
   
   // MARK: - Constants
   
@@ -38,8 +41,8 @@ class UserListCell: BaseTableViewCell {
   // MARK: - Properties
   
   // for skeleton view animation
-  let dummyNameString = String(repeating: " ", count: 60)
-  let dummylocationString = String(repeating: " ", count: 40)
+  private let dummyNameString = String(repeating: " ", count: 60)
+  private let dummylocationString = String(repeating: " ", count: 40)
   
   // MARK: - UI Components
   
@@ -61,13 +64,11 @@ class UserListCell: BaseTableViewCell {
     $0.isSkeletonable = true
   }
   
-  private var views: [UIView] {
-    [
-      profileImageView,
-      nameLabel,
-      locationLabel
-    ]
-  }
+  private(set) lazy var views: [UIView] = [
+    profileImageView,
+    nameLabel,
+    locationLabel
+  ]
   
   // MARK: - Inheritance
   
@@ -92,9 +93,9 @@ class UserListCell: BaseTableViewCell {
   func configuration(by userModel: UserModel?) {
     guard let userModel = userModel else { return }
     hideSkeleton()
-    setProfileImageView(by: userModel.thumbnailImageURL)
-    setUserName(by: userModel)
-    setLocation(by: userModel)
+    setProfileImageView(by: userModel)
+    setUserNameLabel(by: userModel)
+    setLocationLabel(by: userModel)
   }
   
   // MARK: - Private methods
@@ -105,28 +106,18 @@ class UserListCell: BaseTableViewCell {
     locationLabel.text = dummylocationString
   }
   
-  private func setProfileImageView(by url: URL?) {
-    profileImageView.kf.setImage(with: url)
+  private func setProfileImageView(by userModel: UserModel) {
+    profileImageView.kf.setImage(with: userModel.thumbnailImageURL)
   }
   
-  private func setUserName(by userModel: UserModel) {
+  private func setUserNameLabel(by userModel: UserModel) {
     let name = "\(userModel.name.title). \(userModel.name.first) \(userModel.name.last)"
     nameLabel.text = name
   }
   
-  private func setLocation(by userModel: UserModel) {
+  private func setLocationLabel(by userModel: UserModel) {
     let location = "\(userModel.location.city) \(userModel.location.state) \(userModel.location.country)"
     locationLabel.text = location
-  }
-  
-  private func showSkeletonAnimation() {
-    views.forEach { $0.showAnimatedGradientSkeleton() }
-  }
-  
-  private func hideSkeletonAnimation() {
-    views
-      .filter(\.isSkeletonActive)
-      .forEach { $0.hideSkeleton(transition: .crossDissolve(0.25)) }
   }
 }
 
@@ -145,10 +136,11 @@ extension UserListCell {
   private func layout() {
     profileImageView.snp.makeConstraints {
       $0.width.equalTo(UI.profileImageViewSize.width)
-      $0.height.equalTo(UI.profileImageViewSize.height).priority(.high)
-      $0.top.equalToSuperview().offset(UI.profileImageViewTopMargin)
-      $0.bottom.equalToSuperview().offset(-UI.profileImageViewBottomMargin)
+      $0.height.equalTo(UI.profileImageViewSize.height)
+      $0.top.greaterThanOrEqualToSuperview().offset(UI.profileImageViewTopMargin)
+      $0.bottom.lessThanOrEqualToSuperview().offset(-UI.profileImageViewBottomMargin)
       $0.leading.equalToSuperview().offset(UI.profileImageViewLeadingMargin)
+      $0.centerY.equalToSuperview()
     }
     
     nameLabel.snp.makeConstraints {
@@ -165,3 +157,18 @@ extension UserListCell {
     }
   }
 }
+
+#if canImport(SwiftUI) && DEBUG
+import SwiftUI
+
+@available(iOS 13.0, *)
+struct UserListCellPreview: PreviewProvider {
+  static var previews: some SwiftUI.View {
+    UIViewPreview {
+      UserListCell()
+    }
+    .previewLayout(.fixed(width: 320, height: 100))
+    .padding(10)
+  }
+}
+#endif
