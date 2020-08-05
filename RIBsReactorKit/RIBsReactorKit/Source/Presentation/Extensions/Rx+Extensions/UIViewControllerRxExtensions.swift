@@ -76,7 +76,8 @@ extension Reactive where Base: UIViewController {
     return ControlEvent(events: source)
   }
   
-  /// Rx observable, triggered when the ViewController appearance state changes (true if the View is being displayed, false otherwise)
+  /// Rx observable, triggered when the ViewController appearance state changes
+  ///  (true if the View is being displayed, false otherwise)
   var isVisible: Observable<Bool> {
     let viewDidAppearObservable = self.base.rx.viewDidAppear.map { _ in true }
     let viewWillDisappearObservable = self.base.rx.viewWillDisappear.map { _ in false }
