@@ -36,6 +36,10 @@ final class UserInfomationInteractor: PresentableInteractor<UserInfomationPresen
     presenter.listener = self
   }
   
+  deinit {
+    Log.verbose(type(of: self))
+  }
+  
   override func didBecomeActive() {
     super.didBecomeActive()
     // TODO: Implement business logic here.
