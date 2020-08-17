@@ -12,9 +12,10 @@ import RxSwift
 
 class BaseView:
   UIView,
+  BaseViewable,
   HasDisposeBag
 {
-  
+
    // MARK: - Properties
   
   var disposeBag: DisposeBag = DisposeBag()
@@ -25,11 +26,11 @@ class BaseView:
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    setNeedsUpdateConstraints()
+    initialize()
   }
   
   required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+    fatalError("init(coder:) has not been implemented")
   }
   
   deinit {
@@ -41,23 +42,26 @@ class BaseView:
   // MARK: - Layout Constraints
   
   override func updateConstraints() {
-    if !self.didSetupConstraints {
-      self.setupConstraints()
-      self.didSetupConstraints = true
-    }
-    
+    setupConstraintsIfNeeded()
     super.updateConstraints()
   }
+
+  // MARK: - Internal methods
   
-  /**
-   Override this method, if need to set Autolayout constraints
-   
-   Do not call `setNeedsUpdateConstraints()` inside your implementation.
-   Calling `setNeedsUpdateConstraints()` schedules another update pass, creating a feedback loop.
-   
-   Do not call `setNeedsLayout()`, `layoutIfNeeded()`, `setNeedsDisplay()` in this method
-   */
+  func initialize() {
+    // Override point
+    self.setNeedsUpdateConstraints()
+  }
+  
   func setupConstraints() {
     // Override here
+  }
+  
+  // MARK: - Private methods
+
+  private func setupConstraintsIfNeeded() {
+    guard !didSetupConstraints else { return }
+    setupConstraints()
+    didSetupConstraints = true
   }
 }
