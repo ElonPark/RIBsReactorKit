@@ -31,8 +31,8 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   let translator: UserModelTranslator
   
   let mutableUserModelsStream: MutableUserModelsStream
-  
-  // MARK: - Con(De)structor
+    
+  // MARK: - Initialization & Deinitialization
 
   init(
     repository: RandomUserRepository,

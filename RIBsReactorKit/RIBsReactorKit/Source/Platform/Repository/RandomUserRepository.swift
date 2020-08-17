@@ -23,8 +23,8 @@ final class RandomUserRepositoryImpl: RandomUserRepository {
   private(set) var info: Info?
   private(set) var userByUUID = [String: User]()
   private let service: Networking<RandomUserService>
-  
-  // MARK: - Con(De)structor
+    
+  // MARK: - Initialization & Deinitialization
 
   init(service: Networking<RandomUserService>) {
     self.service = service
