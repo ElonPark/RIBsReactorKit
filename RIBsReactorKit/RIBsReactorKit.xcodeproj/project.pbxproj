@@ -39,6 +39,7 @@
 		DB70253024A2644100866A81 /* PullToRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB70252F24A2644100866A81 /* PullToRefreshable.swift */; };
 		DB979C4E24D992D600E34DE6 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = DBC142132448B84500A9F3F6 /* Then */; };
 		DB979C5024D9A0A800E34DE6 /* SkeletonAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB979C4F24D9A0A800E34DE6 /* SkeletonAnimatable.swift */; };
+		DB9B4A6024EAE7A70033A5DE /* BaseCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B4A5F24EAE7A70033A5DE /* BaseCollectionReusableView.swift */; };
 		DB9B4A6224EAE9440033A5DE /* HasSetupConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B4A6124EAE9440033A5DE /* HasSetupConstraints.swift */; };
 		DB9B4A6424EAED1A0033A5DE /* BaseViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B4A6324EAED1A0033A5DE /* BaseViewable.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
@@ -160,6 +161,7 @@
 		DB63021D2461B85F00C47E09 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		DB70252F24A2644100866A81 /* PullToRefreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshable.swift; sourceTree = "<group>"; };
 		DB979C4F24D9A0A800E34DE6 /* SkeletonAnimatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonAnimatable.swift; sourceTree = "<group>"; };
+		DB9B4A5F24EAE7A70033A5DE /* BaseCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionReusableView.swift; sourceTree = "<group>"; };
 		DB9B4A6124EAE9440033A5DE /* HasSetupConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasSetupConstraints.swift; sourceTree = "<group>"; };
 		DB9B4A6324EAED1A0033A5DE /* BaseViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewable.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				DBC52DE82454560800BCFEBB /* BaseViewController.swift */,
 				DBC52DE92454560800BCFEBB /* BaseTableViewCell.swift */,
 				DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */,
+				DB9B4A5F24EAE7A70033A5DE /* BaseCollectionReusableView.swift */,
 			);
 			path = BaseComponents;
 			sourceTree = "<group>";
