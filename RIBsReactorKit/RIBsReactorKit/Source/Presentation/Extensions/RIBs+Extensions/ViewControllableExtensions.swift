@@ -11,33 +11,19 @@ import UIKit
 import RIBs
 
 extension ViewControllable {
+  private var navigationController: UIKit.UINavigationController? {
+    if uiviewController is UIKit.UINavigationController {
+      return uiviewController as? UIKit.UINavigationController
+    } else {
+      return uiviewController.navigationController
+    }
+  }
+  
   func push(viewController: ViewControllable, animated: Bool = true) {
-    uiviewController.navigationController?.pushViewController(
+    navigationController?.pushViewController(
       viewController.uiviewController,
       animated: animated
     )
-  }
-  
-  func pop(
-    to viewController: ViewControllable,
-    animated: Bool = true,
-    needToDismissPresentedViewController: Bool = true,
-    dismissAnimated: Bool = false
-  ) {
-    if needToDismissPresentedViewController,
-      let presentedViewController = viewController.uiviewController.presentedViewController {
-      presentedViewController.dismiss(animated: dismissAnimated) { [weak self] in
-        self?.uiviewController.navigationController?.popToViewController(
-          viewController.uiviewController,
-          animated: animated
-        )
-      }
-    } else {
-      uiviewController.navigationController?.popToViewController(
-        viewController.uiviewController,
-        animated: animated
-      )
-    }
   }
   
   func pop(
@@ -47,12 +33,54 @@ extension ViewControllable {
     dismissAnimated: Bool = false
   ) {
     guard !viewController.uiviewController.isMovingFromParent else { return }
-    pop(
-      to: self,
-      animated: animated,
+    if uiviewController is UIKit.UINavigationController {
+      pop(
+        viewController: viewController,
+        animated: animated,
+        needToDismissPresentedViewController: needToDismissPresentedViewController,
+        dismissAnimated: dismissAnimated
+      )
+    } else {
+      pop(
+        to: self,
+        animated: animated,
+        needToDismissPresentedViewController: needToDismissPresentedViewController,
+        dismissAnimated: dismissAnimated
+      )
+    }
+  }
+  
+  func pop(
+    to viewController: ViewControllable,
+    animated: Bool = true,
+    needToDismissPresentedViewController: Bool = true,
+    dismissAnimated: Bool = false
+  ) {
+    checkPresentedViewController(
+      of: viewController,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
       dismissAnimated: dismissAnimated
-    )
+    ) { [weak self] in
+      self?.navigationController?.popToViewController(
+        viewController.uiviewController,
+        animated: animated
+      )
+    }
+  }
+  
+  private func pop(
+    viewController: ViewControllable,
+    animated: Bool,
+    needToDismissPresentedViewController: Bool,
+    dismissAnimated: Bool
+  ) {
+    checkPresentedViewController(
+      of: viewController,
+      needToDismissPresentedViewController: needToDismissPresentedViewController,
+      dismissAnimated: dismissAnimated
+    ) {
+      viewController.uiviewController.navigationController?.popViewController(animated: animated)
+    }
   }
   
   func popToRootViewController(
@@ -60,39 +88,33 @@ extension ViewControllable {
     needToDismissPresentedViewController: Bool = true,
     dismissAnimated: Bool = false
   ) {
-    if needToDismissPresentedViewController,
-      let presentedViewController = uiviewController.presentedViewController {
-      presentedViewController.dismiss(animated: dismissAnimated) { [weak self] in
-        self?.uiviewController.navigationController?.popToRootViewController(animated: animated)
-      }
-    } else {
-      uiviewController.navigationController?.popToRootViewController(animated: animated)
+    checkPresentedViewController(
+      of: self,
+      needToDismissPresentedViewController: needToDismissPresentedViewController,
+      dismissAnimated: dismissAnimated
+    ) { [weak self] in
+      self?.navigationController?.popToRootViewController(animated: animated)
     }
   }
   
   func present(
     _ viewController: ViewControllable,
     animated: Bool = true,
-    completion: (() -> Void)? = nil
+    completion: (() -> Void)? = nil,
+    needToDismissPresentedViewController: Bool = true,
+    presentedViewControllerDismissAnimated: Bool = false
   ) {
-    uiviewController.present(
-      viewController.uiviewController,
-      animated: animated,
-      completion: completion
-    )
-  }
-  
-  func presentNavigationViewController(
-    root: ViewControllable,
-    animated: Bool = true,
-    completion: (() -> Void)? = nil
-  ) {
-    let navigationController = UINavigationController(rootViewController: root.uiviewController)
-    uiviewController.present(
-      navigationController,
-      animated: animated,
-      completion: completion
-    )
+    checkPresentedViewController(
+      of: self,
+      needToDismissPresentedViewController: needToDismissPresentedViewController,
+      dismissAnimated: presentedViewControllerDismissAnimated
+    ) { [weak self] in
+      self?.uiviewController.present(
+        viewController.uiviewController,
+        animated: animated,
+        completion: completion
+      )
+    }
   }
   
   func dismiss(
@@ -117,6 +139,20 @@ extension ViewControllable {
   ) {
     if let presentedViewController = uiviewController.presentedViewController {
       presentedViewController.dismiss(animated: animated, completion: completion)
+    } else {
+      completion?()
+    }
+  }
+  
+  private func checkPresentedViewController(
+    of viewController: ViewControllable,
+    needToDismissPresentedViewController: Bool,
+    dismissAnimated: Bool,
+    completion: (() -> Void)?
+  ) {
+    if needToDismissPresentedViewController,
+      let presentedViewController = viewController.uiviewController.presentedViewController {
+      presentedViewController.dismiss(animated: dismissAnimated, completion: completion)
     } else {
       completion?()
     }
