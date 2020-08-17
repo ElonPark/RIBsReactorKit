@@ -9,8 +9,12 @@
 import UIKit
 
 import RIBs
+import RxSwift
+import RxCocoa
 
-protocol RootPresentableListener: class {}
+protocol RootPresentableListener: class {
+  var viewDidAppear: PublishRelay<Void> { get }
+}
 
 final class RootViewController:
   BaseViewController,
@@ -27,16 +31,17 @@ final class RootViewController:
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
+    bindViewDidAppear()
   }
-  
-  // MARK: - RootViewControllable
-  
-  func present(viewController: ViewControllable, animated: Bool) {
-    present(viewController.uiviewController, animated: animated)
-  }
-  
-  func dismiss(viewController: ViewControllable, animated: Bool) {
-    guard presentedViewController === viewController.uiviewController else { return }
-    dismiss(animated: true, completion: nil)
+    
+  // MARK: - Private methods
+
+  private func bindViewDidAppear() {
+    guard let listener = listener else { return }
+    self.rx.viewDidAppear
+      .take(1)
+      .mapTo(Void())
+      .bind(to: listener.viewDidAppear)
+      .disposed(by: disposeBag)
   }
 }

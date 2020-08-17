@@ -7,6 +7,8 @@
 //
 
 import RIBs
+import RxSwift
+import RxCocoa
 
 protocol RootRouting: ViewableRouting {
   func attachMainTapBarRIB()
@@ -29,6 +31,8 @@ final class RootInteractor:
   weak var router: RootRouting?
   weak var listener: RootListener?
 
+  let viewDidAppear: PublishRelay<Void>  = .init()
+  
   // MARK: - Initialization & Deinitialization
 
   // in constructor.
@@ -36,16 +40,27 @@ final class RootInteractor:
     super.init(presenter: presenter)
     presenter.listener = self
   }
-  
+    
   // MARK: - Inheritance
-  
+
   override func didBecomeActive() {
     super.didBecomeActive()
-    
+    bindViewDidAppear()
   }
   
-  override func willResignActive() {
-    super.willResignActive()
-    
+  // MARK: - Private methods
+  
+  private func bindViewDidAppear() {
+    viewDidAppear.bind {
+      self.router?.attachMainTapBarRIB()
+    }
+    .disposeOnDeactivate(interactor: self)
+  }
+}
+
+// MARK: - RootPresentableListener
+extension RootInteractor {
+  func viewWillAppear() {
+    router?.attachMainTapBarRIB()
   }
 }

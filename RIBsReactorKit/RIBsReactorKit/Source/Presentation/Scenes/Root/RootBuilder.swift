@@ -52,6 +52,7 @@ final class RootBuilder:
     let interactor = RootInteractor(presenter: viewController)
     
     let mainTabBarBuilder = MainTabBarBuilder(dependency: rootComponent)
+    
     return RootRouter(
       mainTabBarBuilder: mainTabBarBuilder,
       interactor: interactor,

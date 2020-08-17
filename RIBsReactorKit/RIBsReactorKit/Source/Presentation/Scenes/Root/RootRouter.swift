@@ -16,10 +16,7 @@ protocol RootInteractable:
   var listener: RootListener? { get set }
 }
 
-protocol RootViewControllable: ViewControllable {
-  func present(viewController: ViewControllable, animated: Bool)
-  func dismiss(viewController: ViewControllable, animated: Bool)
-}
+protocol RootViewControllable: ViewControllable {}
 
 final class RootRouter:
   LaunchRouter<RootInteractable, RootViewControllable>,
@@ -43,13 +40,6 @@ final class RootRouter:
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
-  
-  // MARK: - Inheritance
-  
-  override func didLoad() {
-    super.didLoad()
-    attachMainTapBarRIB()
-  }
 }
 
 // MARK: - RootRouting
@@ -58,6 +48,6 @@ extension RootRouter {
     let router = mainTabBarBuilder.build(withListener: interactor)
     currentChild = router
     attachChild(router)
-    viewController.present(viewController: router.viewControllable, animated: false)
+    viewController.present(router.viewControllable, animated: false)
   }
 }
