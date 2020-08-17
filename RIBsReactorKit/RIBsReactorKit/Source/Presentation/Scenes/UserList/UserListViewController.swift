@@ -82,6 +82,29 @@ final class UserListViewController:
 
   private func bindView() {
     bindRefreshControlEvent()
+    bindDisplayDummyCellAnimation()
+  }
+  
+  private func bindDisplayDummyCellAnimation() {
+    tableView.rx.willDisplayCell
+      .asDriver()
+      .drive(onNext: { cell, indexPath in
+        guard let userListCell = cell as? UserListCell,
+          userListCell.isSkeletonActive,
+          userListCell.viewModel == nil
+          else {
+            return
+        }
+        
+        userListCell.alpha = 0
+        UIView.animate(
+          withDuration: 0.5,
+          delay: 0.06 * Double(indexPath.row),
+          animations: {
+            userListCell.alpha = 1
+        })
+      })
+      .disposed(by: disposeBag)
   }
   
   private func bind(listener: UserListPresentableListener?) {
