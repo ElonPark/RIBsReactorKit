@@ -29,6 +29,8 @@
 		DB35E29B244721E000B26BD3 /* RIBsReactorKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E29A244721E000B26BD3 /* RIBsReactorKitTests.swift */; };
 		DB35E2A6244721E000B26BD3 /* RIBsReactorKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */; };
 		DB35FABA248D4D8700416963 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */; };
+		DB3E91D224EA97C200C8DEAA /* UserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E91D124EA97C200C8DEAA /* UserListViewModel.swift */; };
+		DB3E91D424EAA2FE00C8DEAA /* HasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E91D324EAA2FE00C8DEAA /* HasViewModel.swift */; };
 		DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */; };
 		DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AC52454783200DBF510 /* Networking.swift */; };
 		DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB630218246071CD00C47E09 /* UserListPresentableState.swift */; };
@@ -74,6 +76,8 @@
 		DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */; };
 		DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DEB2454560800BCFEBB /* BaseView.swift */; };
 		DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DFC2454563200BCFEBB /* AppComponent.swift */; };
+		DBC7359424EAB9BA009C87C7 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7359324EAB9BA009C87C7 /* UserProfileViewModel.swift */; };
+		DBC7359624EABDF7009C87C7 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC7359524EABDF7009C87C7 /* Dummy.swift */; };
 		DBCD8AEF2483C09400A34108 /* HasCompositeDisposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AEE2483C09400A34108 /* HasCompositeDisposable.swift */; };
 		DBCD8AF12483C11800A34108 /* HasDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF02483C11800A34108 /* HasDisposeBag.swift */; };
 		DBCD8AF62483C84500A34108 /* DisposableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */; };
@@ -140,6 +144,8 @@
 		DB35E2A5244721E000B26BD3 /* RIBsReactorKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RIBsReactorKitUITests.swift; sourceTree = "<group>"; };
 		DB35E2A7244721E000B26BD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		DB3E91D124EA97C200C8DEAA /* UserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModel.swift; sourceTree = "<group>"; };
+		DB3E91D324EAA2FE00C8DEAA /* HasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasViewModel.swift; sourceTree = "<group>"; };
 		DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTranslator.swift; sourceTree = "<group>"; };
 		DB61D34F24C9A5E7004652F1 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
 		DB61D35024C9A5E7004652F1 /* WeakMapTable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeakMapTable.framework; path = Carthage/Build/iOS/WeakMapTable.framework; sourceTree = "<group>"; };
@@ -203,6 +209,8 @@
 		DBC52DEA2454560800BCFEBB /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DBC52DEB2454560800BCFEBB /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		DBC52DFC2454563200BCFEBB /* AppComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppComponent.swift; sourceTree = "<group>"; };
+		DBC7359324EAB9BA009C87C7 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		DBC7359524EABDF7009C87C7 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		DBCD8AEE2483C09400A34108 /* HasCompositeDisposable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasCompositeDisposable.swift; sourceTree = "<group>"; };
 		DBCD8AF02483C11800A34108 /* HasDisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasDisposeBag.swift; sourceTree = "<group>"; };
 		DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisposableExtensions.swift; sourceTree = "<group>"; };
@@ -340,6 +348,16 @@
 				DB35E2A7244721E000B26BD3 /* Info.plist */,
 			);
 			path = RIBsReactorKitUITests;
+			sourceTree = "<group>";
+		};
+		DB3E91D524EAA3FE00C8DEAA /* UserList */ = {
+			isa = PBXGroup;
+			children = (
+				DB630218246071CD00C47E09 /* UserListPresentableState.swift */,
+				DBF7909424854C1D007F6F3B /* UserListSectionModel.swift */,
+				DB3E91D124EA97C200C8DEAA /* UserListViewModel.swift */,
+			);
+			path = UserList;
 			sourceTree = "<group>";
 		};
 		DB4242DA245C82280068C6BF /* Recovered References */ = {
@@ -502,8 +520,8 @@
 			isa = PBXGroup;
 			children = (
 				DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */,
-				DB630218246071CD00C47E09 /* UserListPresentableState.swift */,
-				DBF7909424854C1D007F6F3B /* UserListSectionModel.swift */,
+				DB3E91D524EAA3FE00C8DEAA /* UserList */,
+				DBC7359324EAB9BA009C87C7 /* UserProfileViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -557,6 +575,7 @@
 				2F8CC635BBE9F813D0D549F3 /* Login.swift */,
 				2F8CC8BFC57F4D47EBF0BFFC /* Name.swift */,
 				2F8CC2131D7BE492B33D499D /* Picture.swift */,
+				DBC7359524EABDF7009C87C7 /* Dummy.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -615,6 +634,7 @@
 				DBCD8AFB2483EED800A34108 /* HasTableView.swift */,
 				DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */,
 				DBC52DE52454560800BCFEBB /* HasElementKind.swift */,
+				DB3E91D324EAA2FE00C8DEAA /* HasViewModel.swift */,
 				DBCD8AF02483C11800A34108 /* HasDisposeBag.swift */,
 				DBCD8AEE2483C09400A34108 /* HasCompositeDisposable.swift */,
 				DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */,
@@ -945,11 +965,14 @@
 				DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */,
 				DBA43B9E245C9C2100C82D7E /* UserListBuilder.swift in Sources */,
 				DBDD9AD02454D6A300DBF510 /* User.swift in Sources */,
+				DB3E91D224EA97C200C8DEAA /* UserListViewModel.swift in Sources */,
 				DBC52DED2454560800BCFEBB /* RootInteractor.swift in Sources */,
+				DBC7359424EAB9BA009C87C7 /* UserProfileViewModel.swift in Sources */,
 				DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */,
 				DBCD8AF62483C84500A34108 /* DisposableExtensions.swift in Sources */,
 				DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */,
 				DBA43B9C245C9C2100C82D7E /* UserListRouter.swift in Sources */,
+				DB3E91D424EAA2FE00C8DEAA /* HasViewModel.swift in Sources */,
 				DBC52DEF2454560800BCFEBB /* RootRouter.swift in Sources */,
 				DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */,
 				DB177CBF24A23D7C0050C343 /* UserInfomationRouter.swift in Sources */,
@@ -988,6 +1011,7 @@
 				DBEB56502455AB4E0054D41E /* RandomUserService.swift in Sources */,
 				DBEB56532455B15F0054D41E /* RandomUserFixture.swift in Sources */,
 				DB63021E2461B85F00C47E09 /* UserListCell.swift in Sources */,
+				DBC7359624EABDF7009C87C7 /* Dummy.swift in Sources */,
 				DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */,
 				DBEF8B36245F055700A37587 /* MainTabBarComponent+UserCollection.swift in Sources */,
 				DBA43B9F245C9C2100C82D7E /* UserListInteractor.swift in Sources */,

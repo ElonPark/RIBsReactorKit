@@ -133,9 +133,11 @@ extension UserListInteractor {
     guard let item = section?.items[safe: indexPath.row] else { return .empty() }
     
     switch item {
-    case .user(let userModel):
-      guard let userModel = userModel else { return .empty() }
-      return .just(.selectedUser(userModel))
+    case .user(let viewModel):
+      return .just(.selectedUser(viewModel.userModel))
+      
+    case .dummy:
+      return .empty()
     }
   }
   
@@ -164,6 +166,7 @@ extension UserListInteractor {
     return randomUserUseCase
       .mutableUserModelsStream
       .userModels
+      .map { $0.map { UserListViewModel(userModel: $0) } }
       .map { $0.map(UserListSectionItem.user) }
       .map { [UserListSectionModel.randomUser($0)] }
       .map(Mutation.userListSections)

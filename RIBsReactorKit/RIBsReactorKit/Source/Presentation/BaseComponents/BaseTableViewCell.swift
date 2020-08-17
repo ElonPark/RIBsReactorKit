@@ -23,7 +23,7 @@ class BaseTableViewCell:
   var disposeBag: DisposeBag = DisposeBag()
   
   var disposables: CompositeDisposable = CompositeDisposable()
-
+  
   private(set) var didSetupConstraints: Bool = false
   
   // MARK: - Initialization & Deinitialization

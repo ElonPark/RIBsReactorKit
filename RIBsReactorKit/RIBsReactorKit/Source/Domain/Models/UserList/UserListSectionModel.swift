@@ -30,5 +30,6 @@ extension UserListSectionModel: SectionModelType {
 }
 
 enum UserListSectionItem: Equatable {
-  case user(UserModel?)
+  case user(UserListViewModel)
+  case dummy
 }

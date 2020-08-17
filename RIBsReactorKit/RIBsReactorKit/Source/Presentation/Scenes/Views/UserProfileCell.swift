@@ -10,6 +10,7 @@ import UIKit
 
 final class UserProfileCell:
   BaseCollectionViewCell,
+  HasViewModel,
   SkeletonAnimatable
 {
 
@@ -35,6 +36,17 @@ final class UserProfileCell:
 
   // MARK: - Properties
 
+  var viewModel: UserProfileViewModel? {
+    didSet {
+      guard let viewModel = viewModel else { return }
+      hideSkeleton()
+      profileBackgroundImageView.kf.setImage(with: viewModel.profileBackgroundImageURL)
+      profileImageView.kf.setImage(with: viewModel.profileImageURL)
+      titleWithLastNameLabel.text = viewModel.titleWithLastName
+      firstNameLabel.text = viewModel.firstName
+    }
+  }
+  
   // for skeleton view animation
   private let dummyTitleWithLastNameString = String(repeating: " ", count: 60)
   private let dummyFirstNameString = String(repeating: " ", count: 40)
@@ -95,18 +107,7 @@ final class UserProfileCell:
     super.prepareForReuse()
     initUI()
   }
-
-  // MARK: - Internal methods
-
-  func configuration(by userModel: UserModel?) {
-    guard let userModel = userModel else { return }
-    hideSkeleton()
-    setProfileBackgroundImageBlurView(by: userModel)
-    setProfileImageView(by: userModel)
-    setTitleWithLastNameLabel(by: userModel)
-    setFirstNameLabel(by: userModel)
-  }
-
+  
   // MARK: - Private methods
 
   private func initUI() {
@@ -114,23 +115,6 @@ final class UserProfileCell:
     profileImageView.image = nil
     titleWithLastNameLabel.text = dummyTitleWithLastNameString
     firstNameLabel.text = dummyFirstNameString
-  }
-  
-  private func setProfileBackgroundImageBlurView(by userModel: UserModel) {
-    profileBackgroundImageView.kf.setImage(with: userModel.largeImageURL)
-  }
-  
-  private func setProfileImageView(by userModel: UserModel) {
-    profileImageView.kf.setImage(with: userModel.mediumImageURL)
-  }
-  
-  private func setTitleWithLastNameLabel(by userModel: UserModel) {
-    let name = "\(userModel.name.title). \(userModel.name.last)"
-    titleWithLastNameLabel.text = name
-  }
-  
-  private func setFirstNameLabel(by userModel: UserModel) {
-    firstNameLabel.text = userModel.name.first
   }
 }
 

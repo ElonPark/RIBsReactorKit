@@ -9,7 +9,10 @@
 import Foundation
 
 // MARK: - Dob
-struct Dob: Codable {
+struct Dob:
+  Codable,
+  Equatable
+{
   let date: String
   let age: Int
 }

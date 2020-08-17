@@ -183,9 +183,13 @@ final class UserListViewController:
     return UserListDataSource(
       configureCell: { _, tableView, indexPath, sectionItem in
         switch sectionItem {
-        case .user(let userModel):
+        case .user(let viewModel):
           let cell = tableView.dequeue(UserListCell.self, indexPath: indexPath)
-          cell.configuration(by: userModel)
+          cell.viewModel = viewModel
+          return cell
+          
+        case .dummy:
+          let cell = tableView.dequeue(UserListCell.self, indexPath: indexPath)
           return cell
         }
     })
@@ -225,7 +229,8 @@ extension UserListViewController {
     let userModelTranslator = UserModelTranslatorImpl()
     
     let dummySectionItems = userModelTranslator.translateToUserModel(by: randomUser.results)
-      .map { UserListSectionItem.user($0) }
+      .map { UserListViewModel(userModel: $0) }
+      .map(UserListSectionItem.user)
     
     Observable.just([.randomUser(dummySectionItems)])
       .distinctUntilChanged()

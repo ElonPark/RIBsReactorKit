@@ -9,7 +9,10 @@
 import Foundation
 
 // MARK: - ID
-struct ID: Codable {
+struct ID:
+  Codable,
+  Equatable
+{
   let name: String
   let value: String?
 }

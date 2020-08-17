@@ -6,7 +6,10 @@
 import Foundation
 
 // MARK: - Timezone
-struct Timezone: Codable {
+struct Timezone:
+  Codable,
+  Equatable
+{
   let offset: String
   let description: String
 }

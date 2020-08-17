@@ -6,7 +6,10 @@
 import Foundation
 
 // MARK: - Login
-struct Login: Codable {
+struct Login:
+  Codable,
+  Equatable
+{
   let uuid: String
   let username: String
   let password: String

@@ -15,6 +15,7 @@ import SkeletonView
 
 class UserListCell:
   BaseTableViewCell,
+  HasViewModel,
   SkeletonAnimatable
 {
   
@@ -39,6 +40,16 @@ class UserListCell:
   }
   
   // MARK: - Properties
+  
+  var viewModel: UserListViewModel? {
+    didSet {
+      guard let viewModel = viewModel else { return }
+      hideSkeleton()
+      profileImageView.kf.setImage(with: viewModel.profileImageURL)
+      nameLabel.text = viewModel.titleWithFullName
+      locationLabel.text = viewModel.location
+    }
+  }
   
   // for skeleton view animation
   private let dummyNameString = String(repeating: " ", count: 60)
@@ -88,36 +99,12 @@ class UserListCell:
     initUI()
   }
   
-  // MARK: - Internal methods
-  
-  func configuration(by userModel: UserModel?) {
-    guard let userModel = userModel else { return }
-    hideSkeleton()
-    setProfileImageView(by: userModel)
-    setUserNameLabel(by: userModel)
-    setLocationLabel(by: userModel)
-  }
-  
   // MARK: - Private methods
   
   private func initUI() {
     profileImageView.image = nil
     nameLabel.text = dummyNameString
     locationLabel.text = dummylocationString
-  }
-  
-  private func setProfileImageView(by userModel: UserModel) {
-    profileImageView.kf.setImage(with: userModel.thumbnailImageURL)
-  }
-  
-  private func setUserNameLabel(by userModel: UserModel) {
-    let name = "\(userModel.name.title). \(userModel.name.first) \(userModel.name.last)"
-    nameLabel.text = name
-  }
-  
-  private func setLocationLabel(by userModel: UserModel) {
-    let location = "\(userModel.location.city) \(userModel.location.state) \(userModel.location.country)"
-    locationLabel.text = location
   }
 }
 
@@ -135,8 +122,7 @@ extension UserListCell {
   
   private func layout() {
     profileImageView.snp.makeConstraints {
-      $0.width.equalTo(UI.profileImageViewSize.width)
-      $0.height.equalTo(UI.profileImageViewSize.height)
+      $0.size.equalTo(UI.profileImageViewSize)
       $0.top.greaterThanOrEqualToSuperview().offset(UI.profileImageViewTopMargin)
       $0.bottom.lessThanOrEqualToSuperview().offset(-UI.profileImageViewBottomMargin)
       $0.leading.equalToSuperview().offset(UI.profileImageViewLeadingMargin)

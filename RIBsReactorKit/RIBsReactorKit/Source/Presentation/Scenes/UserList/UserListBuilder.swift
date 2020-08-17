@@ -17,7 +17,7 @@ final class UserListComponent: Component<UserListDependency> {
   
   fileprivate var initialState: UserListPresentableState {
     // for skeleton view animation
-    let dummySectionItems: [UserListSectionItem] = (1...20).map { _ in .user(nil) }
+    let dummySectionItems: [UserListSectionItem] = (1...20).map { _ in .dummy(Dummy()) }
     return UserListPresentableState(
       isLoading: true,
       userListSections: [.randomUser(dummySectionItems)]
