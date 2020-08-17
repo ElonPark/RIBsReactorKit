@@ -55,6 +55,7 @@ final class UserProfileCell:
 
   private let profileBackgroundImageView = BlurEffectImageView().then {
     $0.blurStyle = .light
+    $0.backgroundColor = .skeletonDefault
     $0.contentMode = .scaleAspectFill
     $0.layer.masksToBounds = true
     $0.layer.cornerRadius = UI.profileBackgroundImageViewCornerRadius
@@ -63,7 +64,7 @@ final class UserProfileCell:
   }
 
   private let profileImageView = UIImageView().then {
-    $0.backgroundColor = .white
+    $0.backgroundColor = .skeletonDefault
     $0.contentMode = .scaleAspectFill
     $0.layer.borderWidth = UI.profileImageViewBorderWidth
     $0.layer.borderColor = UIColor.white.cgColor

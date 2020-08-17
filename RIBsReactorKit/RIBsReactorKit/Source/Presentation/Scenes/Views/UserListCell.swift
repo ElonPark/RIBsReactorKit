@@ -59,6 +59,7 @@ class UserListCell:
   
   private let profileImageView = UIImageView().then {
     $0.contentMode = .scaleAspectFit
+    $0.backgroundColor = .skeletonDefault
     $0.layer.masksToBounds = true
     $0.layer.cornerRadius = UI.profileImageViewSize.height / 2
     $0.isSkeletonable = true
