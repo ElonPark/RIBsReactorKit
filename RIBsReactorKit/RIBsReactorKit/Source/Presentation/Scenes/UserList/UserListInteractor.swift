@@ -114,6 +114,7 @@ extension UserListInteractor {
     
     let loadData = randomUserUseCase.loadData(isRefresh: true)
       .map { Mutation.loadData }
+      .catchErrorJustReturn(.setRefresh(false))
     
     return .concat([startRefresh, loadData, stopRefresh])
   }
