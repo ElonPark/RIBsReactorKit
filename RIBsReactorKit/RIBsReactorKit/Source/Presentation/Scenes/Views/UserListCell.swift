@@ -37,6 +37,8 @@ class UserListCell:
     static let locationLabelTopMargin: CGFloat = 5
     static let locationLabelBottomMargin: CGFloat = 8
     static let locationLabelTrailingMargin: CGFloat = 8
+    
+    static let linesCornerRadius: Int = 10
   }
   
   // MARK: - Properties
@@ -68,12 +70,14 @@ class UserListCell:
   private let nameLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 17, weight: .medium)
     $0.isSkeletonable = true
+    $0.linesCornerRadius = UI.linesCornerRadius
   }
   
   private let locationLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 15, weight: .regular)
     $0.textColor = .darkText
     $0.isSkeletonable = true
+    $0.linesCornerRadius = UI.linesCornerRadius
   }
   
   private(set) lazy var views: [UIView] = [
