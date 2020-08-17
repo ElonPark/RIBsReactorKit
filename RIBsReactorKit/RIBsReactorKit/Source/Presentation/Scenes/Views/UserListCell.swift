@@ -114,7 +114,6 @@ extension UserListCell {
   private func setUpUI() {
     self.selectionStyle = .none
     self.isSkeletonable = true
-    
     views.forEach { self.contentView.addSubview($0) }
     
     initUI()

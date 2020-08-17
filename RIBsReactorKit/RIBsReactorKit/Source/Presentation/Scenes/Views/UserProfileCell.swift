@@ -123,7 +123,6 @@ final class UserProfileCell:
 extension UserProfileCell {
   private func setupUI() {
     self.isSkeletonable = true
-    
     views.forEach { self.contentView.addSubview($0) }
     
     initUI()
