@@ -27,32 +27,16 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
         let message = "SUCCESS: \(requestString) (\(response.description))"
         Log.debug(fileName: file, line: line, funcName: function, message)
       }, onError: { [weak self] error in
-        var message = "FAILURE: \(requestString)"
-        guard let this = self else {
-          Log.warning(
-            fileName: file,
+        let message = "FAILURE: \(requestString)"
+        if let this = self {
+          this.loggingError(
+            file: file,
             line: line,
-            funcName: function,
-            message,
-            error.localizedDescription,
-            error
+            function: function,
+            message: message,
+            error: error
           )
-          return
-        }
-        
-        let afError = this.loggingAFError(message: message, error: error)
-        message = afError.message
-        
-        let isLoggingMoyaError = this.isLoggingMoyaError(
-          file: file,
-          function: function,
-          line: line,
-          hasStatusCode: afError.hasStatusCode,
-          message: message,
-          error: error
-        )
-        
-        if !isLoggingMoyaError {
+        } else {
           Log.warning(
             fileName: file,
             line: line,
@@ -66,6 +50,39 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
           let message = "REQUEST: \(requestString)"
           Log.debug(fileName: file, line: line, funcName: function, message)
       })
+  }
+  
+  private func loggingError(
+    file: String,
+    line: UInt,
+    function: String,
+    message: String,
+    error: Error
+  ) {
+    var message = message
+    
+    let afError = loggingAFError(message: message, error: error)
+    message = afError.message
+    
+    let isLoggingMoyaError = self.isLoggingMoyaError(
+      file: file,
+      line: line,
+      function: function,
+      hasStatusCode: afError.hasStatusCode,
+      message: message,
+      error: error
+    )
+    
+    if !isLoggingMoyaError {
+      Log.warning(
+        fileName: file,
+        line: line,
+        funcName: function,
+        message,
+        error.localizedDescription,
+        error
+      )
+    }
   }
   
   private func loggingAFError(
@@ -100,8 +117,8 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
   
   private func isLoggingMoyaError(
     file: String,
-    function: String,
     line: UInt,
+    function: String,
     hasStatusCode: Bool,
     message: String,
     error: Error
@@ -114,14 +131,28 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
     var message = message
     
     if !hasStatusCode {
-      message += " \(response.description)"
+      message += "\nResponse Description: \(response.debugDescription)"
     }
     
     if let jsonObject = try? response.mapJSON(failsOnEmptyData: false) {
-      Log.warning(fileName: file, line: line, funcName: function, message, jsonObject)
+      Log.warning(
+        fileName: file,
+        line: line,
+        funcName: function,
+        message,
+        "RESPONSE DATA: \(jsonObject)",
+        error
+      )
     } else {
-      let rawString = String(data: response.data, encoding: .utf8) ?? ""
-      Log.warning(fileName: file, line: line, funcName: function, message, rawString)
+      let rawString = String(data: response.data, encoding: .utf8) ?? "nil"
+      Log.warning(
+        fileName: file,
+        line: line,
+        funcName: function,
+        message,
+        "Raw String: \(rawString)",
+        error
+      )
     }
     
     return true
