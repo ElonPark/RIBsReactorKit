@@ -19,10 +19,14 @@ protocol UserInfomationPresentable: Presentable {
 }
 
 protocol UserInfomationListener: class {
-  func dettachUserInfomationRIB()
+  func detachUserInfomationRIB()
 }
 
-final class UserInfomationInteractor: PresentableInteractor<UserInfomationPresentable>, UserInfomationInteractable, UserInfomationPresentableListener {
+final class UserInfomationInteractor:
+  PresentableInteractor<UserInfomationPresentable>,
+  UserInfomationInteractable,
+  UserInfomationPresentableListener
+{
   
   weak var router: UserInfomationRouting?
   weak var listener: UserInfomationListener?
@@ -48,9 +52,5 @@ final class UserInfomationInteractor: PresentableInteractor<UserInfomationPresen
   override func willResignActive() {
     super.willResignActive()
     // TODO: Pause any business logic.
-  }
-  
-  func dettach() {
-    listener?.dettachUserInfomationRIB()
   }
 }

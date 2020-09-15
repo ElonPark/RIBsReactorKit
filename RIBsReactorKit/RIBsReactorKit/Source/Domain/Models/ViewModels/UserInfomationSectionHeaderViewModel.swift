@@ -9,5 +9,5 @@
 import Foundation
 
 struct UserInfomationSectionHeaderViewModel {
-  let title: String
+  var title: String
 }

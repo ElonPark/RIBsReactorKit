@@ -13,7 +13,7 @@ import RxSwiftExt
 
 protocol UserListRouting: ViewableRouting {
   func attachUserInfomationRIB(with userModel: UserModel)
-  func dettachUserInfomationRIB()
+  func detachUserInfomationRIB()
 }
 
 protocol UserListPresentable: Presentable {
@@ -47,7 +47,7 @@ final class UserListInteractor:
   weak var router: UserListRouting?
   weak var listener: UserListListener?
   
-  var initialState: UserListPresentableState
+  let initialState: UserListPresentableState
   
   private let randomUserUseCase: RandomUserUseCase
   
@@ -69,6 +69,7 @@ final class UserListInteractor:
 
   override func didBecomeActive() {
     super.didBecomeActive()
+
   }
   
   override func willResignActive() {
@@ -209,7 +210,7 @@ extension UserListInteractor {
 
 // MARK: - UserInfomationAdapterListener
 extension UserListInteractor {
-  func dettachUserInfomationRIB() {
-    router?.dettachUserInfomationRIB()
+  func detachUserInfomationRIB() {
+    router?.detachUserInfomationRIB()
   }
 }

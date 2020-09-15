@@ -9,7 +9,7 @@
 import RIBs
 
 protocol UserInfomationAdapterListener: class {
-  func dettachUserInfomationRIB()
+  func detachUserInfomationRIB()
 }
 
 final class UserInfomationAdapterComponent: UserInfomationDependency {
@@ -56,7 +56,7 @@ final class UserInfomationAdapter:
 
 // MARK: - UserInfomationListener
 extension UserInfomationAdapter {
-  func dettachUserInfomationRIB() {
-    listener?.dettachUserInfomationRIB()
+  func detachUserInfomationRIB() {
+    listener?.detachUserInfomationRIB()
   }
 }

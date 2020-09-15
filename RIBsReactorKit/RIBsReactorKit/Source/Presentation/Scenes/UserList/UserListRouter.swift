@@ -51,7 +51,7 @@ final class UserListRouter:
   }
   
   //// FIXME: - fix after implementation UserInfomationRIB  2020-06-23 23:57:29
-  func dettachUserInfomationRIB() {
+  func detachUserInfomationRIB() {
     guard let router = userInfomationRouter else { return }
     detachChild(router)
     viewController.dismiss(router.viewControllable)

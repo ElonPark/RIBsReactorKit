@@ -11,7 +11,6 @@ import RxSwift
 import UIKit
 
 protocol UserInfomationPresentableListener: class {
-  func dettach()
 }
 
 final class UserInfomationViewController:
@@ -45,7 +44,7 @@ final class UserInfomationViewController:
     
     guard isMovingFromParent || isBeingDismissed else { return }
     // FIXME: - fix after implementation UserInfomationRIB 2020-06-28 03:10:51
-    listener?.dettach()
+    
   }
   
    // MARK: - Binding

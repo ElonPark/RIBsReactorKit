@@ -38,6 +38,7 @@ class UserListCell:
     static let locationLabelBottomMargin: CGFloat = 8
     static let locationLabelTrailingMargin: CGFloat = 8
     
+    // - skeleton
     static let linesCornerRadius: Int = 10
   }
   
@@ -46,7 +47,7 @@ class UserListCell:
   var viewModel: UserListViewModel? {
     didSet {
       guard let viewModel = viewModel else { return }
-      hideSkeleton()
+      hideSkeletonAnimation()
       profileImageView.kf.setImage(with: viewModel.profileImageURL)
       nameLabel.text = viewModel.titleWithFullName
       locationLabel.text = viewModel.location

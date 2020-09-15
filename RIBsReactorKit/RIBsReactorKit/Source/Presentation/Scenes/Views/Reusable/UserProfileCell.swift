@@ -17,14 +17,21 @@ final class UserProfileCell:
   // MARK: - Constants
 
   private enum UI {
+    // - profileBackgroundImageView
     static let profileBackgroundImageViewCornerRadius: CGFloat = 18
     static let profileBackgroundImageViewHeight: CGFloat = 120
     
+    // - profileImageView
     static let profileImageViewSize: CGSize = .init(width: 120, height: 120)
     static let profileImageViewBorderWidth: CGFloat = 5
     
+    // - label
     static let labelMinimumSideMargin: CGFloat = 16
+    
+    // - titleWithLastNameLabel
     static let titleWithLastNameLabelTopMargin: CGFloat = 8
+    
+    // - firstNameLabel
     static let firstNameLabelTopMargin: CGFloat = 3
     static let firstNameLabelBottomMargin: CGFloat = 8
     
@@ -39,7 +46,7 @@ final class UserProfileCell:
   var viewModel: UserProfileViewModel? {
     didSet {
       guard let viewModel = viewModel else { return }
-      hideSkeleton()
+      hideSkeletonAnimation()
       profileBackgroundImageView.kf.setImage(with: viewModel.profileBackgroundImageURL)
       profileImageView.kf.setImage(with: viewModel.profileImageURL)
       titleWithLastNameLabel.text = viewModel.titleWithLastName

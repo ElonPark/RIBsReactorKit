@@ -17,9 +17,17 @@ class UserInfomationSectionHeaderView:
   // MARK: - Constants
   
   private enum UI {
+    // - titleLabel
+    static let titleLabelTopMargin: CGFloat = 0
+    static let titleLabelBottomMargin: CGFloat = 0
+    static let titleLabelLeadingMargin: CGFloat = 8
+    static let titleLabelTrailingMargin: CGFloat = 8
+    
+    // - skeleton
+    static let linesCornerRadius: Int = 10
     
     enum Font {
-      
+      static let titleLabel: UIFont = .systemFont(ofSize: 24, weight: .bold)
     }
   }
   
@@ -28,17 +36,21 @@ class UserInfomationSectionHeaderView:
   var viewModel: UserInfomationSectionHeaderViewModel? {
     didSet {
       guard let viewModel = viewModel else { return }
+      hideSkeletonAnimation()
       titleLabel.text = viewModel.title
     }
   }
   
   // for skeleton view animation
-  private let dummyTitleString = String(repeating: " ", count: 60)
+  private let dummyTitleString = String(repeating: " ", count: 30)
   
   // MARK: - UI Components
   
   private let titleLabel = UILabel().then {
+    $0.font = UI.Font.titleLabel
+    $0.textColor = .black
     $0.isSkeletonable = true
+    $0.linesCornerRadius = UI.linesCornerRadius
   }
   
   private(set) lazy var views: [UIView] = [
@@ -80,7 +92,12 @@ extension UserInfomationSectionHeaderView {
   }
   
   private func layout() {
-
+    titleLabel.snp.makeConstraints {
+      $0.top.greaterThanOrEqualToSuperview().offset(UI.titleLabelTopMargin)
+      $0.bottom.equalToSuperview().offset(-UI.titleLabelBottomMargin)
+      $0.leading.equalToSuperview().offset(UI.titleLabelLeadingMargin)
+      $0.trailing.lessThanOrEqualToSuperview().offset(-UI.titleLabelTrailingMargin)
+    }
   }
 }
 
@@ -91,9 +108,11 @@ import SwiftUI
 struct UserInfomationSectionHeaderViewPreview: PreviewProvider {
   static var previews: some SwiftUI.View {
     UIViewPreview {
-      UserInfomationSectionHeaderView()
+      UserInfomationSectionHeaderView().then {
+        $0.viewModel = UserInfomationSectionHeaderViewModel(title: "test")
+      }
     }
-    .previewLayout(.fixed(width: 250, height: 320))
+    .previewLayout(.fixed(width: 320, height: 50))
     .padding(10)
   }
 }
