@@ -22,7 +22,7 @@ extension UICollectionView {
       withReuseIdentifier: View.identifier
     )
   }
-    
+  
   // swiftlint:disable force_cast
   func dequeue<Cell: UICollectionViewCell>(
     _: Cell.Type,

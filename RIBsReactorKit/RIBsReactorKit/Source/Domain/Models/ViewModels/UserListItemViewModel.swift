@@ -1,5 +1,5 @@
 //
-//  UserListItemViewModel.swift
+//  UserListViewModel.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/08/17.
@@ -7,10 +7,6 @@
 //
 
 import Foundation
-
-protocol UserListViewable {
-  
-}
 
 struct UserListItemViewModel: Equatable {
   

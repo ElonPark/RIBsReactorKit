@@ -10,12 +10,13 @@ import UIKit
 
 struct UserDetailInfomationItemViewModel: Equatable {
   
-  let icon: UIImage
+  let icon: UIImage?
   let title: String
-  let subtitle: String
+  let subtitle: String?
   let showSeparatorLine: Bool
   
   var hasSubtitle: Bool {
-    !subtitle.isEmpty
+    guard let subtitle = subtitle else { return false }
+    return !subtitle.isEmpty
   }
 }

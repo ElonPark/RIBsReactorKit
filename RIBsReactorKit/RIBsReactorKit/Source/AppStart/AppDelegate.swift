@@ -15,7 +15,7 @@ import RIBs
 public typealias Log = EPLogger.Log
 
 @UIApplicationMain
-class AppDelegate:
+final class AppDelegate:
   UIResponder,
   UIApplicationDelegate
 {

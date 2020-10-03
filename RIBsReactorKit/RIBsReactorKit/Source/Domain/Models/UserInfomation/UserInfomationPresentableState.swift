@@ -9,5 +9,6 @@
 import Foundation
 
 struct UserInfomationPresentableState: Equatable {
-  
+  var userModel: UserModel
+  var userInfomationSections = [UserInfomationSection]()
 }

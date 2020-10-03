@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct UserInfomationSectionHeaderViewModel {
+struct UserInfomationSectionHeaderViewModel: Equatable {
   var title: String
 }

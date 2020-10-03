@@ -7,15 +7,14 @@
 //
 
 import RIBs
+import ReactorKit
 import RxSwift
+import RxSwiftExt
 
-protocol UserInfomationRouting: ViewableRouting {
-  // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
-}
+protocol UserInfomationRouting: ViewableRouting {}
 
 protocol UserInfomationPresentable: Presentable {
   var listener: UserInfomationPresentableListener? { get set }
-  // TODO: Declare methods the interactor can invoke the presenter to present data.
 }
 
 protocol UserInfomationListener: class {
@@ -25,17 +24,40 @@ protocol UserInfomationListener: class {
 final class UserInfomationInteractor:
   PresentableInteractor<UserInfomationPresentable>,
   UserInfomationInteractable,
-  UserInfomationPresentableListener
+  UserInfomationPresentableListener,
+  Reactor
 {
+  
+  // MARK: - Types
+  
+  typealias Action = UserInfomationPresentableAction
+  typealias State = UserInfomationPresentableState
+  
+  enum Mutation: Equatable {
+    case setUserInfomationSections([UserInfomationSection])
+    case detach
+  }
+  
+  // MARK: - Properties
   
   weak var router: UserInfomationRouting?
   weak var listener: UserInfomationListener?
   
-  private let userModel: UserModel
+  let initialState: UserInfomationPresentableState
+  let userInfomationSectionFactories: [UserInfomationSectionFactory]
+  let userInfomationSectionListFactory: UserInfomationSectionListFactory
   
-  init(userModel: UserModel, presenter: UserInfomationPresentable) {
-    self.userModel = userModel
-    
+  // MARK: - Initialization & Deinitialization
+  
+  init(
+    initialState: UserInfomationPresentableState,
+    userInfomationSectionFactories: [UserInfomationSectionFactory],
+    userInfomationSectionListFactory: UserInfomationSectionListFactory,
+    presenter: UserInfomationPresentable
+  ) {
+    self.initialState = initialState
+    self.userInfomationSectionFactories = userInfomationSectionFactories
+    self.userInfomationSectionListFactory = userInfomationSectionListFactory
     super.init(presenter: presenter)
     presenter.listener = self
   }
@@ -43,14 +65,64 @@ final class UserInfomationInteractor:
   deinit {
     Log.verbose(type(of: self))
   }
+}
+
+// MARK: - Reactor
+
+extension UserInfomationInteractor {
   
-  override func didBecomeActive() {
-    super.didBecomeActive()
-    // TODO: Implement business logic here.
+  // MARK: - mutate
+  
+  func mutate(action: Action) -> Observable<Mutation> {
+    switch action {
+    case .viewWillAppear:
+      return setUserInfomationSectionsMutation()
+      
+    case .detach:
+      return .just(.detach)
+    }
   }
   
-  override func willResignActive() {
-    super.willResignActive()
-    // TODO: Pause any business logic.
+  private func setUserInfomationSectionsMutation() -> Observable<Mutation> {
+    let sections = userInfomationSectionListFactory.makeSections(from: userInfomationSectionFactories)
+    return .just(.setUserInfomationSections(sections))
+  }
+
+  // MARK: - transform mutation
+  
+  func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+    return mutation
+      .flatMap { [weak self] mutation -> Observable<Mutation> in
+      guard let this = self else { return .empty() }
+      switch mutation {
+      case .detach:
+        return this.detachTransform()
+        
+      default:
+        return .just(mutation)
+      }
+    }
+  }
+    
+  private func detachTransform() -> Observable<Mutation> {
+    listener?.detachUserInfomationRIB()
+    return .empty()
+  }
+  
+  // MARK: - reduce
+  
+  func reduce(state: State, mutation: Mutation) -> State {
+    var newState = state
+    
+    switch mutation {
+    case .setUserInfomationSections(let sections):
+      newState.userInfomationSections = sections
+      
+    case .detach:
+      // Do Nothing
+      Log.debug("detach")
+    }
+    
+    return newState
   }
 }

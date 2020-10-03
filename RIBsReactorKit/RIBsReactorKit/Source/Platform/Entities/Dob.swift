@@ -13,6 +13,6 @@ struct Dob:
   Codable,
   Equatable
 {
-  let date: String
+  let date: Date
   let age: Int
 }

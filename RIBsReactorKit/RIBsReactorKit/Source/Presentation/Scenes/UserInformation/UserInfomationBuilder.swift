@@ -14,7 +14,22 @@ protocol UserInfomationDependency: Dependency {
 
 final class UserInfomationComponent: Component<UserInfomationDependency> {
   
-  fileprivate var userModel: UserModel { dependency.userModel }
+  private var userModel: UserModel { dependency.userModel }
+  
+  fileprivate var initialState: UserInfomationPresentableState {
+    UserInfomationPresentableState(userModel: userModel)
+  }
+  
+  fileprivate var userInfomationSectionFactories: [UserInfomationSectionFactory] {
+    [
+      ProfileSectionFactory(),
+      BasicInfomationSectionFactory()
+    ]
+  }
+  
+  fileprivate var userInfomationSectionListFactory: UserInfomationSectionListFactory {
+    UserInfomationSectionListFactoryImpl(userModel: userModel)
+  }
 }
 
 // MARK: - Builder
@@ -36,7 +51,9 @@ final class UserInfomationBuilder:
     let component = UserInfomationComponent(dependency: dependency)
     let viewController = UserInfomationViewController()
     let interactor = UserInfomationInteractor(
-      userModel: component.userModel,
+      initialState: component.initialState,
+      userInfomationSectionFactories: component.userInfomationSectionFactories,
+      userInfomationSectionListFactory: component.userInfomationSectionListFactory,
       presenter: viewController
     )
     interactor.listener = listener

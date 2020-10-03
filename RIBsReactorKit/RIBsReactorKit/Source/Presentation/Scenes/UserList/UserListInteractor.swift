@@ -29,7 +29,7 @@ final class UserListInteractor:
   Reactor
 {
   
-  // MARK: - Constants
+  // MARK: - Types
   
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
@@ -64,17 +64,6 @@ final class UserListInteractor:
     super.init(presenter: presenter)
     presenter.listener = self
   }
-  
-  // MARK: - Inheritance
-
-  override func didBecomeActive() {
-    super.didBecomeActive()
-
-  }
-  
-  override func willResignActive() {
-    super.willResignActive()
-  }
 }
 
 // MARK: - Reactor
@@ -105,6 +94,7 @@ extension UserListInteractor {
     
     let loadData = randomUserUseCase.loadData(isRefresh: true)
       .map { Mutation.loadData }
+      .catchErrorJustReturn(.setRefresh(false))
     
     return .concat([startLoading, loadData, stopLoading])
   }
@@ -127,6 +117,7 @@ extension UserListInteractor {
     
     return randomUserUseCase.loadData(isRefresh: false)
       .map { Mutation.loadData }
+      .catchErrorJustReturn(.setRefresh(false))
   }
   
   private func itemSelectedMutation(by indexPath: IndexPath) -> Observable<Mutation> {
@@ -143,7 +134,7 @@ extension UserListInteractor {
     }
   }
   
-  // MARK: - transform
+  // MARK: - transform mutation
   
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
     return mutation
@@ -168,7 +159,7 @@ extension UserListInteractor {
     return randomUserUseCase
       .mutableUserModelsStream
       .userModels
-      .map { $0.map { UserListViewModel(userModel: $0) } }
+      .map { $0.map { UserListItemViewModel(userModel: $0) } }
       .map { $0.map(UserListSectionItem.user) }
       .map { [UserListSectionModel.randomUser($0)] }
       .map(Mutation.userListSections)

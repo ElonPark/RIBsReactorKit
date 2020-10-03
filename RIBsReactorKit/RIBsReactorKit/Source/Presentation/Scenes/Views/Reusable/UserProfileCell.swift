@@ -16,10 +16,12 @@ final class UserProfileCell:
 
   // MARK: - Constants
 
-  private enum UI {
+  enum UI {
     // - profileBackgroundImageView
     static let profileBackgroundImageViewCornerRadius: CGFloat = 18
     static let profileBackgroundImageViewHeight: CGFloat = 120
+    static let profileBackgroundImageLeadingMargin: CGFloat = 8
+    static let profileBackgroundImageViewTrailingMargin: CGFloat = 8
     
     // - profileImageView
     static let profileImageViewSize: CGSize = .init(width: 120, height: 120)
@@ -138,7 +140,9 @@ extension UserProfileCell {
 
   private func layout() {
     profileBackgroundImageView.snp.makeConstraints {
-      $0.top.leading.trailing.equalToSuperview()
+      $0.top.equalToSuperview()
+      $0.leading.equalToSuperview().offset(UI.profileBackgroundImageLeadingMargin)
+      $0.trailing.equalToSuperview().offset(-UI.profileBackgroundImageViewTrailingMargin)
       $0.height.equalTo(UI.profileBackgroundImageViewHeight)
     }
     

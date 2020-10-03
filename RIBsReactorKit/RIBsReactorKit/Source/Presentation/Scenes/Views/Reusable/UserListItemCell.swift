@@ -1,5 +1,5 @@
 //
-//  UserListCell.swift
+//  UserListItemCell.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/05/06.
@@ -13,7 +13,7 @@ import Kingfisher
 import SnapKit
 import SkeletonView
 
-class UserListCell:
+final class UserListItemCell:
   BaseTableViewCell,
   HasViewModel,
   SkeletonAnimatable
@@ -44,7 +44,7 @@ class UserListCell:
   
   // MARK: - Properties
   
-  var viewModel: UserListViewModel? {
+  var viewModel: UserListItemViewModel? {
     didSet {
       guard let viewModel = viewModel else { return }
       hideSkeletonAnimation()
@@ -115,7 +115,7 @@ class UserListCell:
 }
 
 // MARK: - Layout
-extension UserListCell {
+extension UserListItemCell {
   private func setUpUI() {
     self.selectionStyle = .none
     self.isSkeletonable = true
@@ -153,10 +153,10 @@ extension UserListCell {
 import SwiftUI
 
 @available(iOS 13.0, *)
-struct UserListCellPreview: PreviewProvider {
+struct UserListItemCellPreview: PreviewProvider {
   static var previews: some SwiftUI.View {
     UIViewPreview {
-      UserListCell()
+      UserListItemCell()
     }
     .previewLayout(.fixed(width: 320, height: 100))
     .padding(10)

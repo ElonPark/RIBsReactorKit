@@ -1,5 +1,5 @@
 //
-//  UserInfomationCell.swift
+//  UserDetailInfomationCell.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/09/13.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserInfomationCell:
+final class UserDetailInfomationCell:
   BaseCollectionViewCell,
   HasViewModel,
   SkeletonAnimatable
@@ -52,7 +52,7 @@ class UserInfomationCell:
   
   // MARK: - Properties
   
-  var viewModel: UserInfomationSectionViewModel? {
+  var viewModel: UserDetailInfomationItemViewModel? {
     didSet {
       guard let viewModel = viewModel else { return }
       hideSkeletonAnimation()
@@ -139,7 +139,7 @@ class UserInfomationCell:
 }
 
 // MARK: - Layout
-extension UserInfomationCell {
+extension UserDetailInfomationCell {
   private func setupUI() {
     self.isSkeletonable = true
     contentView.addSubview(baseContentsView)
@@ -162,7 +162,7 @@ extension UserInfomationCell {
     iconImageView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(UI.iconTopMargin)
       $0.size.equalTo(UI.iconImageViewSize)
-      $0.bottom.lessThanOrEqualToSuperview().offset(UI.iconBottomMargin)
+      $0.bottom.lessThanOrEqualToSuperview().offset(-UI.iconBottomMargin)
       $0.leading.equalToSuperview().offset(UI.iconLeadingMargin)
     }
     
@@ -187,11 +187,11 @@ extension UserInfomationCell {
 import SwiftUI
 
 @available(iOS 13.0, *)
-struct UserInfomationCellPreview: PreviewProvider {
+struct UserDetailInfomationCellCellPreview: PreviewProvider {
   static var previews: some SwiftUI.View {
     UIViewPreview {
-      UserInfomationCell().then {
-        $0.viewModel = UserInfomationSectionViewModel(
+      UserDetailInfomationCell().then {
+        $0.viewModel = UserDetailInfomationItemViewModel(
           icon: .checkmark,
           title: "서울",
           subtitle: "거주지",

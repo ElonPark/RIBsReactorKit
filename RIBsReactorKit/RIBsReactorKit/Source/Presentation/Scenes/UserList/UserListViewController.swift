@@ -59,7 +59,7 @@ final class UserListViewController:
   let refreshControl = UIRefreshControl()
   
   let tableView = UITableView().then {
-    $0.register(UserListCell.self)
+    $0.register(UserListItemCell.self)
     $0.rowHeight = UITableView.automaticDimension
     $0.estimatedRowHeight = UI.userListCellEstimatedRowHeight
     $0.isSkeletonable = true
@@ -77,13 +77,13 @@ final class UserListViewController:
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-    bindView()
+    bindUI()
     bind(listener: listener)
   }
-
+  
   // MARK: - Binding
 
-  private func bindView() {
+  private func bindUI() {
     bindRefreshControlEvent()
     bindDisplayDummyCellAnimation()
   }
@@ -92,7 +92,7 @@ final class UserListViewController:
     tableView.rx.willDisplayCell
       .asDriver()
       .drive(onNext: { cell, indexPath in
-        guard let userListCell = cell as? UserListCell,
+        guard let userListCell = cell as? UserListItemCell,
           userListCell.isSkeletonActive,
           userListCell.viewModel == nil
           else {
@@ -210,12 +210,12 @@ final class UserListViewController:
       configureCell: { _, tableView, indexPath, sectionItem in
         switch sectionItem {
         case .user(let viewModel):
-          let cell = tableView.dequeue(UserListCell.self, indexPath: indexPath)
+          let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
           cell.viewModel = viewModel
           return cell
           
         case .dummy:
-          let cell = tableView.dequeue(UserListCell.self, indexPath: indexPath)
+          let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
           return cell
         }
     })
@@ -251,11 +251,12 @@ extension UserListViewController {
 extension UserListViewController {
   fileprivate func bindDummyItems() {
     let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
     guard let randomUser = try? decoder.decode(RandomUser.self, from: RandomUserFixture.data) else { return }
     let userModelTranslator = UserModelTranslatorImpl()
     
     let dummySectionItems = userModelTranslator.translateToUserModel(by: randomUser.results)
-      .map { UserListViewModel(userModel: $0) }
+      .map { UserListItemViewModel(userModel: $0) }
       .map(UserListSectionItem.user)
     
     Observable.just([.randomUser(dummySectionItems)])
