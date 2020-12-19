@@ -1,5 +1,5 @@
 # ReactiveX
-github "ReactiveX/RxSwift" == 5.1.0
+github "ReactiveX/RxSwift" ~> 5.1
 github "RxSwiftCommunity/RxSwiftExt" ~> 5.2.0
 
 # Architecture
@@ -17,6 +17,7 @@ github "onevcat/Kingfisher" ~> 5.0
 # UI
 github "Juanpe/SkeletonView" ~> 1.8.6
 github "RxSwiftCommunity/RxDataSources" ~> 4.0
+github "ElonPark/RxViewController" ~> 1.0
 
 # Layout
 github "SnapKit/SnapKit" ~> 5.0.0
@@ -30,4 +31,4 @@ github "srea/RIBsTreeViewerClient"
 
 # Test
 github "Quick/Quick" ~> 2.2.0
-github "RxSwiftCommunity/RxNimble" ~> 4.7.2
+github "RxSwiftCommunity/RxNimble" ~> 5.0

@@ -76,7 +76,6 @@
 		DBCD8AF82483CECE00A34108 /* DisposablesManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */; };
 		DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFB2483EED800A34108 /* HasTableView.swift */; };
 		DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */; };
-		DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */; };
 		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
 		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
@@ -214,7 +213,6 @@
 		DBCD8B27248400CD00A34108 /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
 		DBCD8B28248400CD00A34108 /* RxViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxViewController.framework; path = Carthage/Build/iOS/RxViewController.framework; sourceTree = "<group>"; };
 		DBCD8B29248400CD00A34108 /* KingfisherSwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KingfisherSwiftUI.framework; path = Carthage/Build/iOS/KingfisherSwiftUI.framework; sourceTree = "<group>"; };
-		DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerRxExtensions.swift; sourceTree = "<group>"; };
 		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
 		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
@@ -630,7 +628,6 @@
 		DBCD8AF22483C28C00A34108 /* Rx+Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */,
 				DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */,
 			);
 			path = "Rx+Extensions";
@@ -927,7 +924,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */,
 				DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */,
 				DBC52DF22454560800BCFEBB /* UICollectionViewExtensions.swift in Sources */,
 				DB177CC024A23D7C0050C343 /* UserInfomationViewController.swift in Sources */,
