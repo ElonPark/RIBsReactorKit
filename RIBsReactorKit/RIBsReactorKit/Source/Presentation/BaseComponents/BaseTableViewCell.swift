@@ -1,6 +1,6 @@
 //
 //  BaseTableViewCell.swift
-//  Smithsonian
+//  RIBsReactorKit
 //
 //  Created by Elon on 2020/03/07.
 //  Copyright © 2020 Elon. All rights reserved.
@@ -20,9 +20,9 @@ class BaseTableViewCell:
 
   // MARK: - Properties
   
-  var disposeBag: DisposeBag = DisposeBag()
+  var disposeBag = DisposeBag()
   
-  var disposables: CompositeDisposable = CompositeDisposable()
+  var disposables = CompositeDisposable()
 
   private(set) var didSetupConstraints: Bool = false
   

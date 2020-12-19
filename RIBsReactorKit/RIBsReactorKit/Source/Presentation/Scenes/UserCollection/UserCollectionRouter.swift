@@ -13,9 +13,7 @@ protocol UserCollectionInteractable: Interactable {
   var listener: UserCollectionListener? { get set }
 }
 
-protocol UserCollectionViewControllable: ViewControllable {
-  
-}
+protocol UserCollectionViewControllable: ViewControllable {}
 
 final class UserCollectionRouter:
   ViewableRouter<UserCollectionInteractable, UserCollectionViewControllable>,

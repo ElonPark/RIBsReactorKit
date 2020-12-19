@@ -29,7 +29,7 @@ final class UserListInteractor:
   Reactor
 {
   
-  // MARK: - Constants
+  // MARK: - Reactor
   
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
@@ -50,6 +50,7 @@ final class UserListInteractor:
   var initialState: UserListPresentableState
   
   private let randomUserUseCase: RandomUserUseCase
+  private let requestItemCount: Int = 50
   
   // MARK: - Initialization & Deinitialization
 
@@ -64,16 +65,6 @@ final class UserListInteractor:
     super.init(presenter: presenter)
     presenter.listener = self
   }
-  
-  // MARK: - Inheritance
-
-  override func didBecomeActive() {
-    super.didBecomeActive()
-  }
-  
-  override func willResignActive() {
-    super.willResignActive()
-  }
 }
 
 // MARK: - Reactor
@@ -84,7 +75,7 @@ extension UserListInteractor {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .loadData:
-      return loadDataMutation()
+      return refreshMutation()
       
     case .refresh:
      return refreshMutation()
@@ -97,21 +88,11 @@ extension UserListInteractor {
     }
   }
   
-  private func loadDataMutation() -> Observable<Mutation> {
-    let startLoading = Observable.just(Mutation.setLoading(true))
-    let stopLoading = Observable.just(Mutation.setLoading(false))
-    
-    let loadData = randomUserUseCase.loadData(isRefresh: true)
-      .map { Mutation.loadData }
-    
-    return .concat([startLoading, loadData, stopLoading])
-  }
-  
   private func refreshMutation() -> Observable<Mutation> {
     let startRefresh = Observable.just(Mutation.setRefresh(true))
     let stopRefresh = Observable.just(Mutation.setRefresh(false))
     
-    let loadData = randomUserUseCase.loadData(isRefresh: true)
+    let loadData = randomUserUseCase.loadData(isRefresh: true, itemCount: requestItemCount)
       .map { Mutation.loadData }
     
     return .concat([startRefresh, loadData, stopRefresh])
@@ -122,7 +103,7 @@ extension UserListInteractor {
     let lastItemIndexPathRow = itemsCount - 1
     guard indexPath.row == lastItemIndexPathRow else { return .empty() }
     
-    return randomUserUseCase.loadData(isRefresh: false)
+    return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
       .map { Mutation.loadData }
   }
   
@@ -180,10 +161,6 @@ extension UserListInteractor {
     var newState = state
     
     switch mutation {
-    case .loadData:
-      // Do Nothing
-      Log.debug("loadData")
-      
     case .setLoading(let isLoading):
       newState.isLoading = isLoading
       
@@ -193,9 +170,8 @@ extension UserListInteractor {
     case .userListSections(let sections):
       newState.userListSections = sections
       
-    case .selectedUser(let userModel):
-      // Do Nothing
-      Log.debug("selectedUser: \(userModel)")
+    case .loadData, .selectedUser:
+      Log.debug("Do Nothing when \(mutation)")
     }
     
     return newState

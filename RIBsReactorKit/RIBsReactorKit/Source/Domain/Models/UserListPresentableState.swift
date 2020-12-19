@@ -11,5 +11,5 @@ import Foundation
 struct UserListPresentableState: Equatable {
   var isLoading: Bool = false
   var isRefresh: Bool = false
-  var userListSections: [UserListSectionModel] = [.randomUser([])]
+  var userListSections = [UserListSectionModel]()
 }

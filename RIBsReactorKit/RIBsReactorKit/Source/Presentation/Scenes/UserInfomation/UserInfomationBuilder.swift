@@ -13,7 +13,6 @@ protocol UserInfomationDependency: Dependency {
 }
 
 final class UserInfomationComponent: Component<UserInfomationDependency> {
-  
   fileprivate var userModel: UserModel { dependency.userModel }
 }
 
@@ -27,10 +26,6 @@ final class UserInfomationBuilder:
   Builder<UserInfomationDependency>,
   UserInfomationBuildable
 {
-  
-  override init(dependency: UserInfomationDependency) {
-    super.init(dependency: dependency)
-  }
   
   func build(withListener listener: UserInfomationListener) -> UserInfomationRouting {
     let component = UserInfomationComponent(dependency: dependency)

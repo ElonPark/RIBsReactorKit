@@ -32,6 +32,7 @@
 		DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB630218246071CD00C47E09 /* UserListPresentableState.swift */; };
 		DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */; };
 		DB63021E2461B85F00C47E09 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021D2461B85F00C47E09 /* UserListCell.swift */; };
+		DB643AA3258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */; };
 		DB70253024A2644100866A81 /* PullToRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB70252F24A2644100866A81 /* PullToRefreshable.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
 		DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */; };
@@ -76,7 +77,6 @@
 		DBCD8AF82483CECE00A34108 /* DisposablesManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */; };
 		DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFB2483EED800A34108 /* HasTableView.swift */; };
 		DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */; };
-		DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */; };
 		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
 		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
@@ -152,6 +152,7 @@
 		DB630218246071CD00C47E09 /* UserListPresentableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresentableState.swift; sourceTree = "<group>"; };
 		DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllableExtensions.swift; sourceTree = "<group>"; };
 		DB63021D2461B85F00C47E09 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
+		DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListComponent+UserInfomationAdapter.swift"; sourceTree = "<group>"; };
 		DB70252F24A2644100866A81 /* PullToRefreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshable.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
 		DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserUseCase.swift; sourceTree = "<group>"; };
@@ -214,7 +215,6 @@
 		DBCD8B27248400CD00A34108 /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
 		DBCD8B28248400CD00A34108 /* RxViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxViewController.framework; path = Carthage/Build/iOS/RxViewController.framework; sourceTree = "<group>"; };
 		DBCD8B29248400CD00A34108 /* KingfisherSwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KingfisherSwiftUI.framework; path = Carthage/Build/iOS/KingfisherSwiftUI.framework; sourceTree = "<group>"; };
-		DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerRxExtensions.swift; sourceTree = "<group>"; };
 		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
 		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
@@ -351,6 +351,23 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		DB59BACB258E6824006AD353 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */,
+				DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		DB59BACC258E683B006AD353 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 		DB63021C2461B82200C47E09 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,9 +379,8 @@
 		DB9C7EF3245C97EC003AB2E7 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				DB59BACB258E6824006AD353 /* Dependencies */,
 				DBA43B90245C9B6400C82D7E /* MainTabBarBuilder.swift */,
-				DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */,
-				DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */,
 				DBA43B91245C9B6400C82D7E /* MainTabBarInteractor.swift */,
 				DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */,
 				DBA43B8F245C9B6400C82D7E /* MainTabBarViewController.swift */,
@@ -383,6 +399,7 @@
 		DBA43B96245C9BED00C82D7E /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				DB59BACC258E683B006AD353 /* Dependencies */,
 				DBA43B9A245C9C2100C82D7E /* UserListBuilder.swift */,
 				DBA43B9B245C9C2100C82D7E /* UserListInteractor.swift */,
 				DBA43B98245C9C2100C82D7E /* UserListRouter.swift */,
@@ -630,7 +647,6 @@
 		DBCD8AF22483C28C00A34108 /* Rx+Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */,
 				DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */,
 			);
 			path = "Rx+Extensions";
@@ -927,7 +943,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */,
 				DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */,
 				DBC52DF22454560800BCFEBB /* UICollectionViewExtensions.swift in Sources */,
 				DB177CC024A23D7C0050C343 /* UserInfomationViewController.swift in Sources */,
@@ -952,6 +967,7 @@
 				DBC52DF82454560800BCFEBB /* BaseViewController.swift in Sources */,
 				DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */,
 				DBC52DF32454560800BCFEBB /* UINavigationControllerExtensions.swift in Sources */,
+				DB643AA3258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift in Sources */,
 				DBC52DF62454560800BCFEBB /* HasElementKind.swift in Sources */,
 				DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */,
 				DBC52DFA2454560800BCFEBB /* BaseCollectionViewCell.swift in Sources */,
