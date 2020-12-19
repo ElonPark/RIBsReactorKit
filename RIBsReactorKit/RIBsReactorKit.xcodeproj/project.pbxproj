@@ -37,6 +37,7 @@
 		DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB630218246071CD00C47E09 /* UserListPresentableState.swift */; };
 		DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */; };
 		DB63021E2461B85F00C47E09 /* UserListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021D2461B85F00C47E09 /* UserListItemCell.swift */; };
+		DB643AA3258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */; };
 		DB69A1ED252655D0001BE7DB /* UserInfomationSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69A1EC252655D0001BE7DB /* UserInfomationSectionModel.swift */; };
 		DB69A1EF2528D927001BE7DB /* ISO8601DateFormatter+Extensios.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69A1EE2528D927001BE7DB /* ISO8601DateFormatter+Extensios.swift */; };
 		DB6C78CE250D3944006FC59F /* UserDetailInfomationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C78CD250D3944006FC59F /* UserDetailInfomationCell.swift */; };
@@ -99,7 +100,6 @@
 		DBCD8AF82483CECE00A34108 /* DisposablesManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AF72483CECE00A34108 /* DisposablesManageable.swift */; };
 		DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFB2483EED800A34108 /* HasTableView.swift */; };
 		DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */; };
-		DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */; };
 		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
 		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
@@ -172,6 +172,7 @@
 		DB630218246071CD00C47E09 /* UserListPresentableState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPresentableState.swift; sourceTree = "<group>"; };
 		DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllableExtensions.swift; sourceTree = "<group>"; };
 		DB63021D2461B85F00C47E09 /* UserListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemCell.swift; sourceTree = "<group>"; };
+		DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListComponent+UserInfomationAdapter.swift"; sourceTree = "<group>"; };
 		DB69A1EC252655D0001BE7DB /* UserInfomationSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfomationSectionModel.swift; sourceTree = "<group>"; };
 		DB69A1EE2528D927001BE7DB /* ISO8601DateFormatter+Extensios.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+Extensios.swift"; sourceTree = "<group>"; };
 		DB6C78CD250D3944006FC59F /* UserDetailInfomationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailInfomationCell.swift; sourceTree = "<group>"; };
@@ -251,7 +252,6 @@
 		DBCD8B27248400CD00A34108 /* RxSwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwiftExt.framework; path = Carthage/Build/iOS/RxSwiftExt.framework; sourceTree = "<group>"; };
 		DBCD8B28248400CD00A34108 /* RxViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxViewController.framework; path = Carthage/Build/iOS/RxViewController.framework; sourceTree = "<group>"; };
 		DBCD8B29248400CD00A34108 /* KingfisherSwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KingfisherSwiftUI.framework; path = Carthage/Build/iOS/KingfisherSwiftUI.framework; sourceTree = "<group>"; };
-		DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerRxExtensions.swift; sourceTree = "<group>"; };
 		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
 		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
@@ -418,6 +418,23 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		DB59BACB258E6824006AD353 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */,
+				DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		DB59BACC258E683B006AD353 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 		DB63021C2461B82200C47E09 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,9 +478,8 @@
 		DB9C7EF3245C97EC003AB2E7 /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				DB59BACB258E6824006AD353 /* Dependencies */,
 				DBA43B90245C9B6400C82D7E /* MainTabBarBuilder.swift */,
-				DBEF8B33245F054100A37587 /* MainTabBarComponent+UserList.swift */,
-				DBEF8B35245F055700A37587 /* MainTabBarComponent+UserCollection.swift */,
 				DBA43B91245C9B6400C82D7E /* MainTabBarInteractor.swift */,
 				DBA43B8E245C9B6400C82D7E /* MainTabBarRouter.swift */,
 				DBA43B8F245C9B6400C82D7E /* MainTabBarViewController.swift */,
@@ -482,6 +498,7 @@
 		DBA43B96245C9BED00C82D7E /* UserList */ = {
 			isa = PBXGroup;
 			children = (
+				DB59BACC258E683B006AD353 /* Dependencies */,
 				DBA43B9A245C9C2100C82D7E /* UserListBuilder.swift */,
 				DBA43B9B245C9C2100C82D7E /* UserListInteractor.swift */,
 				DBA43B98245C9C2100C82D7E /* UserListRouter.swift */,
@@ -744,7 +761,6 @@
 			isa = PBXGroup;
 			children = (
 				DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */,
-				DBCD8B3224840A0800A34108 /* UIViewControllerRxExtensions.swift */,
 			);
 			path = "Rx+Extensions";
 			sourceTree = "<group>";
@@ -849,7 +865,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = Elon;
 				TargetAttributes = {
 					DB35E27F244721DF00B26BD3 = {
@@ -1039,7 +1055,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBCD8B3324840A0800A34108 /* UIViewControllerRxExtensions.swift in Sources */,
 				DB7CB37B25290B9E00E18E7E /* UserInfomationSectionListFactory.swift in Sources */,
 				DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */,
 				DB9B4A6624EAF89C0033A5DE /* UserInfomationSectionHeaderViewModel.swift in Sources */,
@@ -1075,6 +1090,7 @@
 				DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */,
 				DB979C5024D9A0A800E34DE6 /* SkeletonAnimatable.swift in Sources */,
 				DBC52DF32454560800BCFEBB /* UINavigationControllerExtensions.swift in Sources */,
+				DB643AA3258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift in Sources */,
 				DBC52DF62454560800BCFEBB /* HasElementKind.swift in Sources */,
 				DB9B4A5E24EAE6C90033A5DE /* UserInfomationHeaderView.swift in Sources */,
 				DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */,
@@ -1203,6 +1219,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1263,6 +1280,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

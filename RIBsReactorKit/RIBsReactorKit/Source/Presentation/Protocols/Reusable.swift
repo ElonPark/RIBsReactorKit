@@ -14,6 +14,6 @@ protocol Reusable {
 
 extension Reusable {
   static var identifier: String {
-    return String(describing: Self.self)
+    String(describing: Self.self)
   }
 }

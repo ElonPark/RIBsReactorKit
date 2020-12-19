@@ -12,12 +12,18 @@ protocol UserInfomationAdapterListener: class {
   func detachUserInfomationRIB()
 }
 
-final class UserInfomationAdapterComponent: UserInfomationDependency {
+protocol UserInfomationAdapterDependency: Dependency {}
+
+final class UserInfomationAdapterComponent:
+  Component<UserInfomationAdapterDependency>,
+  UserInfomationDependency
+{
   
   let userModel: UserModel
   
-  init(userModel: UserModel) {
+  init(userModel: UserModel, dependency: UserInfomationAdapterDependency) {
     self.userModel = userModel
+    super.init(dependency: dependency)
   }
 }
 
@@ -29,6 +35,7 @@ protocol UserInfomationAdapterBuildable: Buildable {
 }
 
 final class UserInfomationAdapter:
+  Builder<UserInfomationAdapterDependency>,
   UserInfomationAdapterBuildable,
   UserInfomationListener
 {
@@ -36,18 +43,14 @@ final class UserInfomationAdapter:
   // MARK: - Properties
 
   private weak var listener: UserInfomationAdapterListener?
-  
-  // MARK: - Initialization & Deinitialization
-
-  init() {}
-  
+    
   // MARK: - Internal methods
 
   func build(
     userModel: UserModel,
     withListener listener: UserInfomationAdapterListener
   ) -> UserInfomationRouting {
-    let component = UserInfomationAdapterComponent(userModel: userModel)
+    let component = UserInfomationAdapterComponent(userModel: userModel, dependency: dependency)
     let userInfomationBuilder = UserInfomationBuilder(dependency: component)
     self.listener = listener
     return userInfomationBuilder.build(withListener: self)

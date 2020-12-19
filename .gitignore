@@ -88,7 +88,8 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-
 .idea
 node_modules
-RIBsReactorKit/Brewfile.lock.json
+.DS_Store
+
+**/Brewfile.lock.json

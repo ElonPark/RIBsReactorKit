@@ -11,9 +11,9 @@ import UIKit
 import RIBs
 
 extension UINavigationController: ViewControllable {
-  public var uiviewController: UIViewController { return self }
+  public var uiviewController: UIViewController { self }
   
-  public convenience init(root: ViewControllable) {
+  convenience init(root: ViewControllable) {
     self.init(rootViewController: root.uiviewController)
   }
 }

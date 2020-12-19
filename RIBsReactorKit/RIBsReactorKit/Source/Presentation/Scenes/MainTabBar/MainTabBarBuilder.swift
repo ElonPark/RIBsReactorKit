@@ -8,32 +8,29 @@
 
 import RIBs
 
-protocol MainTabBarDependency: Dependency {}
+protocol MainTabBarDependency: MainTabBarDependencyUserList, MainTabBarDependencyUserCollection {}
 
 final class MainTabBarComponent: Component<MainTabBarDependency> {
 
-  let userListViewController: UserListPresentable & UserListViewControllable
+  var userListViewController: UserListPresentable & UserListViewControllable
+  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable
   
-  let userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable
-  
-  fileprivate var randomUserService: Networking<RandomUserService> {
-    return Networking<RandomUserService>()
-  }
+  private var randomUserService = Networking<RandomUserService>()
   
   fileprivate var randomUserRepository: RandomUserRepository {
-    return RandomUserRepositoryImpl(service: randomUserService)
+    RandomUserRepositoryImpl(service: randomUserService)
   }
   
   fileprivate var userModelTranslator: UserModelTranslator {
-    return UserModelTranslatorImpl()
+    UserModelTranslatorImpl()
   }
   
   fileprivate var mutableUserModelsStream: MutableUserModelsStream {
-    return shared { UserModelsStreamImpl() }
+    shared { UserModelsStreamImpl() }
   }
   
   var randomUserUseCase: RandomUserUseCase {
-    return RandomUserUseCaseImpl(
+    RandomUserUseCaseImpl(
       repository: randomUserRepository,
       translator: userModelTranslator,
       mutableUserModelsStream: mutableUserModelsStream

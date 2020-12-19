@@ -151,7 +151,7 @@ final class UserInfomationViewController:
   // MARK: - Private methods
 
   private static func dataSourceFactory() -> UserInfomationDataSource {
-    return .init(configureCell: { dataSource, collectionView, indexPath, section in
+    return .init(configureCell: { _, collectionView, indexPath, section in
       switch section {
       case .profile(let viewModel):
         let cell = collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
@@ -293,7 +293,7 @@ extension UserInfomationViewController {
 import SwiftUI
 
 private let deviceNames: [String] = [
-  "iPhone SE"//, "iPhone 11 Pro Max"
+  "iPhone 5s", "iPhone 11 Pro Max"
 ]
 
 @available(iOS 13.0, *)

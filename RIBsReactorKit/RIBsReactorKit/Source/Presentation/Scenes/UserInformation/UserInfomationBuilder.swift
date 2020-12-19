@@ -43,10 +43,6 @@ final class UserInfomationBuilder:
   UserInfomationBuildable
 {
   
-  override init(dependency: UserInfomationDependency) {
-    super.init(dependency: dependency)
-  }
-  
   func build(withListener listener: UserInfomationListener) -> UserInfomationRouting {
     let component = UserInfomationComponent(dependency: dependency)
     let viewController = UserInfomationViewController()

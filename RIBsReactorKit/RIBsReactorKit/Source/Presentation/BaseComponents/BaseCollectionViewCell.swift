@@ -21,9 +21,9 @@ class BaseCollectionViewCell:
 
   // MARK: - Properties
   
-  var disposeBag: DisposeBag = DisposeBag()
+  var disposeBag = DisposeBag()
   
-  var disposables: CompositeDisposable = CompositeDisposable()
+  var disposables = CompositeDisposable()
 
   private(set) var didSetupConstraints: Bool = false
   
