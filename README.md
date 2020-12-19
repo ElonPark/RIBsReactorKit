@@ -5,7 +5,7 @@
 <img src="./Docs/RIBsReactorKit.png" alt="RIBsReactorKit" width="500" />
 
 
-> Current working branch: feature/user-information
+> **Current working branch: feature/user-information**
 
 ### install
 
