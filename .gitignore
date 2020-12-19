@@ -92,4 +92,4 @@ iOSInjectionProject/
 node_modules
 .DS_Store
 
-Brewfile.lock.json
+**/Brewfile.lock.json
