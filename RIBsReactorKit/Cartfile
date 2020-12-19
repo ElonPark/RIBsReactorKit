@@ -4,8 +4,8 @@ github "RxSwiftCommunity/RxSwiftExt" ~> 5.2.0
 
 # Architecture
 github "uber/RIBs" "master"
-github "ReactorKit/ReactorKit" ~> 2.1.0
-github "ReactorKit/WeakMapTable" ~> 1.1.0
+github "ElonPark/ReactorKit" ~> 2.1
+github "ElonPark/WeakMapTable" ~> 1.2
 
 # Network
 github "Alamofire/Alamofire" ~> 5.1

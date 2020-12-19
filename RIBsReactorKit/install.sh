@@ -2,13 +2,11 @@
 
 brew bundle
 
-carthage bootstrap --platform iOS --new-resolver --no-build
+carthage bootstrap --platform iOS --new-resolver --no-use-binaries --cache-builds
 
-(cd Carthage/Checkouts/WeakMapTable && swift package generate-xcodeproj)
-(cd Carthage/Checkouts/ReactorKit && swift package generate-xcodeproj)
-
-carthage build --platform iOS --new-resolver --cache-builds
-carthage update --platform iOS --new-resolver --no-use-binaries
+rm -rf ./Carthage/Checkouts/ReactiveSwift
+rm -rf ./Carthage/Build/iOS/ReactiveSwift.*
+rm -rf ./Carthage/Build/iOS/ReactiveMoya.*
 
 if which yarn >/dev/null; then
   (cd ./RIBsTreeViewer/Browser && npx yarn install)
