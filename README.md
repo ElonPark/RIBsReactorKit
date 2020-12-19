@@ -1,6 +1,6 @@
 # RIBsReactorKit
 
-[RIBs](https://github.com/uber/RIBs) X [ReactorKit](https://github.com/ReactorKit/ReactorKit) Poc
+[RIBs](https://github.com/uber/RIBs) X [ReactorKit](https://github.com/ReactorKit/ReactorKit) PoC
 
 <img src="./Docs/RIBsReactorKit.png" alt="RIBsReactorKit" width="500" />
 
