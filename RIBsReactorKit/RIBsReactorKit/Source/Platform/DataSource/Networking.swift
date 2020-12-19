@@ -106,10 +106,7 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
     message: String,
     error: Error
   ) -> Bool {
-    guard let moyaError = error as? MoyaError,
-      let response = moyaError.response else {
-        return false
-    }
+    guard let moyaError = error as? MoyaError, let response = moyaError.response else { return false }
     
     var message = message
     

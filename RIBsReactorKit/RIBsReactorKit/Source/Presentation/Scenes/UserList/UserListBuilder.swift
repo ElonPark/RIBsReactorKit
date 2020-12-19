@@ -8,7 +8,7 @@
 
 import RIBs
 
-protocol UserListDependency: Dependency {
+protocol UserListDependency: UserListDependencyUserInfomationAdapter {
   var userListViewController: UserListPresentable & UserListViewControllable { get }
   var randomUserUseCase: RandomUserUseCase { get }
 }
@@ -30,10 +30,6 @@ final class UserListComponent: Component<UserListDependency> {
   
   fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
     dependency.userListViewController
-  }
-  
-  fileprivate var userInfomationAdapter: UserInfomationAdapterBuildable {
-    UserInfomationAdapter()
   }
 }
 
@@ -65,8 +61,10 @@ final class UserListBuilder:
     )
     interactor.listener = listener
     
+    let userInfomationAdapter = UserInfomationAdapter(dependency: component)
+    
     return UserListRouter(
-      userInfomationAdapter: component.userInfomationAdapter,
+      userInfomationAdapter: userInfomationAdapter,
       interactor: interactor,
       viewController: component.userListViewController
     )

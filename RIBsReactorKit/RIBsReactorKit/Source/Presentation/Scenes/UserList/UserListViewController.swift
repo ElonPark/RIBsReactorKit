@@ -26,8 +26,8 @@ enum UserListPresentableAction {
 
 protocol UserListPresentableListener: class {
   var action: ActionSubject<UserListPresentableAction> { get }
-  var currentState: UserListPresentableState { get }
   var state: Observable<UserListPresentableState> { get }
+  var currentState: UserListPresentableState { get }
 }
 
 final class UserListViewController:
@@ -50,7 +50,7 @@ final class UserListViewController:
 
   weak var listener: UserListPresentableListener?
 
-  let refreshEvent: PublishRelay<Void> = .init()
+  let refreshEvent = PublishRelay<Void>()
   
   // MARK: - UI Components
 

@@ -15,21 +15,16 @@ protocol RandomUserUseCase {
   var repository: RandomUserRepository { get }
   var mutableUserModelsStream: MutableUserModelsStream { get }
 
-  func loadData(isRefresh: Bool) -> Observable<Void>
+  func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void>
 }
 
 final class RandomUserUseCaseImpl: RandomUserUseCase {
   
   // MARK: - Properties
   
-  let itemCount: Int = 50
-  
   private(set) var isLastItems: Bool = false
-  
   let repository: RandomUserRepository
-  
   let translator: UserModelTranslator
-  
   let mutableUserModelsStream: MutableUserModelsStream
   
   // MARK: - Con(De)structor
@@ -46,7 +41,7 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   
   // MARK: - Internal methods
   
-  func loadData(isRefresh: Bool) -> Observable<Void> {
+  func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void> {
     let randomUsers: Single<RandomUser>
     if let info = repository.info, !isRefresh {
       let page = info.page + 1
@@ -59,7 +54,7 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
       .asObservable()
       .map { $0.results }
       .do(onNext: { [weak self] results in
-        self?.setIsLastItems(by: results)
+        self?.setIsLastItems(by: results, itemCount: itemCount)
         if isRefresh {
           self?.updateUserModels(by: results)
         } else {
@@ -71,7 +66,7 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   
   // MARK: - Private methods
   
-  private func setIsLastItems(by results: [User]) {
+  private func setIsLastItems(by results: [User], itemCount: Int) {
     isLastItems = results.isEmpty || results.count < itemCount
   }
   

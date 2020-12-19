@@ -17,7 +17,7 @@ class BaseViewController:
 
   // MARK: - Properties
   
-  var disposeBag: DisposeBag = DisposeBag()
+  var disposeBag = DisposeBag()
 
   private(set) var didSetupConstraints: Bool = false
   

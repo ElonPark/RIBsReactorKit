@@ -35,28 +35,28 @@ final class RandomUserRepositoryImpl: RandomUserRepository {
   func randomUsers(with resultCount: Int) -> Single<RandomUser> {
     return service.request(.multipleUsers(resultCount: resultCount))
       .map(RandomUser.self)
-      .do(onSuccess: { [weak self] result in
+      .do(onSuccess: { [weak self] response in
         guard let this = self else { return }
-        this.info = result.info
-        this.userByUUID = result.results.reduce(into: this.userByUUID) { userDictionary, user in
-          userDictionary[user.login.uuid] = user
-        }
-        }, onError: { error in
-          Log.error(error.localizedDescription, error)
+        this.info = response.info
+        this.updateUserByUUID(by: response.results)
       })
   }
   
   func randomUsers(with page: Int, count: Int, seed: String) -> Single<RandomUser> {
     return service.request(.pagination(page: page, resultCount: count, seed: seed))
       .map(RandomUser.self)
-      .do(onSuccess: { [weak self] result in
+      .do(onSuccess: { [weak self] response in
         guard let this = self else { return }
-        this.info = result.info
-        this.userByUUID = result.results.reduce(into: this.userByUUID) { userDictionary, user in
-          userDictionary[user.login.uuid] = user
-        }
-        }, onError: { error in
-          Log.error(error.localizedDescription, error)
+        this.info = response.info
+        this.updateUserByUUID(by: response.results)
       })
+  }
+  
+  // MARK: - Private methods
+
+  private func updateUserByUUID(by users: [User]) {
+    userByUUID = users.reduce(into: userByUUID) { userDictionary, user in
+      userDictionary[user.login.uuid] = user
+    }
   }
 }

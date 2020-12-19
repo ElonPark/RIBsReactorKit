@@ -8,15 +8,16 @@
 
 import Moya
 
-enum RandomUserService {
+enum RandomUserService: TargetType {
   case multipleUsers(resultCount: Int)
   case pagination(page: Int, resultCount: Int, seed: String)
 }
 
-extension RandomUserService: TargetType {
+// MARK: - TargetType
+extension RandomUserService {
   
   var baseURL: URL {
-    return URL(string: "https://randomuser.me")!
+    URL(string: "https://randomuser.me")!
   }
   
   var path: String {
@@ -34,7 +35,7 @@ extension RandomUserService: TargetType {
   }
   
   var sampleData: Data {
-    return RandomUserFixture.data
+    RandomUserFixture.data
   }
   
   var task: Task {
@@ -58,6 +59,6 @@ extension RandomUserService: TargetType {
   }
   
   var headers: [String : String]? {
-    return ["Content-Type": "application/json; charset=utf-8"]
+    ["Content-Type": "application/json; charset=utf-8"]
   }
 }

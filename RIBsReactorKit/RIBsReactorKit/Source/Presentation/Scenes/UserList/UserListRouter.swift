@@ -24,7 +24,6 @@ final class UserListRouter:
 {
   
   private let userInfomationAdapter: UserInfomationAdapterBuildable
-  
   private var userInfomationRouter: UserInfomationRouting?
   
   // MARK: - Initialization & Deinitialization
