@@ -12,7 +12,7 @@ import RxSwift
 import RxSwiftExt
 
 protocol UserListRouting: ViewableRouting {
-  func attachUserInfomationRIB(with userModel: UserModel)
+  func attachUserInfomationRIB()
   func detachUserInfomationRIB()
 }
 
@@ -52,15 +52,19 @@ final class UserListInteractor:
   private let randomUserUseCase: RandomUserUseCase
   private let requestItemCount: Int = 50
   
+  private let mutableUserModelStream: MutableUserModelStream
+  
   // MARK: - Initialization & Deinitialization
 
   init(
     initialState: UserListPresentableState,
     randomUserUseCase: RandomUserUseCase,
+    mutableUserModelStream: MutableUserModelStream,
     presenter: UserListPresentable
   ) {
     self.initialState = initialState
     self.randomUserUseCase = randomUserUseCase
+    self.mutableUserModelStream = mutableUserModelStream
     
     super.init(presenter: presenter)
     presenter.listener = self
@@ -132,10 +136,10 @@ extension UserListInteractor {
         guard let this = self else { return .empty() }
         switch mutation {
         case .loadData:
-          return this.updateUserModelsMutation()
+          return this.updateUserModelsTransform()
           
         case .selectedUser(let userModel):
-          return this.transformSelectedUser(by: userModel)
+          return this.selectedUserTransform(by: userModel)
           
         default:
           return .just(mutation)
@@ -145,9 +149,9 @@ extension UserListInteractor {
 
   /// mutableUserModelsStream is update userModels when trigger Action
   /// (.loadData, .refresh, .loadMore)
-  private func updateUserModelsMutation() -> Observable<Mutation> {
+  private func updateUserModelsTransform() -> Observable<Mutation> {
     return randomUserUseCase
-      .mutableUserModelsStream
+      .userModelsStream
       .userModels
       .map { $0.map { UserListItemViewModel(userModel: $0) } }
       .map { $0.map(UserListSectionItem.user) }
@@ -156,8 +160,9 @@ extension UserListInteractor {
   }
    
   /// Show selected user information
-  private func transformSelectedUser(by userModel: UserModel) -> Observable<Mutation> {
-    router?.attachUserInfomationRIB(with: userModel)
+  private func selectedUserTransform(by userModel: UserModel) -> Observable<Mutation> {
+    mutableUserModelStream.updateUserModel(by: userModel)
+    router?.attachUserInfomationRIB()
     return .empty()
   }
   

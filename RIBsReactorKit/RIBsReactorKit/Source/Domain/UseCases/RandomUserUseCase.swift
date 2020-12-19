@@ -13,7 +13,7 @@ protocol RandomUserUseCase {
   var isLastItems: Bool { get }
   var translator: UserModelTranslator { get }
   var repository: RandomUserRepository { get }
-  var mutableUserModelsStream: MutableUserModelsStream { get }
+  var userModelsStream: UserModelDataStream { get }
 
   func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void>
 }
@@ -23,16 +23,21 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   // MARK: - Properties
   
   private(set) var isLastItems: Bool = false
+  
   let repository: RandomUserRepository
   let translator: UserModelTranslator
-  let mutableUserModelsStream: MutableUserModelsStream
-    
+  
+  var userModelsStream: UserModelDataStream {
+    mutableUserModelsStream
+  }
+  private let mutableUserModelsStream: MutableUserModelDataStream
+  
   // MARK: - Initialization & Deinitialization
 
   init(
     repository: RandomUserRepository,
     translator: UserModelTranslator,
-    mutableUserModelsStream: MutableUserModelsStream
+    mutableUserModelsStream: MutableUserModelDataStream
   ) {
     self.repository = repository
     self.translator = translator

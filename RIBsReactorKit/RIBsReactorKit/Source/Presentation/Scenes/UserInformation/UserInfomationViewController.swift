@@ -263,21 +263,23 @@ extension UserInfomationViewController {
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
     guard let randomUser = try? decoder.decode(RandomUser.self, from: RandomUserFixture.data) else { return }
-    
+
     let userModelTranslator = UserModelTranslatorImpl()
     guard let userModel = userModelTranslator.translateToUserModel(by: randomUser.results).first else { return }
+
+    let mutableUserModelStream = UserModelStreamImpl()
+    mutableUserModelStream.updateUserModel(by: userModel)
     
     let factories: [UserInfomationSectionFactory] = [
       ProfileSectionFactory(),
       BasicInfomationSectionFactory()
     ]
-    
-    let sectionListFactory = UserInfomationSectionListFactoryImpl(userModel: userModel)
-    
-    let state = UserInfomationPresentableState(userModel: userModel)
+    let sectionListFactory = UserInfomationSectionListFactoryImpl(factories: factories)
+
+    let state = UserInfomationPresentableState()
     let interactor = UserInfomationInteractor(
       initialState: state,
-      userInfomationSectionFactories: factories,
+      userModelStream: mutableUserModelStream,
       userInfomationSectionListFactory: sectionListFactory,
       presenter: self
     )

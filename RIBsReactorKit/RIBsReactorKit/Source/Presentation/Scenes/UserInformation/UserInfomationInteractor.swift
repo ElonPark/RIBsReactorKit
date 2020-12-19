@@ -28,7 +28,7 @@ final class UserInfomationInteractor:
   Reactor
 {
   
-  // MARK: - Types
+  // MARK: - Reactor
   
   typealias Action = UserInfomationPresentableAction
   typealias State = UserInfomationPresentableState
@@ -44,19 +44,20 @@ final class UserInfomationInteractor:
   weak var listener: UserInfomationListener?
   
   let initialState: UserInfomationPresentableState
-  let userInfomationSectionFactories: [UserInfomationSectionFactory]
-  let userInfomationSectionListFactory: UserInfomationSectionListFactory
+  
+  private let userModelStream: UserModelStream
+  private let userInfomationSectionListFactory: UserInfomationSectionListFactory
   
   // MARK: - Initialization & Deinitialization
   
   init(
     initialState: UserInfomationPresentableState,
-    userInfomationSectionFactories: [UserInfomationSectionFactory],
+    userModelStream: UserModelStream,
     userInfomationSectionListFactory: UserInfomationSectionListFactory,
     presenter: UserInfomationPresentable
   ) {
     self.initialState = initialState
-    self.userInfomationSectionFactories = userInfomationSectionFactories
+    self.userModelStream = userModelStream
     self.userInfomationSectionListFactory = userInfomationSectionListFactory
     super.init(presenter: presenter)
     presenter.listener = self
@@ -84,8 +85,12 @@ extension UserInfomationInteractor {
   }
   
   private func setUserInfomationSectionsMutation() -> Observable<Mutation> {
-    let sections = userInfomationSectionListFactory.makeSections(from: userInfomationSectionFactories)
-    return .just(.setUserInfomationSections(sections))
+    return userModelStream.userModel
+      .flatMap { [weak self] userModel -> Observable<Mutation> in
+        guard let this = self else { return .empty() }
+        let sections = this.userInfomationSectionListFactory.makeSections(by: userModel)
+        return .just(.setUserInfomationSections(sections))
+      }
   }
 
   // MARK: - transform mutation

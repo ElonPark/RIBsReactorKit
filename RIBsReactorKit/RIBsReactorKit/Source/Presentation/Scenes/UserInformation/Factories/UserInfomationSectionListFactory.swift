@@ -17,14 +17,18 @@ protocol UserInfomationSectionFactory {
 }
 
 protocol UserInfomationSectionListFactory {
-  func makeSections(from factories: [UserInfomationSectionFactory]) -> [UserInfomationSection]
+  func makeSections(by userModel: UserModel) -> [UserInfomationSection]
 }
 
 struct UserInfomationSectionListFactoryImpl: UserInfomationSectionListFactory {
   
-  let userModel: UserModel
+  private let factories: [UserInfomationSectionFactory]
   
-  func makeSections(from factories: [UserInfomationSectionFactory]) -> [UserInfomationSection] {
+  init(factories: [UserInfomationSectionFactory]) {
+    self.factories = factories
+  }
+  
+  func makeSections(by userModel: UserModel) -> [UserInfomationSection] {
     return factories.map { $0.makeSection(from: userModel) }
   }
 }
