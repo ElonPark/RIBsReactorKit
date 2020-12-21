@@ -6,7 +6,6 @@ $(SRCROOT)/Carthage/Build/iOS/RxViewController.framework
 $(SRCROOT)/Carthage/Build/iOS/RIBs.framework
 $(SRCROOT)/Carthage/Build/iOS/WeakMapTable.framework
 $(SRCROOT)/Carthage/Build/iOS/ReactorKit.framework
-$(SRCROOT)/Carthage/Build/iOS/ReactorKitRuntime.framework
 $(SRCROOT)/Carthage/Build/iOS/Alamofire.framework
 $(SRCROOT)/Carthage/Build/iOS/Moya.framework
 $(SRCROOT)/Carthage/Build/iOS/RxMoya.framework
