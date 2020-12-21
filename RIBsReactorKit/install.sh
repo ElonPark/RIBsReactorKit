@@ -2,7 +2,7 @@
 
 # brew bundle
 
-sh carthage_build.sh bootstrap --platform iOS --new-resolver --no-use-binaries
+sh carthage.sh bootstrap --platform iOS --new-resolver --no-use-binaries
 
 rm -rf ./Carthage/Checkouts/ReactiveSwift
 rm -rf ./Carthage/Build/iOS/ReactiveSwift.*
