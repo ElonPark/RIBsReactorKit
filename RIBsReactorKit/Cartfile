@@ -1,6 +1,5 @@
 # ReactiveX
 github "ReactiveX/RxSwift" ~> 5.1
-github "RxSwiftCommunity/RxSwiftExt" ~> 5.2.0
 
 # Architecture
 github "uber/RIBs" "master"
