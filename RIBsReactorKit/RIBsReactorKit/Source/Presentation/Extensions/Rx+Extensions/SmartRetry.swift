@@ -19,7 +19,7 @@ extension PrimitiveSequence {
    reachabilityChanged
      - parameter delay: DelayOptions.
      - parameter didBecomeReachable: Trigger which is fired when network connection becomes reachable
-        with random delay 500ms ~ 1500ms.
+        with random delay.
        `Reachability.rx.isConnected` by default.
      - parameter shouldRetry: Always retruns `true` by default.
    */
@@ -33,17 +33,16 @@ extension PrimitiveSequence {
       return errors
         .enumerated()
         .flatMap { attempt, error -> Observable<Void> in
-          guard shouldRetry(error), maxAttemptCount > attempt + 1 else { return .error(error) }
+          let attemptCount = attempt + 1
+          guard shouldRetry(error), maxAttemptCount > attemptCount else { return .error(error) }
 
-          let timer = Observable<Int>.timer(
-            delay.makeTimeInterval(attempt + 1),
-            scheduler: MainScheduler.instance
-          )
+          let fullJitter = delay.makeTimeInterval(attemptCount)
+
+          let timer = Observable<Int>.timer(fullJitter, scheduler: MainScheduler.instance)
           .map { _ in Void() }
 
-          let jitter = Int.random(in: 500...1500)
           let networkConnected = didBecomeReachable
-            .delay(.milliseconds(jitter), scheduler: MainScheduler.instance)
+            .delay(fullJitter, scheduler: MainScheduler.instance)
             .map { _ in Void() }
 
           return Observable.merge(timer, networkConnected)

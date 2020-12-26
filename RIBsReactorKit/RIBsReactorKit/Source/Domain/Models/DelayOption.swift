@@ -29,16 +29,13 @@ extension DelayOption {
 
       case let .exponential(initial, multiplier, maxDelay):
         var delay: Double {
-          if attempt == 1 {
-            return initial
-          } else {
-            let delayValue = initial * pow(multiplier, Double(attempt - 1))
-            let jitter = Double.random(in: 0.5...1.5)
-            return delayValue + jitter
-          }
+          guard attempt > 1 else { return 1 }
+          return initial * pow(multiplier, Double(attempt))
         }
 
-        return min(maxDelay, delay)
+        let delayValue = min(maxDelay, delay)
+        let fullJitter = Double.random(in: 0...delayValue)
+        return fullJitter
 
       case let .custom(closure):
         return closure(attempt)

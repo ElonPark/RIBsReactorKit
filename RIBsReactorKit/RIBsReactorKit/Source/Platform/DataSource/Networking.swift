@@ -58,14 +58,14 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
       )
 
     if needRetry {
-      return request.retry(retryCount, delay: .exponential(initial: 1, multiplier: 2))
+      return request.retry(retryCount, delay: .exponential(initial: 1.5, multiplier: 2))
     } else {
       return request
     }
 
     #else
     if needRetry {
-      return rx.request(target).retry(retryCount, delay: .exponential(initial: 1, multiplier: 2))
+      return rx.request(target).retry(retryCount, delay: .exponential(initial: 1.5, multiplier: 2))
     } else {
       return rx.request(target)
     }
