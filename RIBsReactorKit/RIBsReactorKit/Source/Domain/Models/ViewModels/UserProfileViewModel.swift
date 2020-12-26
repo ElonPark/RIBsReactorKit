@@ -8,9 +8,19 @@
 
 import Foundation
 
-struct UserProfileViewModel: Equatable {
-  
-  let userModel: UserModel
+protocol UserProfileViewModel {
+  var uuid: String { get }
+  var profileBackgroundImageURL: URL? { get }
+  var profileImageURL: URL? { get }
+  var titleWithLastName: String { get }
+  var firstName: String { get }
+}
+
+struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
+
+  var uuid: String {
+    userModel.login.uuid
+  }
   
   var profileBackgroundImageURL: URL? {
     userModel.largeImageURL
@@ -26,5 +36,11 @@ struct UserProfileViewModel: Equatable {
   
   var firstName: String {
     userModel.name.first
+  }
+
+  private let userModel: UserModel
+
+  init(userModel: UserModel) {
+    self.userModel = userModel
   }
 }

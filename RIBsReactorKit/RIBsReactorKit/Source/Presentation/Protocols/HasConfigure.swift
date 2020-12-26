@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol HasConfigure: HasViewModel {
+  func configure(by viewModel: ViewModel)
+}

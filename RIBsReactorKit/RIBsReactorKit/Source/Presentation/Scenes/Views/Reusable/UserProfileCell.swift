@@ -11,6 +11,7 @@ import UIKit
 final class UserProfileCell:
   BaseCollectionViewCell,
   HasViewModel,
+  HasConfigure,
   SkeletonAnimatable
 {
 
@@ -24,7 +25,7 @@ final class UserProfileCell:
     static let profileBackgroundImageViewTrailingMargin: CGFloat = 8
     
     // - profileImageView
-    static let profileImageViewSize: CGSize = .init(width: 120, height: 120)
+    static var profileImageViewSize: CGSize { CGSize(width: 120, height: 120) }
     static let profileImageViewBorderWidth: CGFloat = 5
     
     // - label
@@ -38,23 +39,14 @@ final class UserProfileCell:
     static let firstNameLabelBottomMargin: CGFloat = 8
     
     enum Font {
-      static let titleWithLastNameLabel: UIFont = .systemFont(ofSize: 20, weight: .bold)
-      static let firstNameLabel: UIFont = .systemFont(ofSize: 15)
+      static var titleWithLastNameLabel: UIFont { .systemFont(ofSize: 20, weight: .bold) }
+      static var firstNameLabel: UIFont { .systemFont(ofSize: 15) }
     }
   }
 
   // MARK: - Properties
 
-  var viewModel: UserProfileViewModel? {
-    didSet {
-      guard let viewModel = viewModel else { return }
-      hideSkeletonAnimation()
-      profileBackgroundImageView.kf.setImage(with: viewModel.profileBackgroundImageURL)
-      profileImageView.kf.setImage(with: viewModel.profileImageURL)
-      titleWithLastNameLabel.text = viewModel.titleWithLastName
-      firstNameLabel.text = viewModel.firstName
-    }
-  }
+  var viewModel: UserProfileViewModel?
   
   // for skeleton view animation
   private let dummyTitleWithLastNameString = String(repeating: " ", count: 60)
@@ -117,7 +109,18 @@ final class UserProfileCell:
     super.prepareForReuse()
     initUI()
   }
-  
+
+  // MARK: - Internal methods
+
+  func configure(by viewModel: ViewModel) {
+    self.viewModel = viewModel
+    hideSkeletonAnimation()
+    profileBackgroundImageView.kf.setImage(with: viewModel.profileBackgroundImageURL)
+    profileImageView.kf.setImage(with: viewModel.profileImageURL)
+    titleWithLastNameLabel.text = viewModel.titleWithLastName
+    firstNameLabel.text = viewModel.firstName
+  }
+
   // MARK: - Private methods
 
   private func initUI() {

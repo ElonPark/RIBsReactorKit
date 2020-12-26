@@ -66,7 +66,7 @@ class BaseCollectionViewCell:
   func setupConstraints() {
     // Override here
   }
-  
+
   // MARK: - Private methods
   
   private func setupConstraintsIfNeeded() {
