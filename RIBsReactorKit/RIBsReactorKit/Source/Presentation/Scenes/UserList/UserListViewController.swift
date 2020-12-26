@@ -13,7 +13,6 @@ import ReactorKit
 import RxCocoa
 import RxDataSources
 import RxSwift
-import RxSwiftExt
 import RxViewController
 import SkeletonView
 

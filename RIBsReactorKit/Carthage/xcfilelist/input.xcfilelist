@@ -1,8 +1,9 @@
 $(SRCROOT)/Carthage/Build/iOS/RxSwift.framework
 $(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework
 $(SRCROOT)/Carthage/Build/iOS/RxRelay.framework
-$(SRCROOT)/Carthage/Build/iOS/RxSwiftExt.framework
 $(SRCROOT)/Carthage/Build/iOS/RxViewController.framework
+$(SRCROOT)/Carthage/Build/iOS/Reachability.framework
+$(SRCROOT)/Carthage/Build/iOS/RxReachability.framework
 $(SRCROOT)/Carthage/Build/iOS/RIBs.framework
 $(SRCROOT)/Carthage/Build/iOS/WeakMapTable.framework
 $(SRCROOT)/Carthage/Build/iOS/ReactorKit.framework
