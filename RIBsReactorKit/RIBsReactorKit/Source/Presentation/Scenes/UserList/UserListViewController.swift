@@ -80,7 +80,33 @@ final class UserListViewController:
     bindUI()
     bind(listener: listener)
   }
-  
+
+  // MARK: - Private methods
+
+  private func setTabBarItem() {
+    tabBarItem = UITabBarItem(
+      title: "List",
+      image: R.image.listTab(),
+      selectedImage: nil
+    )
+  }
+
+  private func dataSource() -> UserListDataSource {
+    return UserListDataSource(
+      configureCell: { _, tableView, indexPath, sectionItem in
+        switch sectionItem {
+        case .user(let viewModel):
+          let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
+          cell.viewModel = viewModel
+          return cell
+
+        case .dummy:
+          let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
+          return cell
+        }
+    })
+  }
+
   // MARK: - Binding
 
   private func bindUI() {
@@ -92,12 +118,10 @@ final class UserListViewController:
     tableView.rx.willDisplayCell
       .asDriver()
       .drive(onNext: { cell, indexPath in
-        guard let userListCell = cell as? UserListItemCell,
-          userListCell.isSkeletonActive,
-          userListCell.viewModel == nil
-          else {
-            return
-        }
+        guard
+          let userListCell = cell as? UserListItemCell,
+          userListCell.isSkeletonActive && userListCell.viewModel == nil
+        else { return }
         
         userListCell.alpha = 0
         UIView.animate(
@@ -112,11 +136,7 @@ final class UserListViewController:
   
   private func bind(listener: UserListPresentableListener?) {
     guard let listener = listener else { return }
-  
-    // Action
     bindActions(to: listener)
-    
-    // State
     bindState(from: listener)
   }
   
@@ -145,8 +165,10 @@ final class UserListViewController:
   }
     
   private func bindLoadMoreAction(to listener: UserListPresentableListener) {
-    tableView.rx.willDisplayCell
-      .map { .loadMore($0.indexPath) }
+    tableView.rx.prefetchRows
+      .asObservable()
+      .compactMap { $0.sorted().last }
+      .map { .loadMore($0) }
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
@@ -186,41 +208,7 @@ final class UserListViewController:
     }
     .disposed(by: disposeBag)
   }
-  
-  private func bindUserListSectionsState(from listener: UserListPresentableListener) {
-    listener.state.map { $0.userListSections }
-      .distinctUntilChanged()
-      .asDriver(onErrorJustReturn: [])
-      .drive(tableView.rx.items(dataSource: dataSource()))
-      .disposed(by: disposeBag)
-  }
-  
-  // MARK: - Private methods
-  
-  private func setTabBarItem() {
-    tabBarItem = UITabBarItem(
-      title: "List",
-      image: R.image.listTab(),
-      selectedImage: nil
-    )
-  }
-  
-  private func dataSource() -> UserListDataSource {
-    return UserListDataSource(
-      configureCell: { _, tableView, indexPath, sectionItem in
-        switch sectionItem {
-        case .user(let viewModel):
-          let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
-          cell.viewModel = viewModel
-          return cell
-          
-        case .dummy:
-          let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
-          return cell
-        }
-    })
-  }
-  
+
   private func tableViewSkeletonAnimation(by isLoading: Bool) {
     if isLoading {
       tableView.showAnimatedGradientSkeleton()
@@ -229,6 +217,14 @@ final class UserListViewController:
       // To fix UILabel text when it is not visible after tableView.hideSkeleton.
       tableView.reloadData()
     }
+  }
+
+  private func bindUserListSectionsState(from listener: UserListPresentableListener) {
+    listener.state.map { $0.userListSections }
+      .distinctUntilChanged()
+      .asDriver(onErrorJustReturn: [])
+      .drive(tableView.rx.items(dataSource: dataSource()))
+      .disposed(by: disposeBag)
   }
 }
 
