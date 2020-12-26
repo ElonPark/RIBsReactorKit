@@ -40,7 +40,7 @@ final class RootViewController:
     guard let listener = listener else { return }
     self.rx.viewDidAppear
       .take(1)
-      .mapTo(Void())
+      .map { _ in Void() }
       .bind(to: listener.viewDidAppear)
       .disposed(by: disposeBag)
   }

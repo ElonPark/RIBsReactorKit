@@ -9,7 +9,6 @@
 import RIBs
 import ReactorKit
 import RxSwift
-import RxSwiftExt
 
 protocol UserInfomationRouting: ViewableRouting {}
 

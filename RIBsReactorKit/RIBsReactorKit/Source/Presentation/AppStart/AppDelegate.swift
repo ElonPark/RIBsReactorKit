@@ -10,6 +10,7 @@ import UIKit
 
 import EPLogger
 import RIBs
+import Reachability
 
 /// import once and use it globally
 public typealias Log = EPLogger.Log
@@ -23,14 +24,13 @@ final class AppDelegate:
   // MARK: - Properties
   
   var window: UIWindow?
-  
+
+  private var launchRouter: LaunchRouting?
+  private var reachability: Reachability?
+
   #if DEBUG
   private var ribsTreeViewer: RIBsTreeViewer?
   #endif
-  
-  // MARK: - Private
-  
-  private var launchRouter: LaunchRouting?
   
   // MARK: - UIApplicationDelegate
   
@@ -38,19 +38,44 @@ final class AppDelegate:
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-    
+    setReachability()
+
+    setWindow()
+    setLaunchRouter()
+    startRIBsTreeViewer()
+
+    return true
+  }
+}
+
+// MARK: - Private methods
+private extension AppDelegate {
+  func setWindow()  {
     let window = UIWindow(frame: UIScreen.main.bounds)
     self.window = window
-    
+  }
+
+  func setLaunchRouter() {
+    guard let window = self.window else { return }
     let launchRouter = RootBuilder(dependency: AppComponent()).build()
     self.launchRouter = launchRouter
     launchRouter.launch(from: window)
-    
+  }
+
+  func startRIBsTreeViewer() {
+    guard let launchRouter = self.launchRouter else { return }
     #if DEBUG
     startRIBsTreeViewer(launchRouter: launchRouter)
     #endif
-    
-    return true
+  }
+
+  func setReachability() {
+    do {
+      reachability = try Reachability()
+      try reachability?.startNotifier()
+    } catch {
+      Log.error(error)
+    }
   }
 }
 
