@@ -1,5 +1,6 @@
 # ReactiveX
 github "ReactiveX/RxSwift" ~> 5.1
+github "RxSwiftCommunity/RxReachability" ~> 1.1
 
 # Architecture
 github "uber/RIBs" "master"
@@ -9,6 +10,7 @@ github "ElonPark/WeakMapTable" ~> 1.2
 # Network
 github "Alamofire/Alamofire" ~> 5.1
 github "Moya/Moya" ~> 14.0
+github "ashleymills/Reachability.swift" == 5.0.0
 
 # Image
 github "onevcat/Kingfisher" ~> 5.0

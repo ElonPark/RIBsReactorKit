@@ -33,6 +33,8 @@
 		DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */; };
 		DB63021E2461B85F00C47E09 /* UserListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB63021D2461B85F00C47E09 /* UserListCell.swift */; };
 		DB643AA3258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */; };
+		DB6F0DDF25973E8000DD3258 /* SmartRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6F0DDE25973E8000DD3258 /* SmartRetry.swift */; };
+		DB6F0E1425973EC200DD3258 /* DelayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6F0E1325973EC200DD3258 /* DelayOption.swift */; };
 		DB70253024A2644100866A81 /* PullToRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB70252F24A2644100866A81 /* PullToRefreshable.swift */; };
 		DBA28BA72455D0040071160B /* RandomUserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA62455D0040071160B /* RandomUserRepository.swift */; };
 		DBA28BA92455ECFD0071160B /* RandomUserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */; };
@@ -153,6 +155,8 @@
 		DB63021A2460856C00C47E09 /* ViewControllableExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllableExtensions.swift; sourceTree = "<group>"; };
 		DB63021D2461B85F00C47E09 /* UserListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListCell.swift; sourceTree = "<group>"; };
 		DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListComponent+UserInfomationAdapter.swift"; sourceTree = "<group>"; };
+		DB6F0DDE25973E8000DD3258 /* SmartRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartRetry.swift; sourceTree = "<group>"; };
+		DB6F0E1325973EC200DD3258 /* DelayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayOption.swift; sourceTree = "<group>"; };
 		DB70252F24A2644100866A81 /* PullToRefreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullToRefreshable.swift; sourceTree = "<group>"; };
 		DBA28BA62455D0040071160B /* RandomUserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserRepository.swift; sourceTree = "<group>"; };
 		DBA28BA82455ECFD0071160B /* RandomUserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomUserUseCase.swift; sourceTree = "<group>"; };
@@ -514,6 +518,7 @@
 				DBA43BAA245DCFBA00C82D7E /* UserModelsStream.swift */,
 				DB630218246071CD00C47E09 /* UserListPresentableState.swift */,
 				DBF7909424854C1D007F6F3B /* UserListSectionModel.swift */,
+				DB6F0E1325973EC200DD3258 /* DelayOption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -648,6 +653,7 @@
 			isa = PBXGroup;
 			children = (
 				DBCD8AF52483C84500A34108 /* DisposableExtensions.swift */,
+				DB6F0DDE25973E8000DD3258 /* SmartRetry.swift */,
 			);
 			path = "Rx+Extensions";
 			sourceTree = "<group>";
@@ -753,7 +759,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = Elon;
 				TargetAttributes = {
 					DB35E27F244721DF00B26BD3 = {
@@ -951,9 +957,11 @@
 				DBC52DF12454560800BCFEBB /* UITableViewExtensions.swift in Sources */,
 				DB177CC224A23D7C0050C343 /* UserInfomationInteractor.swift in Sources */,
 				DBC52DFB2454560800BCFEBB /* BaseView.swift in Sources */,
+				DB6F0DDF25973E8000DD3258 /* SmartRetry.swift in Sources */,
 				DBA43B9E245C9C2100C82D7E /* UserListBuilder.swift in Sources */,
 				DBDD9AD02454D6A300DBF510 /* User.swift in Sources */,
 				DBC52DED2454560800BCFEBB /* RootInteractor.swift in Sources */,
+				DB6F0E1425973EC200DD3258 /* DelayOption.swift in Sources */,
 				DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */,
 				DBCD8AF62483C84500A34108 /* DisposableExtensions.swift in Sources */,
 				DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */,
@@ -1085,6 +1093,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1145,6 +1154,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
