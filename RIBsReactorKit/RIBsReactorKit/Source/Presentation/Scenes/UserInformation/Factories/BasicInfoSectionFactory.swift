@@ -1,5 +1,5 @@
 //
-//  BasicInfomationSectionFactory.swift
+//  BasicInfoSectionFactory.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/10/04.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-struct BasicInfomationSectionFactory: UserInfomationSectionFactory {
+struct BasicInfoSectionFactory: UserInfoSectionFactory {
   
-  let factories: [UserInfomationSectionItemFactory] = [
+  let factories: [UserInfoSectionItemFactory] = [
     GenderSctionItemFactory(),
     BirthDateSctionItemFactory(),
     AgeSctionItemFactory()
   ]
   
-  func makeSection(from userModel: UserModel) -> UserInfomationSection {
-    let headerViewModel = UserInfomationSectionHeaderViewModel(title: "기본 정보")
+  func makeSection(from userModel: UserModel) -> UserInfoSectionModel {
+    let headerViewModel = UserInfoSectionHeaderViewModel(title: "기본 정보")
     let items = factories.enumerated().map {
       $0.element.makeSectionItem(from: userModel, isLastItem: $0.offset == factories.endIndex)
     }
     
-    let section = UserInfomationSection(
+    let section = UserInfoSectionModel(
       header: headerViewModel,
       hasFooter: true,
       items: items
@@ -32,15 +32,15 @@ struct BasicInfomationSectionFactory: UserInfomationSectionFactory {
   }
 }
 
-struct GenderSctionItemFactory: UserInfomationSectionItemFactory {
+struct GenderSctionItemFactory: UserInfoSectionItemFactory {
   
   private var icon: UIImage? {
     guard #available(iOS 13, *) else { return nil }
     return UIImage(systemName: "person.fill")
   }
   
-  func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfomationSectionItem {
-    let viewModel = UserDetailInfomationItemViewModel(
+  func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem {
+    let viewModel = UserDetailInfoItemViewModel(
       icon: icon,
       title: userModel.gender,
       subtitle: "성별",
@@ -51,15 +51,15 @@ struct GenderSctionItemFactory: UserInfomationSectionItemFactory {
   }
 }
 
-struct BirthDateSctionItemFactory: UserInfomationSectionItemFactory {
+struct BirthDateSctionItemFactory: UserInfoSectionItemFactory {
   
   private var icon: UIImage? {
     guard #available(iOS 13, *) else { return nil }
     return UIImage(systemName: "calendar")
   }
   
-  func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfomationSectionItem {
-    let viewModel = UserDetailInfomationItemViewModel(
+  func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem {
+    let viewModel = UserDetailInfoItemViewModel(
       icon: icon,
       title: dateFormatString(from: userModel.dob.date),
       subtitle: "생일",
@@ -78,15 +78,15 @@ struct BirthDateSctionItemFactory: UserInfomationSectionItemFactory {
   }
 }
 
-struct AgeSctionItemFactory: UserInfomationSectionItemFactory {
+struct AgeSctionItemFactory: UserInfoSectionItemFactory {
   
   private var icon: UIImage? {
     guard #available(iOS 13, *) else { return nil }
     return UIImage(systemName: "clock")
   }
   
-  func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfomationSectionItem {
-    let viewModel = UserDetailInfomationItemViewModel(
+  func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem {
+    let viewModel = UserDetailInfoItemViewModel(
       icon: icon,
       title: "\(userModel.dob.age)세",
       subtitle: "나이",

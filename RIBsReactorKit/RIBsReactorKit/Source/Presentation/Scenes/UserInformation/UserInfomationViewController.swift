@@ -42,7 +42,7 @@ final class UserInfomationViewController:
     static let footerHeight: CGFloat = 10
   }
   
-  typealias UserInfomationDataSource = RxCollectionViewSectionedReloadDataSource<UserInfomationSection>
+  typealias UserInfomationDataSource = RxCollectionViewSectionedReloadDataSource<UserInfoSectionModel>
 
   // MARK: - Properties
   
@@ -63,8 +63,8 @@ final class UserInfomationViewController:
     $0.backgroundColor = .white
     $0.register(UserProfileCell.self)
     $0.register(UserDetailInfomationCell.self)
-    $0.register(UserInfomationHeaderView.self)
-    $0.register(UserInfomationFooterView.self)
+    $0.register(UserInfoHeaderView.self)
+    $0.register(UserInfoFooterView.self)
     $0.register(EmptyReusableView.self)
   }
   
@@ -180,7 +180,7 @@ final class UserInfomationViewController:
         guard let headerViewModel = section.header else {
           return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
         }
-        let headerView = collectionView.dequeue(UserInfomationHeaderView.self, indexPath: indexPath)
+        let headerView = collectionView.dequeue(UserInfoHeaderView.self, indexPath: indexPath)
         headerView.viewModel = headerViewModel
         return headerView
         
@@ -188,7 +188,7 @@ final class UserInfomationViewController:
         guard section.hasFooter else {
           return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
         }
-        let footerView = collectionView.dequeue(UserInfomationFooterView.self, indexPath: indexPath)
+        let footerView = collectionView.dequeue(UserInfoFooterView.self, indexPath: indexPath)
         return footerView
         
       default:
@@ -270,11 +270,11 @@ extension UserInfomationViewController {
     let mutableUserModelStream = UserModelStreamImpl()
     mutableUserModelStream.updateUserModel(by: userModel)
     
-    let factories: [UserInfomationSectionFactory] = [
+    let factories: [UserInfoSectionFactory] = [
       ProfileSectionFactory(),
-      BasicInfomationSectionFactory()
+      BasicInfoSectionFactory()
     ]
-    let sectionListFactory = UserInfomationSectionListFactoryImpl(factories: factories)
+    let sectionListFactory = UserInfoSectionListFactoryImpl(factories: factories)
 
     let state = UserInfomationPresentableState()
     let interactor = UserInfomationInteractor(

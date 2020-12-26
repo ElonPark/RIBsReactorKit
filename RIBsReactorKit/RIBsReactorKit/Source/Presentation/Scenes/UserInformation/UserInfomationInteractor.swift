@@ -33,7 +33,7 @@ final class UserInfomationInteractor:
   typealias State = UserInfomationPresentableState
   
   enum Mutation: Equatable {
-    case setUserInfomationSections([UserInfomationSection])
+    case setUserInfomationSections([UserInfoSectionModel])
     case detach
   }
   
@@ -45,14 +45,14 @@ final class UserInfomationInteractor:
   let initialState: UserInfomationPresentableState
   
   private let userModelStream: UserModelStream
-  private let userInfomationSectionListFactory: UserInfomationSectionListFactory
+  private let userInfomationSectionListFactory: UserInfoSectionListFactory
   
   // MARK: - Initialization & Deinitialization
   
   init(
     initialState: UserInfomationPresentableState,
     userModelStream: UserModelStream,
-    userInfomationSectionListFactory: UserInfomationSectionListFactory,
+    userInfomationSectionListFactory: UserInfoSectionListFactory,
     presenter: UserInfomationPresentable
   ) {
     self.initialState = initialState

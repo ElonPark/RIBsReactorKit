@@ -163,7 +163,7 @@ final class UserListViewController:
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
-    
+
   private func bindLoadMoreAction(to listener: UserListPresentableListener) {
     tableView.rx.prefetchRows
       .asObservable()

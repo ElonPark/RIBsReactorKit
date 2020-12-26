@@ -18,13 +18,13 @@ final class UserInfomationComponent: Component<UserInfomationDependency> {
   
   fileprivate var initialState = UserInfomationPresentableState()
   
-  private var userInfomationSectionFactories: [UserInfomationSectionFactory] = [
+  private var userInfomationSectionFactories: [UserInfoSectionFactory] = [
     ProfileSectionFactory(),
-    BasicInfomationSectionFactory()
+    BasicInfoSectionFactory()
   ]
   
-  fileprivate var userInfomationSectionListFactory: UserInfomationSectionListFactory {
-    UserInfomationSectionListFactoryImpl(factories: userInfomationSectionFactories)
+  fileprivate var userInfomationSectionListFactory: UserInfoSectionListFactory {
+    UserInfoSectionListFactoryImpl(factories: userInfomationSectionFactories)
   }
 }
 

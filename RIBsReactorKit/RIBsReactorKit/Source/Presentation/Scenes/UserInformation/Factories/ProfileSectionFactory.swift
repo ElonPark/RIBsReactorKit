@@ -8,12 +8,12 @@
 
 import UIKit
 
-struct ProfileSectionFactory: UserInfomationSectionFactory {
-  func makeSection(from userModel: UserModel) -> UserInfomationSection {
-    let viewModel = UserProfileViewModel(userModel: userModel)
-    let item: UserInfomationSectionItem = .profile(viewModel)
+struct ProfileSectionFactory: UserInfoSectionFactory {
+  func makeSection(from userModel: UserModel) -> UserInfoSectionModel {
+    let viewModel: UserProfileViewModel = UserProfileViewModelImpl(userModel: userModel)
+    let item: UserInfoSectionItem = .profile(viewModel)
     
-    let section = UserInfomationSection(
+    let section = UserInfoSectionModel(
       header: nil,
       hasFooter: true,
       items: [item]

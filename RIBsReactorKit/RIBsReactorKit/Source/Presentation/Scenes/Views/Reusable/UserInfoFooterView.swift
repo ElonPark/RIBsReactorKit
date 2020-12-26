@@ -1,5 +1,5 @@
 //
-//  UserInfomationFooterView.swift
+//  UserInfoFooterView.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/10/04.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class UserInfomationFooterView:
+final class UserInfoFooterView:
   BaseCollectionReusableView,
   HasElementKind
 {
@@ -46,7 +46,7 @@ final class UserInfomationFooterView:
 }
 
 // MARK: - Layout
-extension UserInfomationFooterView {
+extension UserInfoFooterView {
   private func setupUI() {
     self.addSubview(separatorLineView)
   }

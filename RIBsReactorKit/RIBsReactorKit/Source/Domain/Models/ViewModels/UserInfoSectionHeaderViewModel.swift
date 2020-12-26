@@ -1,5 +1,5 @@
 //
-//  UserInfomationSectionHeaderViewModel.swift
+//  UserInfoSectionHeaderViewModel.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/08/18.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct UserInfomationSectionHeaderViewModel: Equatable {
+struct UserInfoSectionHeaderViewModel: Equatable {
   var title: String
 }

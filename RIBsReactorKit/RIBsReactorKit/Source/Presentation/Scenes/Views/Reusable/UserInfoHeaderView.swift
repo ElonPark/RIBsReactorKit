@@ -1,5 +1,5 @@
 //
-//  UserInfomationHeaderView.swift
+//  UserInfoHeaderView.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/08/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class UserInfomationHeaderView:
+final class UserInfoHeaderView:
   BaseCollectionReusableView,
   HasElementKind,
   HasViewModel,
@@ -36,7 +36,7 @@ final class UserInfomationHeaderView:
   
   static var elementKind: String = UICollectionView.elementKindSectionHeader
   
-  var viewModel: UserInfomationSectionHeaderViewModel? {
+  var viewModel: UserInfoSectionHeaderViewModel? {
     didSet {
       guard let viewModel = viewModel else { return }
       hideSkeletonAnimation()
@@ -85,7 +85,7 @@ final class UserInfomationHeaderView:
 }
 
 // MARK: - Layout
-extension UserInfomationHeaderView {
+extension UserInfoHeaderView {
   private func setupUI() {
     self.isSkeletonable = true
     views.forEach { self.addSubview($0) }
@@ -111,8 +111,8 @@ import SwiftUI
 struct UserInfomationSectionHeaderViewPreview: PreviewProvider {
   static var previews: some SwiftUI.View {
     UIViewPreview {
-      UserInfomationHeaderView().then {
-        $0.viewModel = UserInfomationSectionHeaderViewModel(title: "test")
+      UserInfoHeaderView().then {
+        $0.viewModel = UserInfoSectionHeaderViewModel(title: "test")
       }
     }
     .previewLayout(.fixed(width: 320, height: 50))

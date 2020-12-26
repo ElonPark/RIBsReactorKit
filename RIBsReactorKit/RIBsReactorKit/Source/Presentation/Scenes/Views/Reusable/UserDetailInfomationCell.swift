@@ -52,7 +52,7 @@ final class UserDetailInfomationCell:
   
   // MARK: - Properties
   
-  var viewModel: UserDetailInfomationItemViewModel? {
+  var viewModel: UserDetailInfoItemViewModel? {
     didSet {
       guard let viewModel = viewModel else { return }
       hideSkeletonAnimation()

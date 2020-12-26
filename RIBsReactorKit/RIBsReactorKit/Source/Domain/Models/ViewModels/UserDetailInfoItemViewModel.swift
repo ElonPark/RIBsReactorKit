@@ -1,5 +1,5 @@
 //
-//  UserDetailInfomationItemViewModel.swift
+//  UserDetailInfoItemViewModel.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/09/13.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-struct UserDetailInfomationItemViewModel: Equatable {
-  
+struct UserDetailInfoItemViewModel: Equatable {
+
   let icon: UIImage?
   let title: String
   let subtitle: String?
