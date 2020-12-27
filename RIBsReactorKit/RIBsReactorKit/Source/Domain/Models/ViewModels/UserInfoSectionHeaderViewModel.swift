@@ -8,6 +8,10 @@
 
 import Foundation
 
-struct UserInfoSectionHeaderViewModel: Equatable {
+protocol UserInfoSectionHeaderViewModel {
+  var title: String { get }
+}
+
+struct UserInfoSectionHeaderViewModelImpl: UserInfoSectionHeaderViewModel, Equatable {
   var title: String
 }

@@ -8,10 +8,19 @@
 
 import RxDataSources
 
-struct UserInfoSectionModel: Equatable {
+struct UserInfoSectionModel {
   var header: UserInfoSectionHeaderViewModel?
   var hasFooter: Bool
   var items: [UserInfoSectionItem]
+}
+
+extension UserInfoSectionModel: Equatable {
+  static func == (lhs: UserInfoSectionModel, rhs: UserInfoSectionModel) -> Bool {
+    let isEqulHeader = lhs.header?.title == rhs.header?.title
+    let isEqulFooter = lhs.hasFooter == rhs.hasFooter
+    let isEqulItems = lhs.items == rhs.items
+    return isEqulHeader && isEqulFooter && isEqulItems
+  }
 }
 
 extension UserInfoSectionModel: SectionModelType {

@@ -177,20 +177,22 @@ final class UserInfomationViewController:
       let section = dataSource.sectionModels[indexPath.section]
       switch ofKind {
       case UICollectionView.elementKindSectionHeader:
-        guard let headerViewModel = section.header else {
+        if let headerViewModel = section.header {
+          let headerView = collectionView.dequeue(UserInfoHeaderView.self, indexPath: indexPath)
+          headerView.configure(by: headerViewModel)
+          return headerView
+        } else {
           return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
         }
-        let headerView = collectionView.dequeue(UserInfoHeaderView.self, indexPath: indexPath)
-        headerView.viewModel = headerViewModel
-        return headerView
-        
+
       case UICollectionView.elementKindSectionFooter:
-        guard section.hasFooter else {
+        if section.hasFooter {
+          let footerView = collectionView.dequeue(UserInfoFooterView.self, indexPath: indexPath)
+          return footerView
+        } else {
           return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
         }
-        let footerView = collectionView.dequeue(UserInfoFooterView.self, indexPath: indexPath)
-        return footerView
-        
+
       default:
         return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
       }
@@ -247,7 +249,7 @@ extension UserInfomationViewController: UICollectionViewDelegateFlowLayout {
       let item = section.items[safe: indexPath.item] else {
         return .zero
     }
-    // FIXME: - 수정 필요 2020-10-04 03:37:41
+    //// FIXME: - 수정 필요 2020-10-04 03:37:41
     switch item {
     case .dummyProfile, .profile:
       return CGSize(width: UIScreen.main.bounds.width, height: 250)

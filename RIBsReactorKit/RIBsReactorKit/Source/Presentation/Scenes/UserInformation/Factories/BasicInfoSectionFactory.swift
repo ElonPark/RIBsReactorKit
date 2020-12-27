@@ -18,7 +18,7 @@ struct BasicInfoSectionFactory: UserInfoSectionFactory {
   ]
   
   func makeSection(from userModel: UserModel) -> UserInfoSectionModel {
-    let headerViewModel = UserInfoSectionHeaderViewModel(title: "기본 정보")
+    let headerViewModel: UserInfoSectionHeaderViewModel = UserInfoSectionHeaderViewModelImpl(title: "기본 정보")
     let items = factories.enumerated().map {
       $0.element.makeSectionItem(from: userModel, isLastItem: $0.offset == factories.endIndex)
     }

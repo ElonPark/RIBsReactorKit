@@ -11,7 +11,7 @@ import UIKit
 final class UserInfoHeaderView:
   BaseCollectionReusableView,
   HasElementKind,
-  HasViewModel,
+  HasConfigure,
   SkeletonAnimatable
 {
  
@@ -36,13 +36,7 @@ final class UserInfoHeaderView:
   
   static var elementKind: String = UICollectionView.elementKindSectionHeader
   
-  var viewModel: UserInfoSectionHeaderViewModel? {
-    didSet {
-      guard let viewModel = viewModel else { return }
-      hideSkeletonAnimation()
-      titleLabel.text = viewModel.title
-    }
-  }
+  private(set) var viewModel: UserInfoSectionHeaderViewModel?
   
   // for skeleton view animation
   private let dummyTitleString = String(repeating: " ", count: 30)
@@ -75,6 +69,14 @@ final class UserInfoHeaderView:
   override func prepareForReuse() {
     super.prepareForReuse()
     initUI()
+  }
+
+  // MARK: - Internal methods
+
+  func configure(by viewModel: UserInfoSectionHeaderViewModel) {
+    self.viewModel = viewModel
+    hideSkeletonAnimation()
+    titleLabel.text = viewModel.title
   }
   
   // MARK: - Private methods
@@ -112,7 +114,7 @@ struct UserInfomationSectionHeaderViewPreview: PreviewProvider {
   static var previews: some SwiftUI.View {
     UIViewPreview {
       UserInfoHeaderView().then {
-        $0.viewModel = UserInfoSectionHeaderViewModel(title: "test")
+        $0.configure(by: UserInfoSectionHeaderViewModelImpl(title: "test"))
       }
     }
     .previewLayout(.fixed(width: 320, height: 50))
