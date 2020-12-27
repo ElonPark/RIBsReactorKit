@@ -46,7 +46,7 @@ final class UserProfileCell:
 
   // MARK: - Properties
 
-  var viewModel: UserProfileViewModel?
+  private(set) var viewModel: UserProfileViewModel?
   
   // for skeleton view animation
   private let dummyTitleWithLastNameString = String(repeating: " ", count: 60)
@@ -112,7 +112,7 @@ final class UserProfileCell:
 
   // MARK: - Internal methods
 
-  func configure(by viewModel: ViewModel) {
+  func configure(by viewModel: UserProfileViewModel) {
     self.viewModel = viewModel
     hideSkeletonAnimation()
     profileBackgroundImageView.kf.setImage(with: viewModel.profileBackgroundImageURL)

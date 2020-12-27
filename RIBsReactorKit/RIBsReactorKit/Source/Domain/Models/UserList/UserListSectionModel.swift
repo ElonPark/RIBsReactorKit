@@ -31,7 +31,22 @@ extension UserListSectionModel: SectionModelType {
   }
 }
 
-enum UserListSectionItem: Equatable {
+enum UserListSectionItem {
   case user(UserListItemViewModel)
   case dummy
+}
+
+extension UserListSectionItem: Equatable {
+  static func == (lhs: UserListSectionItem, rhs: UserListSectionItem) -> Bool {
+    switch (lhs, rhs) {
+    case (.user(let lhsViewModel), .user(let rhsViewModel)):
+      return lhsViewModel.uuid == rhsViewModel.uuid
+
+    case (.dummy, dummy):
+      return true
+
+    default:
+      return false
+    }
+  }
 }

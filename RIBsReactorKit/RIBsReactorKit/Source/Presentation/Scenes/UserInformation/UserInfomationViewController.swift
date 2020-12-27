@@ -62,7 +62,7 @@ final class UserInfomationViewController:
   private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
     $0.backgroundColor = .white
     $0.register(UserProfileCell.self)
-    $0.register(UserDetailInfomationCell.self)
+    $0.register(UserDetailInfoCell.self)
     $0.register(UserInfoHeaderView.self)
     $0.register(UserInfoFooterView.self)
     $0.register(EmptyReusableView.self)
@@ -155,19 +155,19 @@ final class UserInfomationViewController:
       switch section {
       case .profile(let viewModel):
         let cell = collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
-        cell.viewModel = viewModel
+        cell.configure(by: viewModel)
         return cell
         
       case .detail(let viewModel):
-        let cell = collectionView.dequeue(UserDetailInfomationCell.self, indexPath: indexPath)
-        cell.viewModel = viewModel
+        let cell = collectionView.dequeue(UserDetailInfoCell.self, indexPath: indexPath)
+        cell.configure(by: viewModel)
         return cell
         
       case .dummyProfile:
         return collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
         
       case .dummy:
-        return collectionView.dequeue(UserDetailInfomationCell.self, indexPath: indexPath)
+        return collectionView.dequeue(UserDetailInfoCell.self, indexPath: indexPath)
       }
     })
   }

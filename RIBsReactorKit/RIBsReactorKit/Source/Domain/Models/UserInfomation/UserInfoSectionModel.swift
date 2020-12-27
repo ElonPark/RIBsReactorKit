@@ -36,12 +36,15 @@ extension UserInfoSectionItem: Equatable {
     case (.profile(let lhsViewModel), .profile(let rhsViewModel)):
       return lhsViewModel.uuid == rhsViewModel.uuid
 
-    case (.detail, .detail):
-      return true
+    case (.detail(let lhsViewModel), .detail(let rhsViewModel)):
+      return lhsViewModel.uuid == rhsViewModel.uuid
+
     case (.dummyProfile, .dummyProfile):
       return true
+
     case (.dummy, .dummy):
       return true
+
     default:
       return false
     }

@@ -8,10 +8,22 @@
 
 import Foundation
 
-struct UserListItemViewModel: Equatable {
-  
+protocol UserListItemViewModel {
+  var userModel: UserModel { get }
+  var uuid: String { get }
+  var profileImageURL: URL? { get }
+  var titleWithFullName: String { get }
+  var location: String { get }
+}
+
+struct UserListItemViewModelImpl: UserListItemViewModel, Equatable {
+
   let userModel: UserModel
-  
+
+  var uuid: String {
+    userModel.login.uuid
+  }
+
   var profileImageURL: URL? {
     userModel.thumbnailImageURL
   }

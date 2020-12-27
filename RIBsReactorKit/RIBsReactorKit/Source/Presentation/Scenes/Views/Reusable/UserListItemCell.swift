@@ -16,6 +16,7 @@ import SkeletonView
 final class UserListItemCell:
   BaseTableViewCell,
   HasViewModel,
+  HasConfigure,
   SkeletonAnimatable
 {
   
@@ -44,15 +45,7 @@ final class UserListItemCell:
   
   // MARK: - Properties
   
-  var viewModel: UserListItemViewModel? {
-    didSet {
-      guard let viewModel = viewModel else { return }
-      hideSkeletonAnimation()
-      profileImageView.kf.setImage(with: viewModel.profileImageURL)
-      nameLabel.text = viewModel.titleWithFullName
-      locationLabel.text = viewModel.location
-    }
-  }
+  private(set) var viewModel: UserListItemViewModel?
   
   // for skeleton view animation
   private let dummyNameString = String(repeating: " ", count: 60)
@@ -103,6 +96,16 @@ final class UserListItemCell:
     super.prepareForReuse()
     profileImageView.kf.cancelDownloadTask()
     initUI()
+  }
+
+  // MARK: - Internal methods
+
+  func configure(by viewModel: UserListItemViewModel) {
+    self.viewModel = viewModel
+    hideSkeletonAnimation()
+    profileImageView.kf.setImage(with: viewModel.profileImageURL)
+    nameLabel.text = viewModel.titleWithFullName
+    locationLabel.text = viewModel.location
   }
   
   // MARK: - Private methods

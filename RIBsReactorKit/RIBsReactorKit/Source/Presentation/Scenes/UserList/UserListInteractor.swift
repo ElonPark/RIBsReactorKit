@@ -152,7 +152,7 @@ extension UserListInteractor {
     return randomUserUseCase
       .userModelsStream
       .userModels
-      .map { $0.map { UserListItemViewModel(userModel: $0) } }
+      .map { $0.map { UserListItemViewModelImpl(userModel: $0) } }
       .map { $0.map(UserListSectionItem.user) }
       .map { [UserListSectionModel.randomUser($0)] }
       .map(Mutation.userListSections)

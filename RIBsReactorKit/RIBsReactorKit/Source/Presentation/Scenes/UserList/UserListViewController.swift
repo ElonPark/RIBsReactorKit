@@ -97,7 +97,7 @@ final class UserListViewController:
         switch sectionItem {
         case .user(let viewModel):
           let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
-          cell.viewModel = viewModel
+          cell.configure(by: viewModel)
           return cell
 
         case .dummy:
@@ -252,7 +252,7 @@ extension UserListViewController {
     let userModelTranslator = UserModelTranslatorImpl()
     
     let dummySectionItems = userModelTranslator.translateToUserModel(by: randomUser.results)
-      .map { UserListItemViewModel(userModel: $0) }
+      .map { UserListItemViewModelImpl(userModel: $0) }
       .map(UserListSectionItem.user)
     
     Observable.just([.randomUser(dummySectionItems)])

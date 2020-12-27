@@ -1,5 +1,5 @@
 //
-//  UserDetailInfomationCell.swift
+//  UserDetailInfoCell.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/09/13.
@@ -8,9 +8,10 @@
 
 import UIKit
 
-final class UserDetailInfomationCell:
+final class UserDetailInfoCell:
   BaseCollectionViewCell,
   HasViewModel,
+  HasConfigure,
   SkeletonAnimatable
 {
   
@@ -22,7 +23,7 @@ final class UserDetailInfomationCell:
     static let baseContentsViewMinimumHeight: CGFloat = 80
     
     // - iconImageView
-    static let iconImageViewSize: CGSize = .init(width: 50, height: 50)
+    static var iconImageViewSize: CGSize { CGSize(width: 50, height: 50) }
     static let iconTopMargin: CGFloat = 15
     static let iconBottomMargin: CGFloat = 15
     static let iconLeadingMargin: CGFloat = 8
@@ -38,33 +39,21 @@ final class UserDetailInfomationCell:
     static let separatorLineViewHeight: CGFloat = 0.5
     
     enum Font {
-      static let title: UIFont = .systemFont(ofSize: 20)
-      static let subtitle: UIFont = .systemFont(ofSize: 15)
+      static var title: UIFont { .systemFont(ofSize: 20) }
+      static var subtitle: UIFont { .systemFont(ofSize: 15) }
     }
     
     enum Color {
-      static let iconImageViewBackground: UIColor = .skeletonDefault
-      static let titleText: UIColor = .darkText
-      static let subtitleText: UIColor = .darkGray
-      static let separatorLine: UIColor = .lightGray
+      static var iconImageViewBackground: UIColor { .skeletonDefault }
+      static var titleText: UIColor { .darkText }
+      static var subtitleText: UIColor { .darkGray }
+      static var separatorLine: UIColor { .lightGray }
     }
   }
   
   // MARK: - Properties
   
-  var viewModel: UserDetailInfoItemViewModel? {
-    didSet {
-      guard let viewModel = viewModel else { return }
-      hideSkeletonAnimation()
-      iconImageView.image = viewModel.icon
-      titleLabel.text = viewModel.title
-      separatorLineView.isHidden = !viewModel.showSeparatorLine
-      
-      guard viewModel.hasSubtitle else { return }
-      subtitleLabel.text = viewModel.subtitle
-      textLabelStackView.addArrangedSubview(subtitleLabel)
-    }
-  }
+  private(set) var viewModel: UserDetailInfoItemViewModel?
   
   // for skeleton view animation
   private let dummyTitleString = String(repeating: " ", count: 60)
@@ -128,6 +117,20 @@ final class UserDetailInfomationCell:
     super.prepareForReuse()
     initUI()
   }
+
+  // MARK: - Internal methods
+
+  func configure(by viewModel: UserDetailInfoItemViewModel) {
+    self.viewModel = viewModel
+    hideSkeletonAnimation()
+    iconImageView.image = viewModel.icon
+    titleLabel.text = viewModel.title
+    separatorLineView.isHidden = !viewModel.showSeparatorLine
+
+    guard viewModel.hasSubtitle else { return }
+    subtitleLabel.text = viewModel.subtitle
+    textLabelStackView.addArrangedSubview(subtitleLabel)
+  }
   
   // MARK: - Private methods
   
@@ -139,7 +142,7 @@ final class UserDetailInfomationCell:
 }
 
 // MARK: - Layout
-extension UserDetailInfomationCell {
+extension UserDetailInfoCell {
   private func setupUI() {
     self.isSkeletonable = true
     contentView.addSubview(baseContentsView)
@@ -184,20 +187,36 @@ extension UserDetailInfomationCell {
 }
 
 #if canImport(SwiftUI) && DEBUG
+extension UserDetailInfoCell {
+  fileprivate func dummyUserModel() -> UserModel? {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
+    guard let randomUser = try? decoder.decode(RandomUser.self, from: RandomUserFixture.data) else { return nil }
+    let userModelTranslator = UserModelTranslatorImpl()
+
+    let userModels = userModelTranslator.translateToUserModel(by: randomUser.results)
+    return userModels.first
+  }
+}
+
 import SwiftUI
 
 @available(iOS 13.0, *)
 struct UserDetailInfomationCellCellPreview: PreviewProvider {
   static var previews: some SwiftUI.View {
     UIViewPreview {
-      UserDetailInfomationCell().then {
-        $0.viewModel = UserDetailInfomationItemViewModel(
-          icon: .checkmark,
-          title: "서울",
-          subtitle: "거주지",
-          showSeparatorLine: true
-        )
-      }
+      UserDetailInfoCell()
+        .then {
+          guard let userModel = $0.dummyUserModel() else { return }
+          let viewModel: UserDetailInfoItemViewModel = UserDetailInfoItemViewModelImpl(
+            userModel: userModel,
+            icon: .checkmark,
+            title: "서울",
+            subtitle: "거주지",
+            showSeparatorLine: true
+          )
+          $0.configure(by: viewModel)
+        }
     }
     .previewLayout(.fixed(width: 400, height: 100))
     .padding(10)

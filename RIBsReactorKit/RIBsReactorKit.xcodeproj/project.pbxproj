@@ -39,7 +39,7 @@
 		DB643AA3258E19C000EAB2DB /* UserListComponent+UserInfomation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomation.swift */; };
 		DB69A1ED252655D0001BE7DB /* UserInfoSectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69A1EC252655D0001BE7DB /* UserInfoSectionModel.swift */; };
 		DB69A1EF2528D927001BE7DB /* ISO8601DateFormatter+Extensios.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB69A1EE2528D927001BE7DB /* ISO8601DateFormatter+Extensios.swift */; };
-		DB6C78CE250D3944006FC59F /* UserDetailInfomationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C78CD250D3944006FC59F /* UserDetailInfomationCell.swift */; };
+		DB6C78CE250D3944006FC59F /* UserDetailInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C78CD250D3944006FC59F /* UserDetailInfoCell.swift */; };
 		DB6C78D0250D3A9A006FC59F /* UserDetailInfoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6C78CF250D3A9A006FC59F /* UserDetailInfoItemViewModel.swift */; };
 		DB6F0DDF25973E8000DD3258 /* SmartRetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6F0DDE25973E8000DD3258 /* SmartRetry.swift */; };
 		DB6F0E1425973EC200DD3258 /* DelayOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6F0E1325973EC200DD3258 /* DelayOption.swift */; };
@@ -104,6 +104,9 @@
 		DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFB2483EED800A34108 /* HasTableView.swift */; };
 		DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBCD8AFD2483EF3200A34108 /* HasCollectionView.swift */; };
 		DBD05F822597B9D00087EBDD /* HasConfigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD05F812597B9D00087EBDD /* HasConfigure.swift */; };
+		DBD05F9C2598C76B0087EBDD /* GenderSctionItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD05F9B2598C76B0087EBDD /* GenderSctionItemFactory.swift */; };
+		DBD05FA12598C7960087EBDD /* BirthDateSctionItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD05FA02598C7960087EBDD /* BirthDateSctionItemFactory.swift */; };
+		DBD05FA62598C7B50087EBDD /* AgeSctionItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD05FA52598C7B50087EBDD /* AgeSctionItemFactory.swift */; };
 		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
 		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
@@ -178,7 +181,7 @@
 		DB643AA2258E19C000EAB2DB /* UserListComponent+UserInfomation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserListComponent+UserInfomation.swift"; sourceTree = "<group>"; };
 		DB69A1EC252655D0001BE7DB /* UserInfoSectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoSectionModel.swift; sourceTree = "<group>"; };
 		DB69A1EE2528D927001BE7DB /* ISO8601DateFormatter+Extensios.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ISO8601DateFormatter+Extensios.swift"; sourceTree = "<group>"; };
-		DB6C78CD250D3944006FC59F /* UserDetailInfomationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailInfomationCell.swift; sourceTree = "<group>"; };
+		DB6C78CD250D3944006FC59F /* UserDetailInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailInfoCell.swift; sourceTree = "<group>"; };
 		DB6C78CF250D3A9A006FC59F /* UserDetailInfoItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailInfoItemViewModel.swift; sourceTree = "<group>"; };
 		DB6F0DDE25973E8000DD3258 /* SmartRetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartRetry.swift; sourceTree = "<group>"; };
 		DB6F0E1325973EC200DD3258 /* DelayOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelayOption.swift; sourceTree = "<group>"; };
@@ -260,6 +263,9 @@
 		DBCD8B28248400CD00A34108 /* RxViewController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxViewController.framework; path = Carthage/Build/iOS/RxViewController.framework; sourceTree = "<group>"; };
 		DBCD8B29248400CD00A34108 /* KingfisherSwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KingfisherSwiftUI.framework; path = Carthage/Build/iOS/KingfisherSwiftUI.framework; sourceTree = "<group>"; };
 		DBD05F812597B9D00087EBDD /* HasConfigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasConfigure.swift; sourceTree = "<group>"; };
+		DBD05F9B2598C76B0087EBDD /* GenderSctionItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSctionItemFactory.swift; sourceTree = "<group>"; };
+		DBD05FA02598C7960087EBDD /* BirthDateSctionItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthDateSctionItemFactory.swift; sourceTree = "<group>"; };
+		DBD05FA52598C7B50087EBDD /* AgeSctionItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSctionItemFactory.swift; sourceTree = "<group>"; };
 		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
 		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
@@ -465,7 +471,7 @@
 				DB63021D2461B85F00C47E09 /* UserListItemCell.swift */,
 				2F8CCD98ADCEA8F885113A2C /* UserProfileCell.swift */,
 				DB9B4A5D24EAE6C90033A5DE /* UserInfoHeaderView.swift */,
-				DB6C78CD250D3944006FC59F /* UserDetailInfomationCell.swift */,
+				DB6C78CD250D3944006FC59F /* UserDetailInfoCell.swift */,
 				DB7CB3762529028F00E18E7E /* UserInfoFooterView.swift */,
 				DB7CB3782529071F00E18E7E /* EmptyReusableView.swift */,
 			);
@@ -478,6 +484,9 @@
 				DB7CB37A25290B9E00E18E7E /* UserInfoSectionListFactory.swift */,
 				DB7CB37D2529154300E18E7E /* ProfileSectionFactory.swift */,
 				DB7CB37F2529155A00E18E7E /* BasicInfoSectionFactory.swift */,
+				DBD05F9B2598C76B0087EBDD /* GenderSctionItemFactory.swift */,
+				DBD05FA02598C7960087EBDD /* BirthDateSctionItemFactory.swift */,
+				DBD05FA52598C7B50087EBDD /* AgeSctionItemFactory.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -1097,6 +1106,7 @@
 				DBD05F822597B9D00087EBDD /* HasConfigure.swift in Sources */,
 				DBA43B9E245C9C2100C82D7E /* UserListBuilder.swift in Sources */,
 				DB9B4A6424EAED1A0033A5DE /* BaseViewable.swift in Sources */,
+				DBD05F9C2598C76B0087EBDD /* GenderSctionItemFactory.swift in Sources */,
 				DBDD9AD02454D6A300DBF510 /* User.swift in Sources */,
 				DB3E91D224EA97C200C8DEAA /* UserListItemViewModel.swift in Sources */,
 				DBC52DED2454560800BCFEBB /* RootInteractor.swift in Sources */,
@@ -1116,7 +1126,7 @@
 				DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */,
 				DBCD8AFC2483EED800A34108 /* HasTableView.swift in Sources */,
 				DB9B4A6224EAE9440033A5DE /* HasSetupConstraints.swift in Sources */,
-				DB6C78CE250D3944006FC59F /* UserDetailInfomationCell.swift in Sources */,
+				DB6C78CE250D3944006FC59F /* UserDetailInfoCell.swift in Sources */,
 				DBC52DF82454560800BCFEBB /* BaseViewController.swift in Sources */,
 				DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */,
 				DB979C5024D9A0A800E34DE6 /* SkeletonAnimatable.swift in Sources */,
@@ -1136,6 +1146,7 @@
 				DB35FABA248D4D8700416963 /* ArrayExtensions.swift in Sources */,
 				DBC52DF92454560800BCFEBB /* BaseTableViewCell.swift in Sources */,
 				DBCD8AF12483C11800A34108 /* HasDisposeBag.swift in Sources */,
+				DBD05FA12598C7960087EBDD /* BirthDateSctionItemFactory.swift in Sources */,
 				DB7CB37E2529154300E18E7E /* ProfileSectionFactory.swift in Sources */,
 				DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */,
 				DBF7909524854C1D007F6F3B /* UserListSectionModel.swift in Sources */,
@@ -1154,6 +1165,7 @@
 				DBEB56532455B15F0054D41E /* RandomUserFixture.swift in Sources */,
 				DB63021E2461B85F00C47E09 /* UserListItemCell.swift in Sources */,
 				DBC7359624EABDF7009C87C7 /* Dummy.swift in Sources */,
+				DBD05FA62598C7B50087EBDD /* AgeSctionItemFactory.swift in Sources */,
 				DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */,
 				DBEF8B36245F055700A37587 /* MainTabBarComponent+UserCollection.swift in Sources */,
 				DBA43B9F245C9C2100C82D7E /* UserListInteractor.swift in Sources */,
