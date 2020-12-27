@@ -23,11 +23,11 @@ struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
   }
   
   var profileBackgroundImageURL: URL? {
-    userModel.largeImageURL
+    userModel.thumbnailImageURL
   }
   
   var profileImageURL: URL? {
-    userModel.mediumImageURL
+    userModel.largeImageURL
   }
   
   var titleWithLastName: String {
