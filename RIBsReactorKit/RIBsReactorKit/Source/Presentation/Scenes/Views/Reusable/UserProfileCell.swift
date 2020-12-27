@@ -21,6 +21,7 @@ final class UserProfileCell:
     // - profileBackgroundImageView
     static let profileBackgroundImageViewCornerRadius: CGFloat = 18
     static let profileBackgroundImageViewHeight: CGFloat = 120
+    static let profileBackgroundImageTopMargin: CGFloat = 8
     static let profileBackgroundImageLeadingMargin: CGFloat = 8
     static let profileBackgroundImageViewTrailingMargin: CGFloat = 8
     
@@ -143,7 +144,7 @@ extension UserProfileCell {
 
   private func layout() {
     profileBackgroundImageView.snp.makeConstraints {
-      $0.top.equalToSuperview()
+      $0.top.equalToSuperview().offset(UI.profileBackgroundImageTopMargin)
       $0.leading.equalToSuperview().offset(UI.profileBackgroundImageLeadingMargin)
       $0.trailing.equalToSuperview().offset(-UI.profileBackgroundImageViewTrailingMargin)
       $0.height.equalTo(UI.profileBackgroundImageViewHeight)
