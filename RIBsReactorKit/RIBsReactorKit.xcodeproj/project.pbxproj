@@ -107,6 +107,8 @@
 		DBD05F9C2598C76B0087EBDD /* GenderSctionItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD05F9B2598C76B0087EBDD /* GenderSctionItemFactory.swift */; };
 		DBD05FA12598C7960087EBDD /* BirthDateSctionItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD05FA02598C7960087EBDD /* BirthDateSctionItemFactory.swift */; };
 		DBD05FA62598C7B50087EBDD /* AgeSctionItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD05FA52598C7B50087EBDD /* AgeSctionItemFactory.swift */; };
+		DBD6CA49259F53DA00324A68 /* HasUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6CA48259F53DA00324A68 /* HasUserModel.swift */; };
+		DBD6CA4E259F542A00324A68 /* HasUUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD6CA4D259F542A00324A68 /* HasUUID.swift */; };
 		DBDC8DB824604018009C4FF8 /* UIViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */; };
 		DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */; };
 		DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9ACD2454D68F00DBF510 /* Info.swift */; };
@@ -266,6 +268,8 @@
 		DBD05F9B2598C76B0087EBDD /* GenderSctionItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSctionItemFactory.swift; sourceTree = "<group>"; };
 		DBD05FA02598C7960087EBDD /* BirthDateSctionItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthDateSctionItemFactory.swift; sourceTree = "<group>"; };
 		DBD05FA52598C7B50087EBDD /* AgeSctionItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeSctionItemFactory.swift; sourceTree = "<group>"; };
+		DBD6CA48259F53DA00324A68 /* HasUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasUserModel.swift; sourceTree = "<group>"; };
+		DBD6CA4D259F542A00324A68 /* HasUUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasUUID.swift; sourceTree = "<group>"; };
 		DBDC8DB724604018009C4FF8 /* UIViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPreview.swift; sourceTree = "<group>"; };
 		DBDC8DB924604027009C4FF8 /* UIViewPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPreview.swift; sourceTree = "<group>"; };
 		DBDD9AC52454783200DBF510 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Networking.swift; path = ../Networking.swift; sourceTree = "<group>"; };
@@ -777,6 +781,8 @@
 				DB70252F24A2644100866A81 /* PullToRefreshable.swift */,
 				DB979C4F24D9A0A800E34DE6 /* SkeletonAnimatable.swift */,
 				DBD05F812597B9D00087EBDD /* HasConfigure.swift */,
+				DBD6CA48259F53DA00324A68 /* HasUserModel.swift */,
+				DBD6CA4D259F542A00324A68 /* HasUUID.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1113,6 +1119,7 @@
 				DBC7359424EAB9BA009C87C7 /* UserProfileViewModel.swift in Sources */,
 				DB6F0E1425973EC200DD3258 /* DelayOption.swift in Sources */,
 				DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */,
+				DBD6CA49259F53DA00324A68 /* HasUserModel.swift in Sources */,
 				DBCD8AF62483C84500A34108 /* DisposableExtensions.swift in Sources */,
 				DBDD9ACE2454D68F00DBF510 /* Info.swift in Sources */,
 				DBA43B9C245C9C2100C82D7E /* UserListRouter.swift in Sources */,
@@ -1139,6 +1146,7 @@
 				DBA43BA7245C9CA700C82D7E /* UserCollectionInteractor.swift in Sources */,
 				DBDC8DBA24604027009C4FF8 /* UIViewPreview.swift in Sources */,
 				DBCD8AF82483CECE00A34108 /* DisposablesManageable.swift in Sources */,
+				DBD6CA4E259F542A00324A68 /* HasUUID.swift in Sources */,
 				DB9B4A6024EAE7A70033A5DE /* BaseCollectionReusableView.swift in Sources */,
 				DBA43BAB245DCFBA00C82D7E /* UserModelDataStream.swift in Sources */,
 				DBC52DEE2454560800BCFEBB /* RootViewController.swift in Sources */,
