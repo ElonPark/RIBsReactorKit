@@ -8,8 +8,7 @@
 
 import Foundation
 
-protocol UserProfileViewModel {
-  var uuid: String { get }
+protocol UserProfileViewModel: HasUserModel, HasUUID {
   var profileBackgroundImageURL: URL? { get }
   var profileImageURL: URL? { get }
   var titleWithLastName: String { get }
@@ -18,9 +17,7 @@ protocol UserProfileViewModel {
 
 struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
 
-  var uuid: String {
-    userModel.login.uuid
-  }
+  let userModel: UserModel
   
   var profileBackgroundImageURL: URL? {
     userModel.thumbnailImageURL
@@ -36,11 +33,5 @@ struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
   
   var firstName: String {
     userModel.name.first
-  }
-
-  private let userModel: UserModel
-
-  init(userModel: UserModel) {
-    self.userModel = userModel
   }
 }

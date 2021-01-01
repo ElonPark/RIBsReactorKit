@@ -8,9 +8,7 @@
 
 import Foundation
 
-protocol UserListItemViewModel {
-  var userModel: UserModel { get }
-  var uuid: String { get }
+protocol UserListItemViewModel: HasUserModel, HasUUID  {
   var profileImageURL: URL? { get }
   var titleWithFullName: String { get }
   var location: String { get }
@@ -19,10 +17,6 @@ protocol UserListItemViewModel {
 struct UserListItemViewModelImpl: UserListItemViewModel, Equatable {
 
   let userModel: UserModel
-
-  var uuid: String {
-    userModel.login.uuid
-  }
 
   var profileImageURL: URL? {
     userModel.thumbnailImageURL
