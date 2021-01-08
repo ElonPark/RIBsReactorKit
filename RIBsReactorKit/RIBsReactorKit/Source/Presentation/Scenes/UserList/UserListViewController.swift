@@ -165,10 +165,8 @@ final class UserListViewController:
   }
 
   private func bindLoadMoreAction(to listener: UserListPresentableListener) {
-    tableView.rx.prefetchRows
-      .asObservable()
-      .compactMap { $0.sorted().last }
-      .map { .loadMore($0) }
+    tableView.rx.willDisplayCell
+      .map { .loadMore($0.indexPath) }
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
