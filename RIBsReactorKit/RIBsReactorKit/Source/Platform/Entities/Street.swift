@@ -6,7 +6,10 @@
 import Foundation
 
 // MARK: - Street
-struct Street: Codable {
+struct Street:
+  Codable,
+  Equatable
+{
   let number: Int
   let name: String
 }

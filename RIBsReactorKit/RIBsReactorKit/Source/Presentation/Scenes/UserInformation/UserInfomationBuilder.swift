@@ -9,11 +9,23 @@
 import RIBs
 
 protocol UserInfomationDependency: Dependency {
-  var userModel: UserModel { get }
+  var userModelStream: UserModelStream { get }
 }
 
 final class UserInfomationComponent: Component<UserInfomationDependency> {
-  fileprivate var userModel: UserModel { dependency.userModel }
+  
+  fileprivate var userModelStream: UserModelStream { dependency.userModelStream }
+  
+  fileprivate var initialState = UserInfomationPresentableState()
+  
+  private var userInfomationSectionFactories: [UserInfoSectionFactory] = [
+    ProfileSectionFactory(),
+    BasicInfoSectionFactory()
+  ]
+  
+  fileprivate var userInfomationSectionListFactory: UserInfoSectionListFactory {
+    UserInfoSectionListFactoryImpl(factories: userInfomationSectionFactories)
+  }
 }
 
 // MARK: - Builder
@@ -31,7 +43,9 @@ final class UserInfomationBuilder:
     let component = UserInfomationComponent(dependency: dependency)
     let viewController = UserInfomationViewController()
     let interactor = UserInfomationInteractor(
-      userModel: component.userModel,
+      initialState: component.initialState,
+      userModelStream: component.userModelStream,
+      userInfomationSectionListFactory: component.userInfomationSectionListFactory,
       presenter: viewController
     )
     interactor.listener = listener

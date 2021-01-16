@@ -2,50 +2,34 @@
 //  RootInteractor.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/04/25.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by Elon on 2021/01/17.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
 import RIBs
+import RxSwift
 
-protocol RootRouting: ViewableRouting {
+protocol RootRouting: Routing {
   func attachMainTapBarRIB()
-}
-
-protocol RootPresentable: Presentable {
-  var listener: RootPresentableListener? { get set }
+  func cleanupViews()
 }
 
 protocol RootListener: class {}
 
-final class RootInteractor:
-  PresentableInteractor<RootPresentable>,
-  RootInteractable,
-  RootPresentableListener
-{
-  
-  // MARK: - Properties
-  
+final class RootInteractor: Interactor, RootInteractable {
+
   weak var router: RootRouting?
   weak var listener: RootListener?
 
-  // MARK: - Initialization & Deinitialization
+  override init() {}
 
-  // in constructor.
-  override init(presenter: RootPresentable) {
-    super.init(presenter: presenter)
-    presenter.listener = self
-  }
-  
-  // MARK: - Inheritance
-  
   override func didBecomeActive() {
     super.didBecomeActive()
-    
+    router?.attachMainTapBarRIB()
   }
-  
+
   override func willResignActive() {
     super.willResignActive()
-    
+    router?.cleanupViews()
   }
 }

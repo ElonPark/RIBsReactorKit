@@ -9,7 +9,10 @@
 import Foundation
 
 // MARK: - User
-struct User: Codable {
+struct User:
+  Codable,
+  Equatable
+{
   let gender: String
   let name: Name
   let location: Location
@@ -22,10 +25,4 @@ struct User: Codable {
   let id: ID
   let picture: Picture
   let nat: String
-}
-
-extension User: Equatable {
-  static func == (lhs: User, rhs: User) -> Bool {
-    return lhs.login.uuid == rhs.login.uuid
-  }
 }

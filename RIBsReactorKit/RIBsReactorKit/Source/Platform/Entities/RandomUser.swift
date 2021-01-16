@@ -6,7 +6,10 @@
 import Foundation
 
 // MARK: - RandomUser
-struct RandomUser: Codable {
+struct RandomUser:
+  Codable,
+  Equatable
+{
   let results: [User]
   let info: Info
 }

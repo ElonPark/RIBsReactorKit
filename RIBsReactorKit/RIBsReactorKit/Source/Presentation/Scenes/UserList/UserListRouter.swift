@@ -10,7 +10,7 @@ import RIBs
 
 protocol UserListInteractable:
   Interactable,
-  UserInfomationAdapterListener
+  UserInfomationListener
 {
   var router: UserListRouting? { get set }
   var listener: UserListListener? { get set }
@@ -23,37 +23,34 @@ final class UserListRouter:
   UserListRouting
 {
   
-  private let userInfomationAdapter: UserInfomationAdapterBuildable
+  private let userInfomationBuilder: UserInfomationBuilder
   private var userInfomationRouter: UserInfomationRouting?
   
   // MARK: - Initialization & Deinitialization
 
   init(
-    userInfomationAdapter: UserInfomationAdapterBuildable,
+    userInfomationBuilder: UserInfomationBuilder,
     interactor: UserListInteractable,
     viewController: UserListViewControllable
   ) {
-    self.userInfomationAdapter = userInfomationAdapter
+    self.userInfomationBuilder = userInfomationBuilder
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
   
   //// FIXME: - fix after implementation UserInfomationRIB  2020-06-23 23:57:29
-  func attachUserInfomationRIB(with userModel: UserModel) {
-    let router = userInfomationAdapter.build(
-      userModel: userModel,
-      withListener: interactor
-    )
+  func attachUserInfomationRIB() {
+    let router = userInfomationBuilder.build(withListener: interactor)
     userInfomationRouter = router
     attachChild(router)
     viewController.present(router.viewControllable)
   }
   
   //// FIXME: - fix after implementation UserInfomationRIB  2020-06-23 23:57:29
-  func dettachUserInfomationRIB() {
+  func detachUserInfomationRIB() {
     guard let router = userInfomationRouter else { return }
     detachChild(router)
-    viewController.dismissPresentedViewController()
+    viewController.dismiss(router.viewControllable)
     userInfomationRouter = nil
   }
 }

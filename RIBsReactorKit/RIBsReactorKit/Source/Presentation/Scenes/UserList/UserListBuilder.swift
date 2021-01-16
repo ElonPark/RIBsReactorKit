@@ -8,20 +8,25 @@
 
 import RIBs
 
-protocol UserListDependency: UserListDependencyUserInfomationAdapter {
+protocol UserListDependency: UserListDependencyUserInfomation {
   var userListViewController: UserListPresentable & UserListViewControllable { get }
   var randomUserUseCase: RandomUserUseCase { get }
 }
 
 final class UserListComponent: Component<UserListDependency> {
   
+  var userModelStream: UserModelStream {
+    mutableUserModelStream
+  }
+  
+  fileprivate var mutableUserModelStream: MutableUserModelStream {
+    shared { UserModelStreamImpl() }
+  }
+  
   fileprivate var initialState: UserListPresentableState {
     // for skeleton view animation
-    let dummySectionItems: [UserListSectionItem] = (1...20).map { _ in .user(nil) }
-    return UserListPresentableState(
-      isLoading: true,
-      userListSections: [.randomUser(dummySectionItems)]
-    )
+    let dummySectionItems: [UserListSectionItem] = (1...20).map { _ in .dummy }
+    return UserListPresentableState(isLoading: true, userListSections: [.randomUser(dummySectionItems)])
   }
   
   fileprivate var randomUserUseCase: RandomUserUseCase {
@@ -57,14 +62,15 @@ final class UserListBuilder:
     let interactor = UserListInteractor(
       initialState: component.initialState,
       randomUserUseCase: component.randomUserUseCase,
+      mutableUserModelStream: component.mutableUserModelStream,
       presenter: component.userListViewController
     )
     interactor.listener = listener
     
-    let userInfomationAdapter = UserInfomationAdapter(dependency: component)
+    let userInfomationBuilder = UserInfomationBuilder(dependency: component)
     
     return UserListRouter(
-      userInfomationAdapter: userInfomationAdapter,
+      userInfomationBuilder: userInfomationBuilder,
       interactor: interactor,
       viewController: component.userListViewController
     )

@@ -2,36 +2,23 @@
 //  RootRouter.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/04/25.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by Elon on 2021/01/17.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
 import RIBs
 
-protocol RootInteractable:
-  Interactable,
-  MainTabBarListener
-{
+protocol RootInteractable: Interactable, MainTabBarListener {
   var router: RootRouting? { get set }
   var listener: RootListener? { get set }
 }
 
-protocol RootViewControllable: ViewControllable {
-  func present(viewController: ViewControllable, animated: Bool)
-  func dismiss(viewController: ViewControllable, animated: Bool)
-}
+protocol RootViewControllable: ViewControllable {}
 
-final class RootRouter:
-  LaunchRouter<RootInteractable, RootViewControllable>,
-  RootRouting
-{
-  
-  // MARK: - Properties
-  
-  private var currentChild: ViewableRouting?
+final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
+
   private var mainTabBarBuilder: MainTabBarBuildable
-  
-  // MARK: - Initialization & Deinitialization
+  private var mainTabBarRouter: MainTabBarRouting?
 
   init(
     mainTabBarBuilder: MainTabBarBuildable,
@@ -39,25 +26,26 @@ final class RootRouter:
     viewController: RootViewControllable
   ) {
     self.mainTabBarBuilder = mainTabBarBuilder
-
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
-  
-  // MARK: - Inheritance
-  
-  override func didLoad() {
-    super.didLoad()
-    attachMainTapBarRIB()
+
+  func cleanupViews() {
+    detachMainTapBarRIB()
   }
 }
 
-// MARK: - RootRouting
 extension RootRouter {
   func attachMainTapBarRIB() {
+    guard mainTabBarRouter == nil else { return }
     let router = mainTabBarBuilder.build(withListener: interactor)
-    currentChild = router
+    mainTabBarRouter = router
     attachChild(router)
-    viewController.present(viewController: router.viewControllable, animated: false)
+  }
+
+  private func detachMainTapBarRIB() {
+    guard let router = mainTabBarRouter else { return }
+    detachChild(router)
+    mainTabBarRouter = nil
   }
 }

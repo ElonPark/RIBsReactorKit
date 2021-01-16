@@ -11,8 +11,8 @@ import ReactorKit
 import RxSwift
 
 protocol UserListRouting: ViewableRouting {
-  func attachUserInfomationRIB(with userModel: UserModel)
-  func dettachUserInfomationRIB()
+  func attachUserInfomationRIB()
+  func detachUserInfomationRIB()
 }
 
 protocol UserListPresentable: Presentable {
@@ -46,20 +46,24 @@ final class UserListInteractor:
   weak var router: UserListRouting?
   weak var listener: UserListListener?
   
-  var initialState: UserListPresentableState
+  let initialState: UserListPresentableState
   
   private let randomUserUseCase: RandomUserUseCase
   private let requestItemCount: Int = 50
+  
+  private let mutableUserModelStream: MutableUserModelStream
   
   // MARK: - Initialization & Deinitialization
 
   init(
     initialState: UserListPresentableState,
     randomUserUseCase: RandomUserUseCase,
+    mutableUserModelStream: MutableUserModelStream,
     presenter: UserListPresentable
   ) {
     self.initialState = initialState
     self.randomUserUseCase = randomUserUseCase
+    self.mutableUserModelStream = mutableUserModelStream
     
     super.init(presenter: presenter)
     presenter.listener = self
@@ -67,6 +71,7 @@ final class UserListInteractor:
 }
 
 // MARK: - Reactor
+
 extension UserListInteractor {
   
   // MARK: - mutate
@@ -93,6 +98,7 @@ extension UserListInteractor {
     
     let loadData = randomUserUseCase.loadData(isRefresh: true, itemCount: requestItemCount)
       .map { Mutation.loadData }
+      .catchErrorJustReturn(.setRefresh(false))
     
     return .concat([startRefresh, loadData, stopRefresh])
   }
@@ -104,6 +110,7 @@ extension UserListInteractor {
     
     return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
       .map { Mutation.loadData }
+      .catchErrorJustReturn(.setRefresh(false))
   }
   
   private func itemSelectedMutation(by indexPath: IndexPath) -> Observable<Mutation> {
@@ -112,13 +119,15 @@ extension UserListInteractor {
     guard let item = section?.items[safe: indexPath.row] else { return .empty() }
     
     switch item {
-    case .user(let userModel):
-      guard let userModel = userModel else { return .empty() }
-      return .just(.selectedUser(userModel))
+    case .user(let viewModel):
+      return .just(.selectedUser(viewModel.userModel))
+      
+    case .dummy:
+      return .empty()
     }
   }
   
-  // MARK: - transform
+  // MARK: - transform mutation
   
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
     return mutation
@@ -126,10 +135,10 @@ extension UserListInteractor {
         guard let this = self else { return .empty() }
         switch mutation {
         case .loadData:
-          return this.updateUserModelsMutation()
+          return this.updateUserModelsTransform()
           
         case .selectedUser(let userModel):
-          return this.transformSelectedUser(by: userModel)
+          return this.selectedUserTransform(by: userModel)
           
         default:
           return .just(mutation)
@@ -139,18 +148,20 @@ extension UserListInteractor {
 
   /// mutableUserModelsStream is update userModels when trigger Action
   /// (.loadData, .refresh, .loadMore)
-  private func updateUserModelsMutation() -> Observable<Mutation> {
+  private func updateUserModelsTransform() -> Observable<Mutation> {
     return randomUserUseCase
-      .mutableUserModelsStream
+      .userModelsStream
       .userModels
+      .map { $0.map { UserListItemViewModelImpl(userModel: $0) } }
       .map { $0.map(UserListSectionItem.user) }
       .map { [UserListSectionModel.randomUser($0)] }
       .map(Mutation.userListSections)
   }
    
   /// Show selected user information
-  private func transformSelectedUser(by userModel: UserModel) -> Observable<Mutation> {
-    router?.attachUserInfomationRIB(with: userModel)
+  private func selectedUserTransform(by userModel: UserModel) -> Observable<Mutation> {
+    mutableUserModelStream.updateUserModel(by: userModel)
+    router?.attachUserInfomationRIB()
     return .empty()
   }
   
@@ -179,7 +190,7 @@ extension UserListInteractor {
 
 // MARK: - UserInfomationAdapterListener
 extension UserListInteractor {
-  func dettachUserInfomationRIB() {
-    router?.dettachUserInfomationRIB()
+  func detachUserInfomationRIB() {
+    router?.detachUserInfomationRIB()
   }
 }

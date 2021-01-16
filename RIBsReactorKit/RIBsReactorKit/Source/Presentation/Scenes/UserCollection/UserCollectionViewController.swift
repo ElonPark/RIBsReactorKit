@@ -34,7 +34,7 @@ final class UserCollectionViewController:
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setTabBarItem()
+  
   }
   
   // MARK: - Private methods

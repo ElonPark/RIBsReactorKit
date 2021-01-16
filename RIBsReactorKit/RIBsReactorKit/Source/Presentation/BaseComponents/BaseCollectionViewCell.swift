@@ -12,6 +12,7 @@ import RxSwift
 
 class BaseCollectionViewCell:
   UICollectionViewCell,
+  BaseViewable,
   Reusable,
   HasDisposeBag,
   HasCompositeDisposable,
@@ -36,7 +37,7 @@ class BaseCollectionViewCell:
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-    
+
   deinit {
     disposeDisposables()
   }
@@ -49,25 +50,28 @@ class BaseCollectionViewCell:
   }
   
   // MARK: - Layout Constraints
-  
+
   override func updateConstraints() {
-    if !didSetupConstraints {
-      setupConstraints()
-      didSetupConstraints = true
-    }
-    
+    setupConstraintsIfNeeded()
     super.updateConstraints()
   }
-  
-  // MARK: - Internal methods
 
+  // MARK: - Internal methods
+  
   func initialize() {
     // Override point
     self.setNeedsUpdateConstraints()
   }
   
-  /// Override this method, if need to set Autolayout constraints
   func setupConstraints() {
     // Override here
+  }
+
+  // MARK: - Private methods
+  
+  private func setupConstraintsIfNeeded() {
+    guard !didSetupConstraints else { return }
+    setupConstraints()
+    didSetupConstraints = true
   }
 }

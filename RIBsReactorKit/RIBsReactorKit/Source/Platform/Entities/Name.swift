@@ -6,7 +6,10 @@
 import Foundation
 
 // MARK: - Name
-struct Name: Codable {
+struct Name:
+  Codable,
+  Equatable
+{
   let title: String
   let first: String
   let last: String

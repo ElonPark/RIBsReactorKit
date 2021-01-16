@@ -16,7 +16,7 @@ import Reachability
 public typealias Log = EPLogger.Log
 
 @UIApplicationMain
-class AppDelegate:
+final class AppDelegate:
   UIResponder,
   UIApplicationDelegate
 {
@@ -85,6 +85,7 @@ import RIBsTreeViewerClient
 
 extension AppDelegate {
   private func startRIBsTreeViewer(launchRouter: Routing) {
+    guard ProcessInfo.processInfo.environment["UseRIBsTreeViewer"] != nil else { return }
     guard #available(iOS 13.0, *) else { return }
     ribsTreeViewer = RIBsTreeViewerImpl(
       router: launchRouter,

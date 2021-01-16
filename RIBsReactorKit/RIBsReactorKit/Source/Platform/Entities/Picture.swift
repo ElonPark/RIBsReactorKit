@@ -6,7 +6,10 @@
 import Foundation
 
 // MARK: - Picture
-struct Picture: Codable {
+struct Picture:
+  Codable,
+  Equatable
+{
   let large: String
   let medium: String
   let thumbnail: String

@@ -6,6 +6,8 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
+import Foundation
+
 import RxSwift
 
 protocol RandomUserRepository {
@@ -24,7 +26,13 @@ final class RandomUserRepositoryImpl: RandomUserRepository {
   private(set) var userByUUID = [String: User]()
   private let service: Networking<RandomUserService>
   
-  // MARK: - Con(De)structor
+  private lazy var jsonDecoder: JSONDecoder = {
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
+    return decoder
+  }()
+    
+  // MARK: - Initialization & Deinitialization
 
   init(service: Networking<RandomUserService>) {
     self.service = service
@@ -34,7 +42,7 @@ final class RandomUserRepositoryImpl: RandomUserRepository {
 
   func randomUsers(with resultCount: Int) -> Single<RandomUser> {
     return service.request(.multipleUsers(resultCount: resultCount))
-      .map(RandomUser.self)
+      .map(RandomUser.self, using: jsonDecoder, failsOnEmptyData: false)
       .do(onSuccess: { [weak self] response in
         guard let this = self else { return }
         this.info = response.info
@@ -44,7 +52,7 @@ final class RandomUserRepositoryImpl: RandomUserRepository {
   
   func randomUsers(with page: Int, count: Int, seed: String) -> Single<RandomUser> {
     return service.request(.pagination(page: page, resultCount: count, seed: seed))
-      .map(RandomUser.self)
+      .map(RandomUser.self, using: jsonDecoder, failsOnEmptyData: false)
       .do(onSuccess: { [weak self] response in
         guard let this = self else { return }
         this.info = response.info

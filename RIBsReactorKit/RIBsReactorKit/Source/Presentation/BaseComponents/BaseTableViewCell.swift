@@ -12,6 +12,7 @@ import RxSwift
 
 class BaseTableViewCell:
   UITableViewCell,
+  BaseViewable,
   Reusable,
   HasDisposeBag,
   HasCompositeDisposable,
@@ -51,23 +52,26 @@ class BaseTableViewCell:
   // MARK: - Layout Constraints
   
   override func updateConstraints() {
-    if !didSetupConstraints {
-      setupConstraints()
-      didSetupConstraints = true
-    }
-    
+    setupConstraintsIfNeeded()
     super.updateConstraints()
   }
   
   // MARK: - Internal methods
-
+  
   func initialize() {
     // Override point
     self.setNeedsUpdateConstraints()
   }
   
-  /// Override this method, if need to set Autolayout constraints
   func setupConstraints() {
     // Override here
+  }
+  
+  // MARK: - Private methods
+  
+  private func setupConstraintsIfNeeded() {
+    guard !didSetupConstraints else { return }
+    setupConstraints()
+    didSetupConstraints = true
   }
 }

@@ -8,7 +8,7 @@
 
 import RIBs
 
-class AppComponent:
+final class AppComponent:
   Component<EmptyDependency>,
   RootDependency
 {

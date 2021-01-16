@@ -6,7 +6,10 @@
 import Foundation
 
 // MARK: - Coordinates
-struct Coordinates: Codable {
+struct Coordinates:
+  Codable,
+  Equatable
+{
   let latitude: String
   let longitude: String
 }

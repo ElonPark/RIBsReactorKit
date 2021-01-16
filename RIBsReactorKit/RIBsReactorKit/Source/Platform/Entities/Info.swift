@@ -9,7 +9,10 @@
 import Foundation
 
 // MARK: - Info
-struct Info: Codable {
+struct Info:
+  Codable,
+  Equatable
+{
   let seed: String
   let results: Int
   let page: Int

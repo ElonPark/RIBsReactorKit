@@ -15,6 +15,7 @@ protocol MainTabBarPresentableListener: class {}
 
 final class MainTabBarViewController:
   UITabBarController,
+  RootViewControllable,
   MainTabBarPresentable,
   MainTabBarViewControllable
 {
@@ -56,12 +57,10 @@ struct MainTabBarViewControllerPreview: PreviewProvider {
   static var previews: some View {
     ForEach(deviceNames, id: \.self) { deviceName in
       UIViewControllerPreview {
-        let viewControllers = [
-          UserListViewController(),
-          UserCollectionViewController()
-        ].map { UINavigationController(rootViewController: $0) }
-    
-        return MainTabBarViewController(viewControllers: viewControllers)
+        MainTabBarViewController(viewControllers: [
+          UINavigationController(root: UserListViewController()),
+          UINavigationController(root: UserCollectionViewController())
+        ])
       }
       .previewDevice(PreviewDevice(rawValue: deviceName))
       .previewDisplayName(deviceName)
