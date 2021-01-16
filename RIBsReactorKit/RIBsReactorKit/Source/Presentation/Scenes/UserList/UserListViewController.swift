@@ -229,7 +229,7 @@ final class UserListViewController:
 // MARK: - Layout
 extension UserListViewController {
   private func setupUI() {
-    view.addSubview(tableView)
+    self.view.addSubview(tableView)
     setRefreshControl()
     layout()
   }

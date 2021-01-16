@@ -23,7 +23,7 @@ final class UserDetailInfoCell:
     static let baseContentsViewMinimumHeight: CGFloat = 80
     
     // - iconImageView
-    static var iconImageViewSize: CGSize { CGSize(width: 50, height: 50) }
+    static var iconImageViewSize: CGSize { CGSize(width: 40, height: 40) }
     static let iconTopMargin: CGFloat = 15
     static let iconBottomMargin: CGFloat = 15
     static let iconLeadingMargin: CGFloat = 8
@@ -63,6 +63,7 @@ final class UserDetailInfoCell:
   private let baseContentsView = UIView()
   
   private let iconImageView = UIImageView().then {
+    $0.tintColor = .gray
     $0.contentMode = .scaleAspectFill
     $0.backgroundColor = UI.Color.iconImageViewBackground
     $0.layer.cornerRadius = UI.iconImageViewSize.height / 2
@@ -163,8 +164,9 @@ extension UserDetailInfoCell {
     }
     
     iconImageView.snp.makeConstraints {
-      $0.top.equalToSuperview().offset(UI.iconTopMargin)
       $0.size.equalTo(UI.iconImageViewSize)
+      $0.centerY.equalToSuperview()
+      $0.top.greaterThanOrEqualToSuperview().offset(UI.iconTopMargin)
       $0.bottom.lessThanOrEqualToSuperview().offset(-UI.iconBottomMargin)
       $0.leading.equalToSuperview().offset(UI.iconLeadingMargin)
     }

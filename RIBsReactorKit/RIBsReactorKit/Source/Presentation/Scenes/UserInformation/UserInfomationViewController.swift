@@ -54,9 +54,6 @@ final class UserInfomationViewController:
   
   private let flowLayout = UICollectionViewFlowLayout().then {
     $0.scrollDirection = .vertical
-    // FIXME: - 수정 필요 2020-10-04 03:39:04
-//    $0.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-//    $0.itemSize = UICollectionViewFlowLayout.automaticSize
   }
   
   private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
@@ -104,11 +101,7 @@ final class UserInfomationViewController:
   
   private func bind(listener: UserInfomationPresentableListener?) {
     guard let listener = listener else { return }
-    
-    // Action
     bindActions(to: listener)
-    
-    // State
     bindState(from: listener)
   }
   
@@ -203,11 +196,8 @@ final class UserInfomationViewController:
 // MARK: - Layout
 extension UserInfomationViewController {
   private func setupUI() {
-    self.view.backgroundColor = .white
     self.view.addSubview(collectionView)
-    
     setDataSourceConfigureSupplementaryView()
-    
     layout()
   }
   
@@ -233,10 +223,7 @@ extension UserInfomationViewController: UICollectionViewDelegateFlowLayout {
     layout collectionViewLayout: UICollectionViewLayout,
     referenceSizeForFooterInSection section: Int
   ) -> CGSize {
-    guard let hasFooter = dataSource.sectionModels[safe: section]?.hasFooter,
-      hasFooter else {
-        return .zero
-    }
+    guard let hasFooter = dataSource.sectionModels[safe: section]?.hasFooter, hasFooter else { return .zero }
     return CGSize(width: UIScreen.main.bounds.width, height: UI.footerHeight)
   }
   
@@ -249,12 +236,12 @@ extension UserInfomationViewController: UICollectionViewDelegateFlowLayout {
       let item = section.items[safe: indexPath.item] else {
         return .zero
     }
-    //// FIXME: - 수정 필요 2020-10-04 03:37:41
+
     switch item {
     case .dummyProfile, .profile:
       return CGSize(width: UIScreen.main.bounds.width, height: 250)
     case .dummy, .detail:
-      return CGSize(width: UIScreen.main.bounds.width, height: 70)
+      return CGSize(width: UIScreen.main.bounds.width, height: 65)
     }
   }
 }

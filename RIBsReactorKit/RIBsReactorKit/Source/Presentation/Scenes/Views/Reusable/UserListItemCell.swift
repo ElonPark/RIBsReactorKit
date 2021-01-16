@@ -69,7 +69,6 @@ final class UserListItemCell:
   
   private let locationLabel = UILabel().then {
     $0.font = .systemFont(ofSize: 15, weight: .regular)
-    $0.textColor = .darkText
     $0.isSkeletonable = true
     $0.linesCornerRadius = UI.linesCornerRadius
   }

@@ -20,7 +20,7 @@ final class UserInfoHeaderView:
   private enum UI {
     // - titleLabel
     static let titleLabelTopMargin: CGFloat = 0
-    static let titleLabelBottomMargin: CGFloat = 0
+    static let titleLabelBottomMargin: CGFloat = 8
     static let titleLabelLeadingMargin: CGFloat = 8
     static let titleLabelTrailingMargin: CGFloat = 8
     
