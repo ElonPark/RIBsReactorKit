@@ -8,6 +8,12 @@
 
 import RIBs
 
-protocol MainTabBarDependencyUserCollection: Dependency {}
+protocol MainTabBarDependencyUserCollection: Dependency {
+  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
+}
 
-extension MainTabBarComponent: UserCollectionDependency {}
+extension MainTabBarComponent: UserCollectionDependency {
+  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
+    dependency.userCollectionViewController
+  }
+}

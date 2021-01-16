@@ -8,13 +8,16 @@
 
 import RIBs
 
-protocol MainTabBarDependency: MainTabBarDependencyUserList, MainTabBarDependencyUserCollection {}
+protocol MainTabBarDependency: MainTabBarDependencyUserList, MainTabBarDependencyUserCollection {
+  var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable { get }
+}
 
 final class MainTabBarComponent: Component<MainTabBarDependency> {
 
-  var userListViewController: UserListPresentable & UserListViewControllable
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable
-  
+  fileprivate var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable {
+    dependency.mainTabBarViewController
+  }
+
   private var randomUserService = Networking<RandomUserService>()
   
   fileprivate var randomUserRepository: RandomUserRepository {
@@ -35,12 +38,6 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
       translator: userModelTranslator,
       mutableUserModelsStream: mutableUserModelsStream
     )
-  }
-  
-  override init(dependency: MainTabBarDependency) {
-    userListViewController = UserListViewController()
-    userCollectionViewController = UserCollectionViewController()
-    super.init(dependency: dependency)
   }
 }
 
@@ -65,13 +62,7 @@ final class MainTabBarBuilder:
   
   func build(withListener listener: MainTabBarListener) -> MainTabBarRouting {
     let component = MainTabBarComponent(dependency: dependency)
-    
-    let viewControllers = [
-      component.userListViewController,
-      component.userCollectionViewController
-      ].map { UINavigationController(root: $0) }
-    
-    let viewController = MainTabBarViewController(viewControllers: viewControllers)
+    let viewController = component.mainTabBarViewController
     let interactor = MainTabBarInteractor(presenter: viewController)
     interactor.listener = listener
     

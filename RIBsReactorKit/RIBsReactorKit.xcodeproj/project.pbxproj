@@ -31,6 +31,9 @@
 		DB35FABA248D4D8700416963 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */; };
 		DB3E91D224EA97C200C8DEAA /* UserListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E91D124EA97C200C8DEAA /* UserListItemViewModel.swift */; };
 		DB3E91D424EAA2FE00C8DEAA /* HasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3E91D324EAA2FE00C8DEAA /* HasViewModel.swift */; };
+		DB415A6925B3561800922B97 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB415A6625B3561800922B97 /* RootRouter.swift */; };
+		DB415A6A25B3561800922B97 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB415A6725B3561800922B97 /* RootBuilder.swift */; };
+		DB415A6B25B3561800922B97 /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB415A6825B3561800922B97 /* RootInteractor.swift */; };
 		DB4242DC245C851B0068C6BF /* UserModelTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */; };
 		DB5B7ACB245C800E00DC33D3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDD9AC52454783200DBF510 /* Networking.swift */; };
 		DB630219246071CD00C47E09 /* UserListPresentableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB630218246071CD00C47E09 /* UserListPresentableState.swift */; };
@@ -81,10 +84,6 @@
 		DBC142102448B7A600A9F3F6 /* RxNimbleRxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141E52448B6C900A9F3F6 /* RxNimbleRxTest.framework */; };
 		DBC142112448B7A600A9F3F6 /* RxTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBC141F12448B6C900A9F3F6 /* RxTest.framework */; };
 		DBC1421D2448BA0B00A9F3F6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DBC1421C2448BA0B00A9F3F6 /* Settings.bundle */; };
-		DBC52DED2454560800BCFEBB /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DDA2454560800BCFEBB /* RootInteractor.swift */; };
-		DBC52DEE2454560800BCFEBB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DDB2454560800BCFEBB /* RootViewController.swift */; };
-		DBC52DEF2454560800BCFEBB /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DDC2454560800BCFEBB /* RootRouter.swift */; };
-		DBC52DF02454560800BCFEBB /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DDD2454560800BCFEBB /* RootBuilder.swift */; };
 		DBC52DF12454560800BCFEBB /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DDF2454560800BCFEBB /* UITableViewExtensions.swift */; };
 		DBC52DF22454560800BCFEBB /* UICollectionViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DE02454560800BCFEBB /* UICollectionViewExtensions.swift */; };
 		DBC52DF32454560800BCFEBB /* UINavigationControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC52DE12454560800BCFEBB /* UINavigationControllerExtensions.swift */; };
@@ -170,6 +169,9 @@
 		DB35FAB9248D4D8700416963 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		DB3E91D124EA97C200C8DEAA /* UserListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListItemViewModel.swift; sourceTree = "<group>"; };
 		DB3E91D324EAA2FE00C8DEAA /* HasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HasViewModel.swift; sourceTree = "<group>"; };
+		DB415A6625B3561800922B97 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		DB415A6725B3561800922B97 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
+		DB415A6825B3561800922B97 /* RootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
 		DB4242DB245C851B0068C6BF /* UserModelTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModelTranslator.swift; sourceTree = "<group>"; };
 		DB61D34F24C9A5E7004652F1 /* ReactiveMoya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveMoya.framework; path = Carthage/Build/iOS/ReactiveMoya.framework; sourceTree = "<group>"; };
 		DB61D35024C9A5E7004652F1 /* WeakMapTable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WeakMapTable.framework; path = Carthage/Build/iOS/WeakMapTable.framework; sourceTree = "<group>"; };
@@ -238,10 +240,6 @@
 		DBC141F72448B6C900A9F3F6 /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		DBC1421A2448B9FD00A9F3F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBC1421C2448BA0B00A9F3F6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		DBC52DDA2454560800BCFEBB /* RootInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
-		DBC52DDB2454560800BCFEBB /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		DBC52DDC2454560800BCFEBB /* RootRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		DBC52DDD2454560800BCFEBB /* RootBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		DBC52DDF2454560800BCFEBB /* UITableViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewExtensions.swift; path = ../UITableViewExtensions.swift; sourceTree = "<group>"; };
 		DBC52DE02454560800BCFEBB /* UICollectionViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UICollectionViewExtensions.swift; path = ../UICollectionViewExtensions.swift; sourceTree = "<group>"; };
 		DBC52DE12454560800BCFEBB /* UINavigationControllerExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UINavigationControllerExtensions.swift; path = ../UINavigationControllerExtensions.swift; sourceTree = "<group>"; };
@@ -746,10 +744,9 @@
 			isa = PBXGroup;
 			children = (
 				DB8DBA73258E9F72008FDDBA /* Dependencies */,
-				DBC52DDD2454560800BCFEBB /* RootBuilder.swift */,
-				DBC52DDA2454560800BCFEBB /* RootInteractor.swift */,
-				DBC52DDC2454560800BCFEBB /* RootRouter.swift */,
-				DBC52DDB2454560800BCFEBB /* RootViewController.swift */,
+				DB415A6625B3561800922B97 /* RootRouter.swift */,
+				DB415A6725B3561800922B97 /* RootBuilder.swift */,
+				DB415A6825B3561800922B97 /* RootInteractor.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -1115,7 +1112,6 @@
 				DBD05F9C2598C76B0087EBDD /* GenderSctionItemFactory.swift in Sources */,
 				DBDD9AD02454D6A300DBF510 /* User.swift in Sources */,
 				DB3E91D224EA97C200C8DEAA /* UserListItemViewModel.swift in Sources */,
-				DBC52DED2454560800BCFEBB /* RootInteractor.swift in Sources */,
 				DBC7359424EAB9BA009C87C7 /* UserProfileViewModel.swift in Sources */,
 				DB6F0E1425973EC200DD3258 /* DelayOption.swift in Sources */,
 				DBC52DFD2454563200BCFEBB /* AppComponent.swift in Sources */,
@@ -1125,7 +1121,6 @@
 				DBA43B9C245C9C2100C82D7E /* UserListRouter.swift in Sources */,
 				DB69A1ED252655D0001BE7DB /* UserInfoSectionModel.swift in Sources */,
 				DB3E91D424EAA2FE00C8DEAA /* HasViewModel.swift in Sources */,
-				DBC52DEF2454560800BCFEBB /* RootRouter.swift in Sources */,
 				DBCD8AFE2483EF3200A34108 /* HasCollectionView.swift in Sources */,
 				DB177CBF24A23D7C0050C343 /* UserInfomationRouter.swift in Sources */,
 				DBDD9AD22454D6BA00DBF510 /* Dob.swift in Sources */,
@@ -1149,7 +1144,6 @@
 				DBD6CA4E259F542A00324A68 /* HasUUID.swift in Sources */,
 				DB9B4A6024EAE7A70033A5DE /* BaseCollectionReusableView.swift in Sources */,
 				DBA43BAB245DCFBA00C82D7E /* UserModelDataStream.swift in Sources */,
-				DBC52DEE2454560800BCFEBB /* RootViewController.swift in Sources */,
 				DB35E284244721DF00B26BD3 /* AppDelegate.swift in Sources */,
 				DB35FABA248D4D8700416963 /* ArrayExtensions.swift in Sources */,
 				DBC52DF92454560800BCFEBB /* BaseTableViewCell.swift in Sources */,
@@ -1160,7 +1154,6 @@
 				DBF7909524854C1D007F6F3B /* UserListSectionModel.swift in Sources */,
 				DB63021B2460856C00C47E09 /* ViewControllableExtensions.swift in Sources */,
 				DBA43B93245C9B6400C82D7E /* MainTabBarViewController.swift in Sources */,
-				DBC52DF02454560800BCFEBB /* RootBuilder.swift in Sources */,
 				DBEF8B42245F511E00A37587 /* R.generated.swift in Sources */,
 				2F8CC3DF8C8CBBFAEAFAFF77 /* ID.swift in Sources */,
 				DBA43BA4245C9CA700C82D7E /* UserCollectionRouter.swift in Sources */,
@@ -1176,8 +1169,10 @@
 				DBD05FA62598C7B50087EBDD /* AgeSctionItemFactory.swift in Sources */,
 				DBEF8B34245F054100A37587 /* MainTabBarComponent+UserList.swift in Sources */,
 				DBEF8B36245F055700A37587 /* MainTabBarComponent+UserCollection.swift in Sources */,
+				DB415A6925B3561800922B97 /* RootRouter.swift in Sources */,
 				DBA43B9F245C9C2100C82D7E /* UserListInteractor.swift in Sources */,
 				DB7CB3772529028F00E18E7E /* UserInfoFooterView.swift in Sources */,
+				DB415A6A25B3561800922B97 /* RootBuilder.swift in Sources */,
 				DB7CB3802529155A00E18E7E /* BasicInfoSectionFactory.swift in Sources */,
 				DB177CC124A23D7C0050C343 /* UserInfomationBuilder.swift in Sources */,
 				DBCD8AEF2483C09400A34108 /* HasCompositeDisposable.swift in Sources */,
@@ -1194,6 +1189,7 @@
 				2F8CC75D8643D497469F2A8E /* Timezone.swift in Sources */,
 				DBA43B95245C9B6400C82D7E /* MainTabBarInteractor.swift in Sources */,
 				2F8CC9758B5BDBE9958AD2BA /* Login.swift in Sources */,
+				DB415A6B25B3561800922B97 /* RootInteractor.swift in Sources */,
 				2F8CC9F999E5E2D8B17C6242 /* Name.swift in Sources */,
 				DBA43B92245C9B6400C82D7E /* MainTabBarRouter.swift in Sources */,
 				2F8CCB2C832787ED3CC6FB03 /* Picture.swift in Sources */,
