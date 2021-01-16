@@ -35,7 +35,7 @@ extension DelayOption {
 
         let delayValue = min(maxDelay, delay)
         let fullJitter = Double.random(in: 0...delayValue)
-        return fullJitter
+        return delayValue + fullJitter
 
       case let .custom(closure):
         return closure(attempt)
