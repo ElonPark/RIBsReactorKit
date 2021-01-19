@@ -744,9 +744,9 @@
 			isa = PBXGroup;
 			children = (
 				DB8DBA73258E9F72008FDDBA /* Dependencies */,
-				DB415A6625B3561800922B97 /* RootRouter.swift */,
 				DB415A6725B3561800922B97 /* RootBuilder.swift */,
 				DB415A6825B3561800922B97 /* RootInteractor.swift */,
+				DB415A6625B3561800922B97 /* RootRouter.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";

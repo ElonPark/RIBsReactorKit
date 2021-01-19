@@ -15,7 +15,6 @@ protocol MainTabBarPresentableListener: class {}
 
 final class MainTabBarViewController:
   UITabBarController,
-  RootViewControllable,
   MainTabBarPresentable,
   MainTabBarViewControllable
 {
@@ -42,6 +41,11 @@ final class MainTabBarViewController:
     super.viewDidLoad()
     view.backgroundColor = .white
   }
+}
+
+// MARK: - RootViewControllable
+extension MainTabBarViewController: RootViewControllable {
+
 }
 
 #if canImport(SwiftUI) && DEBUG
