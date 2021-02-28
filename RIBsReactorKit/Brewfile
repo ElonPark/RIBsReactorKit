@@ -3,5 +3,6 @@ tap "homebrew/cask"
 tap "homebrew/core"
 
 brew "carthage"
-brew "rswift"
+brew "xcodegen"
+brew "swiftgen"
 brew "swiftlint"

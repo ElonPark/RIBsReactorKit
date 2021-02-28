@@ -1,5 +1,5 @@
 //
-//  BirthDateSctionItemFactory.swift
+//  BirthdaySctionItemFactory.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/12/27.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit.UIImage
 
-struct BirthDateSctionItemFactory: UserInfoSectionItemFactory {
+struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
 
   private var icon: UIImage? {
     guard #available(iOS 13, *) else { return nil }
@@ -21,7 +21,7 @@ struct BirthDateSctionItemFactory: UserInfoSectionItemFactory {
       userModel: userModel,
       icon: icon,
       title: dateFormatString(from: userModel.dob.date),
-      subtitle: "생일",
+      subtitle: Strings.UserInfoTitle.birthday,
       showSeparatorLine: true
     )
 

@@ -21,7 +21,7 @@ struct GenderSctionItemFactory: UserInfoSectionItemFactory {
       userModel: userModel,
       icon: icon,
       title: userModel.gender,
-      subtitle: "성별",
+      subtitle: Strings.UserInfoTitle.gender,
       showSeparatorLine: !isLastItem
     )
 

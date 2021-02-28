@@ -41,8 +41,8 @@ final class UserCollectionViewController:
   
   private func setTabBarItem() {
     tabBarItem = UITabBarItem(
-      title: "Collection",
-      image: Asset.collectionTab,
+      title: Strings.TabBarTitle.collection,
+      image: Asset.Images.TabBarIcons.collectionTab.image,
       selectedImage: nil
     )
   }
