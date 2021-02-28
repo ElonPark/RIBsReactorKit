@@ -86,7 +86,7 @@ final class UserListViewController:
   private func setTabBarItem() {
     tabBarItem = UITabBarItem(
       title: "List",
-      image: R.image.listTab(),
+      image: Asset.listTab,
       selectedImage: nil
     )
   }
