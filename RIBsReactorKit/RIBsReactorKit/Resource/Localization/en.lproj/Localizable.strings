@@ -1,0 +1,23 @@
+/* 
+  Localizable.strings
+  RIBsReactorKit
+
+  Created by elon on 2021/03/01.
+  Copyright © 2021 Elon. All rights reserved.
+*/
+
+// MARK: - TabBar Title
+
+"tabBarTitle.collection"="Collection";
+"tabBarTitle.list"="List";
+
+// MARK: - User Info Title
+
+"userInfoTitle.basicInfo"="Basic Information";
+"userInfoTitle.gender"="gender";
+"userInfoTitle.birthday"="Birthday";
+"userInfoTitle.age"="Age";
+
+// MARK: - Unit
+
+"unit.age"="%i";

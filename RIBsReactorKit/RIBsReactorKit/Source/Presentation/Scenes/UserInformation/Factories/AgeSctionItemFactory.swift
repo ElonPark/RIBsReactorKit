@@ -20,8 +20,8 @@ struct AgeSctionItemFactory: UserInfoSectionItemFactory {
     let viewModel: UserDetailInfoItemViewModel = UserDetailInfoItemViewModelImpl(
       userModel: userModel,
       icon: icon,
-      title: "\(userModel.dob.age)세",
-      subtitle: "나이",
+      title: Strings.Unit.age(userModel.dob.age),
+      subtitle: Strings.UserInfoTitle.age,
       showSeparatorLine: false
     )
 

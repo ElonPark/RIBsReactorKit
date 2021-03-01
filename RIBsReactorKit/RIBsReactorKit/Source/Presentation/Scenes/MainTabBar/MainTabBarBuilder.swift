@@ -18,10 +18,8 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
     dependency.mainTabBarViewController
   }
 
-  private var randomUserService = Networking<RandomUserService>()
-  
   fileprivate var randomUserRepository: RandomUserRepository {
-    RandomUserRepositoryImpl(service: randomUserService)
+    RandomUserRepositoryImpl(service: Networking<RandomUserService>())
   }
   
   fileprivate var userModelTranslator: UserModelTranslator {

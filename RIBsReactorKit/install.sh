@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-# brew bundle
+brew bundle
 
-sh carthage.sh bootstrap --platform iOS --new-resolver --no-use-binaries
+sh carthage.sh bootstrap --platform iOS --new-resolver --no-use-binaries --verbose
+
+xcodegen generate
 
 rm -rf ./Carthage/Checkouts/ReactiveSwift
 rm -rf ./Carthage/Build/iOS/ReactiveSwift.*

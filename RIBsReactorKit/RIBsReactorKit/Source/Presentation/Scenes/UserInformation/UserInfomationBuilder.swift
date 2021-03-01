@@ -14,14 +14,17 @@ protocol UserInfomationDependency: Dependency {
 
 final class UserInfomationComponent: Component<UserInfomationDependency> {
   
-  fileprivate var userModelStream: UserModelStream { dependency.userModelStream }
+  fileprivate var userModelStream: UserModelStream {
+    dependency.userModelStream
+  }
   
-  fileprivate var initialState = UserInfomationPresentableState()
+  fileprivate var initialState: UserInfomationPresentableState {
+    UserInfomationPresentableState()
+  }
   
-  private var userInfomationSectionFactories: [UserInfoSectionFactory] = [
-    ProfileSectionFactory(),
-    BasicInfoSectionFactory()
-  ]
+  private var userInfomationSectionFactories: [UserInfoSectionFactory] {
+    [ProfileSectionFactory(), BasicInfoSectionFactory()]
+  }
   
   fileprivate var userInfomationSectionListFactory: UserInfoSectionListFactory {
     UserInfoSectionListFactoryImpl(factories: userInfomationSectionFactories)
