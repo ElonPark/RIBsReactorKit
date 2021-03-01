@@ -13,12 +13,14 @@ struct BasicInfoSectionFactory: UserInfoSectionFactory {
   
   let factories: [UserInfoSectionItemFactory] = [
     GenderSctionItemFactory(),
-    BirthDateSctionItemFactory(),
+    BirthdaySctionItemFactory(),
     AgeSctionItemFactory()
   ]
   
   func makeSection(from userModel: UserModel) -> UserInfoSectionModel {
-    let headerViewModel: UserInfoSectionHeaderViewModel = UserInfoSectionHeaderViewModelImpl(title: "기본 정보")
+    let headerViewModel: UserInfoSectionHeaderViewModel = UserInfoSectionHeaderViewModelImpl(
+      title: Strings.UserInfoTitle.basicInfo
+    )
     let items = factories.enumerated().map {
       $0.element.makeSectionItem(from: userModel, isLastItem: $0.offset == factories.endIndex)
     }

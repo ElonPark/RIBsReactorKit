@@ -1,0 +1,149 @@
+name: RIBsReactorKit
+attributes:
+  ORGANIZATIONNAME: Elon
+options:
+  bundleIdPrefix: com.elonparks
+  deploymentTarget:
+    iOS: 12.0
+  defaultConfig: Release
+  indentWidth: 2
+  tabWidth: 2
+  useBaseInternationalization: true
+  createIntermediateGroups: true
+  groupSortPosition: top
+  groupOrdering: 
+    - order: [Source, Resource]
+settings:
+  base:
+    VERSIONING_SYSTEM: Apple Generic
+
+targets:
+  RIBsReactorKit:
+    type: application
+    platform: iOS
+    settings:
+      base:
+        INFOPLIST_FILE: RIBsReactorKit/Resource/SupportingFiles/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.elonparks.RIBsReactorKit
+        PRODUCT_NAME: $(TARGET_NAME)
+        FRAMEWORK_SEARCH_PATHS: $(inherited)
+        CODE_SIGN_STYLE: Automatic
+      configs:
+        debug:
+          DEVELOPMENT_TEAM: M77W68G9P5
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        release:
+          DEVELOPMENT_TEAM: M77W68G9P5
+    sources:
+      - path: RIBsReactorKit
+        includes:
+          - RIBsReactorKit/*
+    dependencies:
+      - carthage: RxSwift
+      - carthage: RxRelay
+      - carthage: RxCocoa
+      - carthage: RxDataSources
+      - carthage: RxViewController
+      - carthage: Moya
+      - carthage: RxMoya
+      - carthage: Reachability
+      - carthage: RxReachability
+      - carthage: RIBs
+      - carthage: ReactorKit
+      - carthage: WeakMapTable
+      - carthage: Alamofire
+      - carthage: Kingfisher
+      - carthage: SnapKit
+      - carthage: Differentiator
+      - carthage: SkeletonView
+      - carthage: EPLogger
+      - package: Then
+    preBuildScripts:
+      - name: SwiftGen
+        script: |
+          if which swiftgen >/dev/null; then
+            if [[ "$(uname -m)" == 'arm64' ]]; then
+              arch -x86_64 swiftgen
+            else
+              swiftgen
+            fi
+          else
+            echo "warning: SwiftGen not installed, download it from https://github.com/SwiftGen/SwiftGen"
+          fi
+    postBuildScripts:
+      - name: Carthage debug only
+        script: |
+          if [ ${CONFIGURATION%%-*} == "Debug" ]; then
+            /usr/local/bin/carthage copy-frameworks
+          fi
+        inputFileLists:
+          - $(SRCROOT)/Carthage/xcfilelist/debug_input.xcfilelist
+        outputFileLists:
+          - $(SRCROOT)/Carthage/xcfilelist/debug_output.xcfilelist
+      - name: SwiftLint
+        script: |
+          if which swiftlint >/dev/null; then
+            swiftlint
+          else
+            echo "warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"
+          fi
+      - name: Acknowledgements
+        script: "${SRCROOT}/Scripts/AckAck/ackack.py"
+    scheme:
+      testTargets:
+        - RIBsReactorKitTests
+        - RIBsReactorKitUITests
+      stopOnEveryMainThreadCheckerIssue: true
+      gatherCoverageData: true
+
+  RIBsReactorKitTests:
+    type: bundle.unit-test
+    platform: iOS
+    settings:
+      base:
+        CODE_SIGN_STYLE: Automatic
+    sources:
+      - RIBsReactorKitTests
+    dependencies:
+      - target: RIBsReactorKit
+      - carthage: Quick
+      - carthage: Nimble
+      - carthage: RxBlocking
+      - carthage: RxNimRxNimbleRxBlockingble
+      - carthage: RxTest
+      - carthage: RxNimbleRxTest
+
+  RIBsReactorKitUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    settings:
+      base:
+        INFOPLIST_FILE: RIBsReactorKitUITests/Info.plist
+        PRODUCT_NAME: $(TARGET_NAME)
+    sources:
+      - RIBsReactorKitUITests
+    dependencies:
+      - target: RIBsReactorKit
+
+schemes:
+  RIBsReactorKitTests:
+    build:
+      targets:
+        RIBsReactorKitTests: [test]
+    test:
+      targets:
+        - name: RIBsReactorKitTests
+          parallelizable: true
+
+  RIBsReactorKitUITests:
+    build:
+      targets:
+        RIBsReactorKitUITests: [test]
+    test:
+      targets:
+        - RIBsReactorKitUITests
+
+packages:
+  Then:
+    url: https://github.com/devxoul/Then
+    from: 2.6.0
