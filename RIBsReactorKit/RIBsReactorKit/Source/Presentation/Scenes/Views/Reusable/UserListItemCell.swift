@@ -27,7 +27,7 @@ final class UserListItemCell:
     static let profileImageViewTopMargin: CGFloat = 8
     static let profileImageViewBottomMargin: CGFloat = 8
     static let profileImageViewLeadingMargin: CGFloat = 8
-    static var profileImageViewSize: CGSize { CGSize(width: 50, height: 50) }
+    static let profileImageViewSize = CGSize(width: 50, height: 50)
     
     // - nameLabel
     static let nameLabelTopMargin: CGFloat = 10

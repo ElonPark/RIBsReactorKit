@@ -26,7 +26,7 @@ final class UserProfileCell:
     static let profileBackgroundImageViewTrailingMargin: CGFloat = 8
     
     // - profileImageView
-    static var profileImageViewSize: CGSize { CGSize(width: 120, height: 120) }
+    static let profileImageViewSize = CGSize(width: 120, height: 120)
     static let profileImageViewBorderWidth: CGFloat = 5
     
     // - label
@@ -40,8 +40,8 @@ final class UserProfileCell:
     static let firstNameLabelBottomMargin: CGFloat = 8
     
     enum Font {
-      static var titleWithLastNameLabel: UIFont { .systemFont(ofSize: 20, weight: .bold) }
-      static var firstNameLabel: UIFont { .systemFont(ofSize: 15) }
+      static let titleWithLastNameLabel = UIFont.systemFont(ofSize: 20, weight: .bold)
+      static let firstNameLabel = UIFont.systemFont(ofSize: 15)
     }
   }
 

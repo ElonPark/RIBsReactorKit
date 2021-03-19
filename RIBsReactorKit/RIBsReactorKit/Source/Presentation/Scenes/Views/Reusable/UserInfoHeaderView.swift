@@ -28,7 +28,7 @@ final class UserInfoHeaderView:
     static let linesCornerRadius: Int = 10
     
     enum Font {
-      static let titleLabel: UIFont = .systemFont(ofSize: 24, weight: .bold)
+      static let titleLabel = UIFont.systemFont(ofSize: 24, weight: .bold)
     }
   }
   

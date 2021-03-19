@@ -23,7 +23,7 @@ final class UserDetailInfoCell:
     static let baseContentsViewMinimumHeight: CGFloat = 80
     
     // - iconImageView
-    static var iconImageViewSize: CGSize { CGSize(width: 40, height: 40) }
+    static let iconImageViewSize = CGSize(width: 40, height: 40)
     static let iconTopMargin: CGFloat = 15
     static let iconBottomMargin: CGFloat = 15
     static let iconLeadingMargin: CGFloat = 8
@@ -39,15 +39,15 @@ final class UserDetailInfoCell:
     static let separatorLineViewHeight: CGFloat = 0.5
     
     enum Font {
-      static var title: UIFont { .systemFont(ofSize: 20) }
-      static var subtitle: UIFont { .systemFont(ofSize: 15) }
+      static let title = UIFont.systemFont(ofSize: 20)
+      static let subtitle = UIFont.systemFont(ofSize: 15)
     }
     
     enum Color {
-      static var iconImageViewBackground: UIColor { .skeletonDefault }
-      static var titleText: UIColor { .darkText }
-      static var subtitleText: UIColor { .darkGray }
-      static var separatorLine: UIColor { .lightGray }
+      static let iconImageViewBackground = UIColor.skeletonDefault
+      static let titleText = UIColor.darkText
+      static let subtitleText = UIColor.darkGray
+      static let separatorLine = UIColor.lightGray
     }
   }
   

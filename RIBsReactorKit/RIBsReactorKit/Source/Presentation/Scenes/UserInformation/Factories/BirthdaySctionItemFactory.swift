@@ -11,6 +11,11 @@ import UIKit.UIImage
 
 struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
 
+  private static let dateFormatter = DateFormatter().then {
+    $0.dateStyle = .short
+    $0.timeStyle = .none
+  }
+
   private var icon: UIImage? {
     guard #available(iOS 13, *) else { return nil }
     return UIImage(systemName: "calendar")
@@ -29,10 +34,6 @@ struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
   }
 
   private func dateFormatString(from date: Date) -> String {
-    let dateFormatter = DateFormatter().then {
-      $0.dateStyle = .short
-      $0.timeStyle = .none
-    }
-    return dateFormatter.string(from: date)
+    return BirthdaySctionItemFactory.dateFormatter.string(from: date)
   }
 }

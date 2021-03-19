@@ -18,7 +18,7 @@ final class UserInfoFooterView:
     static let separatorLineViewHeight: CGFloat = 0.5
     
     enum Color {
-      static let separatorLine: UIColor = .lightGray
+      static let separatorLine = UIColor.lightGray
     }
   }
   

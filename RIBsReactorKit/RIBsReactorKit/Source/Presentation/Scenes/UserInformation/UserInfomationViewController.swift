@@ -168,26 +168,24 @@ final class UserInfomationViewController:
   private func setDataSourceConfigureSupplementaryView() {
     dataSource.configureSupplementaryView = { dataSource, collectionView, ofKind, indexPath in
       let section = dataSource.sectionModels[indexPath.section]
+      var emptyView: EmptyReusableView {
+        collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
+      }
+
       switch ofKind {
       case UICollectionView.elementKindSectionHeader:
-        if let headerViewModel = section.header {
-          let headerView = collectionView.dequeue(UserInfoHeaderView.self, indexPath: indexPath)
-          headerView.configure(by: headerViewModel)
-          return headerView
-        } else {
-          return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
-        }
+        guard let headerViewModel = section.header else { return emptyView }
+        let headerView = collectionView.dequeue(UserInfoHeaderView.self, indexPath: indexPath)
+        headerView.configure(by: headerViewModel)
+        return headerView
 
       case UICollectionView.elementKindSectionFooter:
-        if section.hasFooter {
-          let footerView = collectionView.dequeue(UserInfoFooterView.self, indexPath: indexPath)
-          return footerView
-        } else {
-          return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
-        }
+        guard section.hasFooter else { return emptyView }
+        let footerView = collectionView.dequeue(UserInfoFooterView.self, indexPath: indexPath)
+        return footerView
 
       default:
-        return collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
+        return emptyView
       }
     }
   }
