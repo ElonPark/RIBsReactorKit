@@ -18,14 +18,14 @@ extension ViewControllable {
       return uiviewController.navigationController
     }
   }
-  
+
   func push(viewController: ViewControllable, animated: Bool = true) {
     navigationController?.pushViewController(
       viewController.uiviewController,
       animated: animated
     )
   }
-  
+
   func pop(
     _ viewController: ViewControllable,
     animated: Bool = true,
@@ -49,7 +49,7 @@ extension ViewControllable {
       )
     }
   }
-  
+
   func pop(
     to viewController: ViewControllable,
     animated: Bool = true,
@@ -67,7 +67,7 @@ extension ViewControllable {
       )
     }
   }
-  
+
   private func pop(
     viewController: ViewControllable,
     animated: Bool,
@@ -82,7 +82,7 @@ extension ViewControllable {
       viewController.uiviewController.navigationController?.popViewController(animated: animated)
     }
   }
-  
+
   func popToRootViewController(
     animated: Bool = true,
     needToDismissPresentedViewController: Bool = true,
@@ -96,7 +96,7 @@ extension ViewControllable {
       self?.navigationController?.popToRootViewController(animated: animated)
     }
   }
-  
+
   func present(
     _ viewController: ViewControllable,
     animated: Bool = true,
@@ -116,7 +116,7 @@ extension ViewControllable {
       )
     }
   }
-  
+
   func dismiss(
     _ viewController: ViewControllable,
     animated: Bool = true,
@@ -126,13 +126,13 @@ extension ViewControllable {
       completion?()
       return
     }
-    
+
     viewController.uiviewController.dismiss(
       animated: animated,
       completion: completion
     )
   }
-  
+
   func dismissPresentedViewController(
     animated: Bool = true,
     completion: (() -> Void)? = nil
@@ -143,7 +143,7 @@ extension ViewControllable {
       completion?()
     }
   }
-  
+
   private func checkPresentedViewController(
     of viewController: ViewControllable,
     needToDismissPresentedViewController: Bool,
@@ -151,7 +151,8 @@ extension ViewControllable {
     completion: (() -> Void)?
   ) {
     if needToDismissPresentedViewController,
-      let presentedViewController = viewController.uiviewController.presentedViewController {
+       let presentedViewController = viewController.uiviewController.presentedViewController
+    {
       presentedViewController.dismiss(animated: dismissAnimated, completion: completion)
     } else {
       completion?()

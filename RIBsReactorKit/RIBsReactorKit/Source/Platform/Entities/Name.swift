@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - Name
+
 struct Name:
   Codable,
   Equatable

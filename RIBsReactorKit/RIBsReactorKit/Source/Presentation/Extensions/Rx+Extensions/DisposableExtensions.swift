@@ -9,7 +9,7 @@
 import RxSwift
 
 extension Disposable {
-  
+
   /// Adds self to `CompositeDisposable`
   ///
   /// - parameter disposables: `CompositeDisposable` to add self to.

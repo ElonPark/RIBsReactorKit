@@ -11,7 +11,7 @@ import Foundation
 // swiftlint:disable type_body_length
 enum RandomUserFixture {
   static var data: Data {
-    return """
+    """
     {
         "results": [{
                 "gender": "male",
@@ -584,4 +584,5 @@ enum RandomUserFixture {
     """.data(using: .utf8)!
   }
 }
+
 // swiftlint:enable type_body_length

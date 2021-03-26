@@ -12,7 +12,7 @@ final class AppComponent:
   Component<EmptyDependency>,
   RootDependency
 {
-  
+
   // MARK: - Initialization & Deinitialization
 
   init() {

@@ -16,47 +16,48 @@ class BaseView:
   HasDisposeBag
 {
 
-   // MARK: - Properties
-  
+  // MARK: - Properties
+
   var disposeBag = DisposeBag()
-  
+
   private(set) var didSetupConstraints: Bool = false
-  
+
   // MARK: - Initialization & Deinitialization
 
   override init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
   }
-  
+
+  @available(*, unavailable)
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   deinit {
     Log.verbose(type(of: self))
   }
-  
+
   // MARK: - Inheritance
-  
+
   // MARK: - Layout Constraints
-  
+
   override func updateConstraints() {
     setupConstraintsIfNeeded()
     super.updateConstraints()
   }
 
   // MARK: - Internal methods
-  
+
   func initialize() {
     // Override point
-    self.setNeedsUpdateConstraints()
+    setNeedsUpdateConstraints()
   }
-  
+
   func setupConstraints() {
     // Override here
   }
-  
+
   // MARK: - Private methods
 
   private func setupConstraintsIfNeeded() {

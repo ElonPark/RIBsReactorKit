@@ -6,8 +6,8 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import RxSwift
 import RxRelay
+import RxSwift
 
 protocol UserModelDataStream {
   var userModels: Observable<[UserModel]> { get }
@@ -19,25 +19,25 @@ protocol MutableUserModelDataStream: UserModelDataStream {
 }
 
 final class UserModelDataStreamImpl: MutableUserModelDataStream {
-  
+
   // MARK: - Properties
 
   lazy var userModels: Observable<[UserModel]> = userModalsRelay.asObservable()
   private let userModalsRelay = BehaviorRelay<[UserModel]>(value: [])
-  
+
   // MARK: - Internal methods
 
   func updateUserModels(with userModels: [UserModel]) {
     userModalsRelay.accept(userModels)
   }
-  
+
   func appendUserModels(with userModels: [UserModel]) {
     var newUserModals: [UserModel] {
       var modals = userModalsRelay.value
       modals.append(contentsOf: userModels)
       return modals
     }
-    
+
     userModalsRelay.accept(newUserModals)
   }
 }

@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - Street
+
 struct Street:
   Codable,
   Equatable

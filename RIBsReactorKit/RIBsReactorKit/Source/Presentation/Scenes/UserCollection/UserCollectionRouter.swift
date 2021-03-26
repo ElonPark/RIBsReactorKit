@@ -19,7 +19,7 @@ final class UserCollectionRouter:
   ViewableRouter<UserCollectionInteractable, UserCollectionViewControllable>,
   UserCollectionRouting
 {
-    
+
   // MARK: - Initialization & Deinitialization
 
   override init(

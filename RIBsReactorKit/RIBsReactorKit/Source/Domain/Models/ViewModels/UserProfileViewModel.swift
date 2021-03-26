@@ -18,19 +18,19 @@ protocol UserProfileViewModel: HasUserModel, HasUUID {
 struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
 
   let userModel: UserModel
-  
+
   var profileBackgroundImageURL: URL? {
     userModel.thumbnailImageURL
   }
-  
+
   var profileImageURL: URL? {
     userModel.largeImageURL
   }
-  
+
   var titleWithLastName: String {
     "\(userModel.name.title). \(userModel.name.last)"
   }
-  
+
   var firstName: String {
     userModel.name.first
   }

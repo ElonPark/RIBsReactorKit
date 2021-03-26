@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - Picture
+
 struct Picture:
   Codable,
   Equatable

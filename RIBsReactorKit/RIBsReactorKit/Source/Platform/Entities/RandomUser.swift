@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - RandomUser
+
 struct RandomUser:
   Codable,
   Equatable

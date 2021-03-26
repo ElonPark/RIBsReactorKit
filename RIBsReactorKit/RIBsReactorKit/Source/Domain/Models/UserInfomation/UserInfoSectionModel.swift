@@ -24,9 +24,9 @@ extension UserInfoSectionModel: Equatable {
 }
 
 extension UserInfoSectionModel: SectionModelType {
-  
+
   typealias Item = UserInfoSectionItem
-  
+
   init(original: UserInfoSectionModel, items: [Item]) {
     self = original
   }
@@ -42,10 +42,10 @@ enum UserInfoSectionItem {
 extension UserInfoSectionItem: Equatable {
   static func == (lhs: UserInfoSectionItem, rhs: UserInfoSectionItem) -> Bool {
     switch (lhs, rhs) {
-    case (.profile(let lhsViewModel), .profile(let rhsViewModel)):
+    case let (.profile(lhsViewModel), .profile(rhsViewModel)):
       return lhsViewModel.uuid == rhsViewModel.uuid
 
-    case (.detail(let lhsViewModel), .detail(let rhsViewModel)):
+    case let (.detail(lhsViewModel), .detail(rhsViewModel)):
       return lhsViewModel.uuid == rhsViewModel.uuid
 
     case (.dummyProfile, .dummyProfile):
