@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: - Info
+
 struct Info:
   Codable,
   Equatable

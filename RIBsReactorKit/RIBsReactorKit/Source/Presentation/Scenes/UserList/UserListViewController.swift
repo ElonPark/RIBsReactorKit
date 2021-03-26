@@ -8,8 +8,8 @@
 
 import UIKit
 
-import RIBs
 import ReactorKit
+import RIBs
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -26,7 +26,7 @@ enum UserListPresentableAction {
 protocol UserListPresentableListener: class {
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
-  
+
   var action: ActionSubject<Action> { get }
   var state: Observable<State> { get }
   var currentState: State { get }
@@ -39,9 +39,9 @@ final class UserListViewController:
   UserListPresentable,
   UserListViewControllable
 {
- 
+
   // MARK: - Constants
-  
+
   private enum UI {
     static let userListCellEstimatedRowHeight: CGFloat = 100
   }
@@ -53,27 +53,27 @@ final class UserListViewController:
   weak var listener: UserListPresentableListener?
 
   let refreshEvent = PublishRelay<Void>()
-  
+
   // MARK: - UI Components
 
   let refreshControl = UIRefreshControl()
-  
+
   let tableView = UITableView().then {
     $0.register(UserListItemCell.self)
     $0.rowHeight = UITableView.automaticDimension
     $0.estimatedRowHeight = UI.userListCellEstimatedRowHeight
     $0.isSkeletonable = true
   }
-  
+
   // MARK: - Initialization & Deinitialization
 
   override init() {
     super.init()
     setTabBarItem()
   }
-  
+
   // MARK: - View Lifecycle
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
@@ -92,10 +92,10 @@ final class UserListViewController:
   }
 
   private func dataSource() -> UserListDataSource {
-    return UserListDataSource(
+    UserListDataSource(
       configureCell: { _, tableView, indexPath, sectionItem in
         switch sectionItem {
-        case .user(let viewModel):
+        case let .user(viewModel):
           let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
           cell.configure(by: viewModel)
           return cell
@@ -104,7 +104,8 @@ final class UserListViewController:
           let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
           return cell
         }
-    })
+      }
+    )
   }
 
   // MARK: - Binding
@@ -113,42 +114,41 @@ final class UserListViewController:
     bindRefreshControlEvent()
     bindDisplayDummyCellAnimation()
   }
-  
+
   private func bindDisplayDummyCellAnimation() {
     tableView.rx.willDisplayCell
       .asDriver()
       .drive(onNext: { cell, indexPath in
-        guard
-          let userListCell = cell as? UserListItemCell,
-          userListCell.isSkeletonActive && userListCell.viewModel == nil
-        else { return }
-        
+        guard let userListCell = cell as? UserListItemCell,
+              userListCell.isSkeletonActive && userListCell.viewModel == nil else { return }
+
         userListCell.alpha = 0
         UIView.animate(
           withDuration: 0.5,
           delay: 0.06 * Double(indexPath.row),
           animations: {
             userListCell.alpha = 1
-        })
+          }
+        )
       })
       .disposed(by: disposeBag)
   }
-  
+
   private func bind(listener: UserListPresentableListener?) {
     guard let listener = listener else { return }
     bindActions(to: listener)
     bindState(from: listener)
   }
-  
+
   // MARK: - Binding Action
-  
+
   private func bindActions(to listener: UserListPresentableListener) {
     bindViewWillAppearAction(to: listener)
     bindRefreshControlAction(to: listener)
     bindLoadMoreAction(to: listener)
     bindItemSelectedAction(to: listener)
   }
-  
+
   private func bindViewWillAppearAction(to listener: UserListPresentableListener) {
     rx.viewWillAppear
       .take(1)
@@ -156,7 +156,7 @@ final class UserListViewController:
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
-  
+
   private func bindRefreshControlAction(to listener: UserListPresentableListener) {
     refreshEvent
       .map { .refresh }
@@ -170,41 +170,41 @@ final class UserListViewController:
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
-  
+
   private func bindItemSelectedAction(to listener: UserListPresentableListener) {
     tableView.rx.itemSelected
       .map { .itemSelected($0) }
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
-  
+
   // MARK: - Binding State
-  
+
   private func bindState(from listener: UserListPresentableListener) {
     bindIsLoadingState(from: listener)
     bindIsRefreshState(from: listener)
     bindUserListSectionsState(from: listener)
   }
-  
+
   private func bindIsLoadingState(from listener: UserListPresentableListener) {
-    listener.state.map { $0.isLoading }
+    listener.state.map(\.isLoading)
       .distinctUntilChanged()
       .bind { [weak self] isLoading in
         self?.tableViewSkeletonAnimation(by: isLoading)
-    }
-    .disposed(by: disposeBag)
+      }
+      .disposed(by: disposeBag)
   }
-  
+
   private func bindIsRefreshState(from listener: UserListPresentableListener) {
-    listener.state.map { $0.isRefresh }
+    listener.state.map(\.isRefresh)
       .distinctUntilChanged()
       .bind { [weak self] isRefresh in
         self?.tableViewSkeletonAnimation(by: isRefresh)
-        
+
         guard !isRefresh else { return }
         self?.endRefreshing()
-    }
-    .disposed(by: disposeBag)
+      }
+      .disposed(by: disposeBag)
   }
 
   private func tableViewSkeletonAnimation(by isLoading: Bool) {
@@ -218,7 +218,7 @@ final class UserListViewController:
   }
 
   private func bindUserListSectionsState(from listener: UserListPresentableListener) {
-    listener.state.map { $0.userListSections }
+    listener.state.map(\.userListSections)
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
       .drive(tableView.rx.items(dataSource: dataSource()))
@@ -227,13 +227,14 @@ final class UserListViewController:
 }
 
 // MARK: - Layout
+
 extension UserListViewController {
   private func setupUI() {
-    self.view.addSubview(tableView)
+    view.addSubview(tableView)
     setRefreshControl()
     layout()
   }
-  
+
   private func layout() {
     tableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
@@ -242,46 +243,46 @@ extension UserListViewController {
 }
 
 #if canImport(SwiftUI) && DEBUG
-extension UserListViewController {
-  fileprivate func bindDummyItems() {
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
-    guard let randomUser = try? decoder.decode(RandomUser.self, from: RandomUserFixture.data) else { return }
-    let userModelTranslator = UserModelTranslatorImpl()
-    
-    let dummySectionItems = userModelTranslator.translateToUserModel(by: randomUser.results)
-      .map { UserListItemViewModelImpl(userModel: $0) }
-      .map(UserListSectionItem.user)
-    
-    Observable.just([.randomUser(dummySectionItems)])
-      .distinctUntilChanged()
-      .asDriver(onErrorJustReturn: [])
-      .drive(tableView.rx.items(dataSource: dataSource()))
-      .disposed(by: disposeBag)
-  }
-}
+  fileprivate extension UserListViewController {
+    func bindDummyItems() {
+      let decoder = JSONDecoder()
+      decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
+      guard let randomUser = try? decoder.decode(RandomUser.self, from: RandomUserFixture.data) else { return }
+      let userModelTranslator = UserModelTranslatorImpl()
 
-import SwiftUI
+      let dummySectionItems = userModelTranslator.translateToUserModel(by: randomUser.results)
+        .map { UserListItemViewModelImpl(userModel: $0) }
+        .map(UserListSectionItem.user)
 
-private let deviceNames: [String] = [
-  "iPhone SE",
-  "iPhone 11 Pro Max"
-]
-
-@available(iOS 13.0, *)
-struct UserListViewControllerPreview: PreviewProvider {
-
-  static var previews: some SwiftUI.View {
-    ForEach(deviceNames, id: \.self) { deviceName in
-      UIViewControllerPreview {
-        let viewController = UserListViewController().then {
-          $0.bindDummyItems()
-        }
-        return UINavigationController(rootViewController: viewController)
-      }
-      .previewDevice(PreviewDevice(rawValue: deviceName))
-      .previewDisplayName(deviceName)
+      Observable.just([.randomUser(dummySectionItems)])
+        .distinctUntilChanged()
+        .asDriver(onErrorJustReturn: [])
+        .drive(tableView.rx.items(dataSource: dataSource()))
+        .disposed(by: disposeBag)
     }
   }
-}
+
+  import SwiftUI
+
+  private let deviceNames: [String] = [
+    "iPhone SE",
+    "iPhone 11 Pro Max"
+  ]
+
+  @available(iOS 13.0, *)
+  struct UserListViewControllerPreview: PreviewProvider {
+
+    static var previews: some SwiftUI.View {
+      ForEach(deviceNames, id: \.self) { deviceName in
+        UIViewControllerPreview {
+          let viewController = UserListViewController().then {
+            $0.bindDummyItems()
+          }
+          return UINavigationController(rootViewController: viewController)
+        }
+        .previewDevice(PreviewDevice(rawValue: deviceName))
+        .previewDisplayName(deviceName)
+      }
+    }
+  }
 #endif

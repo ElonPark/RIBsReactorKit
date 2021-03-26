@@ -1,5 +1,5 @@
 //
-//  UserListComponent+UserInfomation.swift
+//  UserListComponent+UserInformation.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/12/19.
@@ -8,6 +8,6 @@
 
 import RIBs
 
-protocol UserListDependencyUserInfomation: Dependency {}
+protocol UserListDependencyUserInformation: Dependency {}
 
-extension UserListComponent: UserInfomationDependency {}
+extension UserListComponent: UserInformationDependency {}

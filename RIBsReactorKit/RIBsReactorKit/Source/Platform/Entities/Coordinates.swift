@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - Coordinates
+
 struct Coordinates:
   Codable,
   Equatable

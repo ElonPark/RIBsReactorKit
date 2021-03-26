@@ -13,16 +13,16 @@ enum UserListSectionModel: Equatable {
 }
 
 extension UserListSectionModel: SectionModelType {
-  
+
   typealias Item = UserListSectionItem
-  
+
   var items: [Item] {
     switch self {
-    case .randomUser(let items):
+    case let .randomUser(items):
       return items
     }
   }
-  
+
   init(original: UserListSectionModel, items: [Item]) {
     switch original {
     case .randomUser:
@@ -39,7 +39,7 @@ enum UserListSectionItem {
 extension UserListSectionItem: Equatable {
   static func == (lhs: UserListSectionItem, rhs: UserListSectionItem) -> Bool {
     switch (lhs, rhs) {
-    case (.user(let lhsViewModel), .user(let rhsViewModel)):
+    case let (.user(lhsViewModel), .user(rhsViewModel)):
       return lhsViewModel.uuid == rhsViewModel.uuid
 
     case (.dummy, dummy):

@@ -6,13 +6,13 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import RIBs
 import ReactorKit
+import RIBs
 import RxSwift
 
 protocol UserListRouting: ViewableRouting {
-  func attachUserInfomationRIB()
-  func detachUserInfomationRIB()
+  func attachUserInformationRIB()
+  func detachUserInformationRIB()
 }
 
 protocol UserListPresentable: Presentable {
@@ -27,12 +27,12 @@ final class UserListInteractor:
   UserListPresentableListener,
   Reactor
 {
-  
+
   // MARK: - Reactor
-  
+
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
-  
+
   enum Mutation: Equatable {
     case loadData
     case setLoading(Bool)
@@ -40,19 +40,19 @@ final class UserListInteractor:
     case userListSections([UserListSectionModel])
     case selectedUser(UserModel)
   }
-  
+
   // MARK: - Properties
 
   weak var router: UserListRouting?
   weak var listener: UserListListener?
-  
+
   let initialState: UserListPresentableState
-  
+
   private let randomUserUseCase: RandomUserUseCase
   private let requestItemCount: Int = 50
-  
+
   private let mutableUserModelStream: MutableUserModelStream
-  
+
   // MARK: - Initialization & Deinitialization
 
   init(
@@ -64,7 +64,7 @@ final class UserListInteractor:
     self.initialState = initialState
     self.randomUserUseCase = randomUserUseCase
     self.mutableUserModelStream = mutableUserModelStream
-    
+
     super.init(presenter: presenter)
     presenter.listener = self
   }
@@ -73,83 +73,83 @@ final class UserListInteractor:
 // MARK: - Reactor
 
 extension UserListInteractor {
-  
+
   // MARK: - mutate
 
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .loadData:
       return refreshMutation()
-      
+
     case .refresh:
-     return refreshMutation()
-            
-    case .loadMore(let indexPath):
+      return refreshMutation()
+
+    case let .loadMore(indexPath):
       return loadMoreMutation(by: indexPath)
-      
-    case .itemSelected(let indexPath):
+
+    case let .itemSelected(indexPath):
       return itemSelectedMutation(by: indexPath)
     }
   }
-  
+
   private func refreshMutation() -> Observable<Mutation> {
     let startRefresh = Observable.just(Mutation.setRefresh(true))
     let stopRefresh = Observable.just(Mutation.setRefresh(false))
-    
+
     let loadData = randomUserUseCase.loadData(isRefresh: true, itemCount: requestItemCount)
       .map { Mutation.loadData }
       .catchErrorJustReturn(.setRefresh(false))
-    
+
     return .concat([startRefresh, loadData, stopRefresh])
   }
-  
+
   private func loadMoreMutation(by indexPath: IndexPath) -> Observable<Mutation> {
     let itemsCount = currentState.userListSections.first?.items.count ?? 0
     let lastItemIndexPathRow = itemsCount - 1
     guard indexPath.row == lastItemIndexPathRow else { return .empty() }
-    
+
     return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
       .map { Mutation.loadData }
       .catchErrorJustReturn(.setRefresh(false))
   }
-  
+
   private func itemSelectedMutation(by indexPath: IndexPath) -> Observable<Mutation> {
     let sections = currentState.userListSections
     let section = sections[safe: indexPath.section]
     guard let item = section?.items[safe: indexPath.row] else { return .empty() }
-    
+
     switch item {
-    case .user(let viewModel):
+    case let .user(viewModel):
       return .just(.selectedUser(viewModel.userModel))
-      
+
     case .dummy:
       return .empty()
     }
   }
-  
+
   // MARK: - transform mutation
-  
+
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-    return mutation
+    mutation
       .flatMap { [weak self] mutation -> Observable<Mutation> in
         guard let this = self else { return .empty() }
         switch mutation {
         case .loadData:
           return this.updateUserModelsTransform()
-          
-        case .selectedUser(let userModel):
+
+        case let .selectedUser(userModel):
           return this.selectedUserTransform(by: userModel)
-          
+
         default:
           return .just(mutation)
         }
-    }
+      }
   }
 
   /// mutableUserModelsStream is update userModels when trigger Action
   /// (.loadData, .refresh, .loadMore)
   private func updateUserModelsTransform() -> Observable<Mutation> {
-    return randomUserUseCase
+    randomUserUseCase
       .userModelsStream
       .userModels
       .map { $0.map { UserListItemViewModelImpl(userModel: $0) } }
@@ -157,40 +157,41 @@ extension UserListInteractor {
       .map { [UserListSectionModel.randomUser($0)] }
       .map(Mutation.userListSections)
   }
-   
+
   /// Show selected user information
   private func selectedUserTransform(by userModel: UserModel) -> Observable<Mutation> {
     mutableUserModelStream.updateUserModel(by: userModel)
-    router?.attachUserInfomationRIB()
+    router?.attachUserInformationRIB()
     return .empty()
   }
-  
+
   // MARK: - reduce
-  
+
   func reduce(state: State, mutation: Mutation) -> State {
     var newState = state
-    
+
     switch mutation {
-    case .setLoading(let isLoading):
+    case let .setLoading(isLoading):
       newState.isLoading = isLoading
-      
-    case .setRefresh(let isRefesh):
+
+    case let .setRefresh(isRefesh):
       newState.isRefresh = isRefesh
-      
-    case .userListSections(let sections):
+
+    case let .userListSections(sections):
       newState.userListSections = sections
-      
+
     case .loadData, .selectedUser:
       Log.debug("Do Nothing when \(mutation)")
     }
-    
+
     return newState
   }
 }
 
-// MARK: - UserInfomationAdapterListener
+// MARK: - UserInformationAdapterListener
+
 extension UserListInteractor {
-  func detachUserInfomationRIB() {
-    router?.detachUserInfomationRIB()
+  func detachUserInformationRIB() {
+    router?.detachUserInformationRIB()
   }
 }

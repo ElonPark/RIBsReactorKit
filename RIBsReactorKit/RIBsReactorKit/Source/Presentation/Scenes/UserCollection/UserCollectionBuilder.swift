@@ -14,11 +14,11 @@ protocol UserCollectionDependency: Dependency {
 }
 
 final class UserCollectionComponent: Component<UserCollectionDependency> {
-  
+
   fileprivate var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
     dependency.userCollectionViewController
   }
-  
+
   fileprivate var randomUserUseCase: RandomUserUseCase {
     dependency.randomUserUseCase
   }
@@ -34,13 +34,13 @@ final class UserCollectionBuilder:
   Builder<UserCollectionDependency>,
   UserCollectionBuildable
 {
-  
+
   // MARK: - Initialization & Deinitialization
 
   override init(dependency: UserCollectionDependency) {
     super.init(dependency: dependency)
   }
-  
+
   // MARK: - Internal methods
 
   func build(withListener listener: UserCollectionListener) -> UserCollectionRouting {

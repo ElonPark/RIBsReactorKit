@@ -8,8 +8,8 @@
 
 import UIKit
 
-import RxSwift
 import RxRelay
+import RxSwift
 
 protocol PullToRefreshable {
   var refreshControl: UIRefreshControl { get }
@@ -20,14 +20,14 @@ extension PullToRefreshable where Self: HasTableView & HasDisposeBag {
   func setRefreshControl() {
     tableView.refreshControl = refreshControl
   }
-  
+
   func bindRefreshControlEvent() {
     refreshControl.rx.controlEvent(.valueChanged)
       .asObservable()
       .bind(to: refreshEvent)
       .disposed(by: disposeBag)
   }
-  
+
   func endRefreshing() {
     refreshControl.endRefreshing()
   }

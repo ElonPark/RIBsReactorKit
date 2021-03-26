@@ -6,8 +6,8 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import RxSwift
 import RxRelay
+import RxSwift
 
 protocol UserModelStream {
   var userModel: Observable<UserModel> { get }
@@ -18,12 +18,12 @@ protocol MutableUserModelStream: UserModelStream {
 }
 
 final class UserModelStreamImpl: MutableUserModelStream {
-  
+
   // MARK: - Properties
 
   lazy var userModel: Observable<UserModel> = userModalRelay.asObservable().compactMap { $0 }
   private let userModalRelay = BehaviorRelay<UserModel?>(value: nil)
-  
+
   // MARK: - Internal methods
 
   func updateUserModel(by userModel: UserModel) {

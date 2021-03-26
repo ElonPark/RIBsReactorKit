@@ -8,8 +8,8 @@
 
 import Reachability
 import RxReachability
-import RxSwift
 import RxRelay
+import RxSwift
 
 extension PrimitiveSequence {
   /**
@@ -39,14 +39,14 @@ extension PrimitiveSequence {
           let fullJitter = delay.makeTimeInterval(attemptCount)
 
           let timer = Observable<Int>.timer(fullJitter, scheduler: MainScheduler.instance)
-          .map { _ in Void() }
+            .map { _ in Void() }
 
           let networkConnected = didBecomeReachable
             .delay(fullJitter, scheduler: MainScheduler.instance)
             .map { _ in Void() }
 
           return Observable.merge(timer, networkConnected)
-      }
+        }
     }
   }
 }
