@@ -6,17 +6,17 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import Foundation
 import CoreLocation.CLLocation
+import Foundation
 
 protocol UserModelTranslator {
   func translateToUserModel(by result: [User]) -> [UserModel]
 }
 
 final class UserModelTranslatorImpl: UserModelTranslator {
-  
+
   func translateToUserModel(by result: [User]) -> [UserModel] {
-    return result.map {
+    result.map {
       UserModel(
         gender: $0.gender,
         name: $0.name,
@@ -35,13 +35,12 @@ final class UserModelTranslatorImpl: UserModelTranslator {
       )
     }
   }
-  
+
   private func coordinates(from location: Location) -> CLLocationCoordinate2D? {
     guard let latitude = Double(location.coordinates.latitude),
-      let longitude = Double(location.coordinates.longitude) else {
-        return nil
-    }
-    
+          let longitude = Double(location.coordinates.longitude)
+    else { return nil }
+
     return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
   }
 }

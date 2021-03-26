@@ -6,8 +6,8 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import RxSwift
 import RxCocoa
+import RxSwift
 
 protocol RandomUserUseCase {
   var isLastItems: Bool { get }
@@ -19,19 +19,20 @@ protocol RandomUserUseCase {
 }
 
 final class RandomUserUseCaseImpl: RandomUserUseCase {
-  
+
   // MARK: - Properties
-  
+
   private(set) var isLastItems: Bool = false
-  
+
   let repository: RandomUserRepository
   let translator: UserModelTranslator
-  
+
   var userModelsStream: UserModelDataStream {
     mutableUserModelsStream
   }
+
   private let mutableUserModelsStream: MutableUserModelDataStream
-  
+
   // MARK: - Initialization & Deinitialization
 
   init(
@@ -43,9 +44,9 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
     self.translator = translator
     self.mutableUserModelsStream = mutableUserModelsStream
   }
-  
+
   // MARK: - Internal methods
-  
+
   func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void> {
     let randomUsers: Single<RandomUser>
     if let info = repository.info, !isRefresh {
@@ -54,10 +55,10 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
     } else {
       randomUsers = repository.randomUsers(with: itemCount)
     }
-    
+
     return randomUsers
       .asObservable()
-      .map { $0.results }
+      .map(\.results)
       .do(onNext: { [weak self] results in
         self?.setIsLastItems(by: results, itemCount: itemCount)
         if isRefresh {
@@ -68,18 +69,18 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
       })
       .map { _ in Void() }
   }
-  
+
   // MARK: - Private methods
-  
+
   private func setIsLastItems(by results: [User], itemCount: Int) {
     isLastItems = results.isEmpty || results.count < itemCount
   }
-  
+
   private func updateUserModels(by results: [User]) {
     let userModels = translator.translateToUserModel(by: results)
     mutableUserModelsStream.updateUserModels(with: userModels)
   }
-  
+
   private func appendUserModels(by results: [User]) {
     let userModels = translator.translateToUserModel(by: results)
     mutableUserModelsStream.appendUserModels(with: userModels)

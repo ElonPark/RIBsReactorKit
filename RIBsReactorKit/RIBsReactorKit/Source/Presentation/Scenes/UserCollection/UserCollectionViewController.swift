@@ -18,27 +18,26 @@ final class UserCollectionViewController:
   UserCollectionPresentable,
   UserCollectionViewControllable
 {
-  
+
   // MARK: - Properties
 
   weak var listener: UserCollectionPresentableListener?
-  
+
   // MARK: - Initialization & Deinitialization
-  
+
   override init() {
     super.init()
     setTabBarItem()
   }
-  
+
   // MARK: - View Lifecycle
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
-  
   }
-  
+
   // MARK: - Private methods
-  
+
   private func setTabBarItem() {
     tabBarItem = UITabBarItem(
       title: Strings.TabBarTitle.collection,
@@ -49,24 +48,24 @@ final class UserCollectionViewController:
 }
 
 #if canImport(SwiftUI) && DEBUG
-import SwiftUI
+  import SwiftUI
 
-private let deviceNames: [String] = [
-  "iPhone SE",
-  "iPhone 11 Pro Max"
-]
+  private let deviceNames: [String] = [
+    "iPhone SE",
+    "iPhone 11 Pro Max"
+  ]
 
-@available(iOS 13.0, *)
-struct UserCollectionControllerPreview: PreviewProvider {
-  static var previews: some View {
-    ForEach(deviceNames, id: \.self) { deviceName in
-      UIViewControllerPreview {
-        let viewController = UserCollectionViewController()
-        return UINavigationController(rootViewController: viewController)
+  @available(iOS 13.0, *)
+  struct UserCollectionControllerPreview: PreviewProvider {
+    static var previews: some View {
+      ForEach(deviceNames, id: \.self) { deviceName in
+        UIViewControllerPreview {
+          let viewController = UserCollectionViewController()
+          return UINavigationController(rootViewController: viewController)
+        }
+        .previewDevice(PreviewDevice(rawValue: deviceName))
+        .previewDisplayName(deviceName)
       }
-      .previewDevice(PreviewDevice(rawValue: deviceName))
-      .previewDisplayName(deviceName)
     }
   }
-}
 #endif

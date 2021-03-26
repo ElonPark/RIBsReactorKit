@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: - ID
+
 struct ID:
   Codable,
   Equatable

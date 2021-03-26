@@ -24,21 +24,21 @@ final class UserProfileCell:
     static let profileBackgroundImageTopMargin: CGFloat = 8
     static let profileBackgroundImageLeadingMargin: CGFloat = 8
     static let profileBackgroundImageViewTrailingMargin: CGFloat = 8
-    
+
     // - profileImageView
     static let profileImageViewSize = CGSize(width: 120, height: 120)
     static let profileImageViewBorderWidth: CGFloat = 5
-    
+
     // - label
     static let labelMinimumSideMargin: CGFloat = 16
-    
+
     // - titleWithLastNameLabel
     static let titleWithLastNameLabelTopMargin: CGFloat = 8
-    
+
     // - firstNameLabel
     static let firstNameLabelTopMargin: CGFloat = 3
     static let firstNameLabelBottomMargin: CGFloat = 8
-    
+
     enum Font {
       static let titleWithLastNameLabel = UIFont.systemFont(ofSize: 20, weight: .bold)
       static let firstNameLabel = UIFont.systemFont(ofSize: 15)
@@ -48,7 +48,7 @@ final class UserProfileCell:
   // MARK: - Properties
 
   private(set) var viewModel: UserProfileViewModel?
-  
+
   // for skeleton view animation
   private let dummyTitleWithLastNameString = String(repeating: " ", count: 60)
   private let dummyFirstNameString = String(repeating: " ", count: 40)
@@ -80,20 +80,20 @@ final class UserProfileCell:
     $0.textAlignment = .center
     $0.isSkeletonable = true
   }
-  
+
   private let firstNameLabel = UILabel().then {
     $0.font = UI.Font.firstNameLabel
     $0.textAlignment = .center
     $0.isSkeletonable = true
   }
-  
+
   private(set) lazy var views: [UIView] = [
     profileBackgroundImageView,
     profileImageView,
     titleWithLastNameLabel,
     firstNameLabel
   ]
-  
+
   // MARK: - Inheritance
 
   override func initialize() {
@@ -133,11 +133,12 @@ final class UserProfileCell:
 }
 
 // MARK: - Layout
+
 extension UserProfileCell {
   private func setupUI() {
-    self.isSkeletonable = true
+    isSkeletonable = true
     views.forEach { self.contentView.addSubview($0) }
-    
+
     initUI()
     showSkeletonAnimation()
   }
@@ -149,20 +150,20 @@ extension UserProfileCell {
       $0.trailing.equalToSuperview().offset(-UI.profileBackgroundImageViewTrailingMargin)
       $0.height.equalTo(UI.profileBackgroundImageViewHeight)
     }
-    
+
     profileImageView.snp.makeConstraints {
       $0.size.equalTo(UI.profileImageViewSize)
       $0.centerX.equalToSuperview()
       $0.centerY.equalTo(profileBackgroundImageView.snp.bottom)
     }
-    
+
     titleWithLastNameLabel.snp.makeConstraints {
       $0.top.equalTo(profileImageView.snp.bottom).offset(UI.titleWithLastNameLabelTopMargin)
       $0.leading.greaterThanOrEqualToSuperview().offset(UI.labelMinimumSideMargin)
       $0.trailing.lessThanOrEqualToSuperview().offset(-UI.labelMinimumSideMargin)
       $0.centerX.equalToSuperview()
     }
-    
+
     firstNameLabel.snp.makeConstraints {
       $0.top.equalTo(titleWithLastNameLabel.snp.bottom).offset(UI.firstNameLabelTopMargin)
       $0.bottom.lessThanOrEqualToSuperview().offset(-UI.firstNameLabelBottomMargin)
@@ -174,16 +175,16 @@ extension UserProfileCell {
 }
 
 #if canImport(SwiftUI) && DEBUG
-import SwiftUI
+  import SwiftUI
 
-@available(iOS 13.0, *)
-struct UserProfileCellPreview: PreviewProvider {
-  static var previews: some SwiftUI.View {
-    UIViewPreview {
-      UserProfileCell()
+  @available(iOS 13.0, *)
+  struct UserProfileCellPreview: PreviewProvider {
+    static var previews: some SwiftUI.View {
+      UIViewPreview {
+        UserProfileCell()
+      }
+      .previewLayout(.fixed(width: 250, height: 320))
+      .padding(10)
     }
-    .previewLayout(.fixed(width: 250, height: 320))
-    .padding(10)
   }
-}
 #endif

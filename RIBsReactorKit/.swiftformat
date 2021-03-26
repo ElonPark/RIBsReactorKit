@@ -1,0 +1,35 @@
+--swiftversion 5.3
+
+# format options
+--indent 2
+--modifierorder
+--beforemarks typealias,struct
+--lifecycle
+--organizetypes enum,struct,class
+--self init-only
+--semicolons inline
+--trailingclosures
+--commas inline
+--stripunusedargs closure-only
+--maxwidth 120
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--funcattributes prev-line
+--typeattributes prev-line
+--varattributes prev-line
+--ranges no-space
+--xcodeindentation enabled
+--modifierorder
+
+# file options
+--exclude Scripts, Carthage, Resource, **/Generated
+
+# rules
+--disable andOperator
+--disable anyObjectProtocol
+--disable blankLinesAtStartOfScope
+--disable redundantBackticks
+--disable sortedSwitchCases
+--disable redundantReturn
+--disable void

@@ -25,28 +25,26 @@ final class MainTabBarInteractor:
   MainTabBarInteractable,
   MainTabBarPresentableListener
 {
-  
+
   // MARK: - Properties
 
   weak var router: MainTabBarRouting?
   weak var listener: MainTabBarListener?
-    
+
   // MARK: - Initialization & Deinitialization
 
   override init(presenter: MainTabBarPresentable) {
     super.init(presenter: presenter)
     presenter.listener = self
   }
-  
+
   // MARK: - Inheritance
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    
   }
-  
+
   override func willResignActive() {
     super.willResignActive()
-    
   }
 }

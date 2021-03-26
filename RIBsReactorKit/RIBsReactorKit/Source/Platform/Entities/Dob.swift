@@ -9,6 +9,7 @@
 import Foundation
 
 // MARK: - Dob
+
 struct Dob:
   Codable,
   Equatable

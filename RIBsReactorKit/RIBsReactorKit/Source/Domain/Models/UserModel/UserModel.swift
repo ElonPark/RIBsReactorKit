@@ -6,8 +6,8 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import Foundation
 import CoreLocation.CLLocation
+import Foundation
 
 struct UserModel {
   let gender: String
@@ -28,6 +28,6 @@ struct UserModel {
 
 extension UserModel: Equatable {
   static func == (lhs: UserModel, rhs: UserModel) -> Bool {
-    return lhs.login.uuid == rhs.login.uuid
+    lhs.login.uuid == rhs.login.uuid
   }
 }

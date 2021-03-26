@@ -17,7 +17,7 @@ extension DisposablesManageable where Self: HasCompositeDisposable {
   func disposeDisposables() {
     disposables.dispose()
   }
-  
+
   func resetDisposables() {
     disposables.dispose()
     disposables = CompositeDisposable()

@@ -10,19 +10,19 @@ import UIKit
 
 extension UICollectionView {
   func register<Cell: UICollectionViewCell>(_: Cell.Type) where Cell: Reusable {
-    self.register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
+    register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
   }
 
   func register<View: UICollectionReusableView>(_: View.Type) where View: Reusable & HasElementKind {
-    self.register(
+    register(
       View.self,
       forSupplementaryViewOfKind: View.elementKind,
       withReuseIdentifier: View.identifier
     )
   }
 
-  func dequeue<Cell: UICollectionViewCell>(_: Cell.Type, indexPath: IndexPath) -> Cell  where Cell: Reusable {
-    if let cell = self.dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as? Cell {
+  func dequeue<Cell: UICollectionViewCell>(_: Cell.Type, indexPath: IndexPath) -> Cell where Cell: Reusable {
+    if let cell = dequeueReusableCell(withReuseIdentifier: Cell.identifier, for: indexPath) as? Cell {
       return cell
     } else {
       fatalError("Could not cast value of type 'UICollectionViewCell' to '\(String(describing: Cell.self))'")
@@ -33,7 +33,7 @@ extension UICollectionView {
     _: View.Type,
     indexPath: IndexPath
   ) -> View where View: Reusable & HasElementKind {
-    if let view =  self.dequeueReusableSupplementaryView(
+    if let view = dequeueReusableSupplementaryView(
       ofKind: View.elementKind,
       withReuseIdentifier: View.identifier,
       for: indexPath
