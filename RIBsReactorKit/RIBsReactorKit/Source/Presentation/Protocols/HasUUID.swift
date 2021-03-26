@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - HasUUID
+
 protocol HasUUID {
   var uuid: String { get }
 }

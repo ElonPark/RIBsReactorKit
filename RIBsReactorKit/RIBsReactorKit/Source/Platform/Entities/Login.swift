@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - Login
+
 struct Login:
   Codable,
   Equatable

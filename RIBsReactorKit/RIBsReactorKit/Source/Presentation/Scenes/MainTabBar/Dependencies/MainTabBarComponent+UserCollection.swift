@@ -8,9 +8,13 @@
 
 import RIBs
 
+// MARK: - MainTabBarDependencyUserCollection
+
 protocol MainTabBarDependencyUserCollection: Dependency {
   var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
 }
+
+// MARK: - MainTabBarComponent + UserCollectionDependency
 
 extension MainTabBarComponent: UserCollectionDependency {
   var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {

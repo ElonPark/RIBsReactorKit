@@ -8,6 +8,8 @@
 
 import RIBs
 
+// MARK: - UserCollectionInteractable
+
 protocol UserCollectionInteractable: Interactable {
   var router: UserCollectionRouting? { get set }
   var listener: UserCollectionListener? { get set }
@@ -15,11 +17,13 @@ protocol UserCollectionInteractable: Interactable {
 
 protocol UserCollectionViewControllable: ViewControllable {}
 
+// MARK: - UserCollectionRouter
+
 final class UserCollectionRouter:
   ViewableRouter<UserCollectionInteractable, UserCollectionViewControllable>,
   UserCollectionRouting
 {
-    
+
   // MARK: - Initialization & Deinitialization
 
   override init(

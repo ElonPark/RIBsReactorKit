@@ -8,45 +8,50 @@
 
 import Moya
 
+// MARK: - RandomUserService
+
 enum RandomUserService: TargetType {
   case multipleUsers(resultCount: Int)
   case pagination(page: Int, resultCount: Int, seed: String)
 }
 
 // MARK: - TargetType
+
 extension RandomUserService {
-  
+
   var baseURL: URL {
     URL(string: "https://randomuser.me")!
   }
-  
+
   var path: String {
     switch self {
-    case .multipleUsers, .pagination:
+    case .multipleUsers,
+         .pagination:
       return "/api/"
     }
   }
-  
+
   var method: Method {
     switch self {
-    case .multipleUsers, .pagination:
+    case .multipleUsers,
+         .pagination:
       return .get
     }
   }
-  
+
   var sampleData: Data {
     RandomUserFixture.data
   }
-  
+
   var task: Task {
     switch self {
-    case .multipleUsers(let resultCount):
+    case let .multipleUsers(resultCount):
       return .requestParameters(
         parameters: ["results": resultCount],
         encoding: URLEncoding.default
       )
-      
-    case .pagination(let page, let resultCount, let seed):
+
+    case let .pagination(page, resultCount, seed):
       return .requestParameters(
         parameters: [
           "page": page,
@@ -57,8 +62,8 @@ extension RandomUserService {
       )
     }
   }
-  
-  var headers: [String : String]? {
+
+  var headers: [String: String]? {
     ["Content-Type": "application/json; charset=utf-8"]
   }
 }

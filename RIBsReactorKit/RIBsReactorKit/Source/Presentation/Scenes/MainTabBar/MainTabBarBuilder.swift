@@ -8,9 +8,13 @@
 
 import RIBs
 
+// MARK: - MainTabBarDependency
+
 protocol MainTabBarDependency: MainTabBarDependencyUserList, MainTabBarDependencyUserCollection {
   var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable { get }
 }
+
+// MARK: - MainTabBarComponent
 
 final class MainTabBarComponent: Component<MainTabBarDependency> {
 
@@ -21,15 +25,15 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
   fileprivate var randomUserRepository: RandomUserRepository {
     RandomUserRepositoryImpl(service: Networking<RandomUserService>())
   }
-  
+
   fileprivate var userModelTranslator: UserModelTranslator {
     UserModelTranslatorImpl()
   }
-  
+
   private var mutableUserModelsStream: MutableUserModelDataStream {
     shared { UserModelDataStreamImpl() }
   }
-  
+
   var randomUserUseCase: RandomUserUseCase {
     RandomUserUseCaseImpl(
       repository: randomUserRepository,
@@ -39,34 +43,36 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
   }
 }
 
-// MARK: - Builder
+// MARK: - MainTabBarBuildable
 
 protocol MainTabBarBuildable: Buildable {
   func build(withListener listener: MainTabBarListener) -> MainTabBarRouting
 }
 
+// MARK: - MainTabBarBuilder
+
 final class MainTabBarBuilder:
   Builder<MainTabBarDependency>,
   MainTabBarBuildable
 {
-  
+
   // MARK: - Initialization & Deinitialization
 
   override init(dependency: MainTabBarDependency) {
     super.init(dependency: dependency)
   }
-  
+
   // MARK: - Internal methods
-  
+
   func build(withListener listener: MainTabBarListener) -> MainTabBarRouting {
     let component = MainTabBarComponent(dependency: dependency)
     let viewController = component.mainTabBarViewController
     let interactor = MainTabBarInteractor(presenter: viewController)
     interactor.listener = listener
-    
+
     let userListBuilder = UserListBuilder(dependency: component)
     let userCollectionBuilder = UserCollectionBuilder(dependency: component)
-    
+
     return MainTabBarRouter(
       userListBuilder: userListBuilder,
       userCollectionBuilder: userCollectionBuilder,

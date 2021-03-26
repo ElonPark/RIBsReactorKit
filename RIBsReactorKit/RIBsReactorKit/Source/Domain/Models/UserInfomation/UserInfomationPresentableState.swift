@@ -1,5 +1,5 @@
 //
-//  UserInfomationPresentableState.swift
+//  UserInformationPresentableState.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/09/19.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct UserInfomationPresentableState: Equatable {
-  var userInfomationSections = [UserInfoSectionModel]()
+struct UserInformationPresentableState: Equatable {
+  var userInformationSections = [UserInfoSectionModel]()
 }

@@ -13,16 +13,18 @@ import RxSwift
 
 protocol MainTabBarPresentableListener: class {}
 
+// MARK: - MainTabBarViewController
+
 final class MainTabBarViewController:
   UITabBarController,
   MainTabBarPresentable,
   MainTabBarViewControllable
 {
-  
+
   // MARK: - Properties
-  
+
   weak var listener: MainTabBarPresentableListener?
-  
+
   // MARK: - Initialization & Deinitialization
 
   init(viewControllers: [UINavigationController]) {
@@ -30,7 +32,8 @@ final class MainTabBarViewController:
     modalPresentationStyle = .fullScreen
     setViewControllers(viewControllers, animated: false)
   }
-  
+
+  @available(*, unavailable)
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -44,31 +47,30 @@ final class MainTabBarViewController:
 }
 
 // MARK: - RootViewControllable
-extension MainTabBarViewController: RootViewControllable {
 
-}
+extension MainTabBarViewController: RootViewControllable {}
 
 #if canImport(SwiftUI) && DEBUG
-import SwiftUI
+  import SwiftUI
 
-private let deviceNames: [String] = [
-  "iPhone SE",
-  "iPhone 11 Pro Max"
-]
+  private let deviceNames: [String] = [
+    "iPhone SE",
+    "iPhone 11 Pro Max"
+  ]
 
-@available(iOS 13.0, *)
-struct MainTabBarViewControllerPreview: PreviewProvider {
-  static var previews: some View {
-    ForEach(deviceNames, id: \.self) { deviceName in
-      UIViewControllerPreview {
-        MainTabBarViewController(viewControllers: [
-          UINavigationController(root: UserListViewController()),
-          UINavigationController(root: UserCollectionViewController())
-        ])
+  @available(iOS 13.0, *)
+  struct MainTabBarViewControllerPreview: PreviewProvider {
+    static var previews: some View {
+      ForEach(deviceNames, id: \.self) { deviceName in
+        UIViewControllerPreview {
+          MainTabBarViewController(viewControllers: [
+            UINavigationController(root: UserListViewController()),
+            UINavigationController(root: UserCollectionViewController())
+          ])
+        }
+        .previewDevice(PreviewDevice(rawValue: deviceName))
+        .previewDisplayName(deviceName)
       }
-      .previewDevice(PreviewDevice(rawValue: deviceName))
-      .previewDisplayName(deviceName)
     }
   }
-}
 #endif

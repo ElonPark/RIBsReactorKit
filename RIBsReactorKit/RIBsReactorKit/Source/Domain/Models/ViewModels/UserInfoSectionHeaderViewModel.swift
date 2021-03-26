@@ -8,9 +8,13 @@
 
 import Foundation
 
+// MARK: - UserInfoSectionHeaderViewModel
+
 protocol UserInfoSectionHeaderViewModel {
   var title: String { get }
 }
+
+// MARK: - UserInfoSectionHeaderViewModelImpl
 
 struct UserInfoSectionHeaderViewModelImpl: UserInfoSectionHeaderViewModel, Equatable {
   var title: String

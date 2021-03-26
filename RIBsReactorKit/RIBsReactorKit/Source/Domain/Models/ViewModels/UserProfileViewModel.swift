@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: - UserProfileViewModel
+
 protocol UserProfileViewModel: HasUserModel, HasUUID {
   var profileBackgroundImageURL: URL? { get }
   var profileImageURL: URL? { get }
@@ -15,22 +17,24 @@ protocol UserProfileViewModel: HasUserModel, HasUUID {
   var firstName: String { get }
 }
 
+// MARK: - UserProfileViewModelImpl
+
 struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
 
   let userModel: UserModel
-  
+
   var profileBackgroundImageURL: URL? {
     userModel.thumbnailImageURL
   }
-  
+
   var profileImageURL: URL? {
     userModel.largeImageURL
   }
-  
+
   var titleWithLastName: String {
     "\(userModel.name.title). \(userModel.name.last)"
   }
-  
+
   var firstName: String {
     userModel.name.first
   }

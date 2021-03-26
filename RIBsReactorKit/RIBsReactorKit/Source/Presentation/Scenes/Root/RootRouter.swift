@@ -8,12 +8,16 @@
 
 import RIBs
 
+// MARK: - RootInteractable
+
 protocol RootInteractable: Interactable, MainTabBarListener {
   var router: RootRouting? { get set }
   var listener: RootListener? { get set }
 }
 
 protocol RootViewControllable: ViewControllable {}
+
+// MARK: - RootRouter
 
 final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, RootRouting {
 

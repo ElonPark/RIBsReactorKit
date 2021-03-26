@@ -10,6 +10,8 @@ import Foundation
 
 import RxSwift
 
+// MARK: - DelayOption
+
 enum DelayOption {
   case immediate
   case constant(time: Double)

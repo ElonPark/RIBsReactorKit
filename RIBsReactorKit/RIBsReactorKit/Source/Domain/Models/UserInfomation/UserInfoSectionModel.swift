@@ -8,11 +8,15 @@
 
 import RxDataSources
 
+// MARK: - UserInfoSectionModel
+
 struct UserInfoSectionModel {
   var header: UserInfoSectionHeaderViewModel?
   var hasFooter: Bool
   var items: [UserInfoSectionItem]
 }
+
+// MARK: - Equatable
 
 extension UserInfoSectionModel: Equatable {
   static func == (lhs: UserInfoSectionModel, rhs: UserInfoSectionModel) -> Bool {
@@ -23,14 +27,18 @@ extension UserInfoSectionModel: Equatable {
   }
 }
 
+// MARK: - SectionModelType
+
 extension UserInfoSectionModel: SectionModelType {
-  
+
   typealias Item = UserInfoSectionItem
-  
+
   init(original: UserInfoSectionModel, items: [Item]) {
     self = original
   }
 }
+
+// MARK: - UserInfoSectionItem
 
 enum UserInfoSectionItem {
   case profile(UserProfileViewModel)
@@ -39,13 +47,15 @@ enum UserInfoSectionItem {
   case dummy
 }
 
+// MARK: - Equatable
+
 extension UserInfoSectionItem: Equatable {
   static func == (lhs: UserInfoSectionItem, rhs: UserInfoSectionItem) -> Bool {
     switch (lhs, rhs) {
-    case (.profile(let lhsViewModel), .profile(let rhsViewModel)):
+    case let (.profile(lhsViewModel), .profile(rhsViewModel)):
       return lhsViewModel.uuid == rhsViewModel.uuid
 
-    case (.detail(let lhsViewModel), .detail(let rhsViewModel)):
+    case let (.detail(lhsViewModel), .detail(rhsViewModel)):
       return lhsViewModel.uuid == rhsViewModel.uuid
 
     case (.dummyProfile, .dummyProfile):

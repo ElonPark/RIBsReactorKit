@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - Location
+
 struct Location:
   Codable,
   Equatable
@@ -17,7 +18,7 @@ struct Location:
   let postcode: String
   let coordinates: Coordinates
   let timezone: Timezone
-  
+
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -27,11 +28,11 @@ struct Location:
     country = try container.decode(String.self, forKey: .country)
     coordinates = try container.decode(Coordinates.self, forKey: .coordinates)
     timezone = try container.decode(Timezone.self, forKey: .timezone)
-    
+
     if let value = try? container.decode(Int.self, forKey: .postcode) {
-      postcode = String(value)
+      self.postcode = String(value)
     } else {
-      postcode = try container.decode(String.self, forKey: .postcode)
+      self.postcode = try container.decode(String.self, forKey: .postcode)
     }
   }
 }

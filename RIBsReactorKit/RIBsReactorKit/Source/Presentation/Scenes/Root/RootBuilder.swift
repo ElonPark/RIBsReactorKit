@@ -10,6 +10,8 @@ import RIBs
 
 protocol RootDependency: Dependency {}
 
+// MARK: - RootComponent
+
 final class RootComponent: Component<RootDependency> {
 
   let userListViewController: UserListPresentable & UserListViewControllable
@@ -29,11 +31,13 @@ final class RootComponent: Component<RootDependency> {
   }
 }
 
-// MARK: - Builder
+// MARK: - RootBuildable
 
 protocol RootBuildable: Buildable {
   func build() -> LaunchRouting
 }
+
+// MARK: - RootBuilder
 
 final class RootBuilder: Builder<RootDependency>, RootBuildable {
 
