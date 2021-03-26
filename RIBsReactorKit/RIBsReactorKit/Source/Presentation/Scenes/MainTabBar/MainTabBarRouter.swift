@@ -8,6 +8,8 @@
 
 import RIBs
 
+// MARK: - MainTabBarInteractable
+
 protocol MainTabBarInteractable:
   Interactable,
   UserListListener,
@@ -18,6 +20,8 @@ protocol MainTabBarInteractable:
 }
 
 protocol MainTabBarViewControllable: ViewControllable {}
+
+// MARK: - MainTabBarRouter
 
 final class MainTabBarRouter:
   ViewableRouter<MainTabBarInteractable, MainTabBarViewControllable>,

@@ -9,12 +9,16 @@
 import RIBs
 import RxSwift
 
+// MARK: - RootRouting
+
 protocol RootRouting: Routing {
   func attachMainTapBarRIB()
   func cleanupViews()
 }
 
 protocol RootListener: class {}
+
+// MARK: - RootInteractor
 
 final class RootInteractor: Interactor, RootInteractable {
 

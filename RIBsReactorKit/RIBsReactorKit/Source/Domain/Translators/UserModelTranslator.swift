@@ -9,9 +9,13 @@
 import CoreLocation.CLLocation
 import Foundation
 
+// MARK: - UserModelTranslator
+
 protocol UserModelTranslator {
   func translateToUserModel(by result: [User]) -> [UserModel]
 }
+
+// MARK: - UserModelTranslatorImpl
 
 final class UserModelTranslatorImpl: UserModelTranslator {
 

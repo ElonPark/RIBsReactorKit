@@ -8,17 +8,25 @@
 
 import UIKit
 
+// MARK: - UserInfoSectionItemFactory
+
 protocol UserInfoSectionItemFactory {
   func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem
 }
+
+// MARK: - UserInfoSectionFactory
 
 protocol UserInfoSectionFactory {
   func makeSection(from userModel: UserModel) -> UserInfoSectionModel
 }
 
+// MARK: - UserInfoSectionListFactory
+
 protocol UserInfoSectionListFactory {
   func makeSections(by userModel: UserModel) -> [UserInfoSectionModel]
 }
+
+// MARK: - UserInfoSectionListFactoryImpl
 
 struct UserInfoSectionListFactoryImpl: UserInfoSectionListFactory {
 

@@ -8,6 +8,8 @@
 
 import RIBs
 
+// MARK: - UserListInteractable
+
 protocol UserListInteractable:
   Interactable,
   UserInformationListener
@@ -17,6 +19,8 @@ protocol UserListInteractable:
 }
 
 protocol UserListViewControllable: ViewControllable {}
+
+// MARK: - UserListRouter
 
 final class UserListRouter:
   ViewableRouter<UserListInteractable, UserListViewControllable>,

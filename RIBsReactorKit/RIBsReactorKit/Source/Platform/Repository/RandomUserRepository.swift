@@ -10,6 +10,8 @@ import Foundation
 
 import RxSwift
 
+// MARK: - RandomUserRepository
+
 protocol RandomUserRepository {
   var info: Info? { get }
   var userByUUID: [String: User] { get }
@@ -17,6 +19,8 @@ protocol RandomUserRepository {
   func randomUsers(with resultCount: Int) -> Single<RandomUser>
   func randomUsers(with page: Int, count: Int, seed: String) -> Single<RandomUser>
 }
+
+// MARK: - RandomUserRepositoryImpl
 
 final class RandomUserRepositoryImpl: RandomUserRepository {
 

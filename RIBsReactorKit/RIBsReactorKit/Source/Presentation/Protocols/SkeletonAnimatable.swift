@@ -10,6 +10,8 @@ import UIKit
 
 import SkeletonView
 
+// MARK: - SkeletonAnimatable
+
 protocol SkeletonAnimatable {
   var views: [UIView] { get }
 

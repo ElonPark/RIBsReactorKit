@@ -9,16 +9,22 @@
 import RIBs
 import RxSwift
 
+// MARK: - MainTabBarRouting
+
 protocol MainTabBarRouting: ViewableRouting {
   func attachUserListRIB()
   func attachUserCollectionRIB()
 }
+
+// MARK: - MainTabBarPresentable
 
 protocol MainTabBarPresentable: Presentable {
   var listener: MainTabBarPresentableListener? { get set }
 }
 
 protocol MainTabBarListener: class {}
+
+// MARK: - MainTabBarInteractor
 
 final class MainTabBarInteractor:
   PresentableInteractor<MainTabBarPresentable>,

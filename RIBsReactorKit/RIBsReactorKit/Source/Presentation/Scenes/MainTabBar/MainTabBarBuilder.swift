@@ -8,9 +8,13 @@
 
 import RIBs
 
+// MARK: - MainTabBarDependency
+
 protocol MainTabBarDependency: MainTabBarDependencyUserList, MainTabBarDependencyUserCollection {
   var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable { get }
 }
+
+// MARK: - MainTabBarComponent
 
 final class MainTabBarComponent: Component<MainTabBarDependency> {
 
@@ -39,11 +43,13 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
   }
 }
 
-// MARK: - Builder
+// MARK: - MainTabBarBuildable
 
 protocol MainTabBarBuildable: Buildable {
   func build(withListener listener: MainTabBarListener) -> MainTabBarRouting
 }
+
+// MARK: - MainTabBarBuilder
 
 final class MainTabBarBuilder:
   Builder<MainTabBarDependency>,

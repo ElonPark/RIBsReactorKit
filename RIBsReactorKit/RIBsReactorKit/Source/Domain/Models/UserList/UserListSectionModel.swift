@@ -8,9 +8,13 @@
 
 import RxDataSources
 
+// MARK: - UserListSectionModel
+
 enum UserListSectionModel: Equatable {
   case randomUser([UserListSectionItem])
 }
+
+// MARK: - SectionModelType
 
 extension UserListSectionModel: SectionModelType {
 
@@ -31,10 +35,14 @@ extension UserListSectionModel: SectionModelType {
   }
 }
 
+// MARK: - UserListSectionItem
+
 enum UserListSectionItem {
   case user(UserListItemViewModel)
   case dummy
 }
+
+// MARK: - Equatable
 
 extension UserListSectionItem: Equatable {
   static func == (lhs: UserListSectionItem, rhs: UserListSectionItem) -> Bool {

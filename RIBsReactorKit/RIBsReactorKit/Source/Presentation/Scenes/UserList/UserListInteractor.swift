@@ -10,16 +10,22 @@ import ReactorKit
 import RIBs
 import RxSwift
 
+// MARK: - UserListRouting
+
 protocol UserListRouting: ViewableRouting {
   func attachUserInformationRIB()
   func detachUserInformationRIB()
 }
+
+// MARK: - UserListPresentable
 
 protocol UserListPresentable: Presentable {
   var listener: UserListPresentableListener? { get set }
 }
 
 protocol UserListListener: class {}
+
+// MARK: - UserListInteractor
 
 final class UserListInteractor:
   PresentableInteractor<UserListPresentable>,
@@ -180,7 +186,8 @@ extension UserListInteractor {
     case let .userListSections(sections):
       newState.userListSections = sections
 
-    case .loadData, .selectedUser:
+    case .loadData,
+         .selectedUser:
       Log.debug("Do Nothing when \(mutation)")
     }
 

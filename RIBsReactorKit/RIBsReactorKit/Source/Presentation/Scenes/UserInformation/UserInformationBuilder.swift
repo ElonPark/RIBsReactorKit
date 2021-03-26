@@ -8,9 +8,13 @@
 
 import RIBs
 
+// MARK: - UserInformationDependency
+
 protocol UserInformationDependency: Dependency {
   var userModelStream: UserModelStream { get }
 }
+
+// MARK: - UserInformationComponent
 
 final class UserInformationComponent: Component<UserInformationDependency> {
 
@@ -31,11 +35,13 @@ final class UserInformationComponent: Component<UserInformationDependency> {
   }
 }
 
-// MARK: - Builder
+// MARK: - UserInformationBuildable
 
 protocol UserInformationBuildable: Buildable {
   func build(withListener listener: UserInformationListener) -> UserInformationRouting
 }
+
+// MARK: - UserInformationBuilder
 
 final class UserInformationBuilder:
   Builder<UserInformationDependency>,

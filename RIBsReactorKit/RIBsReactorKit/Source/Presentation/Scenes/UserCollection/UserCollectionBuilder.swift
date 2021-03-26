@@ -8,10 +8,14 @@
 
 import RIBs
 
+// MARK: - UserCollectionDependency
+
 protocol UserCollectionDependency: Dependency {
   var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
   var randomUserUseCase: RandomUserUseCase { get }
 }
+
+// MARK: - UserCollectionComponent
 
 final class UserCollectionComponent: Component<UserCollectionDependency> {
 
@@ -24,11 +28,13 @@ final class UserCollectionComponent: Component<UserCollectionDependency> {
   }
 }
 
-// MARK: - Builder
+// MARK: - UserCollectionBuildable
 
 protocol UserCollectionBuildable: Buildable {
   func build(withListener listener: UserCollectionListener) -> UserCollectionRouting
 }
+
+// MARK: - UserCollectionBuilder
 
 final class UserCollectionBuilder:
   Builder<UserCollectionDependency>,

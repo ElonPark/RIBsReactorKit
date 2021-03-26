@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - UserDetailInfoCell
+
 final class UserDetailInfoCell:
   BaseCollectionViewCell,
   HasViewModel,

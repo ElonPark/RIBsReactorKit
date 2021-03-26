@@ -8,12 +8,16 @@
 
 import RIBs
 
+// MARK: - UserCollectionInteractable
+
 protocol UserCollectionInteractable: Interactable {
   var router: UserCollectionRouting? { get set }
   var listener: UserCollectionListener? { get set }
 }
 
 protocol UserCollectionViewControllable: ViewControllable {}
+
+// MARK: - UserCollectionRouter
 
 final class UserCollectionRouter:
   ViewableRouter<UserCollectionInteractable, UserCollectionViewControllable>,

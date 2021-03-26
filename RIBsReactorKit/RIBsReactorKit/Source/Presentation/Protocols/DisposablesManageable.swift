@@ -8,6 +8,8 @@
 
 import RxSwift
 
+// MARK: - DisposablesManageable
+
 protocol DisposablesManageable {
   func disposeDisposables()
   func resetDisposables()

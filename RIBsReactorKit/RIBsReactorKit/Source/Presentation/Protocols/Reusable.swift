@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - Reusable
+
 protocol Reusable {
   static var identifier: String { get }
 }

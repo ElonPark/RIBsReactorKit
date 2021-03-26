@@ -9,6 +9,8 @@
 import CoreLocation.CLLocation
 import Foundation
 
+// MARK: - UserModel
+
 struct UserModel {
   let gender: String
   let name: Name
@@ -25,6 +27,8 @@ struct UserModel {
   let mediumImageURL: URL?
   let thumbnailImageURL: URL?
 }
+
+// MARK: - Equatable
 
 extension UserModel: Equatable {
   static func == (lhs: UserModel, rhs: UserModel) -> Bool {

@@ -15,6 +15,8 @@ import RIBs
 /// import once and use it globally
 public typealias Log = EPLogger.Log
 
+// MARK: - AppDelegate
+
 @UIApplicationMain
 final class AppDelegate:
   UIResponder,

@@ -11,11 +11,15 @@ import RxSwift
 
 protocol UserCollectionRouting: ViewableRouting {}
 
+// MARK: - UserCollectionPresentable
+
 protocol UserCollectionPresentable: Presentable {
   var listener: UserCollectionPresentableListener? { get set }
 }
 
 protocol UserCollectionListener: class {}
+
+// MARK: - UserCollectionInteractor
 
 final class UserCollectionInteractor:
   PresentableInteractor<UserCollectionPresentable>,

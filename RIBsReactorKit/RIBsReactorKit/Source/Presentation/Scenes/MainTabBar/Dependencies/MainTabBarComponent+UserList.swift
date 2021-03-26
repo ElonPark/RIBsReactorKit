@@ -8,9 +8,13 @@
 
 import RIBs
 
+// MARK: - MainTabBarDependencyUserList
+
 protocol MainTabBarDependencyUserList: Dependency {
   var userListViewController: UserListPresentable & UserListViewControllable { get }
 }
+
+// MARK: - MainTabBarComponent + UserListDependency
 
 extension MainTabBarComponent: UserListDependency {
   var userListViewController: UserListPresentable & UserListViewControllable {

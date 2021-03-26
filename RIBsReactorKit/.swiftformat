@@ -2,10 +2,8 @@
 
 # format options
 --indent 2
+--extensionacl on-extension
 --modifierorder
---beforemarks typealias,struct
---lifecycle
---organizetypes enum,struct,class
 --self init-only
 --semicolons inline
 --trailingclosures
@@ -20,12 +18,28 @@
 --varattributes prev-line
 --ranges no-space
 --xcodeindentation enabled
---modifierorder
+--patternlet hoist
+--marktypes if-not-empty
+--typemark "MARK: - %t"
+--markextensions always
+--extensionmark  "MARK: - %t + %c"
+--groupedextension "MARK: - %c"
+# --categorymark "MARK: - %c"
+# --beforemarks typealias,enum,struct,class
+# --organizetypes typealias,enum,struct,class
+# --lifecycle viewDidLoad
 
 # file options
 --exclude Scripts, Carthage, Resource, **/Generated
 
 # rules
+--enable duplicateImports
+--enable enumNamespaces
+--enable isEmpty
+--enable markTypes
+--enable wrapSwitchCases
+# --enable organizeDeclarations
+
 --disable andOperator
 --disable anyObjectProtocol
 --disable blankLinesAtStartOfScope

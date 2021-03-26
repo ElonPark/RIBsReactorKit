@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - UserProfileCell
+
 final class UserProfileCell:
   BaseCollectionViewCell,
   HasViewModel,

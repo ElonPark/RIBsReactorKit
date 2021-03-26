@@ -16,12 +16,16 @@ import RxSwift
 import RxViewController
 import SkeletonView
 
+// MARK: - UserListPresentableAction
+
 enum UserListPresentableAction {
   case loadData
   case refresh
   case loadMore(IndexPath)
   case itemSelected(IndexPath)
 }
+
+// MARK: - UserListPresentableListener
 
 protocol UserListPresentableListener: class {
   typealias Action = UserListPresentableAction
@@ -31,6 +35,8 @@ protocol UserListPresentableListener: class {
   var state: Observable<State> { get }
   var currentState: State { get }
 }
+
+// MARK: - UserListViewController
 
 final class UserListViewController:
   BaseViewController,

@@ -8,12 +8,16 @@
 
 import Foundation
 
+// MARK: - UserProfileViewModel
+
 protocol UserProfileViewModel: HasUserModel, HasUUID {
   var profileBackgroundImageURL: URL? { get }
   var profileImageURL: URL? { get }
   var titleWithLastName: String { get }
   var firstName: String { get }
 }
+
+// MARK: - UserProfileViewModelImpl
 
 struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
 

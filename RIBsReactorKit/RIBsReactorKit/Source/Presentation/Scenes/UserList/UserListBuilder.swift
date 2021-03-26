@@ -8,10 +8,14 @@
 
 import RIBs
 
+// MARK: - UserListDependency
+
 protocol UserListDependency: UserListDependencyUserInformation {
   var userListViewController: UserListPresentable & UserListViewControllable { get }
   var randomUserUseCase: RandomUserUseCase { get }
 }
+
+// MARK: - UserListComponent
 
 final class UserListComponent: Component<UserListDependency> {
 
@@ -38,11 +42,13 @@ final class UserListComponent: Component<UserListDependency> {
   }
 }
 
-// MARK: - Builder
+// MARK: - UserListBuildable
 
 protocol UserListBuildable: Buildable {
   func build(withListener listener: UserListListener) -> UserListRouting
 }
+
+// MARK: - UserListBuilder
 
 final class UserListBuilder:
   Builder<UserListDependency>,

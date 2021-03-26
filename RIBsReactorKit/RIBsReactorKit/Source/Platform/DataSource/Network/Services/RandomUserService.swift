@@ -8,6 +8,8 @@
 
 import Moya
 
+// MARK: - RandomUserService
+
 enum RandomUserService: TargetType {
   case multipleUsers(resultCount: Int)
   case pagination(page: Int, resultCount: Int, seed: String)
@@ -23,14 +25,16 @@ extension RandomUserService {
 
   var path: String {
     switch self {
-    case .multipleUsers, .pagination:
+    case .multipleUsers,
+         .pagination:
       return "/api/"
     }
   }
 
   var method: Method {
     switch self {
-    case .multipleUsers, .pagination:
+    case .multipleUsers,
+         .pagination:
       return .get
     }
   }

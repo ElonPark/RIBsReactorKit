@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - UserInfoHeaderView
+
 final class UserInfoHeaderView:
   BaseCollectionReusableView,
   HasElementKind,

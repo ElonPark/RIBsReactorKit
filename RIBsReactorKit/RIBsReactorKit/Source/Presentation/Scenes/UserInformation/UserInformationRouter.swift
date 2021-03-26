@@ -8,14 +8,20 @@
 
 import RIBs
 
+// MARK: - UserInformationInteractable
+
 protocol UserInformationInteractable: Interactable {
   var router: UserInformationRouting? { get set }
   var listener: UserInformationListener? { get set }
 }
 
+// MARK: - UserInformationViewControllable
+
 protocol UserInformationViewControllable: ViewControllable {
   // TODO: Declare methods the router invokes to manipulate the view hierarchy.
 }
+
+// MARK: - UserInformationRouter
 
 final class UserInformationRouter:
   ViewableRouter<UserInformationInteractable, UserInformationViewControllable>,

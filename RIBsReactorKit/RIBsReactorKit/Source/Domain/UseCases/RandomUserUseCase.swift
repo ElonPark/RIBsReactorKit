@@ -9,6 +9,8 @@
 import RxCocoa
 import RxSwift
 
+// MARK: - RandomUserUseCase
+
 protocol RandomUserUseCase {
   var isLastItems: Bool { get }
   var translator: UserModelTranslator { get }
@@ -17,6 +19,8 @@ protocol RandomUserUseCase {
 
   func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void>
 }
+
+// MARK: - RandomUserUseCaseImpl
 
 final class RandomUserUseCaseImpl: RandomUserUseCase {
 

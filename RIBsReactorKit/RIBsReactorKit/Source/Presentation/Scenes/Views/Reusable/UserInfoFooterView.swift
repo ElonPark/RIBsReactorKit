@@ -8,6 +8,8 @@
 
 import UIKit
 
+// MARK: - UserInfoFooterView
+
 final class UserInfoFooterView:
   BaseCollectionReusableView,
   HasElementKind

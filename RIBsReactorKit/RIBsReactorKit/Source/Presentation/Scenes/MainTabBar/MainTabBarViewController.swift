@@ -13,6 +13,8 @@ import RxSwift
 
 protocol MainTabBarPresentableListener: class {}
 
+// MARK: - MainTabBarViewController
+
 final class MainTabBarViewController:
   UITabBarController,
   MainTabBarPresentable,

@@ -12,13 +12,19 @@ import RxSwift
 
 protocol UserInformationRouting: ViewableRouting {}
 
+// MARK: - UserInformationPresentable
+
 protocol UserInformationPresentable: Presentable {
   var listener: UserInformationPresentableListener? { get set }
 }
 
+// MARK: - UserInformationListener
+
 protocol UserInformationListener: class {
   func detachUserInformationRIB()
 }
+
+// MARK: - UserInformationInteractor
 
 final class UserInformationInteractor:
   PresentableInteractor<UserInformationPresentable>,

@@ -13,6 +13,8 @@ import RxSwift
 
 protocol UserCollectionPresentableListener: class {}
 
+// MARK: - UserCollectionViewController
+
 final class UserCollectionViewController:
   BaseViewController,
   UserCollectionPresentable,

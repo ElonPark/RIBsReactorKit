@@ -13,6 +13,8 @@ import SkeletonView
 import SnapKit
 import Then
 
+// MARK: - UserListItemCell
+
 final class UserListItemCell:
   BaseTableViewCell,
   HasViewModel,

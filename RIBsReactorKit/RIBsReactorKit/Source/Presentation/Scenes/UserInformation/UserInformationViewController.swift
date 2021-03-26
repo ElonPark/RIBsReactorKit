@@ -14,10 +14,14 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
+// MARK: - UserInformationPresentableAction
+
 enum UserInformationPresentableAction {
   case viewWillAppear
   case detach
 }
+
+// MARK: - UserInformationPresentableListener
 
 protocol UserInformationPresentableListener: class {
   typealias Action = UserInformationPresentableAction
@@ -27,6 +31,8 @@ protocol UserInformationPresentableListener: class {
   var state: Observable<State> { get }
   var currentState: State { get }
 }
+
+// MARK: - UserInformationViewController
 
 final class UserInformationViewController:
   BaseViewController,
@@ -207,6 +213,8 @@ extension UserInformationViewController {
   }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(
     _ collectionView: UICollectionView,
@@ -238,9 +246,11 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
     }
 
     switch item {
-    case .dummyProfile, .profile:
+    case .dummyProfile,
+         .profile:
       return CGSize(width: UIScreen.main.bounds.width, height: 250)
-    case .dummy, .detail:
+    case .dummy,
+         .detail:
       return CGSize(width: UIScreen.main.bounds.width, height: 65)
     }
   }

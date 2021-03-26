@@ -8,11 +8,15 @@
 
 import Foundation
 
+// MARK: - UserListItemViewModel
+
 protocol UserListItemViewModel: HasUserModel, HasUUID {
   var profileImageURL: URL? { get }
   var titleWithFullName: String { get }
   var location: String { get }
 }
+
+// MARK: - UserListItemViewModelImpl
 
 struct UserListItemViewModelImpl: UserListItemViewModel, Equatable {
 

@@ -10,4 +10,6 @@ import RIBs
 
 protocol UserListDependencyUserInformation: Dependency {}
 
+// MARK: - UserListComponent + UserInformationDependency
+
 extension UserListComponent: UserInformationDependency {}

@@ -10,4 +10,6 @@ import RIBs
 
 protocol RootDependencyMainTabBar: Dependency {}
 
+// MARK: - RootComponent + MainTabBarDependency
+
 extension RootComponent: MainTabBarDependency {}

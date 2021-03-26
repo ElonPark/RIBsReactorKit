@@ -10,6 +10,8 @@ import UIKit
 
 import SnapKit
 
+// MARK: - BlurEffectImageView
+
 final class BlurEffectImageView: UIImageView {
 
   // MARK: - Properties

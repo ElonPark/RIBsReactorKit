@@ -11,6 +11,8 @@ import UIKit
 import RxRelay
 import RxSwift
 
+// MARK: - PullToRefreshable
+
 protocol PullToRefreshable {
   var refreshControl: UIRefreshControl { get }
   var refreshEvent: PublishRelay<Void> { get }

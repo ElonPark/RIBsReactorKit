@@ -9,13 +9,19 @@
 import RxRelay
 import RxSwift
 
+// MARK: - UserModelStream
+
 protocol UserModelStream {
   var userModel: Observable<UserModel> { get }
 }
 
+// MARK: - MutableUserModelStream
+
 protocol MutableUserModelStream: UserModelStream {
   func updateUserModel(by userModel: UserModel)
 }
+
+// MARK: - UserModelStreamImpl
 
 final class UserModelStreamImpl: MutableUserModelStream {
 
