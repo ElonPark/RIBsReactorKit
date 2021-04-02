@@ -239,19 +239,15 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
     layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAt indexPath: IndexPath
   ) -> CGSize {
-    guard let section = dataSource.sectionModels[safe: indexPath.section],
-          let item = section.items[safe: indexPath.item]
-    else {
-      return .zero
-    }
+    let sectionItem = dataSource.sectionModels[safe: indexPath.section]?.items[safe: indexPath.item]
+    guard let item = sectionItem else { return .zero }
 
     switch item {
-    case .dummyProfile,
-         .profile:
-      return CGSize(width: UIScreen.main.bounds.width, height: 250)
-    case .dummy,
-         .detail:
-      return CGSize(width: UIScreen.main.bounds.width, height: 65)
+    case .dummyProfile, .profile:
+      return CGSize(width: collectionView.frame.width, height: 250)
+
+    case .dummy, .detail:
+      return CGSize(width: collectionView.frame.width, height: 65)
     }
   }
 }

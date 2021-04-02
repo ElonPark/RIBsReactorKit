@@ -24,10 +24,6 @@
 --markextensions always
 --extensionmark  "MARK: - %t + %c"
 --groupedextension "MARK: - %c"
-# --categorymark "MARK: - %c"
-# --beforemarks typealias,enum,struct,class
-# --organizetypes typealias,enum,struct,class
-# --lifecycle viewDidLoad
 
 # file options
 --exclude Scripts, Carthage, Resource, **/Generated
@@ -37,8 +33,6 @@
 --enable enumNamespaces
 --enable isEmpty
 --enable markTypes
---enable wrapSwitchCases
-# --enable organizeDeclarations
 
 --disable andOperator
 --disable anyObjectProtocol
@@ -47,3 +41,4 @@
 --disable sortedSwitchCases
 --disable redundantReturn
 --disable void
+--disable wrapMultilineStatementBraces
