@@ -214,12 +214,13 @@ final class UserListViewController:
   }
 
   private func tableViewSkeletonAnimation(by isLoading: Bool) {
-    if isLoading {
-      tableView.showAnimatedGradientSkeleton()
-    } else {
-      tableView.hideSkeleton(transition: .crossDissolve(0.25))
-      // To fix UILabel text when it is not visible after tableView.hideSkeleton.
-      tableView.reloadData()
+    DispatchQueue.main.async { [weak self] in
+      guard let this = self else { return }
+      if isLoading {
+        this.tableView.showAnimatedGradientSkeleton()
+      } else {
+        this.tableView.hideSkeleton(transition: .crossDissolve(0.25))
+      }
     }
   }
 

@@ -20,33 +20,29 @@ final class UserDetailInfoCell:
   // MARK: - Constants
 
   private enum UI {
-    // - baseContentsView
-    static var baseContentsViewWidth: CGFloat { UIScreen.main.bounds.width }
-    static let baseContentsViewMinimumHeight: CGFloat = 80
-
     // - iconImageView
-    static let iconImageViewSize = CGSize(width: 40, height: 40)
+    static let iconImageViewSize = CGSize(width: 38, height: 39)
     static let iconTopMargin: CGFloat = 15
     static let iconBottomMargin: CGFloat = 15
-    static let iconLeadingMargin: CGFloat = 8
+    static let iconLeadingMargin: CGFloat = 16
 
     // - textLabelStackView
     static let textLabelStackViewTopMargin: CGFloat = 3
     static let textLabelStackViewBottomMargin: CGFloat = 3
-    static let textLabelStackViewLeadingMargin: CGFloat = 8
-    static let textLabelStackViewTrailingMargin: CGFloat = 8
-    static let textLabelStackViewSpacing: CGFloat = 0
+    static let textLabelStackViewLeadingMargin: CGFloat = 16
+    static let textLabelStackViewTrailingMargin: CGFloat = 16
+    static let textLabelStackViewSpacing: CGFloat = 2
 
     // - separatorLineView
     static let separatorLineViewHeight: CGFloat = 0.5
 
     enum Font {
-      static let title = UIFont.systemFont(ofSize: 20)
+      static let title = UIFont.systemFont(ofSize: 18)
       static let subtitle = UIFont.systemFont(ofSize: 15)
     }
 
     enum Color {
-      static let iconImageViewBackground = UIColor.skeletonDefault
+      static let iconImageViewBackground = UIColor.white
       static let titleText = UIColor.darkText
       static let subtitleText = UIColor.darkGray
       static let separatorLine = UIColor.lightGray
@@ -61,8 +57,6 @@ final class UserDetailInfoCell:
   private let dummyTitleString = String(repeating: " ", count: 60)
 
   // MARK: - UI Components
-
-  private let baseContentsView = UIView()
 
   private let iconImageView = UIImageView().then {
     $0.tintColor = .gray
@@ -98,7 +92,6 @@ final class UserDetailInfoCell:
   }
 
   private(set) lazy var views: [UIView] = [
-    baseContentsView,
     iconImageView,
     titleLabel,
     subtitleLabel
@@ -149,10 +142,9 @@ final class UserDetailInfoCell:
 extension UserDetailInfoCell {
   private func setupUI() {
     isSkeletonable = true
-    contentView.addSubview(baseContentsView)
-    baseContentsView.addSubview(iconImageView)
-    baseContentsView.addSubview(textLabelStackView)
-    baseContentsView.addSubview(separatorLineView)
+    contentView.addSubview(iconImageView)
+    contentView.addSubview(textLabelStackView)
+    contentView.addSubview(separatorLineView)
     textLabelStackView.addArrangedSubview(titleLabel)
 
     initUI()
@@ -160,12 +152,6 @@ extension UserDetailInfoCell {
   }
 
   private func layout() {
-    baseContentsView.snp.makeConstraints {
-      $0.width.equalTo(UI.baseContentsViewWidth)
-      $0.height.greaterThanOrEqualTo(UI.baseContentsViewMinimumHeight)
-      $0.edges.equalToSuperview().priority(.high)
-    }
-
     iconImageView.snp.makeConstraints {
       $0.size.equalTo(UI.iconImageViewSize)
       $0.centerY.equalToSuperview()

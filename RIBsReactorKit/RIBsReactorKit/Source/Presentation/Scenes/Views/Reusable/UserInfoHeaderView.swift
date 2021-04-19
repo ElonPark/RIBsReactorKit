@@ -23,8 +23,8 @@ final class UserInfoHeaderView:
     // - titleLabel
     static let titleLabelTopMargin: CGFloat = 0
     static let titleLabelBottomMargin: CGFloat = 8
-    static let titleLabelLeadingMargin: CGFloat = 8
-    static let titleLabelTrailingMargin: CGFloat = 8
+    static let titleLabelLeadingMargin: CGFloat = 16
+    static let titleLabelTrailingMargin: CGFloat = 16
 
     // - skeleton
     static let linesCornerRadius: Int = 10

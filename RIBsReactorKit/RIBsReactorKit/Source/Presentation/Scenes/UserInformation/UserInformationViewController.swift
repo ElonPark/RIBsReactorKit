@@ -54,8 +54,6 @@ final class UserInformationViewController:
 
   weak var listener: UserInformationPresentableListener?
 
-  private let detachAction = PublishRelay<Void>()
-
   // MARK: - UI Components
 
   private let flowLayout = UICollectionViewFlowLayout().then {
@@ -64,6 +62,7 @@ final class UserInformationViewController:
 
   private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
     $0.backgroundColor = .white
+
     $0.register(UserProfileCell.self)
     $0.register(UserDetailInfoCell.self)
     $0.register(UserInfoHeaderView.self)
@@ -87,11 +86,6 @@ final class UserInformationViewController:
     setupUI()
     bindUI()
     bind(listener: listener)
-  }
-
-  override func viewDidDisappear(_ animated: Bool) {
-    guard isMovingFromParent || isBeingDismissed else { return }
-    detachAction.accept(Void())
   }
 
   // MARK: - Binding
@@ -150,7 +144,7 @@ final class UserInformationViewController:
   // MARK: - Private methods
 
   private static func dataSourceFactory() -> UserInformationDataSource {
-    .init(configureCell: { _, collectionView, indexPath, section in
+    return .init(configureCell: { _, collectionView, indexPath, section in
       switch section {
       case let .profile(viewModel):
         let cell = collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
@@ -222,7 +216,7 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
     referenceSizeForHeaderInSection section: Int
   ) -> CGSize {
     guard dataSource.sectionModels[safe: section]?.header != nil else { return .zero }
-    return CGSize(width: UIScreen.main.bounds.width, height: UI.headerHeight)
+    return CGSize(width: collectionView.frame.width, height: UI.headerHeight)
   }
 
   func collectionView(
@@ -231,7 +225,7 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
     referenceSizeForFooterInSection section: Int
   ) -> CGSize {
     guard let hasFooter = dataSource.sectionModels[safe: section]?.hasFooter, hasFooter else { return .zero }
-    return CGSize(width: UIScreen.main.bounds.width, height: UI.footerHeight)
+    return CGSize(width: collectionView.frame.width, height: UI.footerHeight)
   }
 
   func collectionView(
