@@ -117,7 +117,7 @@ extension UserInfoHeaderView {
     static var previews: some SwiftUI.View {
       UIViewPreview {
         UserInfoHeaderView().then {
-          $0.configure(by: UserInfoSectionHeaderViewModelImpl(title: "test"))
+          $0.configure(by: UserInfoSectionHeaderViewModel(title: "test"))
         }
       }
       .previewLayout(.fixed(width: 320, height: 50))

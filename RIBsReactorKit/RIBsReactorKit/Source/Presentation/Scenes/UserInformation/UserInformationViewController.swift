@@ -65,6 +65,7 @@ final class UserInformationViewController:
 
     $0.register(UserProfileCell.self)
     $0.register(UserDetailInfoCell.self)
+    $0.register(UserLocationCell.self)
     $0.register(UserInfoHeaderView.self)
     $0.register(UserInfoFooterView.self)
     $0.register(EmptyReusableView.self)
@@ -156,6 +157,11 @@ final class UserInformationViewController:
         cell.configure(by: viewModel)
         return cell
 
+      case let .location(viewModel):
+        let cell = collectionView.dequeue(UserLocationCell.self, indexPath: indexPath)
+        cell.configure(by: viewModel)
+        return cell
+
       case .dummyProfile:
         return collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
 
@@ -242,6 +248,9 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
 
     case .dummy, .detail:
       return CGSize(width: collectionView.frame.width, height: 65)
+
+    case .location:
+      return CGSize(width: collectionView.frame.width, height: 250)
     }
   }
 }

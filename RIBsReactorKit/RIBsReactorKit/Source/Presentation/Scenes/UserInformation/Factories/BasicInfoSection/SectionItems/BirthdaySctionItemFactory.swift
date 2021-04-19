@@ -22,7 +22,7 @@ struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
   }
 
   func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem {
-    let viewModel: UserDetailInfoItemViewModel = UserDetailInfoItemViewModelImpl(
+    let viewModel = UserDetailInfoItemViewModel(
       userModel: userModel,
       icon: icon,
       title: dateFormatString(from: userModel.dob.date),
@@ -34,6 +34,6 @@ struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
   }
 
   private func dateFormatString(from date: Date) -> String {
-    return BirthdaySctionItemFactory.dateFormatter.string(from: date)
+    return Self.dateFormatter.string(from: date)
   }
 }

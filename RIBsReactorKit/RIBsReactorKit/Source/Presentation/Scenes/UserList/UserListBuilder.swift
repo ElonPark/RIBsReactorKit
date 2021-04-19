@@ -11,8 +11,9 @@ import RIBs
 // MARK: - UserListDependency
 
 protocol UserListDependency: UserListDependencyUserInformation {
-  var userListViewController: UserListPresentable & UserListViewControllable { get }
   var randomUserUseCase: RandomUserUseCase { get }
+  var userModelDataStream: UserModelDataStream { get }
+  var userListViewController: UserListPresentable & UserListViewControllable { get }
 }
 
 // MARK: - UserListComponent
@@ -35,6 +36,10 @@ final class UserListComponent: Component<UserListDependency> {
 
   fileprivate var randomUserUseCase: RandomUserUseCase {
     dependency.randomUserUseCase
+  }
+
+  fileprivate var userModelDataStream: UserModelDataStream {
+    dependency.userModelDataStream
   }
 
   fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
@@ -68,6 +73,7 @@ final class UserListBuilder:
     let interactor = UserListInteractor(
       initialState: component.initialState,
       randomUserUseCase: component.randomUserUseCase,
+      userModelDataStream: component.userModelDataStream,
       mutableUserModelStream: component.mutableUserModelStream,
       presenter: component.userListViewController
     )

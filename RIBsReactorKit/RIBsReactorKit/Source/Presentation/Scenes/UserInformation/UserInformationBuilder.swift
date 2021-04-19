@@ -27,7 +27,7 @@ final class UserInformationComponent: Component<UserInformationDependency> {
   }
 
   private var userInformationSectionFactories: [UserInfoSectionFactory] {
-    [ProfileSectionFactory(), BasicInfoSectionFactory()]
+    [ProfileSectionFactory(), BasicInfoSectionFactory(), LocationSectionFactory()]
   }
 
   fileprivate var userInformationSectionListFactory: UserInfoSectionListFactory {

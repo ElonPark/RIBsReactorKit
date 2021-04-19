@@ -30,15 +30,19 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
     UserModelTranslatorImpl()
   }
 
-  private var mutableUserModelsStream: MutableUserModelDataStream {
+  private var mutableUserModelDataStream: MutableUserModelDataStream {
     shared { UserModelDataStreamImpl() }
+  }
+
+  var userModelDataStream: UserModelDataStream {
+    mutableUserModelDataStream
   }
 
   var randomUserUseCase: RandomUserUseCase {
     RandomUserUseCaseImpl(
       repository: randomUserRepository,
       translator: userModelTranslator,
-      mutableUserModelsStream: mutableUserModelsStream
+      mutableUserModelsStream: mutableUserModelDataStream
     )
   }
 }

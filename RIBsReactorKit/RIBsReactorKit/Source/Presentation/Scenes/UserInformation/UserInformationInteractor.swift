@@ -90,7 +90,7 @@ extension UserInformationInteractor {
   }
 
   private func setUserInformationSectionsMutation() -> Observable<Mutation> {
-    userModelStream.userModel
+    return userModelStream.userModel
       .flatMap { [weak self] userModel -> Observable<Mutation> in
         guard let this = self else { return .empty() }
         let sections = this.userInformationSectionListFactory.makeSections(by: userModel)
@@ -101,7 +101,7 @@ extension UserInformationInteractor {
   // MARK: - transform mutation
 
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-    mutation
+    return mutation
       .flatMap { [weak self] mutation -> Observable<Mutation> in
         guard let this = self else { return .empty() }
         switch mutation {

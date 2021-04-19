@@ -258,7 +258,7 @@ extension UserListViewController {
       let userModelTranslator = UserModelTranslatorImpl()
 
       let dummySectionItems = userModelTranslator.translateToUserModel(by: randomUser.results)
-        .map { UserListItemViewModelImpl(userModel: $0) }
+        .map(UserListItemViewModel.init)
         .map(UserListSectionItem.user)
 
       Observable.just([.randomUser(dummySectionItems)])

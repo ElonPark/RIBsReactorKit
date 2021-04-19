@@ -55,20 +55,23 @@ final class UserListInteractor:
   let initialState: UserListPresentableState
 
   private let randomUserUseCase: RandomUserUseCase
-  private let requestItemCount: Int = 50
-
+  private let userModelDataStream: UserModelDataStream
   private let mutableUserModelStream: MutableUserModelStream
+
+  private let requestItemCount: Int = 50
 
   // MARK: - Initialization & Deinitialization
 
   init(
     initialState: UserListPresentableState,
     randomUserUseCase: RandomUserUseCase,
+    userModelDataStream: UserModelDataStream,
     mutableUserModelStream: MutableUserModelStream,
     presenter: UserListPresentable
   ) {
     self.initialState = initialState
     self.randomUserUseCase = randomUserUseCase
+    self.userModelDataStream = userModelDataStream
     self.mutableUserModelStream = mutableUserModelStream
 
     super.init(presenter: presenter)
@@ -136,7 +139,7 @@ extension UserListInteractor {
   // MARK: - transform mutation
 
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-    mutation
+    return mutation
       .flatMap { [weak self] mutation -> Observable<Mutation> in
         guard let this = self else { return .empty() }
         switch mutation {
@@ -155,10 +158,8 @@ extension UserListInteractor {
   /// mutableUserModelsStream is update userModels when trigger Action
   /// (.loadData, .refresh, .loadMore)
   private func updateUserModelsTransform() -> Observable<Mutation> {
-    randomUserUseCase
-      .userModelsStream
-      .userModels
-      .map { $0.map { UserListItemViewModelImpl(userModel: $0) } }
+    return userModelDataStream.userModels
+      .map { $0.map(UserListItemViewModel.init) }
       .map { $0.map(UserListSectionItem.user) }
       .map { [UserListSectionModel.randomUser($0)] }
       .map(Mutation.userListSections)

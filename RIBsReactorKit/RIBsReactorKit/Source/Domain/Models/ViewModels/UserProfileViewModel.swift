@@ -8,34 +8,19 @@
 
 import Foundation
 
-// MARK: - UserProfileViewModel
-
-protocol UserProfileViewModel: HasUserModel, HasUUID {
-  var profileBackgroundImageURL: URL? { get }
-  var profileImageURL: URL? { get }
-  var titleWithLastName: String { get }
-  var firstName: String { get }
-}
-
-// MARK: - UserProfileViewModelImpl
-
-struct UserProfileViewModelImpl: UserProfileViewModel, Equatable {
+struct UserProfileViewModel: HasUserModel, HasUUID, Equatable {
 
   let userModel: UserModel
 
-  var profileBackgroundImageURL: URL? {
-    userModel.thumbnailImageURL
-  }
+  let profileBackgroundImageURL: URL?
+  let profileImageURL: URL?
 
-  var profileImageURL: URL? {
-    userModel.largeImageURL
-  }
+  var titleWithLastName: String { "\(userModel.name.title). \(userModel.name.last)" }
+  var firstName: String { userModel.name.first }
 
-  var titleWithLastName: String {
-    "\(userModel.name.title). \(userModel.name.last)"
-  }
-
-  var firstName: String {
-    userModel.name.first
+  init(userModel: UserModel) {
+    self.userModel = userModel
+    self.profileBackgroundImageURL = userModel.picture.thumbnailImageURL
+    self.profileImageURL = userModel.picture.largeImageURL
   }
 }

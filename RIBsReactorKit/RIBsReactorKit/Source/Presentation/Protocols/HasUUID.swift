@@ -16,6 +16,6 @@ protocol HasUUID {
 
 extension HasUUID where Self: HasUserModel {
   var uuid: String {
-    userModel.login.uuid
+    userModel.uuid
   }
 }

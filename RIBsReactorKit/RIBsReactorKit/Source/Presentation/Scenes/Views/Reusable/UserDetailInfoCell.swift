@@ -21,7 +21,7 @@ final class UserDetailInfoCell:
 
   private enum UI {
     // - iconImageView
-    static let iconImageViewSize = CGSize(width: 38, height: 39)
+    static let iconImageViewSize = CGSize(width: 35, height: 35)
     static let iconTopMargin: CGFloat = 15
     static let iconBottomMargin: CGFloat = 15
     static let iconLeadingMargin: CGFloat = 16
@@ -85,6 +85,7 @@ final class UserDetailInfoCell:
     $0.alignment = .fill
     $0.distribution = .fill
     $0.spacing = UI.textLabelStackViewSpacing
+    $0.translatesAutoresizingMaskIntoConstraints = false
   }
 
   private let separatorLineView = UIView().then {
@@ -199,7 +200,7 @@ extension UserDetailInfoCell {
         UserDetailInfoCell()
           .then {
             guard let userModel = $0.dummyUserModel() else { return }
-            let viewModel: UserDetailInfoItemViewModel = UserDetailInfoItemViewModelImpl(
+            let viewModel = UserDetailInfoItemViewModel(
               userModel: userModel,
               icon: .checkmark,
               title: "서울",

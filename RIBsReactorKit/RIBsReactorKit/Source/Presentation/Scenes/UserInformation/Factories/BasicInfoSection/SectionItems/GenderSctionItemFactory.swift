@@ -17,7 +17,7 @@ struct GenderSctionItemFactory: UserInfoSectionItemFactory {
   }
 
   func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem {
-    let viewModel: UserDetailInfoItemViewModel = UserDetailInfoItemViewModelImpl(
+    let viewModel = UserDetailInfoItemViewModel(
       userModel: userModel,
       icon: icon,
       title: userModel.gender,

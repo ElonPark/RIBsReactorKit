@@ -12,11 +12,6 @@ import RxSwift
 // MARK: - RandomUserUseCase
 
 protocol RandomUserUseCase {
-  var isLastItems: Bool { get }
-  var translator: UserModelTranslator { get }
-  var repository: RandomUserRepository { get }
-  var userModelsStream: UserModelDataStream { get }
-
   func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void>
 }
 
@@ -26,16 +21,11 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
 
   // MARK: - Properties
 
-  private(set) var isLastItems: Bool = false
+  private var isLastItems: Bool = false
 
-  let repository: RandomUserRepository
-  let translator: UserModelTranslator
-
-  var userModelsStream: UserModelDataStream {
-    mutableUserModelsStream
-  }
-
-  private let mutableUserModelsStream: MutableUserModelDataStream
+  private let repository: RandomUserRepository
+  private let translator: UserModelTranslator
+  private let mutableUserModelDataStream: MutableUserModelDataStream
 
   // MARK: - Initialization & Deinitialization
 
@@ -46,7 +36,7 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
   ) {
     self.repository = repository
     self.translator = translator
-    self.mutableUserModelsStream = mutableUserModelsStream
+    self.mutableUserModelDataStream = mutableUserModelsStream
   }
 
   // MARK: - Internal methods
@@ -82,11 +72,11 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
 
   private func updateUserModels(by results: [User]) {
     let userModels = translator.translateToUserModel(by: results)
-    mutableUserModelsStream.updateUserModels(with: userModels)
+    mutableUserModelDataStream.updateUserModels(with: userModels)
   }
 
   private func appendUserModels(by results: [User]) {
     let userModels = translator.translateToUserModel(by: results)
-    mutableUserModelsStream.appendUserModels(with: userModels)
+    mutableUserModelDataStream.appendUserModels(with: userModels)
   }
 }
