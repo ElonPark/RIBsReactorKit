@@ -23,7 +23,7 @@ $ sh install.sh
 $ npm install yarn
 ```
 
-### Starting the websocke server
+### Starting the websocket server
 
 ```shell
 $ cd ./RIBsTreeViewer/WebSocketServer
