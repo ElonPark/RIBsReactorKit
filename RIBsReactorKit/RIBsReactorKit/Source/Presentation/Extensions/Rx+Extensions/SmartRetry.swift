@@ -29,7 +29,7 @@ extension PrimitiveSequence {
     didBecomeReachable: Observable<Void> = Reachability.rx.isConnected,
     shouldRetry: @escaping (Error) -> Bool = { _ in true }
   ) -> PrimitiveSequence<Trait, Element> {
-    return retryWhen { errors in
+    return retry { errors in
       return errors
         .enumerated()
         .flatMap { attempt, error -> Observable<Void> in

@@ -10,6 +10,8 @@ import UIKit
 
 #if canImport(SwiftUI) && DEBUG
   import SwiftUI
+
+  @available(iOS 13.0, *)
   struct UIViewControllerPreview<ViewController: UIViewController>: UIViewControllerRepresentable {
     let viewController: ViewController
 

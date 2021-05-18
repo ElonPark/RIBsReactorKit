@@ -23,7 +23,7 @@ enum UserInformationPresentableAction {
 
 // MARK: - UserInformationPresentableListener
 
-protocol UserInformationPresentableListener: class {
+protocol UserInformationPresentableListener: AnyObject {
   typealias Action = UserInformationPresentableAction
   typealias State = UserInformationPresentableState
 

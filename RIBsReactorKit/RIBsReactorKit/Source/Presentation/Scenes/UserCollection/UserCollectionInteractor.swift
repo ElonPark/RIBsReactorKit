@@ -17,7 +17,7 @@ protocol UserCollectionPresentable: Presentable {
   var listener: UserCollectionPresentableListener? { get set }
 }
 
-protocol UserCollectionListener: class {}
+protocol UserCollectionListener: AnyObject {}
 
 // MARK: - UserCollectionInteractor
 

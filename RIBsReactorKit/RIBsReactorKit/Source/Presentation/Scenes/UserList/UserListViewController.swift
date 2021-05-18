@@ -27,7 +27,7 @@ enum UserListPresentableAction {
 
 // MARK: - UserListPresentableListener
 
-protocol UserListPresentableListener: class {
+protocol UserListPresentableListener: AnyObject {
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
 
