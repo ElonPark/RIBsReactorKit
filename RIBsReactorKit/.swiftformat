@@ -1,11 +1,9 @@
---swiftversion 5.3
+--swiftversion 5.4
 
 # format options
 --indent 2
 --extensionacl on-extension
 --modifierorder
---beforemarks typealias,enum,struct
---organizetypes enum,struct,class
 --self init-only
 --semicolons inline
 --trailingclosures
@@ -35,12 +33,11 @@
 --enable enumNamespaces
 --enable isEmpty
 --enable markTypes
---enable wrapSwitchCases
 
 --disable andOperator
---disable anyObjectProtocol
 --disable blankLinesAtStartOfScope
 --disable redundantBackticks
 --disable sortedSwitchCases
 --disable redundantReturn
 --disable void
+--disable wrapMultilineStatementBraces
