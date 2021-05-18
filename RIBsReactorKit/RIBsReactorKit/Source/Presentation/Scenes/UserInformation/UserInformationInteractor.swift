@@ -20,7 +20,7 @@ protocol UserInformationPresentable: Presentable {
 
 // MARK: - UserInformationListener
 
-protocol UserInformationListener: class {
+protocol UserInformationListener: AnyObject {
   func detachUserInformationRIB()
 }
 

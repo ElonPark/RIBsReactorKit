@@ -16,7 +16,7 @@ protocol RootRouting: Routing {
   func cleanupViews()
 }
 
-protocol RootListener: class {}
+protocol RootListener: AnyObject {}
 
 // MARK: - RootInteractor
 

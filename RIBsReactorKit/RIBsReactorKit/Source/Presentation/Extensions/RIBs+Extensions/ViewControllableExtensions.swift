@@ -151,8 +151,7 @@ extension ViewControllable {
     completion: (() -> Void)?
   ) {
     if needToDismissPresentedViewController,
-       let presentedViewController = viewController.uiviewController.presentedViewController
-    {
+       let presentedViewController = viewController.uiviewController.presentedViewController {
       presentedViewController.dismiss(animated: dismissAnimated, completion: completion)
     } else {
       completion?()

@@ -11,7 +11,7 @@ import UIKit
 import RIBs
 import RxSwift
 
-protocol UserCollectionPresentableListener: class {}
+protocol UserCollectionPresentableListener: AnyObject {}
 
 // MARK: - UserCollectionViewController
 
