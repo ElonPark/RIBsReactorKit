@@ -1,4 +1,4 @@
---swiftversion 5.3
+--swiftversion 5.4
 
 # format options
 --indent 2
@@ -35,7 +35,6 @@
 --enable markTypes
 
 --disable andOperator
---disable anyObjectProtocol
 --disable blankLinesAtStartOfScope
 --disable redundantBackticks
 --disable sortedSwitchCases

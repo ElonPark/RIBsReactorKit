@@ -23,7 +23,7 @@ protocol UserListPresentable: Presentable {
   var listener: UserListPresentableListener? { get set }
 }
 
-protocol UserListListener: class {}
+protocol UserListListener: AnyObject {}
 
 // MARK: - UserListInteractor
 
@@ -107,7 +107,7 @@ extension UserListInteractor {
 
     let loadData = randomUserUseCase.loadData(isRefresh: true, itemCount: requestItemCount)
       .map { Mutation.loadData }
-      .catchErrorJustReturn(.setRefresh(false))
+      .catchAndReturn(.setRefresh(false))
 
     return .concat([startRefresh, loadData, stopRefresh])
   }
@@ -119,7 +119,7 @@ extension UserListInteractor {
 
     return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
       .map { Mutation.loadData }
-      .catchErrorJustReturn(.setRefresh(false))
+      .catchAndReturn(.setRefresh(false))
   }
 
   private func itemSelectedMutation(by indexPath: IndexPath) -> Observable<Mutation> {
