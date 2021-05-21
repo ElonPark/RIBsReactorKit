@@ -64,12 +64,14 @@ final class UserListViewController:
 
   let refreshControl = UIRefreshControl()
 
-  let tableView = UITableView().then {
-    $0.register(UserListItemCell.self)
-    $0.rowHeight = UITableView.automaticDimension
-    $0.estimatedRowHeight = UI.userListCellEstimatedRowHeight
-    $0.isSkeletonable = true
-  }
+  let tableView = UITableView().builder
+    .rowHeight(UITableView.automaticDimension)
+    .estimatedRowHeight(UI.userListCellEstimatedRowHeight)
+    .isSkeletonable(true)
+    .reinforce {
+      $0.register(UserListItemCell.self)
+    }
+    .build()
 
   // MARK: - Initialization & Deinitialization
 
@@ -281,9 +283,10 @@ extension UserListViewController {
     static var previews: some SwiftUI.View {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
-          let viewController = UserListViewController().then {
-            $0.bindDummyItems()
-          }
+          let viewController = UserListViewController().builder
+            .reinforce { $0.bindDummyItems() }
+            .build()
+
           return UINavigationController(rootViewController: viewController)
         }
         .previewDevice(PreviewDevice(rawValue: deviceName))

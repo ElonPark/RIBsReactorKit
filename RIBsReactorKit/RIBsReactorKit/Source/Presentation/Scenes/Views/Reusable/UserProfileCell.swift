@@ -57,37 +57,37 @@ final class UserProfileCell:
 
   // MARK: - UI Components
 
-  private let profileBackgroundImageView = BlurEffectImageView().then {
-    $0.blurStyle = .light
-    $0.backgroundColor = .skeletonDefault
-    $0.contentMode = .scaleAspectFill
-    $0.layer.masksToBounds = true
-    $0.layer.cornerRadius = UI.profileBackgroundImageViewCornerRadius
-    $0.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-    $0.isSkeletonable = true
-  }
+  private let profileBackgroundImageView = BlurEffectImageView().builder
+    .blurStyle(.light)
+    .backgroundColor(.skeletonDefault)
+    .contentMode(.scaleAspectFill)
+    .set(\.layer.masksToBounds, to: true)
+    .set(\.layer.cornerRadius, to: UI.profileBackgroundImageViewCornerRadius)
+    .set(\.layer.maskedCorners, to: [.layerMaxXMinYCorner, .layerMinXMinYCorner])
+    .isSkeletonable(true)
+    .build()
 
-  private let profileImageView = UIImageView().then {
-    $0.backgroundColor = .skeletonDefault
-    $0.contentMode = .scaleAspectFill
-    $0.layer.borderWidth = UI.profileImageViewBorderWidth
-    $0.layer.borderColor = UIColor.white.cgColor
-    $0.layer.masksToBounds = true
-    $0.layer.cornerRadius = UI.profileImageViewSize.height / 2
-    $0.isSkeletonable = true
-  }
+  private let profileImageView = UIImageView().builder
+    .backgroundColor(.skeletonDefault)
+    .contentMode(.scaleAspectFill)
+    .set(\.layer.borderWidth, to: UI.profileImageViewBorderWidth)
+    .set(\.layer.borderColor, to: UIColor.white.cgColor)
+    .set(\.layer.masksToBounds, to: true)
+    .set(\.layer.cornerRadius, to: UI.profileImageViewSize.height / 2)
+    .isSkeletonable(true)
+    .build()
 
-  private let titleWithLastNameLabel = UILabel().then {
-    $0.font = UI.Font.titleWithLastNameLabel
-    $0.textAlignment = .center
-    $0.isSkeletonable = true
-  }
+  private let titleWithLastNameLabel = UILabel().builder
+    .font(UI.Font.titleWithLastNameLabel)
+    .textAlignment(.center)
+    .isSkeletonable(true)
+    .build()
 
-  private let firstNameLabel = UILabel().then {
-    $0.font = UI.Font.firstNameLabel
-    $0.textAlignment = .center
-    $0.isSkeletonable = true
-  }
+  private let firstNameLabel = UILabel().builder
+    .font(UI.Font.firstNameLabel)
+    .textAlignment(.center)
+    .isSkeletonable(true)
+    .build()
 
   private(set) lazy var views: [UIView] = [
     profileBackgroundImageView,

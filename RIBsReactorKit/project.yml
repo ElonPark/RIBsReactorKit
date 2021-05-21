@@ -16,6 +16,7 @@ options:
 settings:
   base:
     VERSIONING_SYSTEM: Apple Generic
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": arm64
 
 targets:
   RIBsReactorKit:
@@ -57,7 +58,6 @@ targets:
       - carthage: Differentiator
       - carthage: SkeletonView
       - carthage: EPLogger
-      - package: Then
     preBuildScripts:
       - name: SwiftGen
         script: |
@@ -149,8 +149,3 @@ schemes:
     test:
       targets:
         - RIBsReactorKitUITests
-
-packages:
-  Then:
-    url: https://github.com/devxoul/Then
-    from: 2.6.0

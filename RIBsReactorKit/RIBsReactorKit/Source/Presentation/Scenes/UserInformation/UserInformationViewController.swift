@@ -58,18 +58,20 @@ final class UserInformationViewController:
 
   // MARK: - UI Components
 
-  private let flowLayout = UICollectionViewFlowLayout().then {
-    $0.scrollDirection = .vertical
-  }
+  private let flowLayout = UICollectionViewFlowLayout().builder
+    .scrollDirection(.vertical)
+    .build()
 
-  private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
-    $0.backgroundColor = .white
-    $0.register(UserProfileCell.self)
-    $0.register(UserDetailInfoCell.self)
-    $0.register(UserInfoHeaderView.self)
-    $0.register(UserInfoFooterView.self)
-    $0.register(EmptyReusableView.self)
-  }
+  private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).builder
+    .backgroundColor(.white)
+    .reinforce {
+      $0.register(UserProfileCell.self)
+      $0.register(UserDetailInfoCell.self)
+      $0.register(UserInfoHeaderView.self)
+      $0.register(UserInfoFooterView.self)
+      $0.register(EmptyReusableView.self)
+    }
+    .build()
 
   private let dataSource: UserInformationDataSource
 
@@ -305,9 +307,10 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
     static var previews: some SwiftUI.View {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
-          let viewController = UserInformationViewController().then {
-            $0.bindDummyUserModel()
-          }
+          let viewController = UserInformationViewController().builder
+            .reinforce { $0.bindDummyUserModel() }
+            .build()
+
           return UINavigationController(rootViewController: viewController)
         }
         .previewDevice(PreviewDevice(rawValue: deviceName))
