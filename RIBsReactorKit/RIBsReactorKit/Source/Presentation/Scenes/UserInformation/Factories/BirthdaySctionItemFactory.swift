@@ -29,10 +29,11 @@ struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
   }
 
   private func dateFormatString(from date: Date) -> String {
-    let dateFormatter = DateFormatter().then {
-      $0.dateStyle = .short
-      $0.timeStyle = .none
-    }
+    let dateFormatter = DateFormatter().builder
+      .dateStyle(.short)
+      .timeStyle(.none)
+      .build()
+
     return dateFormatter.string(from: date)
   }
 }
