@@ -58,39 +58,39 @@ final class UserDetailInfoCell:
 
   // MARK: - UI Components
 
-  private let iconImageView = UIImageView().then {
-    $0.tintColor = .gray
-    $0.contentMode = .scaleAspectFill
-    $0.backgroundColor = UI.Color.iconImageViewBackground
-    $0.layer.cornerRadius = UI.iconImageViewSize.height / 2
-    $0.isSkeletonable = true
-  }
+  private let iconImageView = UIImageView().builder
+    .tintColor(.gray)
+    .contentMode(.scaleAspectFill)
+    .set(\.layer.cornerRadius, to: UI.iconImageViewSize.height / 2)
+    .backgroundColor(UI.Color.iconImageViewBackground)
+    .isSkeletonable(true)
+    .build()
 
-  private let titleLabel = UILabel().then {
-    $0.font = UI.Font.title
-    $0.textColor = UI.Color.titleText
-    $0.numberOfLines = 0
-    $0.isSkeletonable = true
-  }
+  private let titleLabel = UILabel().builder
+    .font(UI.Font.title)
+    .textColor(UI.Color.titleText)
+    .numberOfLines(0)
+    .isSkeletonable(true)
+    .build()
 
-  private let subtitleLabel = UILabel().then {
-    $0.font = UI.Font.subtitle
-    $0.textColor = UI.Color.subtitleText
-    $0.numberOfLines = 0
-    $0.isSkeletonable = true
-  }
+  private let subtitleLabel = UILabel().builder
+    .font(UI.Font.subtitle)
+    .textColor(UI.Color.subtitleText)
+    .numberOfLines(0)
+    .isSkeletonable(true)
+    .build()
 
-  private let textLabelStackView = UIStackView().then {
-    $0.axis = .vertical
-    $0.alignment = .fill
-    $0.distribution = .fill
-    $0.spacing = UI.textLabelStackViewSpacing
-    $0.translatesAutoresizingMaskIntoConstraints = false
-  }
+  private let textLabelStackView = UIStackView().builder
+    .translatesAutoresizingMaskIntoConstraints(false)
+    .axis(.vertical)
+    .alignment(.fill)
+    .distribution(.fill)
+    .spacing(UI.textLabelStackViewSpacing)
+    .build()
 
-  private let separatorLineView = UIView().then {
-    $0.backgroundColor = UI.Color.separatorLine
-  }
+  private let separatorLineView = UIView().builder
+    .backgroundColor(UI.Color.separatorLine)
+    .build()
 
   private(set) lazy var views: [UIView] = [
     iconImageView,
@@ -197,8 +197,8 @@ extension UserDetailInfoCell {
   struct UserDetailInformationCellCellPreview: PreviewProvider {
     static var previews: some SwiftUI.View {
       UIViewPreview {
-        UserDetailInfoCell()
-          .then {
+        UserDetailInfoCell().builder
+          .reinforce {
             guard let userModel = $0.dummyUserModel() else { return }
             let viewModel = UserDetailInfoItemViewModel(
               userModel: userModel,

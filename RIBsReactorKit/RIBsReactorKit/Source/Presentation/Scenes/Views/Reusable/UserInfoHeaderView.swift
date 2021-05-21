@@ -45,12 +45,12 @@ final class UserInfoHeaderView:
 
   // MARK: - UI Components
 
-  private let titleLabel = UILabel().then {
-    $0.font = UI.Font.titleLabel
-    $0.textColor = .black
-    $0.isSkeletonable = true
-    $0.linesCornerRadius = UI.linesCornerRadius
-  }
+  private let titleLabel = UILabel().builder
+    .font(UI.Font.titleLabel)
+    .textColor(.black)
+    .isSkeletonable(true)
+    .linesCornerRadius(UI.linesCornerRadius)
+    .build()
 
   private(set) lazy var views: [UIView] = [
     titleLabel
@@ -116,9 +116,11 @@ extension UserInfoHeaderView {
   struct UserInformationSectionHeaderViewPreview: PreviewProvider {
     static var previews: some SwiftUI.View {
       UIViewPreview {
-        UserInfoHeaderView().then {
-          $0.configure(by: UserInfoSectionHeaderViewModel(title: "test"))
-        }
+        UserInfoHeaderView().builder
+          .reinforce {
+            $0.configure(by: UserInfoSectionHeaderViewModel(title: "test"))
+          }
+          .build()
       }
       .previewLayout(.fixed(width: 320, height: 50))
       .padding(10)

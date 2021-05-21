@@ -11,10 +11,10 @@ import UIKit.UIImage
 
 struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
 
-  private static let dateFormatter = DateFormatter().then {
-    $0.dateStyle = .short
-    $0.timeStyle = .none
-  }
+  private static let dateFormatter = DateFormatter().builder
+    .dateStyle(.short)
+    .timeStyle(.none)
+    .build()
 
   private var icon: UIImage? {
     guard #available(iOS 13, *) else { return nil }

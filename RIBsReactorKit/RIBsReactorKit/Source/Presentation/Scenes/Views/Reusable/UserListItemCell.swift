@@ -11,7 +11,6 @@ import UIKit
 import Kingfisher
 import SkeletonView
 import SnapKit
-import Then
 
 // MARK: - UserListItemCell
 
@@ -51,29 +50,29 @@ final class UserListItemCell:
 
   // for skeleton view animation
   private let dummyNameString = String(repeating: " ", count: 60)
-  private let dummylocationString = String(repeating: " ", count: 40)
+  private let dummyLocationString = String(repeating: " ", count: 40)
 
   // MARK: - UI Components
 
-  private let profileImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFit
-    $0.backgroundColor = .skeletonDefault
-    $0.layer.masksToBounds = true
-    $0.layer.cornerRadius = UI.profileImageViewSize.height / 2
-    $0.isSkeletonable = true
-  }
+  private let profileImageView = UIImageView().builder
+    .contentMode(.scaleAspectFit)
+    .backgroundColor(.skeletonDefault)
+    .set(\.layer.masksToBounds, to: true)
+    .set(\.layer.cornerRadius, to: UI.profileImageViewSize.height / 2)
+    .isSkeletonable(true)
+    .build()
 
-  private let nameLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 17, weight: .medium)
-    $0.isSkeletonable = true
-    $0.linesCornerRadius = UI.linesCornerRadius
-  }
+  private let nameLabel = UILabel().builder
+    .font(.systemFont(ofSize: 17, weight: .medium))
+    .isSkeletonable(true)
+    .linesCornerRadius(UI.linesCornerRadius)
+    .build()
 
-  private let locationLabel = UILabel().then {
-    $0.font = .systemFont(ofSize: 15, weight: .regular)
-    $0.isSkeletonable = true
-    $0.linesCornerRadius = UI.linesCornerRadius
-  }
+  private let locationLabel = UILabel().builder
+    .font(.systemFont(ofSize: 15, weight: .regular))
+    .isSkeletonable(true)
+    .linesCornerRadius(UI.linesCornerRadius)
+    .build()
 
   private(set) lazy var views: [UIView] = [
     profileImageView,
@@ -114,7 +113,7 @@ final class UserListItemCell:
   private func initUI() {
     profileImageView.image = nil
     nameLabel.text = dummyNameString
-    locationLabel.text = dummylocationString
+    locationLabel.text = dummyLocationString
   }
 }
 

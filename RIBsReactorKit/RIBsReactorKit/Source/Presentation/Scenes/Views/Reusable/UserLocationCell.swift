@@ -24,10 +24,10 @@ final class UserLocationCell:
 
   // MARK: - UI Components
 
-  private let mapView = MKMapView().then {
-    $0.isScrollEnabled = false
-    $0.isRotateEnabled = false
-  }
+  private let mapView = MKMapView().builder
+    .isScrollEnabled(false)
+    .isRotateEnabled(false)
+    .build()
 
   private(set) lazy var views: [UIView] = [mapView]
 
@@ -67,11 +67,12 @@ final class UserLocationCell:
   }
 
   private func setMapViewAnnotation(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
-    let point = MKPointAnnotation().then {
-      $0.coordinate = coordinate
-      $0.title = title
-      $0.subtitle = subtitle
-    }
+    let point = MKPointAnnotation().builder
+      .coordinate(coordinate)
+      .title(title)
+      .subtitle(subtitle)
+      .build()
+
     mapView.addAnnotation(point)
   }
 }

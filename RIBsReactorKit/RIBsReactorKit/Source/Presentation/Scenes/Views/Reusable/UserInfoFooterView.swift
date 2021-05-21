@@ -30,9 +30,9 @@ final class UserInfoFooterView:
 
   // MARK: - UI Components
 
-  private let separatorLineView = UIView().then {
-    $0.backgroundColor = UI.Color.separatorLine
-  }
+  private let separatorLineView = UIView().builder
+    .backgroundColor(UI.Color.separatorLine)
+    .build()
 
   // MARK: - Inheritance
 
