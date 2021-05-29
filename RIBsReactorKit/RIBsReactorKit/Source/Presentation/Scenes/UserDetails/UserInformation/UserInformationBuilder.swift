@@ -11,15 +11,15 @@ import RIBs
 // MARK: - UserInformationDependency
 
 protocol UserInformationDependency: Dependency {
-  var userModelStream: UserModelStream { get }
+  var selectedUserModelStream: SelectedUserModelStream { get }
 }
 
 // MARK: - UserInformationComponent
 
 final class UserInformationComponent: Component<UserInformationDependency> {
 
-  fileprivate var userModelStream: UserModelStream {
-    dependency.userModelStream
+  fileprivate var selectedUserModelStream: SelectedUserModelStream {
+    dependency.selectedUserModelStream
   }
 
   fileprivate var initialState: UserInformationPresentableState {
@@ -53,7 +53,7 @@ final class UserInformationBuilder:
     let viewController = UserInformationViewController()
     let interactor = UserInformationInteractor(
       initialState: component.initialState,
-      userModelStream: component.userModelStream,
+      selectedUserModelStream: component.selectedUserModelStream,
       userInformationSectionListFactory: component.userInformationSectionListFactory,
       presenter: viewController
     )

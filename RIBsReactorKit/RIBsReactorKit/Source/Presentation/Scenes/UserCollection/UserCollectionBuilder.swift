@@ -20,12 +20,12 @@ protocol UserCollectionDependency: Dependency {
 
 final class UserCollectionComponent: Component<UserCollectionDependency> {
 
-  var userModelStream: UserModelStream {
+  var userModelStream: SelectedUserModelStream {
     mutableUserModelStream
   }
 
-  fileprivate var mutableUserModelStream: MutableUserModelStream {
-    shared { UserModelStreamImpl() }
+  fileprivate var mutableUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
   }
 
   fileprivate var randomUserUseCase: RandomUserUseCase {

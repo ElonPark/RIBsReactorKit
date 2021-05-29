@@ -9,9 +9,13 @@
 import CoreLocation.CLLocation
 import Foundation
 
-struct UserLocationViewModel: HasUserModel, HasUUID, Equatable {
+struct UserLocationViewModel: HasUUID, Equatable {
 
-  let userModel: UserModel
+  let uuid: String
+  let location: Location
 
-  var location: Location { userModel.location }
+  init(userModel: UserModel) {
+    self.uuid = userModel.uuid
+    self.location = userModel.location
+  }
 }

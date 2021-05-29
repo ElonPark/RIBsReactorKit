@@ -36,3 +36,22 @@ enum UserInfoSectionItem: Equatable {
   case dummyProfile
   case dummy
 }
+
+// MARK: - CustomStringConvertible
+
+extension UserInfoSectionItem: CustomStringConvertible {
+  var description: String {
+    switch self {
+    case let .profile(viewModel):
+      return "item: profile, title: \(viewModel.titleWithLastName)"
+    case let .detail(viewModel):
+      return "item: detail, title: \(viewModel.title), subtitle: \(viewModel.subtitle ?? "nil")"
+    case let .location(viewModel):
+      return "item: location, location: \(viewModel.location)"
+    case .dummyProfile:
+      return "item: dummyProfile"
+    case .dummy:
+      return "item: dummy"
+    }
+  }
+}

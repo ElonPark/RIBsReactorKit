@@ -34,14 +34,14 @@ final class UserCollectionInteractor:
 
   private let randomUserUseCase: RandomUserUseCase
   private let userModelDataStream: UserModelDataStream
-  private let mutableUserModelStream: MutableUserModelStream
+  private let mutableUserModelStream: MutableSelectedUserModelStream
 
   // MARK: - Initialization & Deinitialization
 
   init(
     randomUserUseCase: RandomUserUseCase,
     userModelDataStream: UserModelDataStream,
-    mutableUserModelStream: MutableUserModelStream,
+    mutableUserModelStream: MutableSelectedUserModelStream,
     presenter: UserCollectionPresentable
   ) {
     self.randomUserUseCase = randomUserUseCase

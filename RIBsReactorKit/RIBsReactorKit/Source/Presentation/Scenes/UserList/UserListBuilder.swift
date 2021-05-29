@@ -20,12 +20,12 @@ protocol UserListDependency: UserListDependencyUserInformation {
 
 final class UserListComponent: Component<UserListDependency> {
 
-  var userModelStream: UserModelStream {
-    mutableUserModelStream
+  var selectedUserModelStream: SelectedUserModelStream {
+    mutableSelectedUserModelStream
   }
 
-  fileprivate var mutableUserModelStream: MutableUserModelStream {
-    shared { UserModelStreamImpl() }
+  fileprivate var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
   }
 
   fileprivate var initialState: UserListPresentableState {
@@ -74,7 +74,7 @@ final class UserListBuilder:
       initialState: component.initialState,
       randomUserUseCase: component.randomUserUseCase,
       userModelDataStream: component.userModelDataStream,
-      mutableUserModelStream: component.mutableUserModelStream,
+      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
       presenter: component.userListViewController
     )
     interactor.listener = listener

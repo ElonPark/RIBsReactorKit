@@ -11,6 +11,10 @@
 "tabBarTitle.collection"="Collection";
 "tabBarTitle.list"="List";
 
+  // MARK: - User List
+
+  "userList.title"="User List";
+
 // MARK: - User Info Title
 
 "userInfoTitle.basicInfo"="Basic Information";

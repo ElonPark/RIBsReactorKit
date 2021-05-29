@@ -8,9 +8,9 @@
 
 import UIKit.UIImage
 
-struct UserDetailInfoItemViewModel: HasUserModel, HasUUID, Equatable {
+struct UserDetailInfoItemViewModel: HasUUID, Equatable {
 
-  let userModel: UserModel
+  let uuid: String
   let icon: UIImage?
   let title: String
   let subtitle: String?
@@ -19,5 +19,13 @@ struct UserDetailInfoItemViewModel: HasUserModel, HasUUID, Equatable {
   var hasSubtitle: Bool {
     guard let subtitle = subtitle else { return false }
     return !subtitle.isEmpty
+  }
+
+  init(userModel: UserModel, icon: UIImage?, title: String, subtitle: String?, showSeparatorLine: Bool) {
+    self.uuid = userModel.uuid
+    self.icon = icon
+    self.title = title
+    self.subtitle = subtitle
+    self.showSeparatorLine = showSeparatorLine
   }
 }

@@ -8,19 +8,19 @@
 
 import Foundation
 
-struct UserProfileViewModel: HasUserModel, HasUUID, Equatable {
+struct UserProfileViewModel: HasUUID, Equatable {
 
-  let userModel: UserModel
-
+  let uuid: String
   let profileBackgroundImageURL: URL?
   let profileImageURL: URL?
-
-  var titleWithLastName: String { "\(userModel.name.title). \(userModel.name.last)" }
-  var firstName: String { userModel.name.first }
+  let titleWithLastName: String
+  let firstName: String
 
   init(userModel: UserModel) {
-    self.userModel = userModel
+    self.uuid = userModel.uuid
     self.profileBackgroundImageURL = userModel.picture.thumbnailImageURL
     self.profileImageURL = userModel.picture.largeImageURL
+    self.titleWithLastName = "\(userModel.name.title). \(userModel.name.last)"
+    self.firstName = userModel.name.first
   }
 }

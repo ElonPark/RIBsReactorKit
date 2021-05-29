@@ -35,6 +35,11 @@ internal enum Strings {
     /// gender
     internal static let gender = Strings.tr("Localizable", "userInfoTitle.gender")
   }
+
+  internal enum UserList {
+    /// User List
+    internal static let title = Strings.tr("Localizable", "userList.title")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces

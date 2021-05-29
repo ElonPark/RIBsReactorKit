@@ -18,6 +18,7 @@ import RxSwift
 
 enum UserInformationPresentableAction {
   case viewWillAppear
+  case itemSelected(IndexPath)
   case detach
 }
 
@@ -97,12 +98,14 @@ final class UserInformationViewController:
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    restoreNavigationBarStyle()
+    resetNavigationBarStyle()
   }
+}
 
-  // MARK: - Private methods
+// MARK: - Private methods
 
-  private static func dataSourceFactory() -> UserInformationDataSource {
+private extension UserInformationViewController {
+  static func dataSourceFactory() -> UserInformationDataSource {
     return .init(configureCell: { _, collectionView, indexPath, section in
       switch section {
       case let .profile(viewModel):
@@ -129,7 +132,7 @@ final class UserInformationViewController:
     })
   }
 
-  private func setDataSourceConfigureSupplementaryView() {
+  func setDataSourceConfigureSupplementaryView() {
     dataSource.configureSupplementaryView = { dataSource, collectionView, ofKind, indexPath in
       let section = dataSource.sectionModels[indexPath.section]
       var emptyView: EmptyReusableView {
@@ -156,25 +159,27 @@ final class UserInformationViewController:
     }
   }
 
-  private func setNavigationBarStyle() {
+  func setNavigationBarStyle() {
     navigationController?.navigationBar.isTranslucent = false
     navigationController?.navigationBar.shadowImage = UIImage()
     navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
   }
 
-  private func restoreNavigationBarStyle() {
+  func resetNavigationBarStyle() {
     navigationController?.navigationBar.isTranslucent = true
     navigationController?.navigationBar.shadowImage = nil
     navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
   }
+}
 
-  // MARK: - Binding
+// MARK: - Binding
 
-  private func bindUI() {
+private extension UserInformationViewController {
+  func bindUI() {
     bindCollectionViewSetDelegate()
   }
 
-  private func bindCollectionViewSetDelegate() {
+  func bindCollectionViewSetDelegate() {
     collectionView.rx.setDelegate(self)
       .disposed(by: disposeBag)
   }
@@ -184,15 +189,18 @@ final class UserInformationViewController:
     bindActions(to: listener)
     bindState(from: listener)
   }
+}
 
-  // MARK: - Binding Action
+// MARK: - Binding Action
 
-  private func bindActions(to listener: UserInformationPresentableListener) {
+private extension UserInformationViewController {
+  func bindActions(to listener: UserInformationPresentableListener) {
     bindViewWillAppearAction(to: listener)
+    bindItemSelectedAction(to: listener)
     bindDetachAction(to: listener)
   }
 
-  private func bindViewWillAppearAction(to listener: UserInformationPresentableListener) {
+  func bindViewWillAppearAction(to listener: UserInformationPresentableListener) {
     rx.viewWillAppear
       .take(1)
       .map { _ in .viewWillAppear }
@@ -200,20 +208,30 @@ final class UserInformationViewController:
       .disposed(by: disposeBag)
   }
 
-  private func bindDetachAction(to listener: UserInformationPresentableListener) {
+  func bindItemSelectedAction(to listener: UserInformationPresentableListener) {
+    collectionView.rx.itemSelected
+      .asDriver()
+      .map { .itemSelected($0) }
+      .drive(listener.action)
+      .disposed(by: disposeBag)
+  }
+
+  func bindDetachAction(to listener: UserInformationPresentableListener) {
     detachAction
       .map { .detach }
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
+}
 
-  // MARK: - Binding State
+// MARK: - Binding State
 
-  private func bindState(from listener: UserInformationPresentableListener) {
+private extension UserInformationViewController {
+  func bindState(from listener: UserInformationPresentableListener) {
     bindUserInformationSectionsState(from: listener)
   }
 
-  private func bindUserInformationSectionsState(from listener: UserInformationPresentableListener) {
+  func bindUserInformationSectionsState(from listener: UserInformationPresentableListener) {
     listener.state.map(\.userInformationSections)
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
@@ -224,15 +242,15 @@ final class UserInformationViewController:
 
 // MARK: - Layout
 
-extension UserInformationViewController {
-  private func setupUI() {
+private extension UserInformationViewController {
+  func setupUI() {
     view.addSubview(collectionView)
 
     setDataSourceConfigureSupplementaryView()
     layout()
   }
 
-  private func layout() {
+  func layout() {
     collectionView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
@@ -291,8 +309,8 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
       let userModelTranslator = UserModelTranslatorImpl()
       guard let userModel = userModelTranslator.translateToUserModel(by: randomUser.results).first else { return }
 
-      let mutableUserModelStream = UserModelStreamImpl()
-      mutableUserModelStream.updateUserModel(by: userModel)
+      let mutableSelectedUserModelStream = SelectedUserModelStreamImpl()
+      mutableSelectedUserModelStream.updateSelectedUserModel(by: userModel)
 
       let factories: [UserInfoSectionFactory] = [
         ProfileSectionFactory(),
@@ -303,7 +321,7 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
       let state = UserInformationPresentableState()
       let interactor = UserInformationInteractor(
         initialState: state,
-        userModelStream: mutableUserModelStream,
+        selectedUserModelStream: mutableSelectedUserModelStream,
         userInformationSectionListFactory: sectionListFactory,
         presenter: self
       )

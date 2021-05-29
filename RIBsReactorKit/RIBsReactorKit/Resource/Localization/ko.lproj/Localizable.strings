@@ -11,6 +11,10 @@
 "tabBarTitle.collection"="컬렉션";
 "tabBarTitle.list"="목록";
 
+// MARK: - User List
+
+"userList.title"="사용자 목록";
+
 // MARK: - User Info Title
 
 "userInfoTitle.basicInfo"="기본 정보";

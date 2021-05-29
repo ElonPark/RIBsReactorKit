@@ -13,9 +13,3 @@ import Foundation
 protocol HasUUID {
   var uuid: String { get }
 }
-
-extension HasUUID where Self: HasUserModel {
-  var uuid: String {
-    userModel.uuid
-  }
-}
