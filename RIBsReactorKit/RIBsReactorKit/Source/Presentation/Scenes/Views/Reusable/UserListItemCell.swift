@@ -62,23 +62,23 @@ final class UserListItemCell:
     .isSkeletonable(true)
     .build()
 
-  private let nameLabel = UILabel().builder
+  private lazy var nameLabel = UILabel().builder
     .font(.systemFont(ofSize: 17, weight: .medium))
+    .text(dummyNameString)
     .isSkeletonable(true)
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
 
-  private let locationLabel = UILabel().builder
+  private lazy var locationLabel = UILabel().builder
     .font(.systemFont(ofSize: 15, weight: .regular))
+    .text(dummyLocationString)
     .isSkeletonable(true)
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
 
-  private(set) lazy var views: [UIView] = [
-    profileImageView,
-    nameLabel,
-    locationLabel
-  ]
+  var views: [UIView] {
+    [profileImageView, nameLabel, locationLabel]
+  }
 
   // MARK: - Inheritance
 
@@ -102,7 +102,6 @@ final class UserListItemCell:
 
   func configure(by viewModel: UserListItemViewModel) {
     self.viewModel = viewModel
-    hideSkeletonAnimation()
     profileImageView.kf.setImage(with: viewModel.profileImageURL)
     nameLabel.text = viewModel.titleWithFullName
     locationLabel.text = viewModel.location
@@ -126,7 +125,6 @@ extension UserListItemCell {
     views.forEach { self.contentView.addSubview($0) }
 
     initUI()
-    showSkeletonAnimation()
   }
 
   private func layout() {

@@ -25,11 +25,12 @@ final class UserLocationCell:
   // MARK: - UI Components
 
   private let mapView = MKMapView().builder
-    .isScrollEnabled(false)
-    .isRotateEnabled(false)
+    .isUserInteractionEnabled(false)
     .build()
 
-  private(set) lazy var views: [UIView] = [mapView]
+  var views: [UIView] {
+    [mapView]
+  }
 
   // MARK: - Inheritance
 
@@ -47,7 +48,6 @@ final class UserLocationCell:
 
   func configure(by viewModel: UserLocationViewModel) {
     self.viewModel = viewModel
-    hideSkeletonAnimation()
 
     guard let coordinate = viewModel.location.coordinates.locationCoordinate2D else { return }
     setMapViewRegion(center: coordinate)
@@ -82,9 +82,7 @@ final class UserLocationCell:
 extension UserLocationCell {
   private func setupUI() {
     isSkeletonable = true
-    views.forEach { self.contentView.addSubview($0) }
-
-    showSkeletonAnimation()
+    views.forEach { contentView.addSubview($0) }
   }
 
   private func layout() {

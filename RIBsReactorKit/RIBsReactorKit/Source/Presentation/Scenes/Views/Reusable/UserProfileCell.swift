@@ -77,24 +77,28 @@ final class UserProfileCell:
     .isSkeletonable(true)
     .build()
 
-  private let titleWithLastNameLabel = UILabel().builder
+  private lazy var titleWithLastNameLabel = UILabel().builder
     .font(UI.Font.titleWithLastNameLabel)
     .textAlignment(.center)
+    .text(dummyTitleWithLastNameString)
     .isSkeletonable(true)
     .build()
 
-  private let firstNameLabel = UILabel().builder
+  private lazy var firstNameLabel = UILabel().builder
     .font(UI.Font.firstNameLabel)
     .textAlignment(.center)
+    .text(dummyFirstNameString)
     .isSkeletonable(true)
     .build()
 
-  private(set) lazy var views: [UIView] = [
-    profileBackgroundImageView,
-    profileImageView,
-    titleWithLastNameLabel,
-    firstNameLabel
-  ]
+  var views: [UIView] {
+    [
+      profileBackgroundImageView,
+      profileImageView,
+      titleWithLastNameLabel,
+      firstNameLabel
+    ]
+  }
 
   // MARK: - Inheritance
 
@@ -117,7 +121,6 @@ final class UserProfileCell:
 
   func configure(by viewModel: UserProfileViewModel) {
     self.viewModel = viewModel
-    hideSkeletonAnimation()
     profileBackgroundImageView.kf.setImage(with: viewModel.profileBackgroundImageURL)
     profileImageView.kf.setImage(with: viewModel.profileImageURL)
     titleWithLastNameLabel.text = viewModel.titleWithLastName
@@ -139,10 +142,9 @@ final class UserProfileCell:
 extension UserProfileCell {
   private func setupUI() {
     isSkeletonable = true
-    views.forEach { self.contentView.addSubview($0) }
+    views.forEach { contentView.addSubview($0) }
 
     initUI()
-    showSkeletonAnimation()
   }
 
   private func layout() {

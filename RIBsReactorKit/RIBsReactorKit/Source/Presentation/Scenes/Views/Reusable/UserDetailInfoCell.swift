@@ -55,6 +55,7 @@ final class UserDetailInfoCell:
 
   // for skeleton view animation
   private let dummyTitleString = String(repeating: " ", count: 60)
+  private let dummySubtitleString = String(repeating: " ", count: 30)
 
   // MARK: - UI Components
 
@@ -66,17 +67,19 @@ final class UserDetailInfoCell:
     .isSkeletonable(true)
     .build()
 
-  private let titleLabel = UILabel().builder
+  private lazy var titleLabel = UILabel().builder
     .font(UI.Font.title)
     .textColor(UI.Color.titleText)
     .numberOfLines(0)
+    .text(dummyTitleString)
     .isSkeletonable(true)
     .build()
 
-  private let subtitleLabel = UILabel().builder
+  private lazy var subtitleLabel = UILabel().builder
     .font(UI.Font.subtitle)
     .textColor(UI.Color.subtitleText)
     .numberOfLines(0)
+    .text(dummySubtitleString)
     .isSkeletonable(true)
     .build()
 
@@ -92,11 +95,9 @@ final class UserDetailInfoCell:
     .backgroundColor(UI.Color.separatorLine)
     .build()
 
-  private(set) lazy var views: [UIView] = [
-    iconImageView,
-    titleLabel,
-    subtitleLabel
-  ]
+  var views: [UIView] {
+    [iconImageView, titleLabel, subtitleLabel]
+  }
 
   // MARK: - Inheritance
 
@@ -119,7 +120,6 @@ final class UserDetailInfoCell:
 
   func configure(by viewModel: UserDetailInfoItemViewModel) {
     self.viewModel = viewModel
-    hideSkeletonAnimation()
     iconImageView.image = viewModel.icon
     titleLabel.text = viewModel.title
     separatorLineView.isHidden = !viewModel.showSeparatorLine
@@ -149,7 +149,6 @@ extension UserDetailInfoCell {
     textLabelStackView.addArrangedSubview(titleLabel)
 
     initUI()
-    showSkeletonAnimation()
   }
 
   private func layout() {

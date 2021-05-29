@@ -70,6 +70,7 @@ final class UserListViewController:
     .isSkeletonable(true)
     .reinforce {
       $0.register(UserListItemCell.self)
+      $0.showAnimatedGradientSkeleton()
     }
     .build()
 

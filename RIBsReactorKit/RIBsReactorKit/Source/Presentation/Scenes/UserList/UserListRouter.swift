@@ -42,19 +42,17 @@ final class UserListRouter:
     interactor.router = self
   }
 
-  //// FIXME: - fix after implementation UserInformationRIB  2020-06-23 23:57:29
   func attachUserInformationRIB() {
     let router = userInformationBuilder.build(withListener: interactor)
     userInformationRouter = router
     attachChild(router)
-    viewController.present(router.viewControllable)
+    viewController.push(viewController: router.viewControllable)
   }
 
-  //// FIXME: - fix after implementation UserInformationRIB  2020-06-23 23:57:29
   func detachUserInformationRIB() {
     guard let router = userInformationRouter else { return }
     detachChild(router)
-    viewController.dismiss(router.viewControllable)
+    viewController.pop(router.viewControllable)
     userInformationRouter = nil
   }
 }

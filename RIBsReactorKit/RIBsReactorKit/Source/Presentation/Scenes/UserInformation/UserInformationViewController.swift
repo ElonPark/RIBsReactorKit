@@ -90,6 +90,84 @@ final class UserInformationViewController:
     bind(listener: listener)
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    setNavigationBarStyle()
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    restoreNavigationBarStyle()
+  }
+
+  // MARK: - Private methods
+
+  private static func dataSourceFactory() -> UserInformationDataSource {
+    return .init(configureCell: { _, collectionView, indexPath, section in
+      switch section {
+      case let .profile(viewModel):
+        let cell = collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
+        cell.configure(by: viewModel)
+        return cell
+
+      case let .detail(viewModel):
+        let cell = collectionView.dequeue(UserDetailInfoCell.self, indexPath: indexPath)
+        cell.configure(by: viewModel)
+        return cell
+
+      case let .location(viewModel):
+        let cell = collectionView.dequeue(UserLocationCell.self, indexPath: indexPath)
+        cell.configure(by: viewModel)
+        return cell
+
+      case .dummyProfile:
+        return collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
+
+      case .dummy:
+        return collectionView.dequeue(UserDetailInfoCell.self, indexPath: indexPath)
+      }
+    })
+  }
+
+  private func setDataSourceConfigureSupplementaryView() {
+    dataSource.configureSupplementaryView = { dataSource, collectionView, ofKind, indexPath in
+      let section = dataSource.sectionModels[indexPath.section]
+      var emptyView: EmptyReusableView {
+        collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
+      }
+
+      switch ofKind {
+      case UICollectionView.elementKindSectionHeader:
+        guard let headerViewModel = section.header else { return emptyView }
+        let headerView = collectionView.dequeue(UserInfoHeaderView.self, indexPath: indexPath)
+        headerView.configure(by: headerViewModel)
+        return headerView
+
+      case UICollectionView.elementKindSectionFooter:
+        guard section.hasFooter else { return emptyView }
+        let footerView = collectionView.dequeue(UserInfoFooterView.self, indexPath: indexPath)
+        let isHidden = indexPath.section == dataSource.sectionModels.count - 1
+        footerView.hideSeparator(isHidden)
+        return footerView
+
+      default:
+        return emptyView
+      }
+    }
+  }
+
+  private func setNavigationBarStyle() {
+    navigationController?.navigationBar.isTranslucent = false
+    navigationController?.navigationBar.shadowImage = UIImage()
+    navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+  }
+
+  private func restoreNavigationBarStyle() {
+    navigationController?.navigationBar.isTranslucent = true
+    navigationController?.navigationBar.shadowImage = nil
+    navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+  }
+
   // MARK: - Binding
 
   private func bindUI() {
@@ -142,60 +220,6 @@ final class UserInformationViewController:
       .drive(collectionView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
   }
-
-  // MARK: - Private methods
-
-  private static func dataSourceFactory() -> UserInformationDataSource {
-    return .init(configureCell: { _, collectionView, indexPath, section in
-      switch section {
-      case let .profile(viewModel):
-        let cell = collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
-        cell.configure(by: viewModel)
-        return cell
-
-      case let .detail(viewModel):
-        let cell = collectionView.dequeue(UserDetailInfoCell.self, indexPath: indexPath)
-        cell.configure(by: viewModel)
-        return cell
-
-      case let .location(viewModel):
-        let cell = collectionView.dequeue(UserLocationCell.self, indexPath: indexPath)
-        cell.configure(by: viewModel)
-        return cell
-
-      case .dummyProfile:
-        return collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
-
-      case .dummy:
-        return collectionView.dequeue(UserDetailInfoCell.self, indexPath: indexPath)
-      }
-    })
-  }
-
-  private func setDataSourceConfigureSupplementaryView() {
-    dataSource.configureSupplementaryView = { dataSource, collectionView, ofKind, indexPath in
-      let section = dataSource.sectionModels[indexPath.section]
-      var emptyView: EmptyReusableView {
-        collectionView.dequeue(EmptyReusableView.self, indexPath: indexPath)
-      }
-
-      switch ofKind {
-      case UICollectionView.elementKindSectionHeader:
-        guard let headerViewModel = section.header else { return emptyView }
-        let headerView = collectionView.dequeue(UserInfoHeaderView.self, indexPath: indexPath)
-        headerView.configure(by: headerViewModel)
-        return headerView
-
-      case UICollectionView.elementKindSectionFooter:
-        guard section.hasFooter else { return emptyView }
-        let footerView = collectionView.dequeue(UserInfoFooterView.self, indexPath: indexPath)
-        return footerView
-
-      default:
-        return emptyView
-      }
-    }
-  }
 }
 
 // MARK: - Layout
@@ -203,6 +227,7 @@ final class UserInformationViewController:
 extension UserInformationViewController {
   private func setupUI() {
     view.addSubview(collectionView)
+
     setDataSourceConfigureSupplementaryView()
     layout()
   }

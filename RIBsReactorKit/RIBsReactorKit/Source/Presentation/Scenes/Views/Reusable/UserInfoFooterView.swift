@@ -45,6 +45,10 @@ final class UserInfoFooterView:
     super.setupConstraints()
     layout()
   }
+
+  func hideSeparator(_ isHidden: Bool) {
+    separatorLineView.isHidden = isHidden
+  }
 }
 
 // MARK: - Layout

@@ -45,9 +45,10 @@ final class UserInfoHeaderView:
 
   // MARK: - UI Components
 
-  private let titleLabel = UILabel().builder
+  private lazy var titleLabel = UILabel().builder
     .font(UI.Font.titleLabel)
     .textColor(.black)
+    .text(dummyTitleString)
     .isSkeletonable(true)
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
@@ -77,7 +78,6 @@ final class UserInfoHeaderView:
 
   func configure(by viewModel: UserInfoSectionHeaderViewModel) {
     self.viewModel = viewModel
-    hideSkeletonAnimation()
     titleLabel.text = viewModel.title
   }
 
@@ -96,7 +96,6 @@ extension UserInfoHeaderView {
     views.forEach { self.addSubview($0) }
 
     initUI()
-    showSkeletonAnimation()
   }
 
   private func layout() {
