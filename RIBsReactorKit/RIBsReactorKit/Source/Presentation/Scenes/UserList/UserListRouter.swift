@@ -46,13 +46,15 @@ final class UserListRouter:
     let router = userInformationBuilder.build(withListener: interactor)
     userInformationRouter = router
     attachChild(router)
-    viewController.push(viewController: router.viewControllable)
+    viewController.present(router.viewControllable)
+//    viewController.push(viewController: router.viewControllable)
   }
 
   func detachUserInformationRIB() {
     guard let router = userInformationRouter else { return }
-    detachChild(router)
-    viewController.pop(router.viewControllable)
     userInformationRouter = nil
+    detachChild(router)
+    viewController.dismiss(router.viewControllable)
+//    viewController.pop(router.viewControllable)
   }
 }

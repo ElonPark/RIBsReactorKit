@@ -14,6 +14,7 @@ import RxSwift
 class BaseViewController:
   UIViewController,
   HasSetupConstraints,
+  HasDetachAction,
   HasDisposeBag
 {
 

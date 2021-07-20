@@ -15,6 +15,8 @@ final class UserLocationCell:
   BaseCollectionViewCell,
   HasViewModel,
   HasConfigure,
+  MapRegionSettable,
+  MapAnnotationAddable,
   SkeletonAnimatable
 {
 
@@ -49,31 +51,16 @@ final class UserLocationCell:
   func configure(by viewModel: UserLocationViewModel) {
     self.viewModel = viewModel
 
-    guard let coordinate = viewModel.location.coordinates.locationCoordinate2D else { return }
-    setMapViewRegion(center: coordinate)
-    setMapViewAnnotation(
-      coordinate: coordinate,
-      title: viewModel.location.city,
-      subtitle: viewModel.location.street.name
-    )
+    guard let coordinate2D = viewModel.location.coordinates.locationCoordinate2D else { return }
+    let coordinate = CLLocationCoordinate2D(latitude: coordinate2D.latitude, longitude: coordinate2D.longitude)
+    setRegion(to: mapView, center: coordinate)
+    addAnnotation(by: viewModel.location, with: coordinate)
   }
 
   // MARK: - Private methods
 
-  private func setMapViewRegion(center: CLLocationCoordinate2D) {
-    let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-    let region = MKCoordinateRegion(center: center, span: span)
-    mapView.setRegion(region, animated: true)
-  }
-
-  private func setMapViewAnnotation(coordinate: CLLocationCoordinate2D, title: String, subtitle: String) {
-    let point = MKPointAnnotation().builder
-      .coordinate(coordinate)
-      .title(title)
-      .subtitle(subtitle)
-      .build()
-
-    mapView.addAnnotation(point)
+  private func addAnnotation(by location: Location, with coordinate: CLLocationCoordinate2D) {
+    addMapAnnotation(to: mapView, coordinate: coordinate, title: location.city, subtitle: location.street.name)
   }
 }
 

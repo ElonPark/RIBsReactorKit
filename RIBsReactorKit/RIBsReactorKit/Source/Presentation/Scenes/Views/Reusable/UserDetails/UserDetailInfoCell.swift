@@ -42,7 +42,7 @@ final class UserDetailInfoCell:
     }
 
     enum Color {
-      static let iconImageViewBackground = UIColor.white
+      static let iconImageViewBackground = Asset.Colors.backgroundColor.color
       static let titleText = UIColor.darkText
       static let subtitleText = UIColor.darkGray
       static let separatorLine = UIColor.lightGray

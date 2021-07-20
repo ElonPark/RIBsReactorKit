@@ -25,3 +25,7 @@
 // MARK: - Unit
 
 "unit.age"="%i세";
+
+// MARK: - Common
+
+"common.close"="닫기";

@@ -25,3 +25,7 @@
 // MARK: - Unit
 
 "unit.age"="%i";
+
+// MARK: - Common
+
+"common.close"="Close";

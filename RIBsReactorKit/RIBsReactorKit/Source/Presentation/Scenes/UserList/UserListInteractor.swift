@@ -39,7 +39,7 @@ final class UserListInteractor:
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
 
-  enum Mutation: Equatable {
+  enum Mutation {
     case loadData
     case setLoading(Bool)
     case setRefresh(Bool)
@@ -147,8 +147,8 @@ extension UserListInteractor {
 
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
     return mutation
-      .flatMap { [weak self] mutation -> Observable<Mutation> in
-        guard let this = self else { return .empty() }
+      .withUnretained(self)
+      .flatMap { this, mutation -> Observable<Mutation> in
         switch mutation {
         case .loadData:
           return this.updateUserModelsTransform()

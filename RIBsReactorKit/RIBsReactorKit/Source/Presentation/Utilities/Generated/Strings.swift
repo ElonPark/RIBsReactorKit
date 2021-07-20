@@ -11,6 +11,11 @@ import Foundation
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum Strings {
 
+  internal enum Common {
+    /// Close
+    internal static let close = Strings.tr("Localizable", "common.close")
+  }
+
   internal enum TabBarTitle {
     /// Collection
     internal static let collection = Strings.tr("Localizable", "tabBarTitle.collection")

@@ -10,7 +10,7 @@ import RIBs
 
 // MARK: - UserInformationDependency
 
-protocol UserInformationDependency: Dependency {
+protocol UserInformationDependency: UserInformationDependencyUserLocation {
   var selectedUserModelStream: SelectedUserModelStream { get }
 }
 
@@ -58,6 +58,13 @@ final class UserInformationBuilder:
       presenter: viewController
     )
     interactor.listener = listener
-    return UserInformationRouter(interactor: interactor, viewController: viewController)
+
+    let userLocationBuilder = UserLocationBuilder(dependency: component)
+
+    return UserInformationRouter(
+      userLocationBuilder: userLocationBuilder,
+      interactor: interactor,
+      viewController: viewController
+    )
   }
 }

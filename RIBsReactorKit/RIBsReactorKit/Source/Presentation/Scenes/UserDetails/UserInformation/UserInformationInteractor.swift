@@ -10,7 +10,12 @@ import ReactorKit
 import RIBs
 import RxSwift
 
-protocol UserInformationRouting: ViewableRouting {}
+// MARK: - UserInformationRouting
+
+protocol UserInformationRouting: ViewableRouting {
+  func attachUserLocationRIB(annotationMetadata: MapPointAnnotationMetadata)
+  func detachUserLocationRIB()
+}
 
 // MARK: - UserInformationPresentable
 
@@ -38,8 +43,9 @@ final class UserInformationInteractor:
   typealias Action = UserInformationPresentableAction
   typealias State = UserInformationPresentableState
 
-  enum Mutation: Equatable {
+  enum Mutation {
     case setUserInformationSections([UserInfoSectionModel])
+    case attachUserLocationRIB(metadata: MapPointAnnotationMetadata)
     case detach
   }
 
@@ -94,8 +100,8 @@ extension UserInformationInteractor {
 
   private func setUserInformationSectionsMutation() -> Observable<Mutation> {
     return selectedUserModelStream.userModel
-      .flatMap { [weak self] userModel -> Observable<Mutation> in
-        guard let this = self else { return .empty() }
+      .withUnretained(self)
+      .flatMap { this, userModel -> Observable<Mutation> in
         let sections = this.userInformationSectionListFactory.makeSections(by: userModel)
         return .just(.setUserInformationSections(sections))
       }
@@ -108,22 +114,34 @@ extension UserInformationInteractor {
 
     switch item {
     case let .location(viewModel):
-      // TODO: - 구현 2021-05-30 04:01:12
-      guard let coordinate = viewModel.location.coordinates.locationCoordinate2D else { return .never() }
-      return .never()
+      return attachUserLocationRIBMutation(location: viewModel.location)
 
     default:
       return .never()
     }
   }
 
+  private func attachUserLocationRIBMutation(location: Location) -> Observable<Mutation> {
+    guard let coordinate = location.coordinates.locationCoordinate2D else { return .never() }
+
+    let metadata = MapPointAnnotationMetadata(
+      coordinate: coordinate,
+      title: location.city,
+      subtitle: location.street.name
+    )
+    return .just(.attachUserLocationRIB(metadata: metadata))
+  }
+
   // MARK: - transform mutation
 
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
     return mutation
-      .flatMap { [weak self] mutation -> Observable<Mutation> in
-        guard let this = self else { return .empty() }
+      .withUnretained(self)
+      .flatMap { this, mutation -> Observable<Mutation> in
         switch mutation {
+        case let .attachUserLocationRIB(metadata):
+          return this.attachUserLocationRIBTransform(metadata: metadata)
+
         case .detach:
           return this.detachTransform()
 
@@ -131,6 +149,11 @@ extension UserInformationInteractor {
           return .just(mutation)
         }
       }
+  }
+
+  private func attachUserLocationRIBTransform(metadata: MapPointAnnotationMetadata) -> Observable<Mutation> {
+    router?.attachUserLocationRIB(annotationMetadata: metadata)
+    return .empty()
   }
 
   private func detachTransform() -> Observable<Mutation> {
@@ -147,11 +170,19 @@ extension UserInformationInteractor {
     case let .setUserInformationSections(sections):
       newState.userInformationSections = sections
 
-    case .detach:
-      // Do Nothing
-      Log.debug("detach")
+    case .attachUserLocationRIB,
+         .detach:
+      Log.debug("Do Nothing when \(mutation)")
     }
 
     return newState
+  }
+}
+
+// MARK: - UserLocationListener
+
+extension UserInformationInteractor {
+  func detachUserLocationRIB() {
+    router?.detachUserLocationRIB()
   }
 }

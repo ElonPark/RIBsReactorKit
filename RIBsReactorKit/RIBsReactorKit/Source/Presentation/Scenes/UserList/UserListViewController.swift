@@ -133,7 +133,8 @@ private extension UserListViewController {
       .asDriver()
       .drive(onNext: { cell, indexPath in
         guard let userListCell = cell as? UserListItemCell,
-              userListCell.isSkeletonActive && userListCell.viewModel == nil else { return }
+              userListCell.isSkeletonActive && userListCell.viewModel == nil
+        else { return }
 
         userListCell.alpha = 0
         UIView.animate(

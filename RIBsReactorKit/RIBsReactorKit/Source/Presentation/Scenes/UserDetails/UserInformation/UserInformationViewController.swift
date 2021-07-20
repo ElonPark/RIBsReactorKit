@@ -30,7 +30,6 @@ protocol UserInformationPresentableListener: AnyObject {
 
   var action: ActionSubject<Action> { get }
   var state: Observable<State> { get }
-  var currentState: State { get }
 }
 
 // MARK: - UserInformationViewController
@@ -39,7 +38,9 @@ final class UserInformationViewController:
   BaseViewController,
   UserInformationPresentable,
   UserInformationViewControllable,
-  HasCollectionView
+  HasCollectionView,
+  HasCloseButtonHeaderView,
+  CloseButtonBindable
 {
 
   // MARK: - Constants
@@ -57,12 +58,14 @@ final class UserInformationViewController:
 
   // MARK: - UI Components
 
+  let headerView = CloseButtonHeaderView()
+
   private let flowLayout = UICollectionViewFlowLayout().builder
     .scrollDirection(.vertical)
     .build()
 
   private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).builder
-    .backgroundColor(.white)
+    .backgroundColor(Asset.Colors.backgroundColor.color)
     .reinforce {
       $0.register(UserProfileCell.self)
       $0.register(UserDetailInfoCell.self)
@@ -177,6 +180,9 @@ private extension UserInformationViewController {
 private extension UserInformationViewController {
   func bindUI() {
     bindCollectionViewSetDelegate()
+
+    guard needHeaderView else { return }
+    bindCloseButtonTapAction()
   }
 
   func bindCollectionViewSetDelegate() {
@@ -244,6 +250,10 @@ private extension UserInformationViewController {
 
 private extension UserInformationViewController {
   func setupUI() {
+    view.backgroundColor = Asset.Colors.backgroundColor.color
+    if needHeaderView {
+      view.addSubview(headerView)
+    }
     view.addSubview(collectionView)
 
     setDataSourceConfigureSupplementaryView()
@@ -251,8 +261,18 @@ private extension UserInformationViewController {
   }
 
   func layout() {
+    makeHeaderViewConstraintsIfNeeded()
+    makeCollectionViewConstraints()
+  }
+
+  func makeCollectionViewConstraints() {
     collectionView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+      if needHeaderView {
+        $0.top.equalTo(headerView.snp.bottom)
+        $0.leading.trailing.bottom.equalToSuperview()
+      } else {
+        $0.edges.equalToSuperview()
+      }
     }
   }
 }

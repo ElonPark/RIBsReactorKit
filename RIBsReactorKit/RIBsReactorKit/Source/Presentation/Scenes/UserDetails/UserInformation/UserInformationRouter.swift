@@ -10,16 +10,14 @@ import RIBs
 
 // MARK: - UserInformationInteractable
 
-protocol UserInformationInteractable: Interactable {
+protocol UserInformationInteractable: Interactable, UserLocationListener {
   var router: UserInformationRouting? { get set }
   var listener: UserInformationListener? { get set }
 }
 
 // MARK: - UserInformationViewControllable
 
-protocol UserInformationViewControllable: ViewControllable {
-  // TODO: Declare methods the router invokes to manipulate the view hierarchy.
-}
+protocol UserInformationViewControllable: ViewControllable {}
 
 // MARK: - UserInformationRouter
 
@@ -28,9 +26,33 @@ final class UserInformationRouter:
   UserInformationRouting
 {
 
-  // TODO: Constructor inject child builder protocols to allow building children.
-  override init(interactor: UserInformationInteractable, viewController: UserInformationViewControllable) {
+  private let userLocationBuilder: UserLocationBuildable
+  private var userLocationRouter: UserLocationRouting?
+
+  init(
+    userLocationBuilder: UserLocationBuildable,
+    interactor: UserInformationInteractable,
+    viewController: UserInformationViewControllable
+  ) {
+    self.userLocationBuilder = userLocationBuilder
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
+  }
+}
+
+extension UserInformationRouter {
+  func attachUserLocationRIB(annotationMetadata: MapPointAnnotationMetadata) {
+    guard userLocationRouter == nil else { return }
+    let router = userLocationBuilder.build(annotationMetadata: annotationMetadata, withListener: interactor)
+    userLocationRouter = router
+    attachChild(router)
+    viewController.show(router.viewControllable)
+  }
+
+  func detachUserLocationRIB() {
+    guard let router = userLocationRouter else { return }
+    userLocationRouter = nil
+    detachChild(router)
+    viewController.remove(router.viewControllable)
   }
 }
