@@ -2,9 +2,6 @@
 
 [RIBs](https://github.com/uber/RIBs) X [ReactorKit](https://github.com/ReactorKit/ReactorKit) PoC
 
-> **Current working branch: feature/user-information**
-
-
 <img src="./Docs/RIBsReactorKit.png" alt="RIBsReactorKit" width="500" />
 
 
