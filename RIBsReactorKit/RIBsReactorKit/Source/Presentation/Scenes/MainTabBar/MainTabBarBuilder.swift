@@ -23,7 +23,7 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
   }
 
   fileprivate var randomUserRepository: RandomUserRepository {
-    RandomUserRepositoryImpl(service: Networking<RandomUserService>())
+    RandomUserRepositoryImpl(networkingProvider: Networking())
   }
 
   fileprivate var userModelTranslator: UserModelTranslator {

@@ -26,20 +26,10 @@ final class UserLocationRouter:
   UserLocationRouting
 {
 
-  // MARK: - Con(De)structor
+  // MARK: - Initialization & Deinitialization
 
-  override init(
-    interactor: UserLocationInteractable,
-    viewController: UserLocationViewControllable
-  ) {
-    super.init(
-      interactor: interactor,
-      viewController: viewController
-    )
+  override init(interactor: UserLocationInteractable, viewController: UserLocationViewControllable) {
+    super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
 }
-
-// MARK: - UserLocationRouting
-
-extension UserLocationRouter {}

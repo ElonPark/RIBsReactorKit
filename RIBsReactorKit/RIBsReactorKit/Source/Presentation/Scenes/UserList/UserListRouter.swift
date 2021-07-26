@@ -27,7 +27,7 @@ final class UserListRouter:
   UserListRouting
 {
 
-  private let userInformationBuilder: UserInformationBuilder
+  private let userInformationBuilder: UserInformationBuildable
   private var userInformationRouter: UserInformationRouting?
 
   // MARK: - Initialization & Deinitialization
@@ -46,15 +46,13 @@ final class UserListRouter:
     let router = userInformationBuilder.build(withListener: interactor)
     userInformationRouter = router
     attachChild(router)
-    viewController.present(router.viewControllable)
-//    viewController.push(viewController: router.viewControllable)
+    viewController.push(viewController: router.viewControllable)
   }
 
   func detachUserInformationRIB() {
     guard let router = userInformationRouter else { return }
     userInformationRouter = nil
     detachChild(router)
-    viewController.dismiss(router.viewControllable)
-//    viewController.pop(router.viewControllable)
+    viewController.pop(router.viewControllable)
   }
 }
