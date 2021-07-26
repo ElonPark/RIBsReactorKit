@@ -14,20 +14,21 @@ protocol RootDependency: Dependency {}
 
 final class RootComponent: Component<RootDependency> {
 
-  let userListViewController: UserListPresentable & UserListViewControllable
-  let userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable
-  let mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable
+  var userListViewController: UserListPresentable & UserListViewControllable {
+    shared { UserListViewController() }
+  }
 
-  init(
-    dependency: RootDependency,
-    userListViewController: UserListPresentable & UserListViewControllable,
-    userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable,
-    mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable
-  ) {
-    self.userListViewController = userListViewController
-    self.userCollectionViewController = userCollectionViewController
-    self.mainTabBarViewController = mainTabBarViewController
-    super.init(dependency: dependency)
+  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
+    shared { UserCollectionViewController() }
+  }
+
+  var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable {
+    shared {
+      MainTabBarViewController(viewControllers: [
+        UINavigationController(root: userListViewController),
+        UINavigationController(root: userCollectionViewController)
+      ])
+    }
   }
 }
 
@@ -46,19 +47,7 @@ final class RootBuilder: Builder<RootDependency>, RootBuildable {
   }
 
   func build() -> LaunchRouting {
-    let userListViewController = UserListViewController()
-    let userCollectionViewController = UserCollectionViewController()
-    let mainTabBarViewController = MainTabBarViewController(viewControllers: [
-      UINavigationController(root: userListViewController),
-      UINavigationController(root: userCollectionViewController)
-    ])
-
-    let component = RootComponent(
-      dependency: dependency,
-      userListViewController: userListViewController,
-      userCollectionViewController: userCollectionViewController,
-      mainTabBarViewController: mainTabBarViewController
-    )
+    let component = RootComponent(dependency: dependency)
     let interactor = RootInteractor()
 
     let mainTabBarBuilder = MainTabBarBuilder(dependency: component)

@@ -23,22 +23,26 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
   }
 
   fileprivate var randomUserRepository: RandomUserRepository {
-    RandomUserRepositoryImpl(service: Networking<RandomUserService>())
+    RandomUserRepositoryImpl(networkingProvider: Networking())
   }
 
   fileprivate var userModelTranslator: UserModelTranslator {
     UserModelTranslatorImpl()
   }
 
-  private var mutableUserModelsStream: MutableUserModelDataStream {
+  private var mutableUserModelDataStream: MutableUserModelDataStream {
     shared { UserModelDataStreamImpl() }
+  }
+
+  var userModelDataStream: UserModelDataStream {
+    mutableUserModelDataStream
   }
 
   var randomUserUseCase: RandomUserUseCase {
     RandomUserUseCaseImpl(
       repository: randomUserRepository,
       translator: userModelTranslator,
-      mutableUserModelsStream: mutableUserModelsStream
+      mutableUserModelsStream: mutableUserModelDataStream
     )
   }
 }

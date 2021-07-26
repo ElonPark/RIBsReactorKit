@@ -33,11 +33,20 @@ final class UserCollectionInteractor:
   weak var listener: UserCollectionListener?
 
   private let randomUserUseCase: RandomUserUseCase
+  private let userModelDataStream: UserModelDataStream
+  private let mutableUserModelStream: MutableSelectedUserModelStream
 
   // MARK: - Initialization & Deinitialization
 
-  init(randomUserUseCase: RandomUserUseCase, presenter: UserCollectionPresentable) {
+  init(
+    randomUserUseCase: RandomUserUseCase,
+    userModelDataStream: UserModelDataStream,
+    mutableUserModelStream: MutableSelectedUserModelStream,
+    presenter: UserCollectionPresentable
+  ) {
     self.randomUserUseCase = randomUserUseCase
+    self.userModelDataStream = userModelDataStream
+    self.mutableUserModelStream = mutableUserModelStream
 
     super.init(presenter: presenter)
     presenter.listener = self

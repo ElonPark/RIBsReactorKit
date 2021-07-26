@@ -25,8 +25,6 @@ final class RootInteractor: Interactor, RootInteractable {
   weak var router: RootRouting?
   weak var listener: RootListener?
 
-  override init() {}
-
   override func didBecomeActive() {
     super.didBecomeActive()
     router?.attachMainTapBarRIB()

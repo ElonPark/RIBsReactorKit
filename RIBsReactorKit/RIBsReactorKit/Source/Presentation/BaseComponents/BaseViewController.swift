@@ -8,16 +8,19 @@
 
 import UIKit
 
+import RxRelay
 import RxSwift
 
 class BaseViewController:
   UIViewController,
   HasSetupConstraints,
+  HasDetachAction,
   HasDisposeBag
 {
 
   // MARK: - Properties
 
+  let detachAction = PublishRelay<Void>()
   var disposeBag = DisposeBag()
 
   private(set) var didSetupConstraints: Bool = false
@@ -42,6 +45,12 @@ class BaseViewController:
   override func viewDidLoad() {
     super.viewDidLoad()
     view.setNeedsUpdateConstraints()
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    guard isMovingFromParent || isBeingDismissed else { return }
+    detachAction.accept(Void())
   }
 
   // MARK: - Inheritance

@@ -10,21 +10,10 @@ import RxDataSources
 
 // MARK: - UserInfoSectionModel
 
-struct UserInfoSectionModel {
+struct UserInfoSectionModel: Equatable {
   var header: UserInfoSectionHeaderViewModel?
   var hasFooter: Bool
   var items: [UserInfoSectionItem]
-}
-
-// MARK: - Equatable
-
-extension UserInfoSectionModel: Equatable {
-  static func == (lhs: UserInfoSectionModel, rhs: UserInfoSectionModel) -> Bool {
-    let isEqulHeader = lhs.header?.title == rhs.header?.title
-    let isEqulFooter = lhs.hasFooter == rhs.hasFooter
-    let isEqulItems = lhs.items == rhs.items
-    return isEqulHeader && isEqulFooter && isEqulItems
-  }
 }
 
 // MARK: - SectionModelType
@@ -40,32 +29,29 @@ extension UserInfoSectionModel: SectionModelType {
 
 // MARK: - UserInfoSectionItem
 
-enum UserInfoSectionItem {
+enum UserInfoSectionItem: Equatable {
   case profile(UserProfileViewModel)
   case detail(UserDetailInfoItemViewModel)
+  case location(UserLocationViewModel)
   case dummyProfile
   case dummy
 }
 
-// MARK: - Equatable
+// MARK: - CustomStringConvertible
 
-extension UserInfoSectionItem: Equatable {
-  static func == (lhs: UserInfoSectionItem, rhs: UserInfoSectionItem) -> Bool {
-    switch (lhs, rhs) {
-    case let (.profile(lhsViewModel), .profile(rhsViewModel)):
-      return lhsViewModel.uuid == rhsViewModel.uuid
-
-    case let (.detail(lhsViewModel), .detail(rhsViewModel)):
-      return lhsViewModel.uuid == rhsViewModel.uuid
-
-    case (.dummyProfile, .dummyProfile):
-      return true
-
-    case (.dummy, .dummy):
-      return true
-
-    default:
-      return false
+extension UserInfoSectionItem: CustomStringConvertible {
+  var description: String {
+    switch self {
+    case let .profile(viewModel):
+      return "item: profile, title: \(viewModel.titleWithLastName)"
+    case let .detail(viewModel):
+      return "item: detail, title: \(viewModel.title), subtitle: \(viewModel.subtitle ?? "nil")"
+    case let .location(viewModel):
+      return "item: location, location: \(viewModel.location)"
+    case .dummyProfile:
+      return "item: dummyProfile"
+    case .dummy:
+      return "item: dummy"
     }
   }
 }

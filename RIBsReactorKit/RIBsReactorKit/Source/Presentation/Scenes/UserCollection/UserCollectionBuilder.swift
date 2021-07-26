@@ -11,20 +11,33 @@ import RIBs
 // MARK: - UserCollectionDependency
 
 protocol UserCollectionDependency: Dependency {
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
   var randomUserUseCase: RandomUserUseCase { get }
+  var userModelDataStream: UserModelDataStream { get }
+  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
 }
 
 // MARK: - UserCollectionComponent
 
 final class UserCollectionComponent: Component<UserCollectionDependency> {
 
-  fileprivate var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
-    dependency.userCollectionViewController
+  var userModelStream: SelectedUserModelStream {
+    mutableUserModelStream
+  }
+
+  fileprivate var mutableUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
   }
 
   fileprivate var randomUserUseCase: RandomUserUseCase {
     dependency.randomUserUseCase
+  }
+
+  fileprivate var userModelDataStream: UserModelDataStream {
+    dependency.userModelDataStream
+  }
+
+  fileprivate var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
+    dependency.userCollectionViewController
   }
 }
 
@@ -53,9 +66,12 @@ final class UserCollectionBuilder:
     let component = UserCollectionComponent(dependency: dependency)
     let interactor = UserCollectionInteractor(
       randomUserUseCase: component.randomUserUseCase,
+      userModelDataStream: component.userModelDataStream,
+      mutableUserModelStream: component.mutableUserModelStream,
       presenter: component.userCollectionViewController
     )
     interactor.listener = listener
+
     return UserCollectionRouter(
       interactor: interactor,
       viewController: component.userCollectionViewController

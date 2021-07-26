@@ -6,23 +6,11 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import UIKit
+import UIKit.UIImage
 
-// MARK: - UserDetailInfoItemViewModel
+struct UserDetailInfoItemViewModel: HasUUID, Equatable {
 
-protocol UserDetailInfoItemViewModel: HasUserModel, HasUUID {
-  var icon: UIImage? { get }
-  var title: String { get }
-  var subtitle: String? { get }
-  var showSeparatorLine: Bool { get }
-  var hasSubtitle: Bool { get }
-}
-
-// MARK: - UserDetailInfoItemViewModelImpl
-
-struct UserDetailInfoItemViewModelImpl: UserDetailInfoItemViewModel, Equatable {
-
-  let userModel: UserModel
+  let uuid: String
   let icon: UIImage?
   let title: String
   let subtitle: String?
@@ -31,5 +19,13 @@ struct UserDetailInfoItemViewModelImpl: UserDetailInfoItemViewModel, Equatable {
   var hasSubtitle: Bool {
     guard let subtitle = subtitle else { return false }
     return !subtitle.isEmpty
+  }
+
+  init(userModel: UserModel, icon: UIImage?, title: String, subtitle: String?, showSeparatorLine: Bool) {
+    self.uuid = userModel.uuid
+    self.icon = icon
+    self.title = title
+    self.subtitle = subtitle
+    self.showSeparatorLine = showSeparatorLine
   }
 }

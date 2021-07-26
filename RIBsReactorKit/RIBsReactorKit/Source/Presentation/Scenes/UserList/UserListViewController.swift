@@ -40,8 +40,8 @@ protocol UserListPresentableListener: AnyObject {
 
 final class UserListViewController:
   BaseViewController,
-  PullToRefreshable,
   HasTableView,
+  PullToRefreshable,
   UserListPresentable,
   UserListViewControllable
 {
@@ -70,6 +70,7 @@ final class UserListViewController:
     .isSkeletonable(true)
     .reinforce {
       $0.register(UserListItemCell.self)
+      $0.showAnimatedGradientSkeleton()
     }
     .build()
 
@@ -88,10 +89,12 @@ final class UserListViewController:
     bindUI()
     bind(listener: listener)
   }
+}
 
-  // MARK: - Private methods
+// MARK: - Private methods
 
-  private func setTabBarItem() {
+private extension UserListViewController {
+  func setTabBarItem() {
     tabBarItem = UITabBarItem(
       title: Strings.TabBarTitle.list,
       image: Asset.Images.TabBarIcons.listTab.image,
@@ -99,7 +102,7 @@ final class UserListViewController:
     )
   }
 
-  private func dataSource() -> UserListDataSource {
+  func dataSource() -> UserListDataSource {
     UserListDataSource(
       configureCell: { _, tableView, indexPath, sectionItem in
         switch sectionItem {
@@ -115,20 +118,23 @@ final class UserListViewController:
       }
     )
   }
+}
 
-  // MARK: - Binding
+// MARK: - Binding
 
-  private func bindUI() {
+private extension UserListViewController {
+  func bindUI() {
     bindRefreshControlEvent()
     bindDisplayDummyCellAnimation()
   }
 
-  private func bindDisplayDummyCellAnimation() {
+  func bindDisplayDummyCellAnimation() {
     tableView.rx.willDisplayCell
       .asDriver()
       .drive(onNext: { cell, indexPath in
         guard let userListCell = cell as? UserListItemCell,
-              userListCell.isSkeletonActive && userListCell.viewModel == nil else { return }
+              userListCell.isSkeletonActive && userListCell.viewModel == nil
+        else { return }
 
         userListCell.alpha = 0
         UIView.animate(
@@ -142,22 +148,24 @@ final class UserListViewController:
       .disposed(by: disposeBag)
   }
 
-  private func bind(listener: UserListPresentableListener?) {
+  func bind(listener: UserListPresentableListener?) {
     guard let listener = listener else { return }
     bindActions(to: listener)
     bindState(from: listener)
   }
+}
 
-  // MARK: - Binding Action
+// MARK: - Binding Action
 
-  private func bindActions(to listener: UserListPresentableListener) {
+private extension UserListViewController {
+  func bindActions(to listener: UserListPresentableListener) {
     bindViewWillAppearAction(to: listener)
     bindRefreshControlAction(to: listener)
     bindLoadMoreAction(to: listener)
     bindItemSelectedAction(to: listener)
   }
 
-  private func bindViewWillAppearAction(to listener: UserListPresentableListener) {
+  func bindViewWillAppearAction(to listener: UserListPresentableListener) {
     rx.viewWillAppear
       .take(1)
       .map { _ in .loadData }
@@ -165,67 +173,72 @@ final class UserListViewController:
       .disposed(by: disposeBag)
   }
 
-  private func bindRefreshControlAction(to listener: UserListPresentableListener) {
+  func bindRefreshControlAction(to listener: UserListPresentableListener) {
     refreshEvent
       .map { .refresh }
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
 
-  private func bindLoadMoreAction(to listener: UserListPresentableListener) {
+  func bindLoadMoreAction(to listener: UserListPresentableListener) {
     tableView.rx.willDisplayCell
       .map { .loadMore($0.indexPath) }
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
 
-  private func bindItemSelectedAction(to listener: UserListPresentableListener) {
+  func bindItemSelectedAction(to listener: UserListPresentableListener) {
     tableView.rx.itemSelected
       .map { .itemSelected($0) }
       .bind(to: listener.action)
       .disposed(by: disposeBag)
   }
+}
 
-  // MARK: - Binding State
+// MARK: - Binding State
 
-  private func bindState(from listener: UserListPresentableListener) {
+private extension UserListViewController {
+  func bindState(from listener: UserListPresentableListener) {
     bindIsLoadingState(from: listener)
     bindIsRefreshState(from: listener)
     bindUserListSectionsState(from: listener)
   }
 
-  private func bindIsLoadingState(from listener: UserListPresentableListener) {
+  func bindIsLoadingState(from listener: UserListPresentableListener) {
     listener.state.map(\.isLoading)
       .distinctUntilChanged()
-      .bind { [weak self] isLoading in
-        self?.tableViewSkeletonAnimation(by: isLoading)
+      .withUnretained(self)
+      .bind { this, isLoading in
+        this.tableViewSkeletonAnimation(by: isLoading)
       }
       .disposed(by: disposeBag)
   }
 
-  private func bindIsRefreshState(from listener: UserListPresentableListener) {
+  func bindIsRefreshState(from listener: UserListPresentableListener) {
     listener.state.map(\.isRefresh)
       .distinctUntilChanged()
-      .bind { [weak self] isRefresh in
-        self?.tableViewSkeletonAnimation(by: isRefresh)
+      .withUnretained(self)
+      .bind { this, isRefresh in
+        this.tableViewSkeletonAnimation(by: isRefresh)
 
         guard !isRefresh else { return }
-        self?.endRefreshing()
+        this.endRefreshing()
       }
       .disposed(by: disposeBag)
   }
 
-  private func tableViewSkeletonAnimation(by isLoading: Bool) {
-    if isLoading {
-      tableView.showAnimatedGradientSkeleton()
-    } else {
-      tableView.hideSkeleton(transition: .crossDissolve(0.25))
-      // To fix UILabel text when it is not visible after tableView.hideSkeleton.
-      tableView.reloadData()
+  func tableViewSkeletonAnimation(by isLoading: Bool) {
+    DispatchQueue.main.async { [weak self] in
+      guard let this = self else { return }
+      if isLoading {
+        this.tableView.showAnimatedGradientSkeleton()
+      } else {
+        this.tableView.hideSkeleton(transition: .crossDissolve(0.25))
+      }
     }
   }
 
-  private func bindUserListSectionsState(from listener: UserListPresentableListener) {
+  func bindUserListSectionsState(from listener: UserListPresentableListener) {
     listener.state.map(\.userListSections)
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
@@ -238,7 +251,9 @@ final class UserListViewController:
 
 extension UserListViewController {
   private func setupUI() {
+    navigationItem.title = Strings.UserList.title
     view.addSubview(tableView)
+
     setRefreshControl()
     layout()
   }
@@ -259,7 +274,7 @@ extension UserListViewController {
       let userModelTranslator = UserModelTranslatorImpl()
 
       let dummySectionItems = userModelTranslator.translateToUserModel(by: randomUser.results)
-        .map { UserListItemViewModelImpl(userModel: $0) }
+        .map(UserListItemViewModel.init)
         .map(UserListSectionItem.user)
 
       Observable.just([.randomUser(dummySectionItems)])

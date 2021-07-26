@@ -8,29 +8,17 @@
 
 import Foundation
 
-// MARK: - UserListItemViewModel
+struct UserListItemViewModel: HasUUID, Equatable {
 
-protocol UserListItemViewModel: HasUserModel, HasUUID {
-  var profileImageURL: URL? { get }
-  var titleWithFullName: String { get }
-  var location: String { get }
-}
+  let uuid: String
+  let profileImageURL: URL?
+  let titleWithFullName: String
+  let location: String
 
-// MARK: - UserListItemViewModelImpl
-
-struct UserListItemViewModelImpl: UserListItemViewModel, Equatable {
-
-  let userModel: UserModel
-
-  var profileImageURL: URL? {
-    userModel.thumbnailImageURL
-  }
-
-  var titleWithFullName: String {
-    "\(userModel.name.title). \(userModel.name.first) \(userModel.name.last)"
-  }
-
-  var location: String {
-    "\(userModel.location.city) \(userModel.location.state) \(userModel.location.country)"
+  init(userModel: UserModel) {
+    self.uuid = userModel.uuid
+    self.profileImageURL = userModel.picture.mediumImageURL
+    self.titleWithFullName = "\(userModel.name.title). \(userModel.name.first) \(userModel.name.last)"
+    self.location = "\(userModel.location.city) \(userModel.location.state) \(userModel.location.country)"
   }
 }

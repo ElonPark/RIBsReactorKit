@@ -11,20 +11,21 @@ import RIBs
 // MARK: - UserListDependency
 
 protocol UserListDependency: UserListDependencyUserInformation {
-  var userListViewController: UserListPresentable & UserListViewControllable { get }
   var randomUserUseCase: RandomUserUseCase { get }
+  var userModelDataStream: UserModelDataStream { get }
+  var userListViewController: UserListPresentable & UserListViewControllable { get }
 }
 
 // MARK: - UserListComponent
 
 final class UserListComponent: Component<UserListDependency> {
 
-  var userModelStream: UserModelStream {
-    mutableUserModelStream
+  var selectedUserModelStream: SelectedUserModelStream {
+    mutableSelectedUserModelStream
   }
 
-  fileprivate var mutableUserModelStream: MutableUserModelStream {
-    shared { UserModelStreamImpl() }
+  fileprivate var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
   }
 
   fileprivate var initialState: UserListPresentableState {
@@ -35,6 +36,10 @@ final class UserListComponent: Component<UserListDependency> {
 
   fileprivate var randomUserUseCase: RandomUserUseCase {
     dependency.randomUserUseCase
+  }
+
+  fileprivate var userModelDataStream: UserModelDataStream {
+    dependency.userModelDataStream
   }
 
   fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
@@ -68,7 +73,8 @@ final class UserListBuilder:
     let interactor = UserListInteractor(
       initialState: component.initialState,
       randomUserUseCase: component.randomUserUseCase,
-      mutableUserModelStream: component.mutableUserModelStream,
+      userModelDataStream: component.userModelDataStream,
+      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
       presenter: component.userListViewController
     )
     interactor.listener = listener

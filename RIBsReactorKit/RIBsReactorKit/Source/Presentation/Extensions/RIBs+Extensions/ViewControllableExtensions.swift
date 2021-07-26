@@ -12,40 +12,63 @@ import RIBs
 
 extension ViewControllable {
   private var navigationController: UIKit.UINavigationController? {
-    if uiviewController is UIKit.UINavigationController {
-      return uiviewController as? UIKit.UINavigationController
-    } else {
-      return uiviewController.navigationController
+    uiviewController as? UIKit.UINavigationController ?? uiviewController.navigationController
+  }
+
+  func push(
+    viewController: ViewControllable,
+    animated: Bool = true,
+    completion: (() -> Void)? = nil,
+    shouldHidesBottomBarWhenPushed: Bool = true,
+    needToDismissPresentedViewController: Bool = true,
+    presentedViewControllerDismissAnimated: Bool = false
+  ) {
+    if shouldHidesBottomBarWhenPushed {
+      setHidesBottomBarWhenPushed(to: viewController)
+    }
+
+    checkPresentedViewController(
+      of: self,
+      needToDismissPresentedViewController: needToDismissPresentedViewController,
+      presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
+    ) { [weak self] in
+      self?.navigationController?.pushViewController(
+        viewController.uiviewController,
+        animated: animated
+      )
+      completion?()
     }
   }
 
-  func push(viewController: ViewControllable, animated: Bool = true) {
-    navigationController?.pushViewController(
-      viewController.uiviewController,
-      animated: animated
-    )
+  private func setHidesBottomBarWhenPushed(to viewController: ViewControllable) {
+    // iOS 14.0, 14.1 BottomBar bug https://developer.apple.com/forums/thread/660750
+    let canHideBottomBarWhenPushed = navigationController?.viewControllers.count == 1
+    viewController.uiviewController.hidesBottomBarWhenPushed = canHideBottomBarWhenPushed
   }
 
   func pop(
     _ viewController: ViewControllable,
     animated: Bool = true,
+    completion: (() -> Void)? = nil,
     needToDismissPresentedViewController: Bool = true,
-    dismissAnimated: Bool = false
+    presentedViewControllerDismissAnimated: Bool = false
   ) {
     guard !viewController.uiviewController.isMovingFromParent else { return }
     if uiviewController is UIKit.UINavigationController {
       pop(
         viewController: viewController,
         animated: animated,
+        completion: completion,
         needToDismissPresentedViewController: needToDismissPresentedViewController,
-        dismissAnimated: dismissAnimated
+        presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
       )
     } else {
       pop(
         to: self,
         animated: animated,
+        completion: completion,
         needToDismissPresentedViewController: needToDismissPresentedViewController,
-        dismissAnimated: dismissAnimated
+        presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
       )
     }
   }
@@ -53,47 +76,53 @@ extension ViewControllable {
   func pop(
     to viewController: ViewControllable,
     animated: Bool = true,
+    completion: (() -> Void)? = nil,
     needToDismissPresentedViewController: Bool = true,
-    dismissAnimated: Bool = false
+    presentedViewControllerDismissAnimated: Bool = false
   ) {
     checkPresentedViewController(
       of: viewController,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
-      dismissAnimated: dismissAnimated
+      presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
     ) { [weak self] in
       self?.navigationController?.popToViewController(
         viewController.uiviewController,
         animated: animated
       )
+      completion?()
     }
   }
 
   private func pop(
     viewController: ViewControllable,
     animated: Bool,
+    completion: (() -> Void)? = nil,
     needToDismissPresentedViewController: Bool,
-    dismissAnimated: Bool
+    presentedViewControllerDismissAnimated: Bool
   ) {
     checkPresentedViewController(
       of: viewController,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
-      dismissAnimated: dismissAnimated
+      presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
     ) {
       viewController.uiviewController.navigationController?.popViewController(animated: animated)
+      completion?()
     }
   }
 
   func popToRootViewController(
     animated: Bool = true,
+    completion: (() -> Void)? = nil,
     needToDismissPresentedViewController: Bool = true,
-    dismissAnimated: Bool = false
+    presentedViewControllerDismissAnimated: Bool = false
   ) {
     checkPresentedViewController(
       of: self,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
-      dismissAnimated: dismissAnimated
+      presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
     ) { [weak self] in
       self?.navigationController?.popToRootViewController(animated: animated)
+      completion?()
     }
   }
 
@@ -107,13 +136,61 @@ extension ViewControllable {
     checkPresentedViewController(
       of: self,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
-      dismissAnimated: presentedViewControllerDismissAnimated
+      presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
     ) { [weak self] in
       self?.uiviewController.present(
         viewController.uiviewController,
         animated: animated,
         completion: completion
       )
+    }
+  }
+
+  func show(
+    _ viewController: ViewControllable,
+    animated: Bool = true,
+    completion: (() -> Void)? = nil,
+    shouldHidesBottomBarWhenPushed: Bool = true,
+    needToDismissPresentedViewController: Bool = true,
+    presentedViewControllerDismissAnimated: Bool = false
+  ) {
+    if navigationController != nil {
+      push(
+        viewController: viewController,
+        animated: animated,
+        completion: completion,
+        shouldHidesBottomBarWhenPushed: shouldHidesBottomBarWhenPushed,
+        needToDismissPresentedViewController: needToDismissPresentedViewController,
+        presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
+      )
+    } else {
+      present(
+        viewController,
+        animated: animated,
+        completion: completion,
+        needToDismissPresentedViewController: needToDismissPresentedViewController,
+        presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
+      )
+    }
+  }
+
+  func remove(
+    _ viewController: ViewControllable,
+    animated: Bool = true,
+    completion: (() -> Void)? = nil,
+    needToDismissPresentedViewController: Bool = true,
+    presentedViewControllerDismissAnimated: Bool = false
+  ) {
+    if navigationController != nil {
+      pop(
+        viewController,
+        animated: animated,
+        completion: completion,
+        needToDismissPresentedViewController: needToDismissPresentedViewController,
+        presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
+      )
+    } else {
+      dismiss(viewController, animated: animated, completion: completion)
     }
   }
 
@@ -147,12 +224,12 @@ extension ViewControllable {
   private func checkPresentedViewController(
     of viewController: ViewControllable,
     needToDismissPresentedViewController: Bool,
-    dismissAnimated: Bool,
+    presentedViewControllerDismissAnimated: Bool,
     completion: (() -> Void)?
   ) {
     if needToDismissPresentedViewController,
        let presentedViewController = viewController.uiviewController.presentedViewController {
-      presentedViewController.dismiss(animated: dismissAnimated, completion: completion)
+      presentedViewController.dismiss(animated: presentedViewControllerDismissAnimated, completion: completion)
     } else {
       completion?()
     }
