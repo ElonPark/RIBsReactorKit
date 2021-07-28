@@ -40,7 +40,6 @@ final class UserListInteractor:
   typealias State = UserListPresentableState
 
   enum Mutation {
-    case loadData
     case setLoading(Bool)
     case setRefresh(Bool)
     case userListSections([UserListSectionModel])
@@ -104,7 +103,7 @@ extension UserListInteractor {
   private func refreshMutation() -> Observable<Mutation> {
     let loadData: Observable<Mutation> = randomUserUseCase
       .loadData(isRefresh: true, itemCount: requestItemCount)
-      .map { .loadData }
+      .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
 
     let sequence: [Observable<Mutation>] = [
@@ -124,7 +123,7 @@ extension UserListInteractor {
     guard indexPath.row == lastItemRow else { return .empty() }
 
     return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
-      .map { Mutation.loadData }
+      .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
   }
 
@@ -146,13 +145,10 @@ extension UserListInteractor {
   // MARK: - transform mutation
 
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-    return mutation
+    return .merge(mutation, updateUserModelsTransform())
       .withUnretained(self)
       .flatMap { this, mutation -> Observable<Mutation> in
         switch mutation {
-        case .loadData:
-          return this.updateUserModelsTransform()
-
         case let .selectedUser(userModel):
           return this.selectedUserTransform(by: userModel)
 
@@ -166,6 +162,7 @@ extension UserListInteractor {
   /// (.loadData, .refresh, .loadMore)
   private func updateUserModelsTransform() -> Observable<Mutation> {
     return userModelDataStream.userModels
+      .filter { !$0.isEmpty }
       .distinctUntilChanged()
       .map { $0.map(UserListItemViewModel.init) }
       .map { $0.map(UserListSectionItem.user) }
@@ -195,7 +192,7 @@ extension UserListInteractor {
     case let .userListSections(sections):
       newState.userListSections = sections
 
-    case .loadData, .selectedUser:
+    case .selectedUser:
       Log.debug("Do Nothing when \(mutation)")
     }
 
