@@ -43,7 +43,7 @@ final class UserListInteractor:
     case setLoading(Bool)
     case setRefresh(Bool)
     case userListSections([UserListSectionModel])
-    case selectedUser(UserModel)
+    case attachUserInformationRIB(UserModel)
   }
 
   // MARK: - Properties
@@ -135,7 +135,8 @@ extension UserListInteractor {
     switch item {
     case let .user(viewModel):
       guard let user = userModelDataStream.userModel(byUUID: viewModel.uuid) else { return .empty() }
-      return .just(.selectedUser(user))
+      mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
+      return .just(.attachUserInformationRIB(user))
 
     case .dummy:
       return .empty()
@@ -149,8 +150,8 @@ extension UserListInteractor {
       .withUnretained(self)
       .flatMap { this, mutation -> Observable<Mutation> in
         switch mutation {
-        case let .selectedUser(userModel):
-          return this.selectedUserTransform(by: userModel)
+        case let .attachUserInformationRIB(userModel):
+          return this.attachUserInformationRIBTransform(by: userModel)
 
         default:
           return .just(mutation)
@@ -169,8 +170,7 @@ extension UserListInteractor {
   }
 
   /// Show selected user information
-  private func selectedUserTransform(by userModel: UserModel) -> Observable<Mutation> {
-    mutableSelectedUserModelStream.updateSelectedUserModel(by: userModel)
+  private func attachUserInformationRIBTransform(by userModel: UserModel) -> Observable<Mutation> {
     router?.attachUserInformationRIB()
     return .empty()
   }
@@ -190,7 +190,7 @@ extension UserListInteractor {
     case let .userListSections(sections):
       newState.userListSections = sections
 
-    case .selectedUser:
+    case .attachUserInformationRIB:
       Log.debug("Do Nothing when \(mutation)")
     }
 
