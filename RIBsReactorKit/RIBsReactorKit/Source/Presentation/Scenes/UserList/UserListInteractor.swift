@@ -158,8 +158,6 @@ extension UserListInteractor {
       }
   }
 
-  /// mutableUserModelsStream is update userModels when trigger Action
-  /// (.loadData, .refresh, .loadMore)
   private func updateUserModelsTransform() -> Observable<Mutation> {
     return userModelDataStream.userModels
       .filter { !$0.isEmpty }
