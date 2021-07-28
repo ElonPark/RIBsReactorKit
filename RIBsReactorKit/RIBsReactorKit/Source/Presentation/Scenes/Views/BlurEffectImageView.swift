@@ -12,7 +12,7 @@ import SnapKit
 
 // MARK: - BlurEffectImageView
 
-final class BlurEffectImageView: UIImageView {
+final class BlurEffectImageView: BaseImageView {
 
   // MARK: - Properties
 
@@ -26,39 +26,17 @@ final class BlurEffectImageView: UIImageView {
 
   private let blurView = UIVisualEffectView()
 
-  // MARK: - Initialization & Deinitialization
-
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    setupUI()
-  }
-
-  override init(image: UIImage?) {
-    super.init(image: image)
-    setupUI()
-  }
-
-  override init(image: UIImage?, highlightedImage: UIImage?) {
-    super.init(image: image, highlightedImage: highlightedImage)
-    setupUI()
-  }
-
-  @available(*, unavailable)
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-}
-
-// MARK: - Layout
-
-extension BlurEffectImageView {
-  private func setupUI() {
+  override func initialize() {
+    super.initialize()
     addSubview(blurView)
-
-    layout()
   }
 
-  private func layout() {
+  override func setupConstraints() {
+    super.setupConstraints()
+    makeBlurViewConstraints()
+  }
+
+  private func makeBlurViewConstraints() {
     blurView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
