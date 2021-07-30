@@ -8,7 +8,6 @@
 
 import UIKit
 
-import ReactorKit
 import RIBs
 import RxCocoa
 import RxDataSources
@@ -28,7 +27,7 @@ protocol UserInformationPresentableListener: AnyObject {
   typealias Action = UserInformationPresentableAction
   typealias State = UserInformationPresentableState
 
-  var action: ActionSubject<Action> { get }
+  func sendAction(_ action: Action)
   var state: Observable<State> { get }
 }
 
@@ -55,6 +54,8 @@ final class UserInformationViewController:
   // MARK: - Properties
 
   weak var listener: UserInformationPresentableListener?
+
+  private let actionRelay = PublishRelay<UserInformationPresentableListener.Action>()
 
   // MARK: - UI Components
 
@@ -192,40 +193,48 @@ private extension UserInformationViewController {
 
   private func bind(listener: UserInformationPresentableListener?) {
     guard let listener = listener else { return }
-    bindActions(to: listener)
+    bindActionRelay()
+    bindActions()
     bindState(from: listener)
+  }
+
+  func bindActionRelay() {
+    actionRelay.asObservable()
+      .bind(with: self) { this, action in
+        this.listener?.sendAction(action)
+      }
+      .disposed(by: disposeBag)
   }
 }
 
 // MARK: - Binding Action
 
 private extension UserInformationViewController {
-  func bindActions(to listener: UserInformationPresentableListener) {
-    bindViewWillAppearAction(to: listener)
-    bindItemSelectedAction(to: listener)
-    bindDetachAction(to: listener)
+  func bindActions() {
+    bindViewWillAppearAction()
+    bindItemSelectedAction()
+    bindDetachAction()
   }
 
-  func bindViewWillAppearAction(to listener: UserInformationPresentableListener) {
+  func bindViewWillAppearAction() {
     rx.viewWillAppear
       .take(1)
       .map { _ in .viewWillAppear }
-      .bind(to: listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindItemSelectedAction(to listener: UserInformationPresentableListener) {
+  func bindItemSelectedAction() {
     collectionView.rx.itemSelected
-      .asDriver()
       .map { .itemSelected($0) }
-      .drive(listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindDetachAction(to listener: UserInformationPresentableListener) {
+  func bindDetachAction() {
     detachAction
       .map { .detach }
-      .bind(to: listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 }

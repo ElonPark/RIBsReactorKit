@@ -149,10 +149,9 @@ private extension UserListViewController {
   }
 
   func bind(listener: UserListPresentableListener?) {
-    bindActionRelay()
-
     guard let listener = listener else { return }
-    bindActions(to: listener)
+    bindActionRelay()
+    bindActions()
     bindState(from: listener)
   }
 
@@ -168,14 +167,14 @@ private extension UserListViewController {
 // MARK: - Binding Action
 
 private extension UserListViewController {
-  func bindActions(to listener: UserListPresentableListener) {
-    bindViewWillAppearAction(to: listener)
-    bindRefreshControlAction(to: listener)
-    bindLoadMoreAction(to: listener)
-    bindItemSelectedAction(to: listener)
+  func bindActions() {
+    bindViewWillAppearAction()
+    bindRefreshControlAction()
+    bindLoadMoreAction()
+    bindItemSelectedAction()
   }
 
-  func bindViewWillAppearAction(to listener: UserListPresentableListener) {
+  func bindViewWillAppearAction() {
     rx.viewWillAppear
       .take(1)
       .map { _ in .loadData }
@@ -183,21 +182,21 @@ private extension UserListViewController {
       .disposed(by: disposeBag)
   }
 
-  func bindRefreshControlAction(to listener: UserListPresentableListener) {
+  func bindRefreshControlAction() {
     refreshEvent
       .map { .refresh }
       .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindLoadMoreAction(to listener: UserListPresentableListener) {
+  func bindLoadMoreAction() {
     tableView.rx.willDisplayCell
       .map { .loadMore($0.indexPath) }
       .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindItemSelectedAction(to listener: UserListPresentableListener) {
+  func bindItemSelectedAction() {
     tableView.rx.itemSelected
       .map { .itemSelected($0) }
       .bind(to: actionRelay)

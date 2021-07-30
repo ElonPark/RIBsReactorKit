@@ -9,7 +9,6 @@
 import MapKit
 import UIKit
 
-import ReactorKit
 import RIBs
 import RxCocoa
 import RxSwift
@@ -26,7 +25,7 @@ protocol UserLocationPresentableListener: AnyObject {
   typealias Action = UserLocationPresentableAction
   typealias State = UserLocationPresentableState
 
-  var action: ActionSubject<Action> { get }
+  func sendAction(_ action: Action)
   var state: Observable<State> { get }
 }
 
@@ -45,6 +44,8 @@ final class UserLocationViewController:
   // MARK: - Properties
 
   weak var listener: UserLocationPresentableListener?
+
+  private let actionRelay = PublishRelay<UserLocationPresentableListener.Action>()
 
   // MARK: - UI Components
 
@@ -76,20 +77,29 @@ private extension UserLocationViewController {
 private extension UserLocationViewController {
   func bind(to listener: UserLocationPresentableListener?) {
     guard let listener = listener else { return }
-    bindAction(to: listener)
+    bindActionRelay()
+    bindAction()
     bindState(from: listener)
+  }
+
+  func bindActionRelay() {
+    actionRelay.asObservable()
+      .bind(with: self) { this, action in
+        this.listener?.sendAction(action)
+      }
+      .disposed(by: disposeBag)
   }
 
   // MARK: - Binding State
 
-  func bindAction(to listener: UserLocationPresentableListener) {
-    bindDetachAction(to: listener)
+  func bindAction() {
+    bindDetachAction()
   }
 
-  func bindDetachAction(to listener: UserLocationPresentableListener) {
+  func bindDetachAction() {
     detachAction
       .map { .detachAction }
-      .bind(to: listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
