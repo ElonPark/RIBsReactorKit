@@ -59,7 +59,7 @@ final class UserDetailInfoCell:
 
   // MARK: - UI Components
 
-  private let iconImageView = UIImageView().builder
+  private let iconImageView = BaseImageView().builder
     .tintColor(.gray)
     .contentMode(.scaleAspectFill)
     .set(\.layer.cornerRadius, to: UI.iconImageViewSize.height / 2)

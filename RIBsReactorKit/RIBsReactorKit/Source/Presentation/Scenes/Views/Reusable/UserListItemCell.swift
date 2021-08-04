@@ -54,7 +54,7 @@ final class UserListItemCell:
 
   // MARK: - UI Components
 
-  private let profileImageView = UIImageView().builder
+  private let profileImageView = BaseImageView().builder
     .contentMode(.scaleAspectFit)
     .backgroundColor(.skeletonDefault)
     .set(\.layer.masksToBounds, to: true)
