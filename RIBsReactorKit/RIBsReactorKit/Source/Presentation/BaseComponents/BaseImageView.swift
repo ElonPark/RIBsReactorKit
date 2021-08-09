@@ -44,10 +44,6 @@ class BaseImageView:
     fatalError("init(coder:) has not been implemented")
   }
 
-  deinit {
-    Log.verbose(type(of: self))
-  }
-
   // MARK: - Inheritance
 
   // MARK: - Layout Constraints

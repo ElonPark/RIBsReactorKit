@@ -67,7 +67,7 @@ final class UserProfileCell:
     .isSkeletonable(true)
     .build()
 
-  private let profileImageView = UIImageView().builder
+  private let profileImageView = BaseImageView().builder
     .backgroundColor(.skeletonDefault)
     .contentMode(.scaleAspectFill)
     .set(\.layer.borderWidth, to: UI.profileImageViewBorderWidth)
