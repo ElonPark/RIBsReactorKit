@@ -8,13 +8,11 @@
 
 import UIKit
 
-import ReactorKit
 import RIBs
 import RxCocoa
 import RxDataSources
 import RxSwift
 import RxViewController
-import SkeletonView
 
 // MARK: - UserListPresentableAction
 
@@ -31,7 +29,7 @@ protocol UserListPresentableListener: AnyObject {
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
 
-  var action: ActionSubject<Action> { get }
+  func sendAction(_ action: Action)
   var state: Observable<State> { get }
   var currentState: State { get }
 }
@@ -59,6 +57,8 @@ final class UserListViewController:
   weak var listener: UserListPresentableListener?
 
   let refreshEvent = PublishRelay<Void>()
+
+  private let actionRelay = PublishRelay<UserListPresentableListener.Action>()
 
   // MARK: - UI Components
 
@@ -150,47 +150,56 @@ private extension UserListViewController {
 
   func bind(listener: UserListPresentableListener?) {
     guard let listener = listener else { return }
-    bindActions(to: listener)
+    bindActionRelay()
+    bindActions()
     bindState(from: listener)
+  }
+
+  func bindActionRelay() {
+    actionRelay.asObservable()
+      .bind(with: self) { this, action in
+        this.listener?.sendAction(action)
+      }
+      .disposed(by: disposeBag)
   }
 }
 
 // MARK: - Binding Action
 
 private extension UserListViewController {
-  func bindActions(to listener: UserListPresentableListener) {
-    bindViewWillAppearAction(to: listener)
-    bindRefreshControlAction(to: listener)
-    bindLoadMoreAction(to: listener)
-    bindItemSelectedAction(to: listener)
+  func bindActions() {
+    bindViewWillAppearAction()
+    bindRefreshControlAction()
+    bindLoadMoreAction()
+    bindItemSelectedAction()
   }
 
-  func bindViewWillAppearAction(to listener: UserListPresentableListener) {
+  func bindViewWillAppearAction() {
     rx.viewWillAppear
       .take(1)
       .map { _ in .loadData }
-      .bind(to: listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindRefreshControlAction(to listener: UserListPresentableListener) {
+  func bindRefreshControlAction() {
     refreshEvent
       .map { .refresh }
-      .bind(to: listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindLoadMoreAction(to listener: UserListPresentableListener) {
+  func bindLoadMoreAction() {
     tableView.rx.willDisplayCell
       .map { .loadMore($0.indexPath) }
-      .bind(to: listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindItemSelectedAction(to listener: UserListPresentableListener) {
+  func bindItemSelectedAction() {
     tableView.rx.itemSelected
       .map { .itemSelected($0) }
-      .bind(to: listener.action)
+      .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
 }

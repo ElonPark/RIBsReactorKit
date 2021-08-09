@@ -70,6 +70,10 @@ final class UserLocationInteractor:
 
 extension UserLocationInteractor {
 
+  func sendAction(_ action: Action) {
+    self.action.on(.next(action))
+  }
+
   // MARK: - mutate
 
   func mutate(action: Action) -> Observable<Mutation> {
