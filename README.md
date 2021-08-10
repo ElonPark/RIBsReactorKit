@@ -7,6 +7,7 @@
 
 ### install
 
+Required Xcode 12.5 or above
 ```shell
 $ sh install.sh
 ```
