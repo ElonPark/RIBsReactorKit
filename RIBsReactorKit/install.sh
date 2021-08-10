@@ -2,7 +2,7 @@
 
 brew bundle
 
-sh carthage.sh bootstrap --platform iOS --new-resolver --no-use-binaries --verbose
+carthage bootstrap --platform iOS --new-resolver --no-use-binaries --use-xcframeworks
 
 xcodegen generate
 
