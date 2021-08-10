@@ -3,9 +3,8 @@ github "ReactiveX/RxSwift" ~> 6.2
 github "ElonPark/RxReachability" ~> 1.2
 
 # Architecture
-github "uber/RIBs" "master"
+github "ElonPark/RIBs" "master"
 github "ElonPark/ReactorKit" ~> 3.0
-github "ElonPark/WeakMapTable" ~> 1.2
 
 # Network
 github "Alamofire/Alamofire" ~> 5.4
