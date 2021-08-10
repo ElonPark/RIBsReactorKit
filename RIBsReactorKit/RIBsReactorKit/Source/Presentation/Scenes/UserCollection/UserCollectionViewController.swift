@@ -2,8 +2,8 @@
 //  UserCollectionViewController.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/05/02.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by elon on 2021/08/10.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
 import UIKit
@@ -11,19 +11,15 @@ import UIKit
 import RIBs
 import RxSwift
 
-protocol UserCollectionPresentableListener: AnyObject {}
+protocol UserCollectionViewControllableListener: AnyObject {}
 
 // MARK: - UserCollectionViewController
 
-final class UserCollectionViewController:
-  BaseViewController,
-  UserCollectionPresentable,
-  UserCollectionViewControllable
-{
+final class UserCollectionViewController: BaseViewController, UserCollectionViewControllable {
 
   // MARK: - Properties
 
-  weak var listener: UserCollectionPresentableListener?
+  weak var listener: UserCollectionViewControllableListener?
 
   // MARK: - Initialization & Deinitialization
 

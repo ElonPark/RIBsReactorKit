@@ -2,8 +2,8 @@
 //  UserCollectionRouter.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/05/02.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by elon on 2021/08/10.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
 import RIBs
@@ -15,7 +15,11 @@ protocol UserCollectionInteractable: Interactable {
   var listener: UserCollectionListener? { get set }
 }
 
-protocol UserCollectionViewControllable: ViewControllable {}
+// MARK: - UserCollectionViewControllable
+
+protocol UserCollectionViewControllable: ViewControllable {
+  var listener: UserCollectionViewControllableListener? { get set }
+}
 
 // MARK: - UserCollectionRouter
 
@@ -24,12 +28,8 @@ final class UserCollectionRouter:
   UserCollectionRouting
 {
 
-  // MARK: - Initialization & Deinitialization
-
-  override init(
-    interactor: UserCollectionInteractable,
-    viewController: UserCollectionViewControllable
-  ) {
+  // TODO: Constructor inject child builder protocols to allow building children.
+  override init(interactor: UserCollectionInteractable, viewController: UserCollectionViewControllable) {
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }

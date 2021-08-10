@@ -2,8 +2,8 @@
 //  UserCollectionBuilder.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/05/02.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by elon on 2021/08/10.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
 import RIBs
@@ -13,7 +13,7 @@ import RIBs
 protocol UserCollectionDependency: Dependency {
   var randomUserUseCase: RandomUserUseCase { get }
   var userModelDataStream: UserModelDataStream { get }
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
+  var userCollectionViewController: UserCollectionViewControllable { get }
 }
 
 // MARK: - UserCollectionComponent
@@ -36,7 +36,7 @@ final class UserCollectionComponent: Component<UserCollectionDependency> {
     dependency.userModelDataStream
   }
 
-  fileprivate var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
+  fileprivate var userCollectionViewController: UserCollectionViewControllable {
     dependency.userCollectionViewController
   }
 }
@@ -49,32 +49,23 @@ protocol UserCollectionBuildable: Buildable {
 
 // MARK: - UserCollectionBuilder
 
-final class UserCollectionBuilder:
-  Builder<UserCollectionDependency>,
-  UserCollectionBuildable
-{
-
-  // MARK: - Initialization & Deinitialization
+final class UserCollectionBuilder: Builder<UserCollectionDependency>, UserCollectionBuildable {
 
   override init(dependency: UserCollectionDependency) {
     super.init(dependency: dependency)
   }
 
-  // MARK: - Internal methods
-
   func build(withListener listener: UserCollectionListener) -> UserCollectionRouting {
     let component = UserCollectionComponent(dependency: dependency)
+    let viewController = UserCollectionViewController()
+    let presenter = UserCollectionPresenter(viewController: component.userCollectionViewController)
     let interactor = UserCollectionInteractor(
       randomUserUseCase: component.randomUserUseCase,
       userModelDataStream: component.userModelDataStream,
       mutableUserModelStream: component.mutableUserModelStream,
-      presenter: component.userCollectionViewController
+      presenter: presenter
     )
     interactor.listener = listener
-
-    return UserCollectionRouter(
-      interactor: interactor,
-      viewController: component.userCollectionViewController
-    )
+    return UserCollectionRouter(interactor: interactor, viewController: viewController)
   }
 }

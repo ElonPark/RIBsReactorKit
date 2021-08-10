@@ -2,8 +2,8 @@
 //  UserCollectionInteractor.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/05/02.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by elon on 2021/08/10.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
 import RIBs
@@ -36,8 +36,6 @@ final class UserCollectionInteractor:
   private let userModelDataStream: UserModelDataStream
   private let mutableUserModelStream: MutableSelectedUserModelStream
 
-  // MARK: - Initialization & Deinitialization
-
   init(
     randomUserUseCase: RandomUserUseCase,
     userModelDataStream: UserModelDataStream,
@@ -47,18 +45,17 @@ final class UserCollectionInteractor:
     self.randomUserUseCase = randomUserUseCase
     self.userModelDataStream = userModelDataStream
     self.mutableUserModelStream = mutableUserModelStream
-
     super.init(presenter: presenter)
     presenter.listener = self
   }
 
-  // MARK: - Inheritance
-
   override func didBecomeActive() {
     super.didBecomeActive()
+    // TODO: Implement business logic here.
   }
 
   override func willResignActive() {
     super.willResignActive()
+    // TODO: Pause any business logic.
   }
 }
