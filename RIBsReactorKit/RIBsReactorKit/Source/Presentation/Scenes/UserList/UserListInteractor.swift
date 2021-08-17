@@ -43,7 +43,7 @@ final class UserListInteractor:
     case setLoading(Bool)
     case setRefresh(Bool)
     case userListSections([UserListSectionModel])
-    case attachUserInformationRIB(UserModel)
+    case attachUserInformationRIB
   }
 
   // MARK: - Properties
@@ -76,22 +76,21 @@ final class UserListInteractor:
     super.init(presenter: presenter)
     presenter.listener = self
   }
-}
 
-// MARK: - Reactor
-
-extension UserListInteractor {
+  // MARK: - UserListPresentableListener
 
   func sendAction(_ action: Action) {
     self.action.on(.next(action))
   }
+}
 
-  // MARK: - mutate
+// MARK: - mutate
 
+extension UserListInteractor {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .loadData:
-      return refreshMutation()
+      return loadDataMutation()
 
     case .refresh:
       return refreshMutation()
@@ -102,6 +101,13 @@ extension UserListInteractor {
     case let .itemSelected(indexPath):
       return itemSelectedMutation(by: indexPath)
     }
+  }
+
+  private func loadDataMutation() -> Observable<Mutation> {
+    let needLoadingData = currentState.userListSections.first?.items.contains(.dummy) ?? true
+    guard needLoadingData else { return .empty() }
+
+    return refreshMutation()
   }
 
   private func refreshMutation() -> Observable<Mutation> {
@@ -140,22 +146,24 @@ extension UserListInteractor {
     case let .user(viewModel):
       guard let user = userModelDataStream.userModel(byUUID: viewModel.uuid) else { return .empty() }
       mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
-      return .just(.attachUserInformationRIB(user))
+      return .just(.attachUserInformationRIB)
 
     case .dummy:
       return .empty()
     }
   }
+}
 
-  // MARK: - transform mutation
+// MARK: - transform mutation
 
+extension UserListInteractor {
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
     return .merge(mutation, updateUserModelsTransform())
       .withUnretained(self)
       .flatMap { this, mutation -> Observable<Mutation> in
         switch mutation {
-        case let .attachUserInformationRIB(userModel):
-          return this.attachUserInformationRIBTransform(by: userModel)
+        case .attachUserInformationRIB:
+          return this.attachUserInformationRIBTransform()
 
         default:
           return .just(mutation)
@@ -174,13 +182,15 @@ extension UserListInteractor {
   }
 
   /// Show selected user information
-  private func attachUserInformationRIBTransform(by userModel: UserModel) -> Observable<Mutation> {
+  private func attachUserInformationRIBTransform() -> Observable<Mutation> {
     router?.attachUserInformationRIB()
     return .empty()
   }
+}
 
-  // MARK: - reduce
+// MARK: - reduce
 
+extension UserListInteractor {
   func reduce(state: State, mutation: Mutation) -> State {
     var newState = state
 
@@ -202,7 +212,7 @@ extension UserListInteractor {
   }
 }
 
-// MARK: - UserInformationAdapterListener
+// MARK: - UserInformationListener
 
 extension UserListInteractor {
   func detachUserInformationRIB() {

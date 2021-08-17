@@ -12,9 +12,8 @@ import UIKit
 
 final class UserDetailInfoCell:
   BaseCollectionViewCell,
-  HasViewModel,
   HasConfigure,
-  SkeletonAnimatable
+  SkeletonViewsAnimatable
 {
 
   // MARK: - Constants
@@ -95,7 +94,7 @@ final class UserDetailInfoCell:
     .backgroundColor(UI.Color.separatorLine)
     .build()
 
-  var views: [UIView] {
+  var skeletonViews: [UIView] {
     [iconImageView, titleLabel, subtitleLabel]
   }
 

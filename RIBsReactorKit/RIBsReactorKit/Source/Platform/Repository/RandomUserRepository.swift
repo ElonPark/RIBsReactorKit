@@ -13,8 +13,8 @@ import RxSwift
 // MARK: - RandomUserRepository
 
 protocol RandomUserRepository {
-  func randomUsers(with resultCount: Int) -> Single<RandomUser>
-  func randomUsers(with page: Int, count: Int, seed: String) -> Single<RandomUser>
+  func randomUsers(withResultCount resultCount: Int) -> Single<RandomUser>
+  func randomUsers(withPageNumber page: Int, count: Int, seed: String) -> Single<RandomUser>
 }
 
 // MARK: - RandomUserRepositoryImpl
@@ -31,12 +31,12 @@ final class RandomUserRepositoryImpl: NetworkRepository<RandomUserService>, Rand
 
   // MARK: - Internal methods
 
-  func randomUsers(with resultCount: Int) -> Single<RandomUser> {
+  func randomUsers(withResultCount resultCount: Int) -> Single<RandomUser> {
     return provider.request(.multipleUsers(resultCount: resultCount))
       .map(RandomUser.self, using: jsonDecoder, failsOnEmptyData: false)
   }
 
-  func randomUsers(with page: Int, count: Int, seed: String) -> Single<RandomUser> {
+  func randomUsers(withPageNumber page: Int, count: Int, seed: String) -> Single<RandomUser> {
     provider.request(.pagination(page: page, resultCount: count, seed: seed))
       .map(RandomUser.self, using: jsonDecoder, failsOnEmptyData: false)
   }

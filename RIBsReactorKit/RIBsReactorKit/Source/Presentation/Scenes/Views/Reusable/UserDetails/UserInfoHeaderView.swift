@@ -14,7 +14,7 @@ final class UserInfoHeaderView:
   BaseCollectionReusableView,
   HasElementKind,
   HasConfigure,
-  SkeletonAnimatable
+  SkeletonViewsAnimatable
 {
 
   // MARK: - Constants
@@ -53,9 +53,9 @@ final class UserInfoHeaderView:
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
 
-  private(set) lazy var views: [UIView] = [
-    titleLabel
-  ]
+  var skeletonViews: [UIView] {
+    [titleLabel]
+  }
 
   // MARK: - Inheritance
 
@@ -93,7 +93,7 @@ final class UserInfoHeaderView:
 extension UserInfoHeaderView {
   private func setupUI() {
     isSkeletonable = true
-    views.forEach { self.addSubview($0) }
+    skeletonViews.forEach { self.addSubview($0) }
 
     initUI()
   }

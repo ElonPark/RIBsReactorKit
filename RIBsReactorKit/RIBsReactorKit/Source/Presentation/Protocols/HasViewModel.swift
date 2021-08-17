@@ -6,9 +6,9 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
-import Foundation
+import RxSwift
 
 protocol HasViewModel {
   associatedtype ViewModel
-  var viewModel: ViewModel? { get }
+  var viewModel: Observable<ViewModel> { get }
 }

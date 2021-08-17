@@ -6,10 +6,16 @@
 //  Copyright © 2021 Elon. All rights reserved.
 //
 
+import ReactorKit
 import RIBs
 import RxSwift
 
-protocol UserCollectionRouting: ViewableRouting {}
+// MARK: - UserCollectionRouting
+
+protocol UserCollectionRouting: ViewableRouting {
+  func attachUserInformationRIB()
+  func detachUserInformationRIB()
+}
 
 // MARK: - UserCollectionPresentable
 
@@ -24,38 +30,186 @@ protocol UserCollectionListener: AnyObject {}
 final class UserCollectionInteractor:
   PresentableInteractor<UserCollectionPresentable>,
   UserCollectionInteractable,
-  UserCollectionPresentableListener
+  UserCollectionPresentableListener,
+  Reactor
 {
+
+  // MARK: - Reactor
+
+  typealias Action = UserCollectionAction
+  typealias State = UserCollectionState
+
+  enum Mutation {
+    case setLoading(Bool)
+    case setRefresh(Bool)
+    case setUserModels([UserModel])
+    case attachUserInformationRIB
+  }
 
   // MARK: - Properties
 
   weak var router: UserCollectionRouting?
   weak var listener: UserCollectionListener?
 
+  let initialState: UserCollectionState
+  let requestItemCount: Int = 50
+
   private let randomUserUseCase: RandomUserUseCase
   private let userModelDataStream: UserModelDataStream
-  private let mutableUserModelStream: MutableSelectedUserModelStream
+  private let mutableSelectedUserModelStream: MutableSelectedUserModelStream
 
   init(
+    initialState: UserCollectionState,
     randomUserUseCase: RandomUserUseCase,
     userModelDataStream: UserModelDataStream,
-    mutableUserModelStream: MutableSelectedUserModelStream,
+    mutableSelectedUserModelStream: MutableSelectedUserModelStream,
     presenter: UserCollectionPresentable
   ) {
+    self.initialState = initialState
     self.randomUserUseCase = randomUserUseCase
     self.userModelDataStream = userModelDataStream
-    self.mutableUserModelStream = mutableUserModelStream
+    self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
+
     super.init(presenter: presenter)
     presenter.listener = self
   }
 
-  override func didBecomeActive() {
-    super.didBecomeActive()
-    // TODO: Implement business logic here.
+  // MARK: - UserCollectionPresentableListener
+
+  func sendAction(_ action: Action) {
+    self.action.on(.next(action))
+  }
+}
+
+// MARK: - mutate
+
+extension UserCollectionInteractor {
+  func mutate(action: Action) -> Observable<Mutation> {
+    switch action {
+    case .loadData:
+      return loadDataMutation()
+
+    case .refresh:
+      return refreshMutation()
+
+    case let .loadMore(index):
+      return loadMoreMutation(by: index)
+
+    case let .itemSelected(index):
+      return itemSelectedMutation(by: index)
+    }
   }
 
-  override func willResignActive() {
-    super.willResignActive()
-    // TODO: Pause any business logic.
+  private func loadDataMutation() -> Observable<Mutation> {
+    guard !currentState.isLoading && currentState.userModels.isEmpty else { return .empty() }
+
+    let loadData: Observable<Mutation> = randomUserUseCase
+      .loadData(isRefresh: false, itemCount: requestItemCount)
+      .flatMap { Observable.empty() }
+      .catchAndReturn(.setLoading(false))
+
+    let sequence: [Observable<Mutation>] = [
+      .just(Mutation.setLoading(true)),
+      loadData,
+      .just(Mutation.setLoading(false))
+    ]
+
+    return .concat(sequence)
+  }
+
+  private func refreshMutation() -> Observable<Mutation> {
+    let loadData: Observable<Mutation> = randomUserUseCase
+      .loadData(isRefresh: true, itemCount: requestItemCount)
+      .flatMap { Observable.empty() }
+      .catchAndReturn(.setRefresh(false))
+
+    let sequence: [Observable<Mutation>] = [
+      .just(Mutation.setRefresh(true)),
+      loadData,
+      .just(Mutation.setRefresh(false))
+    ]
+
+    return .concat(sequence)
+  }
+
+  private func loadMoreMutation(by currentIndex: Int) -> Observable<Mutation> {
+    let userModelCount = currentState.userModels.count
+    let lastIndex = userModelCount - 1
+    guard userModelCount >= requestItemCount && currentIndex == lastIndex else { return .empty() }
+
+    return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
+      .flatMap { Observable.empty() }
+      .catchAndReturn(.setRefresh(false))
+  }
+
+  private func itemSelectedMutation(by itemIndex: Int) -> Observable<Mutation> {
+    guard let item = currentState.userModels[safe: itemIndex] else { return .empty() }
+    guard let user = userModelDataStream.userModel(byUUID: item.uuid) else { return .empty() }
+
+    mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
+    return .just(.attachUserInformationRIB)
+  }
+}
+
+// MARK: - transform mutation
+
+extension UserCollectionInteractor {
+  func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
+    return .merge(mutation, updateUserModelsTransform())
+      .withUnretained(self)
+      .flatMap { this, mutation -> Observable<Mutation> in
+        switch mutation {
+        case .attachUserInformationRIB:
+          return this.attachUserInformationRIBTransform()
+
+        default:
+          return .just(mutation)
+        }
+      }
+  }
+
+  private func updateUserModelsTransform() -> Observable<Mutation> {
+    return userModelDataStream.userModels
+      .filter { !$0.isEmpty }
+      .distinctUntilChanged()
+      .map(Mutation.setUserModels)
+  }
+
+  /// Show selected user information
+  private func attachUserInformationRIBTransform() -> Observable<Mutation> {
+    router?.attachUserInformationRIB()
+    return .empty()
+  }
+}
+
+// MARK: - reduce
+
+extension UserCollectionInteractor {
+  func reduce(state: State, mutation: Mutation) -> State {
+    var newState = state
+
+    switch mutation {
+    case let .setLoading(isLoading):
+      newState.isLoading = isLoading
+
+    case let .setRefresh(isRefresh):
+      newState.isRefresh = isRefresh
+
+    case let .setUserModels(userModels):
+      newState.userModels = userModels
+
+    case .attachUserInformationRIB:
+      Log.debug("Do Nothing when \(mutation)")
+    }
+
+    return newState
+  }
+}
+
+// MARK: - UserInformationListener
+
+extension UserCollectionInteractor {
+  func detachUserInformationRIB() {
+    router?.detachUserInformationRIB()
   }
 }

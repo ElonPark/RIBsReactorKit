@@ -20,11 +20,7 @@ protocol UserListDependency: UserListDependencyUserInformation {
 
 final class UserListComponent: Component<UserListDependency> {
 
-  var selectedUserModelStream: SelectedUserModelStream {
-    mutableSelectedUserModelStream
-  }
-
-  fileprivate var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+  var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
     shared { SelectedUserModelStreamImpl() }
   }
 

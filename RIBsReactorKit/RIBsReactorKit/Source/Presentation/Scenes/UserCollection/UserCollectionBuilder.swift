@@ -10,7 +10,7 @@ import RIBs
 
 // MARK: - UserCollectionDependency
 
-protocol UserCollectionDependency: Dependency {
+protocol UserCollectionDependency: UserCollectionDependencyUserInformation {
   var randomUserUseCase: RandomUserUseCase { get }
   var userModelDataStream: UserModelDataStream { get }
   var userCollectionViewController: UserCollectionViewControllable { get }
@@ -20,12 +20,12 @@ protocol UserCollectionDependency: Dependency {
 
 final class UserCollectionComponent: Component<UserCollectionDependency> {
 
-  var userModelStream: SelectedUserModelStream {
-    mutableUserModelStream
+  var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
   }
 
-  fileprivate var mutableUserModelStream: MutableSelectedUserModelStream {
-    shared { SelectedUserModelStreamImpl() }
+  fileprivate var initialState: UserCollectionState {
+    UserCollectionState()
   }
 
   fileprivate var randomUserUseCase: RandomUserUseCase {
@@ -57,15 +57,22 @@ final class UserCollectionBuilder: Builder<UserCollectionDependency>, UserCollec
 
   func build(withListener listener: UserCollectionListener) -> UserCollectionRouting {
     let component = UserCollectionComponent(dependency: dependency)
-    let viewController = UserCollectionViewController()
     let presenter = UserCollectionPresenter(viewController: component.userCollectionViewController)
     let interactor = UserCollectionInteractor(
+      initialState: component.initialState,
       randomUserUseCase: component.randomUserUseCase,
       userModelDataStream: component.userModelDataStream,
-      mutableUserModelStream: component.mutableUserModelStream,
+      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
       presenter: presenter
     )
     interactor.listener = listener
-    return UserCollectionRouter(interactor: interactor, viewController: viewController)
+
+    let userInformationBuilder = UserInformationBuilder(dependency: component)
+
+    return UserCollectionRouter(
+      userInformationBuilder: userInformationBuilder,
+      interactor: interactor,
+      viewController: component.userCollectionViewController
+    )
   }
 }

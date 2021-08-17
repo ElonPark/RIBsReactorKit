@@ -30,6 +30,11 @@ internal enum Strings {
     }
   }
 
+  internal enum UserCollection {
+    /// User Collection
+    internal static let title = Strings.tr("Localizable", "userCollection.title")
+  }
+
   internal enum UserInfoTitle {
     /// Age
     internal static let age = Strings.tr("Localizable", "userInfoTitle.age")

@@ -15,6 +15,10 @@
 
 "userList.title"="사용자 목록";
 
+// MARK: - User Collection
+
+"userCollection.title"="사용자 컬렉션";
+
 // MARK: - User Info Title
 
 "userInfoTitle.basicInfo"="기본 정보";
