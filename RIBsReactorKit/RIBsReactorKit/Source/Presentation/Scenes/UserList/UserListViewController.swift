@@ -71,7 +71,7 @@ final class UserListViewController:
     .rowHeight(UITableView.automaticDimension)
     .estimatedRowHeight(UI.userListCellEstimatedRowHeight)
     .isSkeletonable(true)
-    .reinforce {
+    .with {
       $0.register(UserListItemCell.self)
     }
     .build()
@@ -261,7 +261,7 @@ extension UserListViewController {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
           let viewController = UserListViewController().builder
-            .reinforce { $0.bindDummyItems() }
+            .with { $0.bindDummyItems() }
             .build()
 
           return UINavigationController(rootViewController: viewController)

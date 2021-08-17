@@ -196,7 +196,7 @@ extension UserDetailInfoCell {
     static var previews: some SwiftUI.View {
       UIViewPreview {
         UserDetailInfoCell().builder
-          .reinforce {
+          .with {
             guard let userModel = $0.dummyUserModel() else { return }
             let viewModel = UserDetailInfoItemViewModel(
               userModel: userModel,

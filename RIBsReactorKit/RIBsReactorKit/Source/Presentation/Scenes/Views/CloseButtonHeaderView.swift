@@ -23,7 +23,7 @@ final class CloseButtonHeaderView: BaseView {
     .contentEdgeInsets(UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15))
     .backgroundColor(.black)
     .set(\.layer.cornerRadius, to: UI.cornerRadius)
-    .reinforce {
+    .with {
       $0.setTitle(Strings.Common.close, for: .normal)
     }
     .build()
@@ -44,7 +44,7 @@ final class CloseButtonHeaderView: BaseView {
       .contentEdgeInsets(UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15))
       .backgroundColor(.black)
       .set(\.layer.cornerRadius, to: cornerRadius)
-      .reinforce {
+      .with {
         $0.setTitle(Strings.Common.close, for: .normal)
       }
   }

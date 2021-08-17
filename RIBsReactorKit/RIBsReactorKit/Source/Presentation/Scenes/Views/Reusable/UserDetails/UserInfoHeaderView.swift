@@ -116,7 +116,7 @@ extension UserInfoHeaderView {
     static var previews: some SwiftUI.View {
       UIViewPreview {
         UserInfoHeaderView().builder
-          .reinforce {
+          .with {
             $0.configure(by: UserInfoSectionHeaderViewModel(title: "test"))
           }
           .build()

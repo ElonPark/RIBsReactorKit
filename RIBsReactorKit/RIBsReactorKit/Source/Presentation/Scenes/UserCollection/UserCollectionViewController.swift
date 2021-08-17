@@ -62,7 +62,7 @@ final class UserCollectionViewController:
 
   private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).builder
     .backgroundColor(Asset.Colors.backgroundColor.color)
-    .reinforce {
+    .with {
       $0.register(UserProfileCell.self)
     }
     .build()

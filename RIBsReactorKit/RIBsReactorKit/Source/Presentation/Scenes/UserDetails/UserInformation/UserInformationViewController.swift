@@ -70,7 +70,7 @@ final class UserInformationViewController:
 
   private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).builder
     .backgroundColor(Asset.Colors.backgroundColor.color)
-    .reinforce {
+    .with {
       $0.register(UserProfileCell.self)
       $0.register(UserDetailInfoCell.self)
       $0.register(UserLocationCell.self)
@@ -383,7 +383,7 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
           let viewController = UserInformationViewController().builder
-            .reinforce { $0.bindDummyUserModel() }
+            .with { $0.bindDummyUserModel() }
             .build()
 
           return UINavigationController(rootViewController: viewController)
