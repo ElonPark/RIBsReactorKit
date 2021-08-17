@@ -1,0 +1,25 @@
+{
+  "name": "Browser",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "blob-util": "^2.0.2",
+    "chokidar": "^2.0.4",
+    "fs": "^0.0.1-security",
+    "ws": "^7.4.6"
+  },
+  "devDependencies": {
+    "file-loader": "^5.0.2",
+    "jqtree": "^1.4.9",
+    "jquery": "^3.5.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Yuki Tamazawa",
+  "license": "MIT"
+}

@@ -1,0 +1,35 @@
+/* 
+  Localizable.strings
+  RIBsReactorKit
+
+  Created by elon on 2021/03/01.
+  Copyright © 2021 Elon. All rights reserved.
+*/
+
+// MARK: - TabBar Title
+
+"tabBarTitle.collection"="컬렉션";
+"tabBarTitle.list"="목록";
+
+// MARK: - User List
+
+"userList.title"="사용자 목록";
+
+// MARK: - User Collection
+
+"userCollection.title"="사용자 컬렉션";
+
+// MARK: - User Info Title
+
+"userInfoTitle.basicInfo"="기본 정보";
+"userInfoTitle.gender"="성별";
+"userInfoTitle.birthday"="생일";
+"userInfoTitle.age"="나이";
+
+// MARK: - Unit
+
+"unit.age"="%i세";
+
+// MARK: - Common
+
+"common.close"="닫기";

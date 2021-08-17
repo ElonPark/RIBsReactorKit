@@ -1,0 +1,23 @@
+@startmindmap
+<style>
+mindmapDiagram {
+  . * {
+    BackGroundColor #FFF
+    LineColor #192f60
+    Shadowing 0.0
+    RoundCorner 20
+    LineThickness 2.0
+  }
+  .noView * {
+    BackGroundColor #FFF
+    LineColor #d20b52
+    TextColor #d20b52
+  }
+}
+</style>
+* Root
+** MainTabBar
+*** UserCollection
+*** UserList
+**** UserInfomationAdapter<<noView>>
+@endmindmap

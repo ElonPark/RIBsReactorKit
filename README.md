@@ -1,4 +1,39 @@
 # RIBsReactorKit
-RIBs + ReactorKit Sample
 
-[RIBs](https://github.com/uber/RIBs)에 [ReactorKit](https://github.com/ReactorKit/ReactorKit) 조합하여 사용하기 위한 샘플
+[RIBs](https://github.com/uber/RIBs) X [ReactorKit](https://github.com/ReactorKit/ReactorKit) PoC
+
+<img src="./Docs/RIBsReactorKit.png" alt="RIBsReactorKit" width="500" />
+
+
+### install
+
+Required Xcode 12.5 or above
+```shell
+$ sh install.sh
+```
+
+---
+## Use RIBsTreeViewer
+
+### Installing 
+
+```
+$ npm install yarn
+```
+
+### Starting the websocket server
+
+```shell
+$ cd ./RIBsTreeViewer/WebSocketServer
+$ npx yarn install
+$ node index.js
+```
+
+## Open the page.
+
+```shell
+$ cd ./RIBsTreeViewer/Browser
+$ npx yarn install
+$ npx webpack
+$ open ./public/index.html
+```

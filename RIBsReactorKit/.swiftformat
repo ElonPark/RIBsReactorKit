@@ -1,0 +1,43 @@
+--swiftversion 5.4
+
+# format options
+--indent 2
+--extensionacl on-extension
+--modifierorder
+--self init-only
+--semicolons inline
+--trailingclosures
+--commas inline
+--stripunusedargs closure-only
+--maxwidth 120
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--funcattributes prev-line
+--typeattributes prev-line
+--varattributes prev-line
+--ranges no-space
+--xcodeindentation enabled
+--patternlet hoist
+--marktypes if-not-empty
+--typemark "MARK: - %t"
+--markextensions always
+--extensionmark  "MARK: - %t + %c"
+--groupedextension "MARK: - %c"
+
+# file options
+--exclude Scripts, Carthage, Resource, **/Generated
+
+# rules
+--enable duplicateImports
+--enable enumNamespaces
+--enable isEmpty
+--enable markTypes
+
+--disable andOperator
+--disable blankLinesAtStartOfScope
+--disable redundantBackticks
+--disable sortedSwitchCases
+--disable redundantReturn
+--disable void
+--disable wrapMultilineStatementBraces

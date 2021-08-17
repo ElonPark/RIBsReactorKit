@@ -1,0 +1,13 @@
+{
+  "name": "WebSocketServer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/srea/RIBsTreeViewerClient",
+  "author": "Yuki Tamazawa",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "ws": "^7.4.6",
+    "yarn": "^1.22.4"
+  }
+}
