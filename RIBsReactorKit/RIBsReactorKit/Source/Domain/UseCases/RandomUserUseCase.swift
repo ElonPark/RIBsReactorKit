@@ -67,9 +67,9 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
     let randomUsers: Single<RandomUser>
     if let info = responseInfo, !isRefresh {
       let page = info.page + 1
-      randomUsers = repository.randomUsers(with: page, count: itemCount, seed: info.seed)
+      randomUsers = repository.randomUsers(withPageNumber: page, count: itemCount, seed: info.seed)
     } else {
-      randomUsers = repository.randomUsers(with: itemCount)
+      randomUsers = repository.randomUsers(withResultCount: itemCount)
     }
 
     return randomUsers

@@ -10,10 +10,7 @@ import RIBs
 
 // MARK: - UserListInteractable
 
-protocol UserListInteractable:
-  Interactable,
-  UserInformationListener
-{
+protocol UserListInteractable: Interactable, UserInformationListener {
   var router: UserListRouting? { get set }
   var listener: UserListListener? { get set }
 }
@@ -43,16 +40,17 @@ final class UserListRouter:
   }
 
   func attachUserInformationRIB() {
+    guard userInformationRouter == nil else { return }
     let router = userInformationBuilder.build(withListener: interactor)
     userInformationRouter = router
     attachChild(router)
-    viewController.push(viewController: router.viewControllable)
+    viewController.present(router.viewControllable)
   }
 
   func detachUserInformationRIB() {
     guard let router = userInformationRouter else { return }
     userInformationRouter = nil
     detachChild(router)
-    viewController.pop(router.viewControllable)
+    viewController.dismiss(router.viewControllable)
   }
 }

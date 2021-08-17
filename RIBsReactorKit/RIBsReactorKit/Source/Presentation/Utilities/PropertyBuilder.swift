@@ -47,11 +47,11 @@ struct PropertyBuilder<Base> {
 }
 
 extension PropertyBuilder {
-  func reinforce(_ handler: (inout Base) -> Void) -> PropertyBuilder<Base> {
-    PropertyBuilder(reinforce(handler))
+  func with(_ handler: (inout Base) -> Void) -> PropertyBuilder<Base> {
+    PropertyBuilder(with(handler))
   }
 
-  func reinforce(_ handler: (inout Base) -> Void) -> Base {
+  func with(_ handler: (inout Base) -> Void) -> Base {
     var object = base
     handler(&object)
     return object

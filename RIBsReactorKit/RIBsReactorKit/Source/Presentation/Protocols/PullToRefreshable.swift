@@ -18,11 +18,7 @@ protocol PullToRefreshable {
   var refreshEvent: PublishRelay<Void> { get }
 }
 
-extension PullToRefreshable where Self: HasTableView & HasDisposeBag {
-  func setRefreshControl() {
-    tableView.refreshControl = refreshControl
-  }
-
+extension PullToRefreshable where Self: HasDisposeBag {
   func bindRefreshControlEvent() {
     refreshControl.rx.controlEvent(.valueChanged)
       .asObservable()
@@ -32,5 +28,17 @@ extension PullToRefreshable where Self: HasTableView & HasDisposeBag {
 
   func endRefreshing() {
     refreshControl.endRefreshing()
+  }
+}
+
+extension PullToRefreshable where Self: HasTableView {
+  func setRefreshControl() {
+    tableView.refreshControl = refreshControl
+  }
+}
+
+extension PullToRefreshable where Self: HasCollectionView {
+  func setRefreshControl() {
+    collectionView.refreshControl = refreshControl
   }
 }

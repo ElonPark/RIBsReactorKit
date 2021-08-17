@@ -16,9 +16,8 @@ import SnapKit
 
 final class UserListItemCell:
   BaseTableViewCell,
-  HasViewModel,
   HasConfigure,
-  SkeletonAnimatable
+  SkeletonViewsAnimatable
 {
 
   // MARK: - Constants
@@ -76,7 +75,7 @@ final class UserListItemCell:
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
 
-  var views: [UIView] {
+  var skeletonViews: [UIView] {
     [profileImageView, nameLabel, locationLabel]
   }
 
@@ -122,7 +121,7 @@ extension UserListItemCell {
   private func setUpUI() {
     selectionStyle = .none
     isSkeletonable = true
-    views.forEach { contentView.addSubview($0) }
+    skeletonViews.forEach { contentView.addSubview($0) }
 
     initUI()
   }

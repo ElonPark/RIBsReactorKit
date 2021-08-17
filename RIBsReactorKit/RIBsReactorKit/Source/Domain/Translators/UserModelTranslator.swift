@@ -24,7 +24,6 @@ final class UserModelTranslatorImpl: UserModelTranslator {
       UserModel(
         gender: $0.gender,
         name: $0.name,
-        loginID: $0.login.username,
         email: $0.email,
         uuid: $0.login.uuid,
         dob: $0.dob,

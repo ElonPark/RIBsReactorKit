@@ -2,30 +2,30 @@
 //  UserCollectionBuilder.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/05/02.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by elon on 2021/08/10.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
 import RIBs
 
 // MARK: - UserCollectionDependency
 
-protocol UserCollectionDependency: Dependency {
+protocol UserCollectionDependency: UserCollectionDependencyUserInformation {
   var randomUserUseCase: RandomUserUseCase { get }
   var userModelDataStream: UserModelDataStream { get }
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable { get }
+  var userCollectionViewController: UserCollectionViewControllable { get }
 }
 
 // MARK: - UserCollectionComponent
 
 final class UserCollectionComponent: Component<UserCollectionDependency> {
 
-  var userModelStream: SelectedUserModelStream {
-    mutableUserModelStream
+  var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
   }
 
-  fileprivate var mutableUserModelStream: MutableSelectedUserModelStream {
-    shared { SelectedUserModelStreamImpl() }
+  fileprivate var initialState: UserCollectionState {
+    UserCollectionState()
   }
 
   fileprivate var randomUserUseCase: RandomUserUseCase {
@@ -36,7 +36,7 @@ final class UserCollectionComponent: Component<UserCollectionDependency> {
     dependency.userModelDataStream
   }
 
-  fileprivate var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
+  fileprivate var userCollectionViewController: UserCollectionViewControllable {
     dependency.userCollectionViewController
   }
 }
@@ -49,30 +49,28 @@ protocol UserCollectionBuildable: Buildable {
 
 // MARK: - UserCollectionBuilder
 
-final class UserCollectionBuilder:
-  Builder<UserCollectionDependency>,
-  UserCollectionBuildable
-{
-
-  // MARK: - Initialization & Deinitialization
+final class UserCollectionBuilder: Builder<UserCollectionDependency>, UserCollectionBuildable {
 
   override init(dependency: UserCollectionDependency) {
     super.init(dependency: dependency)
   }
 
-  // MARK: - Internal methods
-
   func build(withListener listener: UserCollectionListener) -> UserCollectionRouting {
     let component = UserCollectionComponent(dependency: dependency)
+    let presenter = UserCollectionPresenter(viewController: component.userCollectionViewController)
     let interactor = UserCollectionInteractor(
+      initialState: component.initialState,
       randomUserUseCase: component.randomUserUseCase,
       userModelDataStream: component.userModelDataStream,
-      mutableUserModelStream: component.mutableUserModelStream,
-      presenter: component.userCollectionViewController
+      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
+      presenter: presenter
     )
     interactor.listener = listener
 
+    let userInformationBuilder = UserInformationBuilder(dependency: component)
+
     return UserCollectionRouter(
+      userInformationBuilder: userInformationBuilder,
       interactor: interactor,
       viewController: component.userCollectionViewController
     )

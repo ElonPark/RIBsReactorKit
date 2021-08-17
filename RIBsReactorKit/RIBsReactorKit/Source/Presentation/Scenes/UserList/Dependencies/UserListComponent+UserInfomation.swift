@@ -12,4 +12,8 @@ protocol UserListDependencyUserInformation: Dependency {}
 
 // MARK: - UserListComponent + UserInformationDependency
 
-extension UserListComponent: UserInformationDependency {}
+extension UserListComponent: UserInformationDependency {
+  var selectedUserModelStream: SelectedUserModelStream {
+    mutableSelectedUserModelStream
+  }
+}

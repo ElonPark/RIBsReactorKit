@@ -13,11 +13,10 @@ import UIKit
 
 final class UserLocationCell:
   BaseCollectionViewCell,
-  HasViewModel,
   HasConfigure,
   MapRegionSettable,
   MapAnnotationAddable,
-  SkeletonAnimatable
+  SkeletonViewsAnimatable
 {
 
   // MARK: - Properties
@@ -30,7 +29,7 @@ final class UserLocationCell:
     .isUserInteractionEnabled(false)
     .build()
 
-  var views: [UIView] {
+  var skeletonViews: [UIView] {
     [mapView]
   }
 
@@ -69,7 +68,7 @@ final class UserLocationCell:
 extension UserLocationCell {
   private func setupUI() {
     isSkeletonable = true
-    views.forEach { contentView.addSubview($0) }
+    skeletonViews.forEach { contentView.addSubview($0) }
   }
 
   private func layout() {

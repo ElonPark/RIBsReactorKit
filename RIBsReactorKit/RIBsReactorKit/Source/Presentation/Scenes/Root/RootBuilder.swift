@@ -18,7 +18,7 @@ final class RootComponent: Component<RootDependency> {
     shared { UserListViewController() }
   }
 
-  var userCollectionViewController: UserCollectionPresentable & UserCollectionViewControllable {
+  var userCollectionViewController: UserCollectionViewControllable {
     shared { UserCollectionViewController() }
   }
 

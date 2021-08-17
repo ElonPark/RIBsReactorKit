@@ -14,7 +14,6 @@ import Foundation
 struct UserModel {
   let gender: String
   let name: Name
-  let loginID: String
   let email: String
   let uuid: String
   let dob: Dob

@@ -12,9 +12,8 @@ import UIKit
 
 final class UserProfileCell:
   BaseCollectionViewCell,
-  HasViewModel,
   HasConfigure,
-  SkeletonAnimatable
+  SkeletonViewsAnimatable
 {
 
   // MARK: - Constants
@@ -91,7 +90,7 @@ final class UserProfileCell:
     .isSkeletonable(true)
     .build()
 
-  var views: [UIView] {
+  var skeletonViews: [UIView] {
     [
       profileBackgroundImageView,
       profileImageView,
@@ -142,7 +141,7 @@ final class UserProfileCell:
 extension UserProfileCell {
   private func setupUI() {
     isSkeletonable = true
-    views.forEach { contentView.addSubview($0) }
+    skeletonViews.forEach { contentView.addSubview($0) }
 
     initUI()
   }

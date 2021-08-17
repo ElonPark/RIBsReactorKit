@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct UserListPresentableState: Equatable {
-  var isLoading: Bool = false
-  var isRefresh: Bool = false
+struct UserListPresentableState: Equatable, HasLoadingState, HasRefreshState {
+  var isLoading = false
+  var isRefresh = false
   var userListSections = [UserListSectionModel]()
 }

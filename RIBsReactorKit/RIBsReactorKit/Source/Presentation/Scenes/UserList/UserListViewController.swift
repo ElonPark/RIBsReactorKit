@@ -25,7 +25,7 @@ enum UserListPresentableAction {
 
 // MARK: - UserListPresentableListener
 
-protocol UserListPresentableListener: AnyObject {
+protocol UserListPresentableListener: AnyObject, HasLoadingStream, HasRefreshStream {
   typealias Action = UserListPresentableAction
   typealias State = UserListPresentableState
 
@@ -38,10 +38,13 @@ protocol UserListPresentableListener: AnyObject {
 
 final class UserListViewController:
   BaseViewController,
+  UserListPresentable,
+  UserListViewControllable,
   HasTableView,
   PullToRefreshable,
-  UserListPresentable,
-  UserListViewControllable
+  SkeletonControllable,
+  LoadingStreamBindable,
+  RefreshStreamBindable
 {
 
   // MARK: - Constants
@@ -68,9 +71,8 @@ final class UserListViewController:
     .rowHeight(UITableView.automaticDimension)
     .estimatedRowHeight(UI.userListCellEstimatedRowHeight)
     .isSkeletonable(true)
-    .reinforce {
+    .with {
       $0.register(UserListItemCell.self)
-      $0.showAnimatedGradientSkeleton()
     }
     .build()
 
@@ -103,7 +105,7 @@ private extension UserListViewController {
   }
 
   func dataSource() -> UserListDataSource {
-    UserListDataSource(
+    return UserListDataSource(
       configureCell: { _, tableView, indexPath, sectionItem in
         switch sectionItem {
         case let .user(viewModel):
@@ -113,6 +115,7 @@ private extension UserListViewController {
 
         case .dummy:
           let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
+          cell.showAnimatedGradientSkeleton()
           return cell
         }
       }
@@ -120,34 +123,17 @@ private extension UserListViewController {
   }
 }
 
-// MARK: - Binding
+// MARK: - Bind UI
 
 private extension UserListViewController {
   func bindUI() {
     bindRefreshControlEvent()
-    bindDisplayDummyCellAnimation()
   }
+}
 
-  func bindDisplayDummyCellAnimation() {
-    tableView.rx.willDisplayCell
-      .asDriver()
-      .drive(onNext: { cell, indexPath in
-        guard let userListCell = cell as? UserListItemCell,
-              userListCell.isSkeletonActive && userListCell.viewModel == nil
-        else { return }
+// MARK: - Bind listener
 
-        userListCell.alpha = 0
-        UIView.animate(
-          withDuration: 0.5,
-          delay: 0.06 * Double(indexPath.row),
-          animations: {
-            userListCell.alpha = 1
-          }
-        )
-      })
-      .disposed(by: disposeBag)
-  }
-
+private extension UserListViewController {
   func bind(listener: UserListPresentableListener?) {
     guard let listener = listener else { return }
     bindActionRelay()
@@ -176,7 +162,6 @@ private extension UserListViewController {
 
   func bindViewWillAppearAction() {
     rx.viewWillAppear
-      .take(1)
       .map { _ in .loadData }
       .bind(to: actionRelay)
       .disposed(by: disposeBag)
@@ -208,43 +193,9 @@ private extension UserListViewController {
 
 private extension UserListViewController {
   func bindState(from listener: UserListPresentableListener) {
-    bindIsLoadingState(from: listener)
-    bindIsRefreshState(from: listener)
+    bindLoadingStream(from: listener)
+    bindRefreshStream(from: listener)
     bindUserListSectionsState(from: listener)
-  }
-
-  func bindIsLoadingState(from listener: UserListPresentableListener) {
-    listener.state.map(\.isLoading)
-      .distinctUntilChanged()
-      .withUnretained(self)
-      .bind { this, isLoading in
-        this.tableViewSkeletonAnimation(by: isLoading)
-      }
-      .disposed(by: disposeBag)
-  }
-
-  func bindIsRefreshState(from listener: UserListPresentableListener) {
-    listener.state.map(\.isRefresh)
-      .distinctUntilChanged()
-      .withUnretained(self)
-      .bind { this, isRefresh in
-        this.tableViewSkeletonAnimation(by: isRefresh)
-
-        guard !isRefresh else { return }
-        this.endRefreshing()
-      }
-      .disposed(by: disposeBag)
-  }
-
-  func tableViewSkeletonAnimation(by isLoading: Bool) {
-    DispatchQueue.main.async { [weak self] in
-      guard let this = self else { return }
-      if isLoading {
-        this.tableView.showAnimatedGradientSkeleton()
-      } else {
-        this.tableView.hideSkeleton(transition: .crossDissolve(0.25))
-      }
-    }
   }
 
   func bindUserListSectionsState(from listener: UserListPresentableListener) {
@@ -265,6 +216,8 @@ extension UserListViewController {
 
     setRefreshControl()
     layout()
+
+    tableView.showAnimatedGradientSkeleton()
   }
 
   private func layout() {
@@ -308,7 +261,7 @@ extension UserListViewController {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
           let viewController = UserListViewController().builder
-            .reinforce { $0.bindDummyItems() }
+            .with { $0.bindDummyItems() }
             .build()
 
           return UINavigationController(rootViewController: viewController)

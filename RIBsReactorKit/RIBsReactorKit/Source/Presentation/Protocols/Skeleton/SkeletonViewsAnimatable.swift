@@ -1,5 +1,5 @@
 //
-//  SkeletonAnimatable.swift
+//  SkeletonViewsAnimatable.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/08/04.
@@ -10,22 +10,22 @@ import UIKit
 
 import SkeletonView
 
-// MARK: - SkeletonAnimatable
+// MARK: - SkeletonViewsAnimatable
 
-protocol SkeletonAnimatable {
-  var views: [UIView] { get }
+protocol SkeletonViewsAnimatable {
+  var skeletonViews: [UIView] { get }
 
   func showSkeletonAnimation()
   func hideSkeletonAnimation()
 }
 
-extension SkeletonAnimatable {
+extension SkeletonViewsAnimatable {
   func showSkeletonAnimation() {
-    views.forEach { $0.showAnimatedGradientSkeleton() }
+    skeletonViews.forEach { $0.showAnimatedGradientSkeleton() }
   }
 
   func hideSkeletonAnimation() {
-    views
+    skeletonViews
       .filter(\.isSkeletonActive)
       .forEach { $0.hideSkeleton(transition: .crossDissolve(0.25)) }
   }

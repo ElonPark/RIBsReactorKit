@@ -47,6 +47,9 @@ final class UserInformationViewController:
   private enum UI {
     static let headerHeight: CGFloat = 50
     static let footerHeight: CGFloat = 10
+    static let profileCellHeight: CGFloat = 250
+    static let detailCellHeight: CGFloat = 65
+    static let locationCellHeight: CGFloat = 250
   }
 
   typealias UserInformationDataSource = RxCollectionViewSectionedReloadDataSource<UserInfoSectionModel>
@@ -67,7 +70,7 @@ final class UserInformationViewController:
 
   private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).builder
     .backgroundColor(Asset.Colors.backgroundColor.color)
-    .reinforce {
+    .with {
       $0.register(UserProfileCell.self)
       $0.register(UserDetailInfoCell.self)
       $0.register(UserLocationCell.self)
@@ -176,7 +179,7 @@ private extension UserInformationViewController {
   }
 }
 
-// MARK: - Binding
+// MARK: - Bind UI
 
 private extension UserInformationViewController {
   func bindUI() {
@@ -190,7 +193,11 @@ private extension UserInformationViewController {
     collectionView.rx.setDelegate(self)
       .disposed(by: disposeBag)
   }
+}
 
+// MARK: - Bind listener
+
+private extension UserInformationViewController {
   private func bind(listener: UserInformationPresentableListener?) {
     guard let listener = listener else { return }
     bindActionRelay()
@@ -317,13 +324,13 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
 
     switch item {
     case .dummyProfile, .profile:
-      return CGSize(width: collectionView.frame.width, height: 250)
+      return CGSize(width: collectionView.frame.width, height: UI.profileCellHeight)
 
     case .dummy, .detail:
-      return CGSize(width: collectionView.frame.width, height: 65)
+      return CGSize(width: collectionView.frame.width, height: UI.detailCellHeight)
 
     case .location:
-      return CGSize(width: collectionView.frame.width, height: 250)
+      return CGSize(width: collectionView.frame.width, height: UI.locationCellHeight)
     }
   }
 }
@@ -376,7 +383,7 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
           let viewController = UserInformationViewController().builder
-            .reinforce { $0.bindDummyUserModel() }
+            .with { $0.bindDummyUserModel() }
             .build()
 
           return UINavigationController(rootViewController: viewController)
