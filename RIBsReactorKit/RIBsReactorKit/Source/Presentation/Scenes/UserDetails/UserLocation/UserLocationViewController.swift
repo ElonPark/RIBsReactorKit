@@ -132,9 +132,8 @@ private extension UserLocationViewController {
 
 private extension UserLocationViewController {
   func setupUI() {
-    if needHeaderView {
-      view.addSubview(headerView)
-    }
+    view.backgroundColor = Asset.Colors.backgroundColor.color
+    addHeaderViewIfNeeded(to: view)
     view.addSubview(mapView)
 
     layout()

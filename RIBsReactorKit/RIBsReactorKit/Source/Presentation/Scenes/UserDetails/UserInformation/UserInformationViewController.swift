@@ -267,9 +267,7 @@ private extension UserInformationViewController {
 private extension UserInformationViewController {
   func setupUI() {
     view.backgroundColor = Asset.Colors.backgroundColor.color
-    if needHeaderView {
-      view.addSubview(headerView)
-    }
+    addHeaderViewIfNeeded(to: view)
     view.addSubview(collectionView)
 
     setDataSourceConfigureSupplementaryView()

@@ -50,15 +50,16 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
     return randomUsers(isRefresh: isRefresh, itemCount: itemCount)
       .map(\.results)
       .withUnretained(self)
-      .do(onNext: { this, results in
+      .map { this, results in
         this.setIsLastItems(by: results, itemCount: itemCount)
         if isRefresh {
           this.updateUserModels(by: results)
         } else {
           this.appendUserModels(by: results)
         }
-      })
-      .map { _ in Void() }
+
+        return Void()
+      }
   }
 
   // MARK: - Private methods
@@ -75,11 +76,12 @@ final class RandomUserUseCaseImpl: RandomUserUseCase {
     return randomUsers
       .asObservable()
       .withUnretained(self)
-      .do(onNext: { this, response in
+      .map { this, response in
         this.updateResponseInfo(by: response.info)
         this.updateUserByUUID(by: response.results)
-      })
-      .map { _, response in response }
+
+        return response
+      }
   }
 
   private func updateResponseInfo(by responseInfo: Info) {
