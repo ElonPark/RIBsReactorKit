@@ -8,6 +8,7 @@
 
 import UIKit
 
+import Kingfisher
 import RIBs
 import RxCocoa
 import RxDataSources
@@ -52,6 +53,8 @@ final class UserCollectionViewController:
 
   private let actionRelay = PublishRelay<UserCollectionViewControllableListener.Action>()
 
+  private let dataSource: UserCollectionDataSource
+
   // MARK: - UI Components
 
   let refreshControl = UIRefreshControl()
@@ -70,6 +73,7 @@ final class UserCollectionViewController:
   // MARK: - Initialization & Deinitialization
 
   override init() {
+    self.dataSource = Self.dataSource()
     super.init()
     setTabBarItem()
   }
@@ -95,7 +99,7 @@ private extension UserCollectionViewController {
     )
   }
 
-  func dataSource() -> UserCollectionDataSource {
+  static func dataSource() -> UserCollectionDataSource {
     return UserCollectionDataSource(
       configureCell: { _, collectionView, indexPath, section in
         switch section {
@@ -111,6 +115,19 @@ private extension UserCollectionViewController {
         }
       }
     )
+  }
+
+  func prefetchImages(byIndexPaths indexPaths: [IndexPath]) {
+    let urls = indexPaths
+      .compactMap { dataSource.sectionModels[safe: $0.section]?.items[safe: $0.row] }
+      .compactMap { item -> [URL] in
+        guard case let .user(viewModel) = item else { return [] }
+        let imageURLs = [viewModel.profileBackgroundImageURL, viewModel.profileImageURL]
+        return imageURLs.compactMap { $0 }
+      }
+      .flatMap { $0 }
+
+    ImagePrefetcher(urls: urls).start()
   }
 }
 
@@ -199,7 +216,7 @@ private extension UserCollectionViewController {
     listener.viewModel.map(\.userCollectionSections)
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
-      .drive(collectionView.rx.items(dataSource: dataSource()))
+      .drive(collectionView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
   }
 }
@@ -209,6 +226,7 @@ private extension UserCollectionViewController {
 private extension UserCollectionViewController {
   func setupUI() {
     navigationItem.title = Strings.UserCollection.title
+    collectionView.prefetchDataSource = self
     view.addSubview(collectionView)
 
     setRefreshControl()
@@ -220,6 +238,12 @@ private extension UserCollectionViewController {
       $0.edges.equalToSuperview()
     }
   }
+}
+
+// MARK: - UICollectionViewDataSourcePrefetching
+
+extension UserCollectionViewController: UICollectionViewDataSourcePrefetching {
+  func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {}
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
