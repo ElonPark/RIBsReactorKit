@@ -20,6 +20,11 @@ extension HasCloseButtonHeaderView where Self: UIViewController {
     navigationController == nil
   }
 
+  func addHeaderViewIfNeeded(to view: UIView) {
+    guard needHeaderView else { return }
+    view.addSubview(headerView)
+  }
+
   func makeHeaderViewConstraintsIfNeeded() {
     guard needHeaderView else { return }
     headerView.snp.makeConstraints {

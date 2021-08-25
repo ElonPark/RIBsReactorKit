@@ -8,6 +8,7 @@
 
 import UIKit
 
+import Kingfisher
 import RIBs
 import RxCocoa
 import RxDataSources
@@ -63,6 +64,8 @@ final class UserListViewController:
 
   private let actionRelay = PublishRelay<UserListPresentableListener.Action>()
 
+  private let dataSource: UserListDataSource
+
   // MARK: - UI Components
 
   let refreshControl = UIRefreshControl()
@@ -79,6 +82,7 @@ final class UserListViewController:
   // MARK: - Initialization & Deinitialization
 
   override init() {
+    self.dataSource = Self.dataSource()
     super.init()
     setTabBarItem()
   }
@@ -104,7 +108,7 @@ private extension UserListViewController {
     )
   }
 
-  func dataSource() -> UserListDataSource {
+  static func dataSource() -> UserListDataSource {
     return UserListDataSource(
       configureCell: { _, tableView, indexPath, sectionItem in
         switch sectionItem {
@@ -120,6 +124,17 @@ private extension UserListViewController {
         }
       }
     )
+  }
+
+  func prefetchImages(byIndexPaths indexPaths: [IndexPath]) {
+    let urls = indexPaths
+      .compactMap { dataSource.sectionModels[safe: $0.section]?.items[safe: $0.row] }
+      .compactMap { item -> URL? in
+        guard case let .user(viewModel) = item else { return nil }
+        return viewModel.profileImageURL
+      }
+
+    ImagePrefetcher(urls: urls).start()
   }
 }
 
@@ -162,6 +177,7 @@ private extension UserListViewController {
 
   func bindViewWillAppearAction() {
     rx.viewWillAppear
+      .throttle(.seconds(1), latest: false, scheduler: MainScheduler.instance)
       .map { _ in .loadData }
       .bind(to: actionRelay)
       .disposed(by: disposeBag)
@@ -202,7 +218,7 @@ private extension UserListViewController {
     listener.state.map(\.userListSections)
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
-      .drive(tableView.rx.items(dataSource: dataSource()))
+      .drive(tableView.rx.items(dataSource: dataSource))
       .disposed(by: disposeBag)
   }
 }
@@ -212,18 +228,25 @@ private extension UserListViewController {
 extension UserListViewController {
   private func setupUI() {
     navigationItem.title = Strings.UserList.title
+    tableView.prefetchDataSource = self
     view.addSubview(tableView)
 
     setRefreshControl()
     layout()
-
-    tableView.showAnimatedGradientSkeleton()
   }
 
   private func layout() {
     tableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
+  }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension UserListViewController: UITableViewDataSourcePrefetching {
+  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+    prefetchImages(byIndexPaths: indexPaths)
   }
 }
 
@@ -242,7 +265,7 @@ extension UserListViewController {
       Observable.just([.randomUser(dummySectionItems)])
         .distinctUntilChanged()
         .asDriver(onErrorJustReturn: [])
-        .drive(tableView.rx.items(dataSource: dataSource()))
+        .drive(tableView.rx.items(dataSource: dataSource))
         .disposed(by: disposeBag)
     }
   }

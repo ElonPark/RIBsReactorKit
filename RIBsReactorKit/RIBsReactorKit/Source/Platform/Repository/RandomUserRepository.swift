@@ -23,11 +23,9 @@ final class RandomUserRepositoryImpl: NetworkRepository<RandomUserService>, Rand
 
   // MARK: - Properties
 
-  private lazy var jsonDecoder: JSONDecoder = {
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
-    return decoder
-  }()
+  private let jsonDecoder = JSONDecoder().builder
+    .dateDecodingStrategy(.iso8601withFractionalSeconds)
+    .build()
 
   // MARK: - Internal methods
 
