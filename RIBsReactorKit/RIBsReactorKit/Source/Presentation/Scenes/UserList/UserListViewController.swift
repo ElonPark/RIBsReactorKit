@@ -177,6 +177,7 @@ private extension UserListViewController {
 
   func bindViewWillAppearAction() {
     rx.viewWillAppear
+      .throttle(.seconds(1), latest: false, scheduler: MainScheduler.instance)
       .map { _ in .loadData }
       .bind(to: actionRelay)
       .disposed(by: disposeBag)

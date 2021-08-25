@@ -84,6 +84,7 @@ final class UserListItemCell:
   override func initialize() {
     super.initialize()
     setUpUI()
+    showGradientSkeleton()
   }
 
   override func setupConstraints() {
@@ -104,6 +105,7 @@ final class UserListItemCell:
     profileImageView.kf.setImage(with: viewModel.profileImageURL)
     nameLabel.text = viewModel.titleWithFullName
     locationLabel.text = viewModel.location
+    hideSkeleton()
   }
 
   // MARK: - Private methods

@@ -22,7 +22,7 @@ extension SkeletonControllable {
       if needAnimation {
         contentsView?.showAnimatedGradientSkeleton()
       } else {
-        contentsView?.hideSkeleton(transition: .crossDissolve(0.25))
+        contentsView?.hideSkeleton()
       }
     }
   }
