@@ -58,7 +58,6 @@ extension MainTabBarViewController: RootViewControllable {}
     "iPhone 11 Pro Max"
   ]
 
-  @available(iOS 13.0, *)
   struct MainTabBarViewControllerPreview: PreviewProvider {
     static var previews: some View {
       ForEach(deviceNames, id: \.self) { deviceName in

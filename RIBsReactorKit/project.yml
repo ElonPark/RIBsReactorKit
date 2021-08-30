@@ -4,7 +4,7 @@ attributes:
 options:
   bundleIdPrefix: com.elonparks
   deploymentTarget:
-    iOS: 12.0
+    iOS: 13.0
   defaultConfig: Release
   indentWidth: 2
   tabWidth: 2

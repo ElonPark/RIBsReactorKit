@@ -11,10 +11,7 @@ import UIKit.UIImage
 
 struct GenderSctionItemFactory: UserInfoSectionItemFactory {
 
-  private var icon: UIImage? {
-    guard #available(iOS 13, *) else { return nil }
-    return UIImage(systemName: "person.fill")
-  }
+  private var icon: UIImage? { UIImage(systemName: "person.fill") }
 
   func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem {
     let viewModel = UserDetailInfoItemViewModel(

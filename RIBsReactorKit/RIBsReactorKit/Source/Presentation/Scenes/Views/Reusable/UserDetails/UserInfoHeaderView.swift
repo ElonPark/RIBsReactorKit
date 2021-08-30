@@ -111,7 +111,6 @@ extension UserInfoHeaderView {
 #if canImport(SwiftUI) && DEBUG
   import SwiftUI
 
-  @available(iOS 13.0, *)
   struct UserInformationSectionHeaderViewPreview: PreviewProvider {
     static var previews: some SwiftUI.View {
       UIViewPreview {

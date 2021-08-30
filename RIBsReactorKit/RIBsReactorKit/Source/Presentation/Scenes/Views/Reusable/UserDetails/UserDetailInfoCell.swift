@@ -191,7 +191,6 @@ extension UserDetailInfoCell {
 
   import SwiftUI
 
-  @available(iOS 13.0, *)
   struct UserDetailInformationCellCellPreview: PreviewProvider {
     static var previews: some SwiftUI.View {
       UIViewPreview {
