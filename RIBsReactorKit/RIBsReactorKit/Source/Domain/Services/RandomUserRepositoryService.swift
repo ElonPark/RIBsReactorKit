@@ -1,5 +1,5 @@
 //
-//  RandomUserUseCase.swift
+//  RandomUserRepositoryService.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/04/27.
@@ -9,15 +9,15 @@
 import RxRelay
 import RxSwift
 
-// MARK: - RandomUserUseCase
+// MARK: - RandomUserRepositoryService
 
-protocol RandomUserUseCase {
+protocol RandomUserRepositoryService {
   func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void>
 }
 
-// MARK: - RandomUserUseCaseImpl
+// MARK: - RandomUserRepositoryServiceImpl
 
-final class RandomUserUseCaseImpl: RandomUserUseCase {
+final class RandomUserRepositoryServiceImpl: RandomUserRepositoryService {
 
   // MARK: - Properties
 

@@ -11,7 +11,7 @@ import RIBs
 // MARK: - UserCollectionDependency
 
 protocol UserCollectionDependency: UserCollectionDependencyUserInformation {
-  var randomUserUseCase: RandomUserUseCase { get }
+  var randomUserRepositoryService: RandomUserRepositoryService { get }
   var userModelDataStream: UserModelDataStream { get }
   var userCollectionViewController: UserCollectionViewControllable { get }
 }
@@ -28,8 +28,8 @@ final class UserCollectionComponent: Component<UserCollectionDependency> {
     UserCollectionState()
   }
 
-  fileprivate var randomUserUseCase: RandomUserUseCase {
-    dependency.randomUserUseCase
+  fileprivate var randomUserRepositoryService: RandomUserRepositoryService {
+    dependency.randomUserRepositoryService
   }
 
   fileprivate var userModelDataStream: UserModelDataStream {
@@ -60,7 +60,7 @@ final class UserCollectionBuilder: Builder<UserCollectionDependency>, UserCollec
     let presenter = UserCollectionPresenter(viewController: component.userCollectionViewController)
     let interactor = UserCollectionInteractor(
       initialState: component.initialState,
-      randomUserUseCase: component.randomUserUseCase,
+      randomUserRepositoryService: component.randomUserRepositoryService,
       userModelDataStream: component.userModelDataStream,
       mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
       presenter: presenter

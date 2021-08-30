@@ -1,5 +1,5 @@
 //
-//  RandomUserService.swift
+//  RandomUserAPI.swift
 //  RIBsReactorKit
 //
 //  Created by Elon on 2020/04/26.
@@ -8,16 +8,16 @@
 
 import Moya
 
-// MARK: - RandomUserService
+// MARK: - RandomUserAPI
 
-enum RandomUserService: TargetType {
+enum RandomUserAPI: TargetType {
   case multipleUsers(resultCount: Int)
   case pagination(page: Int, resultCount: Int, seed: String)
 }
 
 // MARK: - TargetType
 
-extension RandomUserService {
+extension RandomUserAPI {
 
   var baseURL: URL {
     URL(string: "https://randomuser.me")!

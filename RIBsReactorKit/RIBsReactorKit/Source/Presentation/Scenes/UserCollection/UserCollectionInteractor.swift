@@ -54,19 +54,19 @@ final class UserCollectionInteractor:
   let initialState: UserCollectionState
   let requestItemCount: Int = 50
 
-  private let randomUserUseCase: RandomUserUseCase
+  private let randomUserRepositoryService: RandomUserRepositoryService
   private let userModelDataStream: UserModelDataStream
   private let mutableSelectedUserModelStream: MutableSelectedUserModelStream
 
   init(
     initialState: UserCollectionState,
-    randomUserUseCase: RandomUserUseCase,
+    randomUserRepositoryService: RandomUserRepositoryService,
     userModelDataStream: UserModelDataStream,
     mutableSelectedUserModelStream: MutableSelectedUserModelStream,
     presenter: UserCollectionPresentable
   ) {
     self.initialState = initialState
-    self.randomUserUseCase = randomUserUseCase
+    self.randomUserRepositoryService = randomUserRepositoryService
     self.userModelDataStream = userModelDataStream
     self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
 
@@ -103,7 +103,7 @@ extension UserCollectionInteractor {
   private func loadDataMutation() -> Observable<Mutation> {
     guard !currentState.isLoading && currentState.userModels.isEmpty else { return .empty() }
 
-    let loadData: Observable<Mutation> = randomUserUseCase
+    let loadData: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setLoading(false))
@@ -118,7 +118,7 @@ extension UserCollectionInteractor {
   }
 
   private func refreshMutation() -> Observable<Mutation> {
-    let loadData: Observable<Mutation> = randomUserUseCase
+    let loadData: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: true, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
@@ -137,7 +137,8 @@ extension UserCollectionInteractor {
     let lastIndex = userModelCount - 1
     guard userModelCount >= requestItemCount && currentIndex == lastIndex else { return .empty() }
 
-    return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
+    return randomUserRepositoryService
+      .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
   }

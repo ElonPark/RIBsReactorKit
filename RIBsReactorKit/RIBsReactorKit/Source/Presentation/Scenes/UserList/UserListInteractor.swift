@@ -53,7 +53,7 @@ final class UserListInteractor:
 
   let initialState: UserListPresentableState
 
-  private let randomUserUseCase: RandomUserUseCase
+  private let randomUserRepositoryService: RandomUserRepositoryService
   private let userModelDataStream: UserModelDataStream
   private let mutableSelectedUserModelStream: MutableSelectedUserModelStream
 
@@ -63,13 +63,13 @@ final class UserListInteractor:
 
   init(
     initialState: UserListPresentableState,
-    randomUserUseCase: RandomUserUseCase,
+    randomUserRepositoryService: RandomUserRepositoryService,
     userModelDataStream: UserModelDataStream,
     mutableSelectedUserModelStream: MutableSelectedUserModelStream,
     presenter: UserListPresentable
   ) {
     self.initialState = initialState
-    self.randomUserUseCase = randomUserUseCase
+    self.randomUserRepositoryService = randomUserRepositoryService
     self.userModelDataStream = userModelDataStream
     self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
 
@@ -111,7 +111,7 @@ extension UserListInteractor {
   }
 
   private func refreshMutation() -> Observable<Mutation> {
-    let loadData: Observable<Mutation> = randomUserUseCase
+    let loadData: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: true, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
@@ -132,7 +132,8 @@ extension UserListInteractor {
     let lastItemRow = currentState.userListSections[indexPath.section].items.count - 1
     guard indexPath.row == lastItemRow else { return .empty() }
 
-    return randomUserUseCase.loadData(isRefresh: false, itemCount: requestItemCount)
+    return randomUserRepositoryService
+      .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
   }

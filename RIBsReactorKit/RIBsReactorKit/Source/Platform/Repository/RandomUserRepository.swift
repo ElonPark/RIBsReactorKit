@@ -19,7 +19,7 @@ protocol RandomUserRepository {
 
 // MARK: - RandomUserRepositoryImpl
 
-final class RandomUserRepositoryImpl: NetworkRepository<RandomUserService>, RandomUserRepository {
+final class RandomUserRepositoryImpl: NetworkRepository<RandomUserAPI>, RandomUserRepository {
 
   // MARK: - Properties
 
