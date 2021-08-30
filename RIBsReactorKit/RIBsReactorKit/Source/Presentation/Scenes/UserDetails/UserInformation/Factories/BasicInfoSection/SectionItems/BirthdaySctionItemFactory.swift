@@ -16,10 +16,7 @@ struct BirthdaySctionItemFactory: UserInfoSectionItemFactory {
     .timeStyle(.none)
     .build()
 
-  private var icon: UIImage? {
-    guard #available(iOS 13, *) else { return nil }
-    return UIImage(systemName: "calendar")
-  }
+  private var icon: UIImage? { UIImage(systemName: "calendar") }
 
   func makeSectionItem(from userModel: UserModel, isLastItem: Bool) -> UserInfoSectionItem {
     let viewModel = UserDetailInfoItemViewModel(

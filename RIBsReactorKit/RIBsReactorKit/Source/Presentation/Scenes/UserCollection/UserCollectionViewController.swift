@@ -274,7 +274,6 @@ extension UserCollectionViewController: UICollectionViewDelegateFlowLayout {
     "iPhone 11 Pro Max"
   ]
 
-  @available(iOS 13.0, *)
   struct UserCollectionControllerPreview: PreviewProvider {
     static var previews: some View {
       ForEach(deviceNames, id: \.self) { deviceName in

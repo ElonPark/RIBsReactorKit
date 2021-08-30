@@ -155,7 +155,6 @@ extension UserListItemCell {
 #if canImport(SwiftUI) && DEBUG
   import SwiftUI
 
-  @available(iOS 13.0, *)
   struct UserListItemCellPreview: PreviewProvider {
     static var previews: some SwiftUI.View {
       UIViewPreview {

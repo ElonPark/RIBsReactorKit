@@ -277,9 +277,7 @@ extension UserListViewController: UITableViewDataSourcePrefetching {
     "iPhone 11 Pro Max"
   ]
 
-  @available(iOS 13.0, *)
   struct UserListViewControllerPreview: PreviewProvider {
-
     static var previews: some SwiftUI.View {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
