@@ -68,7 +68,6 @@ final class UserDetailInfoCell:
 
   private lazy var titleLabel = UILabel().builder
     .font(UI.Font.title)
-    .textColor(UI.Color.titleText)
     .numberOfLines(0)
     .text(dummyTitleString)
     .isSkeletonable(true)
@@ -76,7 +75,6 @@ final class UserDetailInfoCell:
 
   private lazy var subtitleLabel = UILabel().builder
     .font(UI.Font.subtitle)
-    .textColor(UI.Color.subtitleText)
     .numberOfLines(0)
     .text(dummySubtitleString)
     .isSkeletonable(true)

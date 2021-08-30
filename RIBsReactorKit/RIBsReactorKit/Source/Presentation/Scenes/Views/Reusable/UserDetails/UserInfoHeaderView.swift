@@ -47,7 +47,6 @@ final class UserInfoHeaderView:
 
   private lazy var titleLabel = UILabel().builder
     .font(UI.Font.titleLabel)
-    .textColor(.black)
     .text(dummyTitleString)
     .isSkeletonable(true)
     .linesCornerRadius(UI.linesCornerRadius)

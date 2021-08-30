@@ -19,7 +19,7 @@ final class CloseButtonHeaderView: BaseView {
     static var cornerRadius: CGFloat { buttonHeight / 2 }
   }
 
-  private(set) lazy var closeButton = UIButton().builder
+  let closeButton = UIButton().builder
     .contentEdgeInsets(UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15))
     .backgroundColor(.black)
     .set(\.layer.cornerRadius, to: UI.cornerRadius)
@@ -37,16 +37,6 @@ final class CloseButtonHeaderView: BaseView {
   override func setupConstraints() {
     super.setupConstraints()
     makeCloseButtonConstraints()
-  }
-
-  private func closeButton(cornerRadius: CGFloat) -> UIButton {
-    return UIButton().builder
-      .contentEdgeInsets(UIEdgeInsets(top: 10, left: 15, bottom: 10, right: 15))
-      .backgroundColor(.black)
-      .set(\.layer.cornerRadius, to: cornerRadius)
-      .with {
-        $0.setTitle(Strings.Common.close, for: .normal)
-      }
   }
 
   private func makeCloseButtonConstraints() {
