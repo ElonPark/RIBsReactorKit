@@ -4,6 +4,8 @@
 
 <img src="./Docs/RIBsReactorKit.png" alt="RIBsReactorKit" width="500" />
 
+### Related post
+- [medium](https://blog.mathpresso.com/ribs에-reactorkit-도입하기-6593124a34ec)
 
 ### install
 
