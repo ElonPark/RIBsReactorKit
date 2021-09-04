@@ -8,7 +8,6 @@
 
 import UIKit
 
-import Kingfisher
 import RIBs
 import RxCocoa
 import RxDataSources
@@ -65,6 +64,8 @@ final class UserListViewController:
   private let actionRelay = PublishRelay<UserListPresentableListener.Action>()
 
   private let dataSource: UserListDataSource
+
+  private let imagePrefetcher = ImagePrefetcher()
 
   // MARK: - UI Components
 
@@ -134,7 +135,7 @@ private extension UserListViewController {
         return viewModel.profileImageURL
       }
 
-    ImagePrefetcher(urls: urls).start()
+    imagePrefetcher.startPrefetch(withURLs: urls)
   }
 }
 

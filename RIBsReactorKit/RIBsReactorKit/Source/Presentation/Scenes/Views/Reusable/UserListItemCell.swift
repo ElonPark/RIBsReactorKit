@@ -8,7 +8,6 @@
 
 import UIKit
 
-import Kingfisher
 import SkeletonView
 import SnapKit
 
@@ -94,7 +93,7 @@ final class UserListItemCell:
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    profileImageView.kf.cancelDownloadTask()
+    profileImageView.cancelDownloadTask()
     initUI()
   }
 
@@ -102,7 +101,7 @@ final class UserListItemCell:
 
   func configure(by viewModel: UserListItemViewModel) {
     self.viewModel = viewModel
-    profileImageView.kf.setImage(with: viewModel.profileImageURL)
+    profileImageView.setImage(with: viewModel.profileImageURL)
     nameLabel.text = viewModel.titleWithFullName
     locationLabel.text = viewModel.location
     hideSkeleton()

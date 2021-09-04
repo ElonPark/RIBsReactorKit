@@ -113,6 +113,8 @@ final class UserProfileCell:
 
   override func prepareForReuse() {
     super.prepareForReuse()
+    profileBackgroundImageView.cancelDownloadTask()
+    profileImageView.cancelDownloadTask()
     initUI()
   }
 
@@ -120,8 +122,8 @@ final class UserProfileCell:
 
   func configure(by viewModel: UserProfileViewModel) {
     self.viewModel = viewModel
-    profileBackgroundImageView.kf.setImage(with: viewModel.profileBackgroundImageURL)
-    profileImageView.kf.setImage(with: viewModel.profileImageURL)
+    profileBackgroundImageView.setImage(with: viewModel.profileBackgroundImageURL)
+    profileImageView.setImage(with: viewModel.profileImageURL)
     titleWithLastNameLabel.text = viewModel.titleWithLastName
     firstNameLabel.text = viewModel.firstName
   }

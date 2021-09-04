@@ -8,7 +8,6 @@
 
 import UIKit
 
-import Kingfisher
 import RIBs
 import RxCocoa
 import RxDataSources
@@ -54,6 +53,8 @@ final class UserCollectionViewController:
   private let actionRelay = PublishRelay<UserCollectionViewControllableListener.Action>()
 
   private let dataSource: UserCollectionDataSource
+
+  private let imagePrefetcher = ImagePrefetcher()
 
   // MARK: - UI Components
 
@@ -127,7 +128,7 @@ private extension UserCollectionViewController {
       }
       .flatMap { $0 }
 
-    ImagePrefetcher(urls: urls).start()
+    imagePrefetcher.startPrefetch(withURLs: urls)
   }
 }
 
@@ -244,7 +245,9 @@ private extension UserCollectionViewController {
 // MARK: - UICollectionViewDataSourcePrefetching
 
 extension UserCollectionViewController: UICollectionViewDataSourcePrefetching {
-  func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {}
+  func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+    prefetchImages(byIndexPaths: indexPaths)
+  }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
