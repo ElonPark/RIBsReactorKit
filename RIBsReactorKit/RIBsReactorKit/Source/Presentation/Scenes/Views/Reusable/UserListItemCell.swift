@@ -116,7 +116,6 @@ class UserListItemCell:
   }
 
   func configure(by viewModel: UserListItemViewModel) {
-    self.viewModel = viewModel
     profileImageView.setImage(with: viewModel.profileImageURL)
     userName = viewModel.titleWithFullName
     userLocation = viewModel.location

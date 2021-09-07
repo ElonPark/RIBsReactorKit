@@ -48,8 +48,6 @@ class UserProfileCell:
 
   // MARK: - Properties
 
-  private(set) var viewModel: UserProfileViewModel?
-
   var profileBackgroundImage: UIImage? {
     didSet {
       profileBackgroundImageView.image = profileBackgroundImage
@@ -145,7 +143,6 @@ class UserProfileCell:
   }
 
   func configure(by viewModel: UserProfileViewModel) {
-    self.viewModel = viewModel
     profileBackgroundImageView.setImage(with: viewModel.profileBackgroundImageURL)
     profileImageView.setImage(with: viewModel.profileImageURL)
     titleWithLastNameLabel.text = viewModel.titleWithLastName

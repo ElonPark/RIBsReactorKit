@@ -116,7 +116,6 @@ final class UserDetailInfoCell:
   // MARK: - Internal methods
 
   func configure(by viewModel: UserDetailInfoItemViewModel) {
-    self.viewModel = viewModel
     iconImageView.image = viewModel.icon
     titleLabel.text = viewModel.title
     separatorLineView.isHidden = !viewModel.showSeparatorLine

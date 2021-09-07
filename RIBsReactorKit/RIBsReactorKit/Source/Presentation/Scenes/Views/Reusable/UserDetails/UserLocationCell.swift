@@ -19,10 +19,6 @@ final class UserLocationCell:
   SkeletonViewsAnimatable
 {
 
-  // MARK: - Properties
-
-  private(set) var viewModel: UserLocationViewModel?
-
   // MARK: - UI Components
 
   private let mapView = MKMapView().builder
@@ -48,8 +44,6 @@ final class UserLocationCell:
   // MARK: - Internal methods
 
   func configure(by viewModel: UserLocationViewModel) {
-    self.viewModel = viewModel
-
     guard let coordinate2D = viewModel.location.coordinates.locationCoordinate2D else { return }
     let coordinate = CLLocationCoordinate2D(latitude: coordinate2D.latitude, longitude: coordinate2D.longitude)
     setRegion(to: mapView, center: coordinate)

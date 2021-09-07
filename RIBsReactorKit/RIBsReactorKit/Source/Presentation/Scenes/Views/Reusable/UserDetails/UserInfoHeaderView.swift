@@ -38,16 +38,10 @@ final class UserInfoHeaderView:
 
   static var elementKind: String = UICollectionView.elementKindSectionHeader
 
-  private(set) var viewModel: UserInfoSectionHeaderViewModel?
-
-  // for skeleton view animation
-  private let dummyTitleString = String(repeating: " ", count: 30)
-
   // MARK: - UI Components
 
   private lazy var titleLabel = BaseLabel().builder
     .font(UI.Font.titleLabel)
-    .text(dummyTitleString)
     .isSkeletonable(true)
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
@@ -76,14 +70,13 @@ final class UserInfoHeaderView:
   // MARK: - Internal methods
 
   func configure(by viewModel: UserInfoSectionHeaderViewModel) {
-    self.viewModel = viewModel
     titleLabel.text = viewModel.title
   }
 
   // MARK: - Private methods
 
   private func initUI() {
-    titleLabel.text = dummyTitleString
+    titleLabel.text = ""
   }
 }
 
