@@ -66,14 +66,14 @@ final class UserDetailInfoCell:
     .isSkeletonable(true)
     .build()
 
-  private lazy var titleLabel = UILabel().builder
+  private lazy var titleLabel = BaseLabel().builder
     .font(UI.Font.title)
     .numberOfLines(0)
     .text(dummyTitleString)
     .isSkeletonable(true)
     .build()
 
-  private lazy var subtitleLabel = UILabel().builder
+  private lazy var subtitleLabel = BaseLabel().builder
     .font(UI.Font.subtitle)
     .numberOfLines(0)
     .text(dummySubtitleString)

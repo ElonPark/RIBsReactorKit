@@ -76,14 +76,14 @@ final class UserProfileCell:
     .isSkeletonable(true)
     .build()
 
-  private lazy var titleWithLastNameLabel = UILabel().builder
+  private lazy var titleWithLastNameLabel = BaseLabel().builder
     .font(UI.Font.titleWithLastNameLabel)
     .textAlignment(.center)
     .text(dummyTitleWithLastNameString)
     .isSkeletonable(true)
     .build()
 
-  private lazy var firstNameLabel = UILabel().builder
+  private lazy var firstNameLabel = BaseLabel().builder
     .font(UI.Font.firstNameLabel)
     .textAlignment(.center)
     .text(dummyFirstNameString)

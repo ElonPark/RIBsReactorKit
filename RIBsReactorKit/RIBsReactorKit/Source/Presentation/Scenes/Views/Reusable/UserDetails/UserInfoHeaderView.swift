@@ -45,7 +45,7 @@ final class UserInfoHeaderView:
 
   // MARK: - UI Components
 
-  private lazy var titleLabel = UILabel().builder
+  private lazy var titleLabel = BaseLabel().builder
     .font(UI.Font.titleLabel)
     .text(dummyTitleString)
     .isSkeletonable(true)
