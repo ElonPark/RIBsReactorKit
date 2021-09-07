@@ -92,50 +92,50 @@ extension UserCollectionInteractor {
     case .refresh:
       return refreshMutation()
 
-    case let .loadMore(index):
-      return loadMoreMutation(by: index)
+    case let .loadMore(currentItemIndex):
+      return loadMoreMutation(withCurrentItemIndex: currentItemIndex)
 
-    case let .itemSelected(index):
-      return itemSelectedMutation(by: index)
+    case let .itemSelected(selectedItemIndex):
+      return itemSelectedMutation(bySelectedItemIndex: selectedItemIndex)
     }
   }
 
   private func loadDataMutation() -> Observable<Mutation> {
     guard !currentState.isLoading && currentState.userModels.isEmpty else { return .empty() }
 
-    let loadData: Observable<Mutation> = randomUserRepositoryService
+    let loadDataMutation: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setLoading(false))
 
     let sequence: [Observable<Mutation>] = [
-      .just(Mutation.setLoading(true)),
-      loadData,
-      .just(Mutation.setLoading(false))
+      .just(.setLoading(true)),
+      loadDataMutation,
+      .just(.setLoading(false))
     ]
 
     return .concat(sequence)
   }
 
   private func refreshMutation() -> Observable<Mutation> {
-    let loadData: Observable<Mutation> = randomUserRepositoryService
+    let refreshDataMutation: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: true, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
 
     let sequence: [Observable<Mutation>] = [
-      .just(Mutation.setRefresh(true)),
-      loadData,
-      .just(Mutation.setRefresh(false))
+      .just(.setRefresh(true)),
+      refreshDataMutation,
+      .just(.setRefresh(false))
     ]
 
     return .concat(sequence)
   }
 
-  private func loadMoreMutation(by currentIndex: Int) -> Observable<Mutation> {
+  private func loadMoreMutation(withCurrentItemIndex currentItemIndex: Int) -> Observable<Mutation> {
     let userModelCount = currentState.userModels.count
     let lastIndex = userModelCount - 1
-    guard userModelCount >= requestItemCount && currentIndex == lastIndex else { return .empty() }
+    guard userModelCount >= requestItemCount && currentItemIndex == lastIndex else { return .empty() }
 
     return randomUserRepositoryService
       .loadData(isRefresh: false, itemCount: requestItemCount)
@@ -143,7 +143,7 @@ extension UserCollectionInteractor {
       .catchAndReturn(.setRefresh(false))
   }
 
-  private func itemSelectedMutation(by itemIndex: Int) -> Observable<Mutation> {
+  private func itemSelectedMutation(bySelectedItemIndex itemIndex: Int) -> Observable<Mutation> {
     guard let item = currentState.userModels[safe: itemIndex] else { return .empty() }
     guard let user = userModelDataStream.userModel(byUUID: item.uuid) else { return .empty() }
 

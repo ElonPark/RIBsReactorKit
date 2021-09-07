@@ -95,11 +95,11 @@ extension UserListInteractor {
     case .refresh:
       return refreshMutation()
 
-    case let .loadMore(indexPath):
-      return loadMoreMutation(by: indexPath)
+    case let .loadMore(currentItemIndexPath):
+      return loadMoreMutation(withCurrentItemIndexPath: currentItemIndexPath)
 
-    case let .itemSelected(indexPath):
-      return itemSelectedMutation(by: indexPath)
+    case let .itemSelected(selectedItemIndexPath):
+      return itemSelectedMutation(bySelectedItemIndexPath: selectedItemIndexPath)
     }
   }
 
@@ -111,21 +111,21 @@ extension UserListInteractor {
   }
 
   private func refreshMutation() -> Observable<Mutation> {
-    let loadData: Observable<Mutation> = randomUserRepositoryService
+    let loadDataMutation: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: true, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
 
     let sequence: [Observable<Mutation>] = [
-      .just(Mutation.setRefresh(true)),
-      loadData,
-      .just(Mutation.setRefresh(false))
+      .just(.setRefresh(true)),
+      loadDataMutation,
+      .just(.setRefresh(false))
     ]
 
     return .concat(sequence)
   }
 
-  private func loadMoreMutation(by indexPath: IndexPath) -> Observable<Mutation> {
+  private func loadMoreMutation(withCurrentItemIndexPath indexPath: IndexPath) -> Observable<Mutation> {
     let lastSectionNumber = currentState.userListSections.count - 1
     guard indexPath.section == lastSectionNumber else { return .empty() }
 
@@ -138,7 +138,7 @@ extension UserListInteractor {
       .catchAndReturn(.setRefresh(false))
   }
 
-  private func itemSelectedMutation(by indexPath: IndexPath) -> Observable<Mutation> {
+  private func itemSelectedMutation(bySelectedItemIndexPath indexPath: IndexPath) -> Observable<Mutation> {
     let sections = currentState.userListSections
     let section = sections[safe: indexPath.section]
     guard let item = section?.items[safe: indexPath.row] else { return .empty() }
