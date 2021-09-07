@@ -22,7 +22,6 @@ class BaseTableViewCell:
   // MARK: - Properties
 
   var disposeBag = DisposeBag()
-
   var disposables = CompositeDisposable()
 
   private(set) var didSetupConstraints: Bool = false
@@ -62,6 +61,7 @@ class BaseTableViewCell:
   func initialize() {
     // Override point
     setNeedsUpdateConstraints()
+    selectionStyle = .none
   }
 
   func setupConstraints() {

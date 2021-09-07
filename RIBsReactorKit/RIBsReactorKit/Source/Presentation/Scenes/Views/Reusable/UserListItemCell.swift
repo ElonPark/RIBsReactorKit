@@ -127,7 +127,6 @@ class UserListItemCell:
 
 extension UserListItemCell {
   private func setUpUI() {
-    selectionStyle = .none
     isSkeletonable = true
     skeletonViews.forEach { contentView.addSubview($0) }
   }

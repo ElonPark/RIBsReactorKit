@@ -22,7 +22,6 @@ class BaseCollectionReusableView:
   // MARK: - Properties
 
   var disposeBag = DisposeBag()
-
   var disposables = CompositeDisposable()
 
   private(set) var didSetupConstraints: Bool = false
