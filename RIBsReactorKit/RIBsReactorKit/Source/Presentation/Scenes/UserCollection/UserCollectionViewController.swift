@@ -68,6 +68,7 @@ final class UserCollectionViewController:
     .backgroundColor(Asset.Colors.backgroundColor.color)
     .with {
       $0.register(UserProfileCell.self)
+      $0.register(DummyUserProfileCell.self)
     }
     .build()
 
@@ -110,8 +111,7 @@ private extension UserCollectionViewController {
           return cell
 
         case .dummy:
-          let cell = collectionView.dequeue(UserProfileCell.self, indexPath: indexPath)
-          cell.showAnimatedGradientSkeleton()
+          let cell = collectionView.dequeue(DummyUserProfileCell.self, indexPath: indexPath)
           return cell
         }
       }

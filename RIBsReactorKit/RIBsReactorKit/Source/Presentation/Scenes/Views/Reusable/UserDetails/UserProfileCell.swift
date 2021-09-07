@@ -10,7 +10,7 @@ import UIKit
 
 // MARK: - UserProfileCell
 
-final class UserProfileCell:
+class UserProfileCell:
   BaseCollectionViewCell,
   HasConfigure,
   SkeletonViewsAnimatable
@@ -50,9 +50,29 @@ final class UserProfileCell:
 
   private(set) var viewModel: UserProfileViewModel?
 
-  // for skeleton view animation
-  private let dummyTitleWithLastNameString = String(repeating: " ", count: 60)
-  private let dummyFirstNameString = String(repeating: " ", count: 40)
+  var profileBackgroundImage: UIImage? {
+    didSet {
+      profileBackgroundImageView.image = profileBackgroundImage
+    }
+  }
+
+  var userProfileImage: UIImage? {
+    didSet {
+      profileImageView.image = userProfileImage
+    }
+  }
+
+  var userTitleWithLastName: String = "" {
+    didSet {
+      titleWithLastNameLabel.text = userTitleWithLastName
+    }
+  }
+
+  var userFirstName: String = "" {
+    didSet {
+      firstNameLabel.text = userFirstName
+    }
+  }
 
   // MARK: - UI Components
 
@@ -79,14 +99,12 @@ final class UserProfileCell:
   private lazy var titleWithLastNameLabel = BaseLabel().builder
     .font(UI.Font.titleWithLastNameLabel)
     .textAlignment(.center)
-    .text(dummyTitleWithLastNameString)
     .isSkeletonable(true)
     .build()
 
   private lazy var firstNameLabel = BaseLabel().builder
     .font(UI.Font.firstNameLabel)
     .textAlignment(.center)
-    .text(dummyFirstNameString)
     .isSkeletonable(true)
     .build()
 
@@ -104,6 +122,7 @@ final class UserProfileCell:
   override func initialize() {
     super.initialize()
     setupUI()
+    initUI()
   }
 
   override func setupConstraints() {
@@ -118,7 +137,12 @@ final class UserProfileCell:
     initUI()
   }
 
-  // MARK: - Internal methods
+  func initUI() {
+    profileBackgroundImage = nil
+    userProfileImage = nil
+    userTitleWithLastName = ""
+    userFirstName = ""
+  }
 
   func configure(by viewModel: UserProfileViewModel) {
     self.viewModel = viewModel
@@ -126,15 +150,6 @@ final class UserProfileCell:
     profileImageView.setImage(with: viewModel.profileImageURL)
     titleWithLastNameLabel.text = viewModel.titleWithLastName
     firstNameLabel.text = viewModel.firstName
-  }
-
-  // MARK: - Private methods
-
-  private func initUI() {
-    profileBackgroundImageView.image = nil
-    profileImageView.image = nil
-    titleWithLastNameLabel.text = dummyTitleWithLastNameString
-    firstNameLabel.text = dummyFirstNameString
   }
 }
 
@@ -144,8 +159,6 @@ extension UserProfileCell {
   private func setupUI() {
     isSkeletonable = true
     skeletonViews.forEach { contentView.addSubview($0) }
-
-    initUI()
   }
 
   private func layout() {
