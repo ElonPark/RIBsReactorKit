@@ -13,7 +13,7 @@ import SnapKit
 
 // MARK: - UserListItemCell
 
-final class UserListItemCell:
+class UserListItemCell:
   BaseTableViewCell,
   HasConfigure,
   SkeletonViewsAnimatable
@@ -46,9 +46,23 @@ final class UserListItemCell:
 
   private(set) var viewModel: UserListItemViewModel?
 
-  // for skeleton view animation
-  private let dummyNameString = String(repeating: " ", count: 60)
-  private let dummyLocationString = String(repeating: " ", count: 40)
+  var userProfileImage: UIImage? {
+    didSet {
+      profileImageView.image = userProfileImage
+    }
+  }
+
+  var userName: String = "" {
+    didSet {
+      nameLabel.text = userName
+    }
+  }
+
+  var userLocation: String = "" {
+    didSet {
+      locationLabel.text = userLocation
+    }
+  }
 
   // MARK: - UI Components
 
@@ -60,16 +74,14 @@ final class UserListItemCell:
     .isSkeletonable(true)
     .build()
 
-  private lazy var nameLabel = UILabel().builder
+  private lazy var nameLabel = BaseLabel().builder
     .font(.systemFont(ofSize: 17, weight: .medium))
-    .text(dummyNameString)
     .isSkeletonable(true)
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
 
-  private lazy var locationLabel = UILabel().builder
+  private lazy var locationLabel = BaseLabel().builder
     .font(.systemFont(ofSize: 15, weight: .regular))
-    .text(dummyLocationString)
     .isSkeletonable(true)
     .linesCornerRadius(UI.linesCornerRadius)
     .build()
@@ -83,7 +95,7 @@ final class UserListItemCell:
   override func initialize() {
     super.initialize()
     setUpUI()
-    showGradientSkeleton()
+    initUI()
   }
 
   override func setupConstraints() {
@@ -97,22 +109,17 @@ final class UserListItemCell:
     initUI()
   }
 
-  // MARK: - Internal methods
+  func initUI() {
+    userProfileImage = nil
+    userName = ""
+    userLocation = ""
+  }
 
   func configure(by viewModel: UserListItemViewModel) {
     self.viewModel = viewModel
     profileImageView.setImage(with: viewModel.profileImageURL)
-    nameLabel.text = viewModel.titleWithFullName
-    locationLabel.text = viewModel.location
-    hideSkeleton()
-  }
-
-  // MARK: - Private methods
-
-  private func initUI() {
-    profileImageView.image = nil
-    nameLabel.text = dummyNameString
-    locationLabel.text = dummyLocationString
+    userName = viewModel.titleWithFullName
+    userLocation = viewModel.location
   }
 }
 
@@ -123,8 +130,6 @@ extension UserListItemCell {
     selectionStyle = .none
     isSkeletonable = true
     skeletonViews.forEach { contentView.addSubview($0) }
-
-    initUI()
   }
 
   private func layout() {

@@ -77,6 +77,7 @@ final class UserListViewController:
     .isSkeletonable(true)
     .with {
       $0.register(UserListItemCell.self)
+      $0.register(DummyUserListItemCell.self)
     }
     .build()
 
@@ -119,8 +120,7 @@ private extension UserListViewController {
           return cell
 
         case .dummy:
-          let cell = tableView.dequeue(UserListItemCell.self, indexPath: indexPath)
-          cell.showAnimatedGradientSkeleton()
+          let cell = tableView.dequeue(DummyUserListItemCell.self, indexPath: indexPath)
           return cell
         }
       }
