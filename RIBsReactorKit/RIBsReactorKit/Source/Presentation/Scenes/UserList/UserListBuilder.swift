@@ -38,6 +38,10 @@ final class UserListComponent: Component<UserListDependency> {
     dependency.userModelDataStream
   }
 
+  fileprivate var imagePrefetchWorker: ImagePrefetchWorking {
+    ImagePrefetchWorker()
+  }
+
   fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
     dependency.userListViewController
   }
@@ -71,6 +75,7 @@ final class UserListBuilder:
       randomUserRepositoryService: component.randomUserRepositoryService,
       userModelDataStream: component.userModelDataStream,
       mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
+      imagePrefetchWorker: component.imagePrefetchWorker,
       presenter: component.userListViewController
     )
     interactor.listener = listener

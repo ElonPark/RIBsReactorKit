@@ -58,20 +58,28 @@ final class UserCollectionInteractor:
   private let userModelDataStream: UserModelDataStream
   private let mutableSelectedUserModelStream: MutableSelectedUserModelStream
 
+  private let imagePrefetchWorker: ImagePrefetchWorking
+
   init(
     initialState: UserCollectionState,
     randomUserRepositoryService: RandomUserRepositoryService,
     userModelDataStream: UserModelDataStream,
     mutableSelectedUserModelStream: MutableSelectedUserModelStream,
+    imagePrefetchWorker: ImagePrefetchWorking,
     presenter: UserCollectionPresentable
   ) {
     self.initialState = initialState
     self.randomUserRepositoryService = randomUserRepositoryService
     self.userModelDataStream = userModelDataStream
     self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
-
+    self.imagePrefetchWorker = imagePrefetchWorker
     super.init(presenter: presenter)
     presenter.listener = self
+  }
+
+  override func didBecomeActive() {
+    super.didBecomeActive()
+    imagePrefetchWorker.start(self)
   }
 
   // MARK: - UserCollectionPresentableListener
@@ -92,11 +100,14 @@ extension UserCollectionInteractor {
     case .refresh:
       return refreshMutation()
 
-    case let .loadMore(currentItemIndex):
-      return loadMoreMutation(withCurrentItemIndex: currentItemIndex)
+    case let .loadMore(indexPath):
+      return loadMoreMutation(withCurrentItemIndex: indexPath)
 
-    case let .itemSelected(selectedItemIndex):
-      return itemSelectedMutation(bySelectedItemIndex: selectedItemIndex)
+    case let .prefetchResource(itemURLs):
+      return prefetchResourceMutation(withItemURLs: itemURLs)
+
+    case let .itemSelected(indexPath):
+      return itemSelectedMutation(bySelectedItemIndex: indexPath)
     }
   }
 
@@ -141,6 +152,11 @@ extension UserCollectionInteractor {
       .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
+  }
+
+  private func prefetchResourceMutation(withItemURLs urls: [URL]) -> Observable<Mutation> {
+    imagePrefetchWorker.startPrefetch(withURLs: urls)
+    return .empty()
   }
 
   private func itemSelectedMutation(bySelectedItemIndex itemIndex: Int) -> Observable<Mutation> {

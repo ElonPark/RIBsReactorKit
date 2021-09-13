@@ -20,6 +20,7 @@ enum UserListPresentableAction {
   case loadData
   case refresh
   case loadMore(IndexPath)
+  case prefetchItems([IndexPath])
   case itemSelected(IndexPath)
 }
 
@@ -64,8 +65,6 @@ final class UserListViewController:
   private let actionRelay = PublishRelay<UserListPresentableListener.Action>()
 
   private let dataSource: UserListDataSource
-
-  private let imagePrefetcher = ImagePrefetcher()
 
   // MARK: - UI Components
 
@@ -126,17 +125,6 @@ private extension UserListViewController {
       }
     )
   }
-
-  func prefetchImages(byIndexPaths indexPaths: [IndexPath]) {
-    let urls = indexPaths
-      .compactMap { dataSource.sectionModels[safe: $0.section]?.items[safe: $0.row] }
-      .compactMap { item -> URL? in
-        guard case let .user(viewModel) = item else { return nil }
-        return viewModel.profileImageURL
-      }
-
-    imagePrefetcher.startPrefetch(withURLs: urls)
-  }
 }
 
 // MARK: - Bind UI
@@ -173,6 +161,7 @@ private extension UserListViewController {
     bindViewWillAppearAction()
     bindRefreshControlAction()
     bindLoadMoreAction()
+    bindPrefetchItemsAction()
     bindItemSelectedAction()
   }
 
@@ -194,6 +183,13 @@ private extension UserListViewController {
   func bindLoadMoreAction() {
     tableView.rx.willDisplayCell
       .map { .loadMore($0.indexPath) }
+      .bind(to: actionRelay)
+      .disposed(by: disposeBag)
+  }
+
+  func bindPrefetchItemsAction() {
+    tableView.rx.prefetchRows
+      .map { .prefetchItems($0) }
       .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
@@ -229,7 +225,6 @@ private extension UserListViewController {
 extension UserListViewController {
   private func setupUI() {
     navigationItem.title = Strings.UserList.title
-    tableView.prefetchDataSource = self
     view.addSubview(tableView)
 
     setRefreshControl()
@@ -240,14 +235,6 @@ extension UserListViewController {
     tableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
-  }
-}
-
-// MARK: - UITableViewDataSourcePrefetching
-
-extension UserListViewController: UITableViewDataSourcePrefetching {
-  func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-    prefetchImages(byIndexPaths: indexPaths)
   }
 }
 

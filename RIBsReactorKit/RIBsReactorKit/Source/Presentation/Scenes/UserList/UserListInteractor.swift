@@ -57,6 +57,8 @@ final class UserListInteractor:
   private let userModelDataStream: UserModelDataStream
   private let mutableSelectedUserModelStream: MutableSelectedUserModelStream
 
+  private let imagePrefetchWorker: ImagePrefetchWorking
+
   private let requestItemCount: Int = 50
 
   // MARK: - Initialization & Deinitialization
@@ -66,15 +68,21 @@ final class UserListInteractor:
     randomUserRepositoryService: RandomUserRepositoryService,
     userModelDataStream: UserModelDataStream,
     mutableSelectedUserModelStream: MutableSelectedUserModelStream,
+    imagePrefetchWorker: ImagePrefetchWorking,
     presenter: UserListPresentable
   ) {
     self.initialState = initialState
     self.randomUserRepositoryService = randomUserRepositoryService
     self.userModelDataStream = userModelDataStream
     self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
-
+    self.imagePrefetchWorker = imagePrefetchWorker
     super.init(presenter: presenter)
     presenter.listener = self
+  }
+
+  override func didBecomeActive() {
+    super.didBecomeActive()
+    imagePrefetchWorker.start(self)
   }
 
   // MARK: - UserListPresentableListener
@@ -95,11 +103,14 @@ extension UserListInteractor {
     case .refresh:
       return refreshMutation()
 
-    case let .loadMore(currentItemIndexPath):
-      return loadMoreMutation(withCurrentItemIndexPath: currentItemIndexPath)
+    case let .loadMore(indexPath):
+      return loadMoreMutation(withCurrentItemIndexPath: indexPath)
 
-    case let .itemSelected(selectedItemIndexPath):
-      return itemSelectedMutation(bySelectedItemIndexPath: selectedItemIndexPath)
+    case let .prefetchItems(indexPath):
+      return prefetchItemsMutation(withItemIndexPaths: indexPath)
+
+    case let .itemSelected(indexPath):
+      return itemSelectedMutation(bySelectedItemIndexPath: indexPath)
     }
   }
 
@@ -136,6 +147,18 @@ extension UserListInteractor {
       .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
+  }
+
+  private func prefetchItemsMutation(withItemIndexPaths indexPaths: [IndexPath]) -> Observable<Mutation> {
+    let urls = indexPaths
+      .compactMap { currentState.userListSections[safe: $0.section]?.items[safe: $0.row] }
+      .compactMap { item -> URL? in
+        guard case let .user(viewModel) = item else { return nil }
+        return viewModel.profileImageURL
+      }
+
+    imagePrefetchWorker.startPrefetch(withURLs: urls)
+    return .empty()
   }
 
   private func itemSelectedMutation(bySelectedItemIndexPath indexPath: IndexPath) -> Observable<Mutation> {
