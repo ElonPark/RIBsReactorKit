@@ -54,8 +54,6 @@ final class UserCollectionViewController:
 
   private let dataSource: UserCollectionDataSource
 
-  private let imagePrefetcher = ImagePrefetcher()
-
   // MARK: - UI Components
 
   let refreshControl = UIRefreshControl()
@@ -117,27 +115,14 @@ private extension UserCollectionViewController {
       }
     )
   }
-
-  func prefetchImages(byIndexPaths indexPaths: [IndexPath]) {
-    let urls = indexPaths
-      .compactMap { dataSource.sectionModels[safe: $0.section]?.items[safe: $0.row] }
-      .compactMap { item -> [URL] in
-        guard case let .user(viewModel) = item else { return [] }
-        let imageURLs = [viewModel.profileBackgroundImageURL, viewModel.profileImageURL]
-        return imageURLs.compactMap { $0 }
-      }
-      .flatMap { $0 }
-
-    imagePrefetcher.startPrefetch(withURLs: urls)
-  }
 }
 
 // MARK: - Bind UI
 
 private extension UserCollectionViewController {
   func bindUI() {
-    bindCollectionViewSetDelegate()
     bindRefreshControlEvent()
+    bindCollectionViewSetDelegate()
   }
 
   func bindCollectionViewSetDelegate() {
@@ -172,6 +157,7 @@ private extension UserCollectionViewController {
     bindViewWillAppearAction()
     bindRefreshControlAction()
     bindLoadMoreAction()
+    bindPrefetchItemsAction()
     bindItemSelectedAction()
   }
 
@@ -193,6 +179,13 @@ private extension UserCollectionViewController {
   func bindLoadMoreAction() {
     collectionView.rx.willDisplayCell
       .map { .loadMore($0.at) }
+      .bind(to: actionRelay)
+      .disposed(by: disposeBag)
+  }
+
+  func bindPrefetchItemsAction() {
+    collectionView.rx.prefetchItems
+      .map { .prefetchItems($0) }
       .bind(to: actionRelay)
       .disposed(by: disposeBag)
   }
@@ -228,7 +221,6 @@ private extension UserCollectionViewController {
 private extension UserCollectionViewController {
   func setupUI() {
     navigationItem.title = Strings.UserCollection.title
-    collectionView.prefetchDataSource = self
     view.addSubview(collectionView)
 
     setRefreshControl()
@@ -239,14 +231,6 @@ private extension UserCollectionViewController {
     collectionView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
-  }
-}
-
-// MARK: - UICollectionViewDataSourcePrefetching
-
-extension UserCollectionViewController: UICollectionViewDataSourcePrefetching {
-  func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-    prefetchImages(byIndexPaths: indexPaths)
   }
 }
 

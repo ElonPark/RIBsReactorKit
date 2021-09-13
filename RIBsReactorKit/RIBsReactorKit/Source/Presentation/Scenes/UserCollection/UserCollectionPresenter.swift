@@ -18,6 +18,7 @@ enum UserCollectionAction {
   case loadData
   case refresh
   case loadMore(index: Int)
+  case prefetchResource(itemURLs: [URL])
   case itemSelected(index: Int)
 }
 
@@ -72,12 +73,28 @@ final class UserCollectionPresenter:
     case .refresh:
       listener.sendAction(.refresh)
 
-    case let .itemSelected(indexPath):
-      listener.sendAction(.itemSelected(index: indexPath.item))
-
     case let .loadMore(indexPath):
       listener.sendAction(.loadMore(index: indexPath.item))
+
+    case let .prefetchItems(indexPaths):
+      sendPrefetchResourceAction(to: listener, withItemIndexPaths: indexPaths)
+
+    case let .itemSelected(indexPath):
+      listener.sendAction(.itemSelected(index: indexPath.item))
     }
+  }
+
+  private func sendPrefetchResourceAction(
+    to listener: UserCollectionPresentableListener,
+    withItemIndexPaths indexPaths: [IndexPath]
+  ) {
+    let itemImageURLs = indexPaths
+      .compactMap { listener.currentState.userModels[safe: $0.item] }
+      .map(UserProfileViewModel.init)
+      .flatMap { [$0.profileBackgroundImageURL, $0.profileImageURL] }
+      .compactMap { $0 }
+
+    listener.sendAction(.prefetchResource(itemURLs: itemImageURLs))
   }
 }
 
