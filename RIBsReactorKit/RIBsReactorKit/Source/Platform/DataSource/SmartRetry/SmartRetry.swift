@@ -34,7 +34,7 @@ extension PrimitiveSequence {
         .enumerated()
         .flatMap { attempt, error -> Observable<Void> in
           let attemptCount = attempt + 1
-          guard shouldRetry(error), maxAttemptCount > attemptCount else { return .error(error) }
+          guard maxAttemptCount > attemptCount, shouldRetry(error) else { return .error(error) }
 
           let delay = delayOption.makeTimeInterval(attemptCount)
 
