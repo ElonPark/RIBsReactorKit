@@ -58,7 +58,7 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
         )
 
       if needRetry {
-        let backoffStrategy = ExponentialBackoffFullJitter(initialDelay: 1.5, maxDelay: 120.0)
+        let backoffStrategy = ExponentialBackoffDecorrelatedJitter(initialDelay: 1.0, maxDelay: 120.0)
         return request.retry(retryCount, delayOption: .exponential(backoffStrategy))
       } else {
         return request
@@ -66,7 +66,7 @@ final class Networking<Target: TargetType>: MoyaProvider<Target> {
 
     #else
       if needRetry {
-        let backoffStrategy = ExponentialBackoffFullJitter(initialDelay: 1.0, maxDelay: 120.0)
+        let backoffStrategy = ExponentialBackoffDecorrelatedJitter(initialDelay: 1.0, maxDelay: 120.0)
         return rx.request(target).retry(retryCount, delayOption: .exponential(backoffStrategy))
       } else {
         return rx.request(target)
