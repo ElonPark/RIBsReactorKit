@@ -15,17 +15,17 @@ extension PrimitiveSequence {
   /**
    Retries the source observable sequence on error using a provided retry
    strategy.
-     - parameter maxAttemptCount: Maximum number of times to repeat the sequence. `Int.max` by default.
+     - parameter maxAttemptCount: Maximum number of times to repeat the sequence. `5` by default.
    reachabilityChanged
-     - parameter delay: DelayOptions.
+     - parameter delayOption: DelayOptions.
      - parameter didBecomeReachable: Trigger which is fired when network connection becomes reachable
         with random delay.
        `Reachability.rx.isConnected` by default.
-     - parameter shouldRetry: Always retruns `true` by default.
+     - parameter shouldRetry: Always return `true` by default.
    */
   func retry(
-    _ maxAttemptCount: Int = Int.max,
-    delay: DelayOption,
+    _ maxAttemptCount: Int = 5,
+    delayOption: DelayOption,
     didBecomeReachable: Observable<Void> = Reachability.rx.isConnected,
     shouldRetry: @escaping (Error) -> Bool = { _ in true }
   ) -> PrimitiveSequence<Trait, Element> {
@@ -36,13 +36,13 @@ extension PrimitiveSequence {
           let attemptCount = attempt + 1
           guard shouldRetry(error), maxAttemptCount > attemptCount else { return .error(error) }
 
-          let fullJitter = delay.makeTimeInterval(attemptCount)
+          let delay = delayOption.makeTimeInterval(attemptCount)
 
-          let timer = Observable<Int>.timer(fullJitter, scheduler: MainScheduler.instance)
+          let timer = Observable<Int>.timer(delay, scheduler: MainScheduler.instance)
             .map { _ in Void() }
 
           let networkConnected = didBecomeReachable
-            .delay(fullJitter, scheduler: MainScheduler.instance)
+            .delay(delay, scheduler: MainScheduler.instance)
             .map { _ in Void() }
 
           return Observable.merge(timer, networkConnected)
