@@ -12,7 +12,7 @@ github "ElonPark/Moya" ~> 14.1
 github "ashleymills/Reachability.swift" == 5.1.0
 
 # Image
-github "onevcat/Kingfisher" ~> 6.1
+github "onevcat/Kingfisher" ~> 7.0
 
 # UI
 github "Juanpe/SkeletonView" ~> 1.13
