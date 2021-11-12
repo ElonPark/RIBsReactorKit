@@ -6,6 +6,9 @@ github "ElonPark/RxReachability" ~> 1.2
 github "ElonPark/RIBs" "master"
 github "ElonPark/ReactorKit" ~> 3.0
 
+# DI
+github "https://github.com/uber/needle.git" ~> 0.17.2
+
 # Network
 github "Alamofire/Alamofire" ~> 5.4
 github "ElonPark/Moya" ~> 14.1
