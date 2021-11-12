@@ -38,6 +38,14 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>Acknowledgements/Needle</string>
+			<key>Title</key>
+			<string>Needle</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>Acknowledgements/Nimble</string>
 			<key>Title</key>
 			<string>Nimble</string>
