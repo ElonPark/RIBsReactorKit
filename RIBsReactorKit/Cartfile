@@ -3,7 +3,7 @@ github "ReactiveX/RxSwift" ~> 6.2
 github "ElonPark/RxReachability" ~> 1.2
 
 # Architecture
-github "ElonPark/RIBs" "master"
+github "ElonPark/RIBs" "fix-carthage-issue"
 github "ElonPark/ReactorKit" ~> 3.0
 
 # DI

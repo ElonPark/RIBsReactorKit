@@ -1,7 +1,7 @@
 github "Alamofire/Alamofire" "5.4.4"
 github "ElonPark/EPLogger" "1.3.6"
 github "ElonPark/Moya" "14.1.0"
-github "ElonPark/RIBs" "5bdf121d56b2cd9c5bd544d499414a8944f7450a"
+github "ElonPark/RIBs" "95b6b0d1b7a99ff76746751471fbea97d9e86e0b"
 github "ElonPark/RIBsTreeViewerClient" "1.1.3"
 github "ElonPark/ReactorKit" "3.0.2"
 github "ElonPark/RxReachability" "1.2.2"
