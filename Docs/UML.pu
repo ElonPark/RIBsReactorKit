@@ -15,9 +15,14 @@ mindmapDiagram {
   }
 }
 </style>
-* Root
+* Root<<noView>>
 ** MainTabBar
 *** UserCollection
+**** ImagePrefetchWorker<<noView>>
+**** UserInformation
+***** UserLocation
 *** UserList
-**** UserInfomationAdapter<<noView>>
+**** ImagePrefetchWorker<<noView>>
+**** UserInformation
+***** UserLocation
 @endmindmap
