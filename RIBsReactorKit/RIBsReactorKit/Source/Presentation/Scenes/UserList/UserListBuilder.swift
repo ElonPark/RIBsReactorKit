@@ -6,11 +6,12 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
+import NeedleFoundation
 import RIBs
 
 // MARK: - UserListDependency
 
-protocol UserListDependency: UserListDependencyUserInformation {
+protocol UserListDependency: NeedleFoundation.Dependency {
   var randomUserRepositoryService: RandomUserRepositoryService { get }
   var userModelDataStream: UserModelDataStream { get }
   var userListViewController: UserListPresentable & UserListViewControllable { get }
@@ -18,9 +19,9 @@ protocol UserListDependency: UserListDependencyUserInformation {
 
 // MARK: - UserListComponent
 
-final class UserListComponent: Component<UserListDependency> {
+final class UserListComponent: NeedleFoundation.Component<UserListDependency> {
 
-  var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+  fileprivate var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
     shared { SelectedUserModelStreamImpl() }
   }
 
@@ -45,6 +46,16 @@ final class UserListComponent: Component<UserListDependency> {
   fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
     dependency.userListViewController
   }
+
+  fileprivate var userInformationComponent: UserInformationComponent {
+    UserInformationComponent(parent: self)
+  }
+}
+
+extension UserListComponent {
+  var selectedUserModelStream: SelectedUserModelStream {
+    mutableSelectedUserModelStream
+  }
 }
 
 // MARK: - UserListBuildable
@@ -56,20 +67,11 @@ protocol UserListBuildable: Buildable {
 // MARK: - UserListBuilder
 
 final class UserListBuilder:
-  Builder<UserListDependency>,
+  ComponentizedBuilder<UserListComponent, UserListRouting, UserListListener, Void>,
   UserListBuildable
 {
 
-  // MARK: - Initialization & Deinitialization
-
-  override init(dependency: UserListDependency) {
-    super.init(dependency: dependency)
-  }
-
-  // MARK: - Internal methods
-
-  func build(withListener listener: UserListListener) -> UserListRouting {
-    let component = UserListComponent(dependency: dependency)
+  override func build(with component: UserListComponent, _ listener: UserListListener) -> UserListRouting {
     let interactor = UserListInteractor(
       initialState: component.initialState,
       randomUserRepositoryService: component.randomUserRepositoryService,
@@ -80,12 +82,20 @@ final class UserListBuilder:
     )
     interactor.listener = listener
 
-    let userInformationBuilder = UserInformationBuilder(dependency: component)
+    let userInformationBuilder = UserInformationBuilder {
+      component.userInformationComponent
+    }
 
     return UserListRouter(
       userInformationBuilder: userInformationBuilder,
       interactor: interactor,
       viewController: component.userListViewController
     )
+  }
+
+  // MARK: - UserListBuildable
+
+  func build(withListener listener: UserListListener) -> UserListRouting {
+    return build(withDynamicBuildDependency: listener, dynamicComponentDependency: Void())
   }
 }

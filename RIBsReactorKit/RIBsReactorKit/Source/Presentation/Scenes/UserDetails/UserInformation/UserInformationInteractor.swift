@@ -114,7 +114,6 @@ extension UserInformationInteractor {
   private func itemSelectedMutation(with indexPath: IndexPath) -> Observable<Mutation> {
     let section = currentState.userInformationSections[safe: indexPath.section]
     guard let item = section?.items[safe: indexPath.item] else { return .never() }
-    Log.debug(item)
 
     switch item {
     case let .location(viewModel):

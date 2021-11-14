@@ -26,7 +26,7 @@ extension SkeletonViewsAnimatable {
 
   func hideSkeletonAnimation() {
     skeletonViews
-      .filter(\.isSkeletonActive)
+      .filter(\.sk.isSkeletonActive)
       .forEach { $0.hideSkeleton(transition: .crossDissolve(0.25)) }
   }
 }

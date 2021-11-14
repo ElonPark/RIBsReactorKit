@@ -6,21 +6,18 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
+import NeedleFoundation
 import RIBs
 
 // MARK: - MainTabBarDependency
 
-protocol MainTabBarDependency: MainTabBarDependencyUserList, MainTabBarDependencyUserCollection {
+protocol MainTabBarDependency: NeedleFoundation.Dependency {
   var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable { get }
 }
 
 // MARK: - MainTabBarComponent
 
-final class MainTabBarComponent: Component<MainTabBarDependency> {
-
-  fileprivate var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable {
-    dependency.mainTabBarViewController
-  }
+final class MainTabBarComponent: NeedleFoundation.Component<MainTabBarDependency> {
 
   fileprivate var randomUserRepository: RandomUserRepository {
     RandomUserRepositoryImpl(networkingProvider: Networking())
@@ -34,10 +31,20 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
     shared { UserModelDataStreamImpl() }
   }
 
-  var userModelDataStream: UserModelDataStream {
-    mutableUserModelDataStream
+  fileprivate var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable {
+    dependency.mainTabBarViewController
   }
 
+  fileprivate var userListComponent: UserListComponent {
+    UserListComponent(parent: self)
+  }
+
+  fileprivate var userCollectionComponent: UserCollectionComponent {
+    UserCollectionComponent(parent: self)
+  }
+}
+
+extension MainTabBarComponent {
   var randomUserRepositoryService: RandomUserRepositoryService {
     shared {
       RandomUserRepositoryServiceImpl(
@@ -46,6 +53,10 @@ final class MainTabBarComponent: Component<MainTabBarDependency> {
         mutableUserModelsStream: mutableUserModelDataStream
       )
     }
+  }
+
+  var userModelDataStream: UserModelDataStream {
+    mutableUserModelDataStream
   }
 }
 
@@ -58,32 +69,33 @@ protocol MainTabBarBuildable: Buildable {
 // MARK: - MainTabBarBuilder
 
 final class MainTabBarBuilder:
-  Builder<MainTabBarDependency>,
+  ComponentizedBuilder<MainTabBarComponent, MainTabBarRouting, MainTabBarListener, Void>,
   MainTabBarBuildable
 {
 
-  // MARK: - Initialization & Deinitialization
-
-  override init(dependency: MainTabBarDependency) {
-    super.init(dependency: dependency)
-  }
-
-  // MARK: - Internal methods
-
-  func build(withListener listener: MainTabBarListener) -> MainTabBarRouting {
-    let component = MainTabBarComponent(dependency: dependency)
-    let viewController = component.mainTabBarViewController
-    let interactor = MainTabBarInteractor(presenter: viewController)
+  override func build(with component: MainTabBarComponent, _ listener: MainTabBarListener) -> MainTabBarRouting {
+    let interactor = MainTabBarInteractor(presenter: component.mainTabBarViewController)
     interactor.listener = listener
 
-    let userListBuilder = UserListBuilder(dependency: component)
-    let userCollectionBuilder = UserCollectionBuilder(dependency: component)
+    let userListBuilder = UserListBuilder {
+      component.userListComponent
+    }
+
+    let userCollectionBuilder = UserCollectionBuilder {
+      component.userCollectionComponent
+    }
 
     return MainTabBarRouter(
       userListBuilder: userListBuilder,
       userCollectionBuilder: userCollectionBuilder,
       interactor: interactor,
-      viewController: viewController
+      viewController: component.mainTabBarViewController
     )
+  }
+
+  // MARK: - MainTabBarBuildable
+
+  func build(withListener listener: MainTabBarListener) -> MainTabBarRouting {
+    return build(withDynamicBuildDependency: listener, dynamicComponentDependency: Void())
   }
 }

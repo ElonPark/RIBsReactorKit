@@ -3,8 +3,11 @@ github "ReactiveX/RxSwift" ~> 6.2
 github "ElonPark/RxReachability" ~> 1.2
 
 # Architecture
-github "ElonPark/RIBs" "master"
+github "ElonPark/RIBs" "fix-carthage-issue"
 github "ElonPark/ReactorKit" ~> 3.0
+
+# DI
+github "https://github.com/uber/needle.git" "master"
 
 # Network
 github "Alamofire/Alamofire" ~> 5.4
