@@ -6,17 +6,18 @@
 //  Copyright © 2020 Elon. All rights reserved.
 //
 
+import NeedleFoundation
 import RIBs
 
 // MARK: - UserInformationDependency
 
-protocol UserInformationDependency: UserInformationDependencyUserLocation {
+protocol UserInformationDependency: NeedleFoundation.Dependency {
   var selectedUserModelStream: SelectedUserModelStream { get }
 }
 
 // MARK: - UserInformationComponent
 
-final class UserInformationComponent: Component<UserInformationDependency> {
+final class UserInformationComponent: NeedleFoundation.Component<UserInformationDependency> {
 
   fileprivate var selectedUserModelStream: SelectedUserModelStream {
     dependency.selectedUserModelStream
@@ -26,12 +27,18 @@ final class UserInformationComponent: Component<UserInformationDependency> {
     UserInformationPresentableState()
   }
 
+  fileprivate var userInformationSectionListFactory: UserInfoSectionListFactory {
+    UserInfoSectionListFactoryImpl(factories: userInformationSectionFactories)
+  }
+
   private var userInformationSectionFactories: [UserInfoSectionFactory] {
     [ProfileSectionFactory(), BasicInfoSectionFactory(), LocationSectionFactory()]
   }
 
-  fileprivate var userInformationSectionListFactory: UserInfoSectionListFactory {
-    UserInfoSectionListFactoryImpl(factories: userInformationSectionFactories)
+  fileprivate func userLocationComponent(
+    wit annotationMetadata: MapPointAnnotationMetadata
+  ) -> UserLocationComponent {
+    return UserLocationComponent(parent: self, annotationMetadata: annotationMetadata)
   }
 }
 
@@ -44,12 +51,14 @@ protocol UserInformationBuildable: Buildable {
 // MARK: - UserInformationBuilder
 
 final class UserInformationBuilder:
-  Builder<UserInformationDependency>,
+  ComponentizedBuilder<UserInformationComponent, UserInformationRouting, UserInformationListener, Void>,
   UserInformationBuildable
 {
 
-  func build(withListener listener: UserInformationListener) -> UserInformationRouting {
-    let component = UserInformationComponent(dependency: dependency)
+  override func build(
+    with component: UserInformationComponent,
+    _ listener: UserInformationListener
+  ) -> UserInformationRouting {
     let viewController = UserInformationViewController()
     let interactor = UserInformationInteractor(
       initialState: component.initialState,
@@ -59,12 +68,16 @@ final class UserInformationBuilder:
     )
     interactor.listener = listener
 
-    let userLocationBuilder = UserLocationBuilder(dependency: component)
+    let userLocationBuilder = UserLocationBuilder(componentBuilder: component.userLocationComponent)
 
     return UserInformationRouter(
       userLocationBuilder: userLocationBuilder,
       interactor: interactor,
       viewController: viewController
     )
+  }
+
+  func build(withListener listener: UserInformationListener) -> UserInformationRouting {
+    return build(withDynamicBuildDependency: listener, dynamicComponentDependency: Void())
   }
 }

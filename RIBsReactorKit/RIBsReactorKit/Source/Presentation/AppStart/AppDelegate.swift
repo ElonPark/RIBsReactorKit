@@ -40,6 +40,8 @@ final class AppDelegate:
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    registerProviderFactories()
+
     setReachability()
 
     setWindow()
@@ -60,9 +62,12 @@ private extension AppDelegate {
 
   func setLaunchRouter() {
     guard let window = self.window else { return }
-    let launchRouter = RootBuilder(dependency: AppComponent()).build()
-    self.launchRouter = launchRouter
-    launchRouter.launch(from: window)
+    let appComponent = AppComponent()
+    let rootBuilder = RootBuilder {
+      appComponent.rootComponent
+    }
+    launchRouter = rootBuilder.build()
+    launchRouter?.launch(from: window)
   }
 
   func startRIBsTreeViewer() {

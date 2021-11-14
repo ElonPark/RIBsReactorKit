@@ -6,13 +6,16 @@
 //  Copyright © 2021 Elon. All rights reserved.
 //
 
+import NeedleFoundation
 import RIBs
-
-protocol RootDependency: Dependency {}
 
 // MARK: - RootComponent
 
-final class RootComponent: Component<RootDependency> {
+protocol RootDependency: NeedleFoundation.Dependency {}
+
+// MARK: - RootComponent
+
+final class RootComponent: NeedleFoundation.Component<RootDependency> {
 
   var userListViewController: UserListPresentable & UserListViewControllable {
     shared { UserListViewController() }
@@ -30,6 +33,10 @@ final class RootComponent: Component<RootDependency> {
       ])
     }
   }
+
+  var mainTabBarComponent: MainTabBarComponent {
+    MainTabBarComponent(parent: self)
+  }
 }
 
 // MARK: - RootBuildable
@@ -40,17 +47,14 @@ protocol RootBuildable: Buildable {
 
 // MARK: - RootBuilder
 
-final class RootBuilder: Builder<RootDependency>, RootBuildable {
+final class RootBuilder: SimpleComponentizedBuilder<RootComponent, LaunchRouting>, RootBuildable {
 
-  override init(dependency: RootDependency) {
-    super.init(dependency: dependency)
-  }
-
-  func build() -> LaunchRouting {
-    let component = RootComponent(dependency: dependency)
+  override func build(with component: RootComponent) -> LaunchRouting {
     let interactor = RootInteractor()
 
-    let mainTabBarBuilder = MainTabBarBuilder(dependency: component)
+    let mainTabBarBuilder = MainTabBarBuilder {
+      component.mainTabBarComponent
+    }
 
     return RootRouter(
       mainTabBarBuilder: mainTabBarBuilder,

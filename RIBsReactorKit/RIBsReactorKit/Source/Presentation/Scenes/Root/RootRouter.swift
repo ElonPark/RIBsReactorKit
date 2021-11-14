@@ -42,6 +42,7 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
 extension RootRouter {
   func attachMainTapBarRIB() {
     guard mainTabBarRouter == nil else { return }
+
     let router = mainTabBarBuilder.build(withListener: interactor)
     mainTabBarRouter = router
     attachChild(router)

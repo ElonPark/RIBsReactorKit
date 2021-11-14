@@ -2,20 +2,14 @@
 //  AppComponent.swift
 //  RIBsReactorKit
 //
-//  Created by Elon on 2020/04/25.
-//  Copyright © 2020 Elon. All rights reserved.
+//  Created by Elon on 2021/11/14.
+//  Copyright © 2021 Elon. All rights reserved.
 //
 
-import RIBs
+import NeedleFoundation
 
-final class AppComponent:
-  Component<EmptyDependency>,
-  RootDependency
-{
-
-  // MARK: - Initialization & Deinitialization
-
-  init() {
-    super.init(dependency: EmptyComponent())
+final class AppComponent: BootstrapComponent, RootDependency {
+  var rootComponent: RootComponent {
+    RootComponent(parent: self)
   }
 }
