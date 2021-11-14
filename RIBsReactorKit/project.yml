@@ -77,7 +77,8 @@ targets:
         script: |
           SOURCE_ROOT="RIBsReactorKit/Source/"
           FILE_PATH="${SOURCE_ROOT}/Presentation/Utilities/Generated"
-          export SOURCEKIT_LOGGING=0 && needle generate ${FILE_PATH}/NeedleGenerated.swift ${SOURCE_ROOT}
+          NEEDLE_PATH="Carthage/Checkouts/needle/Generator/bin"
+          export SOURCEKIT_LOGGING=0 && ${NEEDLE_PATH}/needle generate ${FILE_PATH}/NeedleGenerated.swift ${SOURCE_ROOT}
     postBuildScripts:
       - name: SwiftLint
         script: |

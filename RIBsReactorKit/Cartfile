@@ -7,7 +7,7 @@ github "ElonPark/RIBs" "fix-carthage-issue"
 github "ElonPark/ReactorKit" ~> 3.0
 
 # DI
-github "https://github.com/uber/needle.git" ~> 0.17.2
+github "https://github.com/uber/needle.git" "master"
 
 # Network
 github "Alamofire/Alamofire" ~> 5.4
