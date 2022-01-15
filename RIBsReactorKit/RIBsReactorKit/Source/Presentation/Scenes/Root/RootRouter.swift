@@ -35,12 +35,12 @@ final class RootRouter: LaunchRouter<RootInteractable, RootViewControllable>, Ro
   }
 
   func cleanupViews() {
-    detachMainTapBarRIB()
+    detachMainTabBarRIB()
   }
 }
 
 extension RootRouter {
-  func attachMainTapBarRIB() {
+  func attachMainTabBarRIB() {
     guard mainTabBarRouter == nil else { return }
 
     let router = mainTabBarBuilder.build(withListener: interactor)
@@ -48,7 +48,7 @@ extension RootRouter {
     attachChild(router)
   }
 
-  private func detachMainTapBarRIB() {
+  private func detachMainTabBarRIB() {
     guard let router = mainTabBarRouter else { return }
     detachChild(router)
     mainTabBarRouter = nil
