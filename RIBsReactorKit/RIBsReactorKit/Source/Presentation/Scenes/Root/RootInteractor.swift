@@ -12,7 +12,7 @@ import RxSwift
 // MARK: - RootRouting
 
 protocol RootRouting: Routing {
-  func attachMainTapBarRIB()
+  func attachMainTabBarRIB()
   func cleanupViews()
 }
 
@@ -27,7 +27,7 @@ final class RootInteractor: Interactor, RootInteractable {
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    router?.attachMainTapBarRIB()
+    router?.attachMainTabBarRIB()
   }
 
   override func willResignActive() {
