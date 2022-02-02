@@ -30,7 +30,7 @@ final class UserListRouter:
   // MARK: - Initialization & Deinitialization
 
   init(
-    userInformationBuilder: UserInformationBuilder,
+    userInformationBuilder: UserInformationBuildable,
     interactor: UserListInteractable,
     viewController: UserListViewControllable
   ) {

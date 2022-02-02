@@ -34,7 +34,7 @@ final class UserCollectionRouter:
   // MARK: - Initialization & Deinitialization
 
   init(
-    userInformationBuilder: UserInformationBuilder,
+    userInformationBuilder: UserInformationBuildable,
     interactor: UserCollectionInteractable,
     viewController: UserCollectionViewControllable
   ) {
