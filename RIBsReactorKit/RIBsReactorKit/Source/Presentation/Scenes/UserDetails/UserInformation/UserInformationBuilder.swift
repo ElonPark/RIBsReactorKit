@@ -17,17 +17,20 @@ protocol UserInformationDependency: NeedleFoundation.Dependency {
 
 // MARK: - UserInformationComponent
 
-final class UserInformationComponent: NeedleFoundation.Component<UserInformationDependency> {
+final class UserInformationComponent:
+  NeedleFoundation.Component<UserInformationDependency>,
+  UserInformationInteractorDependency
+{
 
-  fileprivate var selectedUserModelStream: SelectedUserModelStream {
-    dependency.selectedUserModelStream
-  }
-
-  fileprivate var initialState: UserInformationPresentableState {
+  var initialState: UserInformationPresentableState {
     UserInformationPresentableState()
   }
 
-  fileprivate var userInformationSectionListFactory: UserInfoSectionListFactory {
+  var selectedUserModelStream: SelectedUserModelStream {
+    dependency.selectedUserModelStream
+  }
+
+  var userInformationSectionListFactory: UserInfoSectionListFactory {
     UserInfoSectionListFactoryImpl(factories: userInformationSectionFactories)
   }
 
@@ -61,10 +64,8 @@ final class UserInformationBuilder:
   ) -> UserInformationRouting {
     let viewController = UserInformationViewController()
     let interactor = UserInformationInteractor(
-      initialState: component.initialState,
-      selectedUserModelStream: component.selectedUserModelStream,
-      userInformationSectionListFactory: component.userInformationSectionListFactory,
-      presenter: viewController
+      presenter: viewController,
+      dependency: component
     )
     interactor.listener = listener
 

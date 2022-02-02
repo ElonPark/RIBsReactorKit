@@ -19,35 +19,35 @@ protocol UserListDependency: NeedleFoundation.Dependency {
 
 // MARK: - UserListComponent
 
-final class UserListComponent: NeedleFoundation.Component<UserListDependency> {
+final class UserListComponent: NeedleFoundation.Component<UserListDependency>, UserListInteractorDependency {
 
-  fileprivate var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
-    shared { SelectedUserModelStreamImpl() }
-  }
-
-  fileprivate var initialState: UserListPresentableState {
+  var initialState: UserListPresentableState {
     // for skeleton view animation
     let dummySectionItems: [UserListSectionItem] = (1...20).map { _ in .dummy }
     return UserListPresentableState(isLoading: true, userListSections: [.randomUser(dummySectionItems)])
   }
 
-  fileprivate var randomUserRepositoryService: RandomUserRepositoryService {
+  var randomUserRepositoryService: RandomUserRepositoryService {
     dependency.randomUserRepositoryService
   }
 
-  fileprivate var userModelDataStream: UserModelDataStream {
+  var userModelDataStream: UserModelDataStream {
     dependency.userModelDataStream
   }
 
-  fileprivate var imagePrefetchWorker: ImagePrefetchWorking {
+  var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
+  }
+
+  var imagePrefetchWorker: ImagePrefetchWorking {
     ImagePrefetchWorker()
   }
 
-  fileprivate var userListViewController: UserListPresentable & UserListViewControllable {
+  var userListViewController: UserListPresentable & UserListViewControllable {
     dependency.userListViewController
   }
 
-  fileprivate var userInformationComponent: UserInformationComponent {
+  var userInformationComponent: UserInformationComponent {
     UserInformationComponent(parent: self)
   }
 }
@@ -73,12 +73,8 @@ final class UserListBuilder:
 
   override func build(with component: UserListComponent, _ listener: UserListListener) -> UserListRouting {
     let interactor = UserListInteractor(
-      initialState: component.initialState,
-      randomUserRepositoryService: component.randomUserRepositoryService,
-      userModelDataStream: component.userModelDataStream,
-      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
-      imagePrefetchWorker: component.imagePrefetchWorker,
-      presenter: component.userListViewController
+      presenter: component.userListViewController,
+      dependency: component
     )
     interactor.listener = listener
 

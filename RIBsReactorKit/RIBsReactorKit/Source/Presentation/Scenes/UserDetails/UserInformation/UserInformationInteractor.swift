@@ -29,6 +29,14 @@ protocol UserInformationListener: AnyObject {
   func detachUserInformationRIB()
 }
 
+// MARK: - UserInformationInteractorDependency
+
+protocol UserInformationInteractorDependency {
+  var initialState: UserInformationPresentableState { get }
+  var selectedUserModelStream: SelectedUserModelStream { get }
+  var userInformationSectionListFactory: UserInfoSectionListFactory { get }
+}
+
 // MARK: - UserInformationInteractor
 
 final class UserInformationInteractor:
@@ -56,20 +64,16 @@ final class UserInformationInteractor:
 
   let initialState: UserInformationPresentableState
 
-  private let selectedUserModelStream: SelectedUserModelStream
-  private let userInformationSectionListFactory: UserInfoSectionListFactory
+  private let dependency: UserInformationInteractorDependency
 
   // MARK: - Initialization & Deinitialization
 
   init(
-    initialState: UserInformationPresentableState,
-    selectedUserModelStream: SelectedUserModelStream,
-    userInformationSectionListFactory: UserInfoSectionListFactory,
-    presenter: UserInformationPresentable
+    presenter: UserInformationPresentable,
+    dependency: UserInformationInteractorDependency
   ) {
-    self.initialState = initialState
-    self.selectedUserModelStream = selectedUserModelStream
-    self.userInformationSectionListFactory = userInformationSectionListFactory
+    self.dependency = dependency
+    self.initialState = self.dependency.initialState
     super.init(presenter: presenter)
     presenter.listener = self
   }
@@ -103,10 +107,10 @@ extension UserInformationInteractor {
   }
 
   private func setUserInformationSectionsMutation() -> Observable<Mutation> {
-    return selectedUserModelStream.userModel
+    return dependency.selectedUserModelStream.userModel
       .withUnretained(self)
       .flatMap { this, userModel -> Observable<Mutation> in
-        let sections = this.userInformationSectionListFactory.makeSections(by: userModel)
+        let sections = this.dependency.userInformationSectionListFactory.makeSections(by: userModel)
         return .just(.setUserInformationSections(sections))
       }
   }
