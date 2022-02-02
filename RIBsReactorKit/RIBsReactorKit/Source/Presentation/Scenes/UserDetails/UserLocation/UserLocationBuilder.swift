@@ -17,9 +17,12 @@ protocol UserLocationDependency: NeedleFoundation.Dependency {}
 
 // MARK: - UserLocationComponent
 
-final class UserLocationComponent: NeedleFoundation.Component<UserLocationDependency> {
+final class UserLocationComponent:
+  NeedleFoundation.Component<UserLocationDependency>,
+  UserLocationInteractorDependency
+{
 
-  fileprivate var initialState: UserLocationPresentableState {
+  var initialState: UserLocationPresentableState {
     UserLocationPresentableState(annotationMetadata: annotationMetadata)
   }
 
@@ -50,8 +53,8 @@ final class UserLocationBuilder:
   override func build(with component: UserLocationComponent, _ listener: UserLocationListener) -> UserLocationRouting {
     let viewController = UserLocationViewController()
     let interactor = UserLocationInteractor(
-      initialState: component.initialState,
-      presenter: viewController
+      presenter: viewController,
+      dependency: component
     )
     interactor.listener = listener
 

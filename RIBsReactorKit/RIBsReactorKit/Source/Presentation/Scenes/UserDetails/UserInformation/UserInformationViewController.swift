@@ -335,6 +335,13 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
 
 #if canImport(SwiftUI) && DEBUG
   fileprivate extension UserInformationViewController {
+
+    struct DummyDependency: UserInformationInteractorDependency {
+      let initialState: UserInformationPresentableState
+      let selectedUserModelStream: SelectedUserModelStream
+      let userInformationSectionListFactory: UserInfoSectionListFactory
+    }
+
     func bindDummyUserModel() {
       let decoder = JSONDecoder()
       decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
@@ -342,6 +349,8 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
 
       let userModelTranslator = UserModelTranslatorImpl()
       guard let userModel = userModelTranslator.translateToUserModel(by: randomUser.results).first else { return }
+
+      let state = UserInformationPresentableState()
 
       let mutableSelectedUserModelStream = SelectedUserModelStreamImpl()
       mutableSelectedUserModelStream.updateSelectedUserModel(by: userModel)
@@ -352,12 +361,15 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
       ]
       let sectionListFactory = UserInfoSectionListFactoryImpl(factories: factories)
 
-      let state = UserInformationPresentableState()
-      let interactor = UserInformationInteractor(
+      let dummyDependency = DummyDependency(
         initialState: state,
         selectedUserModelStream: mutableSelectedUserModelStream,
-        userInformationSectionListFactory: sectionListFactory,
-        presenter: self
+        userInformationSectionListFactory: sectionListFactory
+      )
+
+      let interactor = UserInformationInteractor(
+        presenter: self,
+        dependency: dummyDependency
       )
       interactor.action.on(.next(.viewWillAppear))
       interactor.state.map(\.userInformationSections)

@@ -19,25 +19,28 @@ protocol UserCollectionDependency: NeedleFoundation.Dependency {
 
 // MARK: - UserCollectionComponent
 
-final class UserCollectionComponent: NeedleFoundation.Component<UserCollectionDependency> {
+final class UserCollectionComponent:
+  NeedleFoundation.Component<UserCollectionDependency>,
+  UserCollectionInteractorDependency
+{
 
-  fileprivate var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
-    shared { SelectedUserModelStreamImpl() }
-  }
-
-  fileprivate var initialState: UserCollectionState {
+  var initialState: UserCollectionState {
     UserCollectionState()
   }
 
-  fileprivate var randomUserRepositoryService: RandomUserRepositoryService {
+  var randomUserRepositoryService: RandomUserRepositoryService {
     dependency.randomUserRepositoryService
   }
 
-  fileprivate var userModelDataStream: UserModelDataStream {
+  var userModelDataStream: UserModelDataStream {
     dependency.userModelDataStream
   }
 
-  fileprivate var imagePrefetchWorker: ImagePrefetchWorking {
+  var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
+    shared { SelectedUserModelStreamImpl() }
+  }
+
+  var imagePrefetchWorker: ImagePrefetchWorking {
     ImagePrefetchWorker()
   }
 
@@ -78,12 +81,8 @@ final class UserCollectionBuilder:
     _ listener: UserCollectionListener
   ) -> UserCollectionRouting {
     let interactor = UserCollectionInteractor(
-      initialState: component.initialState,
-      randomUserRepositoryService: component.randomUserRepositoryService,
-      userModelDataStream: component.userModelDataStream,
-      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
-      imagePrefetchWorker: component.imagePrefetchWorker,
-      presenter: component.presenter
+      presenter: component.presenter,
+      dependency: component
     )
     interactor.listener = listener
 

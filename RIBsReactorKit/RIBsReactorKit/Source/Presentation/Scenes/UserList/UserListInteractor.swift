@@ -23,7 +23,19 @@ protocol UserListPresentable: Presentable {
   var listener: UserListPresentableListener? { get set }
 }
 
+// MARK: - UserListListener
+
 protocol UserListListener: AnyObject {}
+
+// MARK: - UserListInteractorDependency
+
+protocol UserListInteractorDependency {
+  var initialState: UserListPresentableState { get }
+  var randomUserRepositoryService: RandomUserRepositoryService { get }
+  var userModelDataStream: UserModelDataStream { get }
+  var mutableSelectedUserModelStream: MutableSelectedUserModelStream { get }
+  var imagePrefetchWorker: ImagePrefetchWorking { get }
+}
 
 // MARK: - UserListInteractor
 
@@ -63,19 +75,12 @@ final class UserListInteractor:
 
   // MARK: - Initialization & Deinitialization
 
-  init(
-    initialState: UserListPresentableState,
-    randomUserRepositoryService: RandomUserRepositoryService,
-    userModelDataStream: UserModelDataStream,
-    mutableSelectedUserModelStream: MutableSelectedUserModelStream,
-    imagePrefetchWorker: ImagePrefetchWorking,
-    presenter: UserListPresentable
-  ) {
-    self.initialState = initialState
-    self.randomUserRepositoryService = randomUserRepositoryService
-    self.userModelDataStream = userModelDataStream
-    self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
-    self.imagePrefetchWorker = imagePrefetchWorker
+  init(presenter: UserListPresentable, dependency: UserListInteractorDependency) {
+    self.initialState = dependency.initialState
+    self.randomUserRepositoryService = dependency.randomUserRepositoryService
+    self.userModelDataStream = dependency.userModelDataStream
+    self.mutableSelectedUserModelStream = dependency.mutableSelectedUserModelStream
+    self.imagePrefetchWorker = dependency.imagePrefetchWorker
     super.init(presenter: presenter)
     presenter.listener = self
   }
