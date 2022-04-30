@@ -9,7 +9,6 @@
 import NeedleFoundation
 
 final class AppComponent: BootstrapComponent, RootDependency {
-
   var rootBuilder: RootBuildable {
     RootBuilder {
       RootComponent(parent: self)
@@ -28,6 +27,10 @@ final class AppComponent: BootstrapComponent, RootDependency {
 
   var userModelDataStream: UserModelDataStream {
     mutableUserModelDataStream
+  }
+
+  var imagePrefetchWorker: ImagePrefetchWorking {
+    shared { ImagePrefetchWorker() }
   }
 }
 

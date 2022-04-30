@@ -14,80 +14,76 @@ import RIBs
 protocol UserListDependency: NeedleFoundation.Dependency {
   var randomUserRepositoryService: RandomUserRepositoryService { get }
   var userModelDataStream: UserModelDataStream { get }
+  var imagePrefetchWorker: ImagePrefetchWorking { get }
+}
+
+// MARK: - UserListBuildDependency
+
+struct UserListBuildDependency {
+  let listener: UserListListener
 }
 
 // MARK: - UserListComponent
 
-final class UserListComponent: NeedleFoundation.Component<UserListDependency>, UserListInteractorDependency {
+final class UserListComponent: NeedleFoundation.Component<UserListDependency> {
 
   var initialState: UserListPresentableState {
-    // for skeleton view animation
-    let dummySectionItems: [UserListSectionItem] = (1...20).map { _ in .dummy }
-    return UserListPresentableState(isLoading: true, userListSections: [.randomUser(dummySectionItems)])
-  }
-
-  var randomUserRepositoryService: RandomUserRepositoryService {
-    dependency.randomUserRepositoryService
-  }
-
-  var userModelDataStream: UserModelDataStream {
-    dependency.userModelDataStream
+    UserListPresentableState(
+      isLoading: true,
+      userListSections: [
+        // for skeleton view animation
+        .randomUser(Array(repeating: UserListSectionItem.dummy, count: 20))
+      ]
+    )
   }
 
   var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
     shared { SelectedUserModelStreamImpl() }
   }
 
-  var imagePrefetchWorker: ImagePrefetchWorking {
-    ImagePrefetchWorker()
-  }
-
-  var userInformationComponent: UserInformationComponent {
-    UserInformationComponent(parent: self)
-  }
-}
-
-extension UserListComponent {
   var selectedUserModelStream: SelectedUserModelStream {
     mutableSelectedUserModelStream
+  }
+
+  fileprivate var userInformationBuilder: UserInformationBuildable{
+    UserInformationBuilder {
+      UserInformationComponent(parent: self)
+    }
   }
 }
 
 // MARK: - UserListBuildable
 
 protocol UserListBuildable: Buildable {
-  func build(withListener listener: UserListListener) -> UserListRouting
+  func build(with dynamicBuildDependency: UserListBuildDependency) -> UserListRouting
 }
 
 // MARK: - UserListBuilder
 
 final class UserListBuilder:
-  ComponentizedBuilder<UserListComponent, UserListRouting, UserListListener, Void>,
+  ComponentizedBuilder<UserListComponent, UserListRouting, UserListBuildDependency, Void>,
   UserListBuildable
 {
 
-  override func build(with component: UserListComponent, _ listener: UserListListener) -> UserListRouting {
+  override func build(
+    with component: UserListComponent,
+    _ payload: UserListBuildDependency
+  ) -> UserListRouting {
     let viewController = UserListViewController()
     let interactor = UserListInteractor(
       presenter: viewController,
-      dependency: component
+      initialState: component.initialState,
+      randomUserRepositoryService: component.randomUserRepositoryService,
+      userModelDataStream: component.userModelDataStream,
+      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
+      imagePrefetchWorker: component.imagePrefetchWorker
     )
-    interactor.listener = listener
-
-    let userInformationBuilder = UserInformationBuilder {
-      component.userInformationComponent
-    }
+    interactor.listener = payload.listener
 
     return UserListRouter(
-      userInformationBuilder: userInformationBuilder,
+      userInformationBuilder: component.userInformationBuilder,
       interactor: interactor,
       viewController: viewController
     )
-  }
-
-  // MARK: - UserListBuildable
-
-  func build(withListener listener: UserListListener) -> UserListRouting {
-    return build(withDynamicBuildDependency: listener, dynamicComponentDependency: Void())
   }
 }

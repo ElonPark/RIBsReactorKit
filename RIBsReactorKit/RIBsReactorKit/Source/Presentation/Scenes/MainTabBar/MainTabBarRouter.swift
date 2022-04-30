@@ -68,7 +68,11 @@ extension MainTabBarRouter {
   }
 
   private func attachUserListRIB() -> ViewControllable {
-    let router = userListBuilder.build(withListener: interactor)
+    let router = userListBuilder.build(
+      with: UserListBuildDependency(
+        listener: interactor
+      )
+    )
     userListRouter = router
     attachChild(router)
     return router.viewControllable
