@@ -224,8 +224,8 @@ extension UserListInteractor {
     case let .setLoading(isLoading):
       newState.isLoading = isLoading
 
-    case let .setRefresh(isRefesh):
-      newState.isRefresh = isRefesh
+    case let .setRefresh(isRefresh):
+      newState.isRefresh = isRefresh
 
     case let .userListSections(sections):
       newState.userListSections = sections
