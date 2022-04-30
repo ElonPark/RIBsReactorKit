@@ -63,10 +63,7 @@ private extension AppDelegate {
   func setLaunchRouter() {
     guard let window = self.window else { return }
     let appComponent = AppComponent()
-    let rootBuilder = RootBuilder {
-      appComponent.rootComponent
-    }
-    launchRouter = rootBuilder.build()
+    launchRouter = appComponent.rootBuilder.build()
     launchRouter?.launch(from: window)
   }
 

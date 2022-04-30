@@ -9,7 +9,10 @@
 import NeedleFoundation
 
 final class AppComponent: BootstrapComponent, RootDependency {
-  var rootComponent: RootComponent {
-    RootComponent(parent: self)
+
+  var rootBuilder: RootBuildable {
+    RootBuilder {
+      RootComponent(parent: self)
+    }
   }
 }

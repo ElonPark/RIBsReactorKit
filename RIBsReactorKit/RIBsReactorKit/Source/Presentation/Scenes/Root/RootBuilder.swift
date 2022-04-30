@@ -21,8 +21,10 @@ final class RootComponent: NeedleFoundation.Component<RootDependency> {
     shared { MainTabBarViewController() }
   }
 
-  var mainTabBarComponent: MainTabBarComponent {
-    MainTabBarComponent(parent: self)
+  var mainTabBarBuilder: MainTabBarBuildable {
+    MainTabBarBuilder {
+      MainTabBarComponent(parent: self)
+    }
   }
 }
 
@@ -39,12 +41,8 @@ final class RootBuilder: SimpleComponentizedBuilder<RootComponent, LaunchRouting
   override func build(with component: RootComponent) -> LaunchRouting {
     let interactor = RootInteractor()
 
-    let mainTabBarBuilder = MainTabBarBuilder {
-      component.mainTabBarComponent
-    }
-
     return RootRouter(
-      mainTabBarBuilder: mainTabBarBuilder,
+      mainTabBarBuilder: component.mainTabBarBuilder,
       interactor: interactor,
       viewController: component.mainTabBarViewController
     )
