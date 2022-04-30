@@ -12,8 +12,7 @@ import RxSwift
 // MARK: - MainTabBarRouting
 
 protocol MainTabBarRouting: ViewableRouting {
-  func attachUserListRIB()
-  func attachUserCollectionRIB()
+  func attachTabs()
 }
 
 // MARK: - MainTabBarPresentable
@@ -48,6 +47,7 @@ final class MainTabBarInteractor:
 
   override func didBecomeActive() {
     super.didBecomeActive()
+    router?.attachTabs()
   }
 
   override func willResignActive() {

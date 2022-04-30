@@ -27,10 +27,9 @@ final class MainTabBarViewController:
 
   // MARK: - Initialization & Deinitialization
 
-  init(viewControllers: [UINavigationController]) {
+  init() {
     super.init(nibName: nil, bundle: nil)
-    modalPresentationStyle = .fullScreen
-    setViewControllers(viewControllers, animated: false)
+
   }
 
   @available(*, unavailable)
@@ -43,6 +42,13 @@ final class MainTabBarViewController:
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .white
+  }
+
+  func setViewControllers(_ viewControllers: [ViewControllable], animated: Bool) {
+    setViewControllers(
+      viewControllers.map(\.uiviewController),
+      animated: animated
+    )
   }
 }
 
@@ -62,10 +68,15 @@ extension MainTabBarViewController: RootViewControllable {}
     static var previews: some View {
       ForEach(deviceNames, id: \.self) { deviceName in
         UIViewControllerPreview {
-          MainTabBarViewController(viewControllers: [
-            UINavigationController(root: UserListViewController()),
-            UINavigationController(root: UserCollectionViewController())
-          ])
+          MainTabBarViewController().builder.with {
+            $0.setViewControllers(
+              [
+                UINavigationController(root: UserListViewController()),
+                UINavigationController(root: UserCollectionViewController())
+              ],
+              animated: false
+            )
+          }
         }
         .previewDevice(PreviewDevice(rawValue: deviceName))
         .previewDisplayName(deviceName)

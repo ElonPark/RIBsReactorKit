@@ -17,21 +17,8 @@ protocol RootDependency: NeedleFoundation.Dependency {}
 
 final class RootComponent: NeedleFoundation.Component<RootDependency> {
 
-  var userListViewController: UserListPresentable & UserListViewControllable {
-    shared { UserListViewController() }
-  }
-
-  var userCollectionViewController: UserCollectionViewControllable {
-    shared { UserCollectionViewController() }
-  }
-
   var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable {
-    shared {
-      MainTabBarViewController(viewControllers: [
-        UINavigationController(root: userListViewController),
-        UINavigationController(root: userCollectionViewController)
-      ])
-    }
+    shared { MainTabBarViewController() }
   }
 
   var mainTabBarComponent: MainTabBarComponent {

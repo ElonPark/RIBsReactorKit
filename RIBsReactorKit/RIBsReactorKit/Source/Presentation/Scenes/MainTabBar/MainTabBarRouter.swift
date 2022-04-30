@@ -19,7 +19,9 @@ protocol MainTabBarInteractable:
   var listener: MainTabBarListener? { get set }
 }
 
-protocol MainTabBarViewControllable: ViewControllable {}
+protocol MainTabBarViewControllable: ViewControllable {
+  func setViewControllers(_ viewControllers: [ViewControllable], animated: Bool)
+}
 
 // MARK: - MainTabBarRouter
 
@@ -50,28 +52,32 @@ final class MainTabBarRouter:
     super.init(interactor: interactor, viewController: viewController)
     interactor.router = self
   }
-
-  // MARK: - Inheritance
-
-  override func didLoad() {
-    super.didLoad()
-    attachUserListRIB()
-    attachUserCollectionRIB()
-  }
 }
 
 // MARK: - MainTabBarRouting
 
 extension MainTabBarRouter {
-  func attachUserListRIB() {
+
+  func attachTabs() {
+    let tabs: [ViewControllable] = [
+      UINavigationController(root: attachUserListRIB()),
+      UINavigationController(root: attachUserCollectionRIB())
+    ]
+
+    viewController.setViewControllers(tabs, animated: false)
+  }
+
+  private func attachUserListRIB() -> ViewControllable {
     let router = userListBuilder.build(withListener: interactor)
     userListRouter = router
     attachChild(router)
+    return router.viewControllable
   }
 
-  func attachUserCollectionRIB() {
+  private func attachUserCollectionRIB() -> ViewControllable {
     let router = userCollectionBuilder.build(withListener: interactor)
     userCollectionRouter = router
     attachChild(router)
+    return router.viewControllable
   }
 }

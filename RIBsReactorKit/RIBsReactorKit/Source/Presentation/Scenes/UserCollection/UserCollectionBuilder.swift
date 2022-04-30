@@ -14,7 +14,6 @@ import RIBs
 protocol UserCollectionDependency: NeedleFoundation.Dependency {
   var randomUserRepositoryService: RandomUserRepositoryService { get }
   var userModelDataStream: UserModelDataStream { get }
-  var userCollectionViewController: UserCollectionViewControllable { get }
 }
 
 // MARK: - UserCollectionComponent
@@ -42,14 +41,6 @@ final class UserCollectionComponent:
 
   var imagePrefetchWorker: ImagePrefetchWorking {
     ImagePrefetchWorker()
-  }
-
-  fileprivate var userCollectionViewController: UserCollectionViewControllable {
-    dependency.userCollectionViewController
-  }
-
-  fileprivate var presenter: UserCollectionPresentable {
-    UserCollectionPresenter(viewController: userCollectionViewController)
   }
 
   fileprivate var userInformationComponent: UserInformationComponent {
@@ -80,8 +71,10 @@ final class UserCollectionBuilder:
     with component: UserCollectionComponent,
     _ listener: UserCollectionListener
   ) -> UserCollectionRouting {
+    let viewController = UserCollectionViewController()
+    let presenter = UserCollectionPresenter(viewController: viewController)
     let interactor = UserCollectionInteractor(
-      presenter: component.presenter,
+      presenter: presenter,
       dependency: component
     )
     interactor.listener = listener
@@ -93,7 +86,7 @@ final class UserCollectionBuilder:
     return UserCollectionRouter(
       userInformationBuilder: userInformationBuilder,
       interactor: interactor,
-      viewController: component.userCollectionViewController
+      viewController: viewController
     )
   }
 

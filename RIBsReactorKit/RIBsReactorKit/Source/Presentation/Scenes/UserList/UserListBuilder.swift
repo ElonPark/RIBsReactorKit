@@ -14,7 +14,6 @@ import RIBs
 protocol UserListDependency: NeedleFoundation.Dependency {
   var randomUserRepositoryService: RandomUserRepositoryService { get }
   var userModelDataStream: UserModelDataStream { get }
-  var userListViewController: UserListPresentable & UserListViewControllable { get }
 }
 
 // MARK: - UserListComponent
@@ -43,10 +42,6 @@ final class UserListComponent: NeedleFoundation.Component<UserListDependency>, U
     ImagePrefetchWorker()
   }
 
-  var userListViewController: UserListPresentable & UserListViewControllable {
-    dependency.userListViewController
-  }
-
   var userInformationComponent: UserInformationComponent {
     UserInformationComponent(parent: self)
   }
@@ -72,8 +67,9 @@ final class UserListBuilder:
 {
 
   override func build(with component: UserListComponent, _ listener: UserListListener) -> UserListRouting {
+    let viewController = UserListViewController()
     let interactor = UserListInteractor(
-      presenter: component.userListViewController,
+      presenter: viewController,
       dependency: component
     )
     interactor.listener = listener
@@ -85,7 +81,7 @@ final class UserListBuilder:
     return UserListRouter(
       userInformationBuilder: userInformationBuilder,
       interactor: interactor,
-      viewController: component.userListViewController
+      viewController: viewController
     )
   }
 
