@@ -13,6 +13,14 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
     return component.parent
 }
 
+private func parent2(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Scope {
+    return component.parent.parent
+}
+
+private func parent3(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Scope {
+    return component.parent.parent.parent
+}
+
 // MARK: - Providers
 
 private class UserInformationDependencybe7700aab05496476ebdProvider: UserInformationDependency {
@@ -54,35 +62,35 @@ private func factorydb3e187f4f072667c251e3b0c44298fc1c149afb(_ component: Needle
 }
 private class UserCollectionDependencyc60053073d712d7e03dcProvider: UserCollectionDependency {
     var randomUserRepositoryService: RandomUserRepositoryService {
-        return mainTabBarComponent.randomUserRepositoryService
+        return appComponent.randomUserRepositoryService
     }
     var userModelDataStream: UserModelDataStream {
-        return mainTabBarComponent.userModelDataStream
+        return appComponent.userModelDataStream
     }
-    private let mainTabBarComponent: MainTabBarComponent
-    init(mainTabBarComponent: MainTabBarComponent) {
-        self.mainTabBarComponent = mainTabBarComponent
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent
-private func factory5b9bb4416b801c66a218a66701234f912da50782(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserCollectionDependencyc60053073d712d7e03dcProvider(mainTabBarComponent: parent1(component) as! MainTabBarComponent)
+private func factory5b9bb4416b801c66a218b2702fa908b4cedb8464(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return UserCollectionDependencyc60053073d712d7e03dcProvider(appComponent: parent3(component) as! AppComponent)
 }
 private class UserListDependencya1faf7e4584bd63fc032Provider: UserListDependency {
     var randomUserRepositoryService: RandomUserRepositoryService {
-        return mainTabBarComponent.randomUserRepositoryService
+        return appComponent.randomUserRepositoryService
     }
     var userModelDataStream: UserModelDataStream {
-        return mainTabBarComponent.userModelDataStream
+        return appComponent.userModelDataStream
     }
-    private let mainTabBarComponent: MainTabBarComponent
-    init(mainTabBarComponent: MainTabBarComponent) {
-        self.mainTabBarComponent = mainTabBarComponent
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent
-private func factoryab3dbf100a151adb58d4a66701234f912da50782(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserListDependencya1faf7e4584bd63fc032Provider(mainTabBarComponent: parent1(component) as! MainTabBarComponent)
+private func factoryab3dbf100a151adb58d4b2702fa908b4cedb8464(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return UserListDependencya1faf7e4584bd63fc032Provider(appComponent: parent3(component) as! AppComponent)
 }
 private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
 
@@ -124,8 +132,8 @@ private func register1() {
     registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent", factory8b6e97f5917e43e50ef990cbd4f040c4db112586)
     registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent->UserInformationComponent->UserLocationComponent", factorydb3e187f4f072667c251e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent->UserLocationComponent", factorydb3e187f4f072667c251e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent", factory5b9bb4416b801c66a218a66701234f912da50782)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent", factoryab3dbf100a151adb58d4a66701234f912da50782)
+    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent", factory5b9bb4416b801c66a218b2702fa908b4cedb8464)
+    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent", factoryab3dbf100a151adb58d4b2702fa908b4cedb8464)
     registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent", factoryff9d1aee745bbf1d697cb3a8f24c1d289f2c0f2e)
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)

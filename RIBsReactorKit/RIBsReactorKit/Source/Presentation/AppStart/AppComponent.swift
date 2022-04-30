@@ -15,4 +15,32 @@ final class AppComponent: BootstrapComponent, RootDependency {
       RootComponent(parent: self)
     }
   }
+
+  var randomUserRepositoryService: RandomUserRepositoryService {
+    shared {
+      RandomUserRepositoryServiceImpl(
+        repository: randomUserRepository,
+        translator: userModelTranslator,
+        mutableUserModelsStream: mutableUserModelDataStream
+      )
+    }
+  }
+
+  var userModelDataStream: UserModelDataStream {
+    mutableUserModelDataStream
+  }
+}
+
+private extension AppComponent {
+  var randomUserRepository: RandomUserRepository {
+    RandomUserRepositoryImpl(networkingProvider: Networking())
+  }
+
+  var userModelTranslator: UserModelTranslator {
+    UserModelTranslatorImpl()
+  }
+
+  var mutableUserModelDataStream: MutableUserModelDataStream {
+    shared { UserModelDataStreamImpl() }
+  }
 }
