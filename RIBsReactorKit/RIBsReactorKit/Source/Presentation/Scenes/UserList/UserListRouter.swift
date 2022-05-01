@@ -41,7 +41,11 @@ final class UserListRouter:
 
   func attachUserInformationRIB() {
     guard userInformationRouter == nil else { return }
-    let router = userInformationBuilder.build(withListener: interactor)
+    let router = userInformationBuilder.build(
+      with: UserInformationBuildDependency(
+        listener: interactor
+      )
+    )
     userInformationRouter = router
     attachChild(router)
     viewController.present(router.viewControllable)

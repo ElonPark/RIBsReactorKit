@@ -15,22 +15,21 @@ protocol UserInformationDependency: NeedleFoundation.Dependency {
   var selectedUserModelStream: SelectedUserModelStream { get }
 }
 
+// MARK: - UserInformationBuildDependency
+
+struct UserInformationBuildDependency {
+  let listener: UserInformationListener
+}
+
 // MARK: - UserInformationComponent
 
-final class UserInformationComponent:
-  NeedleFoundation.Component<UserInformationDependency>,
-  UserInformationInteractorDependency
-{
+final class UserInformationComponent: NeedleFoundation.Component<UserInformationDependency> {
 
-  var initialState: UserInformationPresentableState {
+  fileprivate var initialState: UserInformationPresentableState {
     UserInformationPresentableState()
   }
 
-  var selectedUserModelStream: SelectedUserModelStream {
-    dependency.selectedUserModelStream
-  }
-
-  var userInformationSectionListFactory: UserInfoSectionListFactory {
+  fileprivate var userInformationSectionListFactory: UserInfoSectionListFactory {
     UserInfoSectionListFactoryImpl(factories: userInformationSectionFactories)
   }
 
@@ -38,47 +37,46 @@ final class UserInformationComponent:
     [ProfileSectionFactory(), BasicInfoSectionFactory(), LocationSectionFactory()]
   }
 
-  fileprivate func userLocationComponent(
-    wit annotationMetadata: MapPointAnnotationMetadata
-  ) -> UserLocationComponent {
-    return UserLocationComponent(parent: self, annotationMetadata: annotationMetadata)
+  fileprivate var userLocationBuilder: UserLocationBuildable {
+    UserLocationBuilder { annotationMetadata in
+      UserLocationComponent(
+        parent: self,
+        annotationMetadata: annotationMetadata
+      )
+    }
   }
 }
 
 // MARK: - UserInformationBuildable
 
 protocol UserInformationBuildable: Buildable {
-  func build(withListener listener: UserInformationListener) -> UserInformationRouting
+  func build(with dynamicBuildDependency: UserInformationBuildDependency) -> UserInformationRouting
 }
 
 // MARK: - UserInformationBuilder
 
 final class UserInformationBuilder:
-  ComponentizedBuilder<UserInformationComponent, UserInformationRouting, UserInformationListener, Void>,
+  ComponentizedBuilder<UserInformationComponent, UserInformationRouting, UserInformationBuildDependency, Void>,
   UserInformationBuildable
 {
 
   override func build(
     with component: UserInformationComponent,
-    _ listener: UserInformationListener
+    _ payload: UserInformationBuildDependency
   ) -> UserInformationRouting {
     let viewController = UserInformationViewController()
     let interactor = UserInformationInteractor(
       presenter: viewController,
-      dependency: component
+      initialState: component.initialState,
+      selectedUserModelStream: component.selectedUserModelStream,
+      userInformationSectionListFactory: component.userInformationSectionListFactory
     )
-    interactor.listener = listener
-
-    let userLocationBuilder = UserLocationBuilder(componentBuilder: component.userLocationComponent)
+    interactor.listener = payload.listener
 
     return UserInformationRouter(
-      userLocationBuilder: userLocationBuilder,
+      userLocationBuilder: component.userLocationBuilder,
       interactor: interactor,
       viewController: viewController
     )
-  }
-
-  func build(withListener listener: UserInformationListener) -> UserInformationRouting {
-    return build(withDynamicBuildDependency: listener, dynamicComponentDependency: Void())
   }
 }

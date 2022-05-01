@@ -78,6 +78,7 @@ final class UserListInteractor:
     self.userModelDataStream = userModelDataStream
     self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
     self.imagePrefetchWorker = imagePrefetchWorker
+
     super.init(presenter: presenter)
     presenter.listener = self
   }

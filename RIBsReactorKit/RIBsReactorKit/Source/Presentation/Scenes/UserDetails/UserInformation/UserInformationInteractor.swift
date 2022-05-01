@@ -29,14 +29,6 @@ protocol UserInformationListener: AnyObject {
   func detachUserInformationRIB()
 }
 
-// MARK: - UserInformationInteractorDependency
-
-protocol UserInformationInteractorDependency {
-  var initialState: UserInformationPresentableState { get }
-  var selectedUserModelStream: SelectedUserModelStream { get }
-  var userInformationSectionListFactory: UserInfoSectionListFactory { get }
-}
-
 // MARK: - UserInformationInteractor
 
 final class UserInformationInteractor:
@@ -63,17 +55,21 @@ final class UserInformationInteractor:
   weak var listener: UserInformationListener?
 
   let initialState: UserInformationPresentableState
-
-  private let dependency: UserInformationInteractorDependency
+  let selectedUserModelStream: SelectedUserModelStream
+  let userInformationSectionListFactory: UserInfoSectionListFactory
 
   // MARK: - Initialization & Deinitialization
 
   init(
     presenter: UserInformationPresentable,
-    dependency: UserInformationInteractorDependency
+    initialState: UserInformationPresentableState,
+    selectedUserModelStream: SelectedUserModelStream,
+    userInformationSectionListFactory: UserInfoSectionListFactory
   ) {
-    self.dependency = dependency
-    self.initialState = self.dependency.initialState
+    self.initialState = initialState
+    self.selectedUserModelStream = selectedUserModelStream
+    self.userInformationSectionListFactory = userInformationSectionListFactory
+
     super.init(presenter: presenter)
     presenter.listener = self
   }
@@ -107,10 +103,10 @@ extension UserInformationInteractor {
   }
 
   private func setUserInformationSectionsMutation() -> Observable<Mutation> {
-    return dependency.selectedUserModelStream.userModel
+    return selectedUserModelStream.userModel
       .withUnretained(self)
       .flatMap { this, userModel -> Observable<Mutation> in
-        let sections = this.dependency.userInformationSectionListFactory.makeSections(by: userModel)
+        let sections = this.userInformationSectionListFactory.makeSections(by: userModel)
         return .just(.setUserInformationSections(sections))
       }
   }

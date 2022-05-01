@@ -64,11 +64,13 @@ final class UserInformationViewController:
 
   let headerView = CloseButtonHeaderView()
 
-  private let flowLayout = UICollectionViewFlowLayout().builder
+  private let flowLayout = UICollectionViewFlowLayout()
+    .builder
     .scrollDirection(.vertical)
     .build()
 
-  private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).builder
+  private(set) lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+    .builder
     .backgroundColor(Asset.Colors.backgroundColor.color)
     .with {
       $0.register(UserProfileCell.self)
@@ -335,13 +337,6 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
 
 #if canImport(SwiftUI) && DEBUG
   fileprivate extension UserInformationViewController {
-
-    struct DummyDependency: UserInformationInteractorDependency {
-      let initialState: UserInformationPresentableState
-      let selectedUserModelStream: SelectedUserModelStream
-      let userInformationSectionListFactory: UserInfoSectionListFactory
-    }
-
     func bindDummyUserModel() {
       let decoder = JSONDecoder()
       decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
@@ -361,15 +356,11 @@ extension UserInformationViewController: UICollectionViewDelegateFlowLayout {
       ]
       let sectionListFactory = UserInfoSectionListFactoryImpl(factories: factories)
 
-      let dummyDependency = DummyDependency(
+      let interactor = UserInformationInteractor(
+        presenter: self,
         initialState: state,
         selectedUserModelStream: mutableSelectedUserModelStream,
         userInformationSectionListFactory: sectionListFactory
-      )
-
-      let interactor = UserInformationInteractor(
-        presenter: self,
-        dependency: dummyDependency
       )
       interactor.action.on(.next(.viewWillAppear))
       interactor.state.map(\.userInformationSections)
