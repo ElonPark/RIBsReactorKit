@@ -38,10 +38,10 @@ final class UserInformationComponent: NeedleFoundation.Component<UserInformation
   }
 
   fileprivate var userLocationBuilder: UserLocationBuildable {
-    UserLocationBuilder { annotationMetadata in
+    UserLocationBuilder { payload in
       UserLocationComponent(
         parent: self,
-        annotationMetadata: annotationMetadata
+        payload: payload
       )
     }
   }

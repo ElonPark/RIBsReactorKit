@@ -15,21 +15,32 @@ import RIBs
 
 protocol UserLocationDependency: NeedleFoundation.Dependency {}
 
+// MARK: - UserLocationBuildDependency
+
+struct UserLocationBuildDependency {
+  let listener: UserLocationListener
+}
+
+// MARK: - UserLocationComponentDependency
+
+struct UserLocationComponentDependency {
+  let annotationMetadata: MapPointAnnotationMetadata
+}
+
 // MARK: - UserLocationComponent
 
-final class UserLocationComponent:
-  NeedleFoundation.Component<UserLocationDependency>,
-  UserLocationInteractorDependency
-{
+final class UserLocationComponent: NeedleFoundation.Component<UserLocationDependency> {
 
-  var initialState: UserLocationPresentableState {
-    UserLocationPresentableState(annotationMetadata: annotationMetadata)
+  fileprivate var initialState: UserLocationPresentableState {
+    UserLocationPresentableState(
+      annotationMetadata: payload.annotationMetadata
+    )
   }
 
-  private let annotationMetadata: MapPointAnnotationMetadata
+  private let payload: UserLocationComponentDependency
 
-  init(parent: Scope, annotationMetadata: MapPointAnnotationMetadata) {
-    self.annotationMetadata = annotationMetadata
+  init(parent: Scope, payload: UserLocationComponentDependency) {
+    self.payload = payload
     super.init(parent: parent)
   }
 }
@@ -38,35 +49,44 @@ final class UserLocationComponent:
 
 protocol UserLocationBuildable: Buildable {
   func build(
-    withListener listener: UserLocationListener,
-    annotationMetadata: MapPointAnnotationMetadata
+    with dynamicBuildDependency: UserLocationBuildDependency,
+    _ dynamicComponentDependency: UserLocationComponentDependency
   ) -> UserLocationRouting
 }
 
 // MARK: - UserLocationBuilder
 
 final class UserLocationBuilder:
-  ComponentizedBuilder<UserLocationComponent, UserLocationRouting, UserLocationListener, MapPointAnnotationMetadata>,
+  ComponentizedBuilder<UserLocationComponent, UserLocationRouting, UserLocationBuildDependency, UserLocationComponentDependency>,
   UserLocationBuildable
 {
 
-  override func build(with component: UserLocationComponent, _ listener: UserLocationListener) -> UserLocationRouting {
+  override func build(
+    with component: UserLocationComponent,
+    _ payload: UserLocationBuildDependency
+  ) -> UserLocationRouting {
     let viewController = UserLocationViewController()
     let interactor = UserLocationInteractor(
       presenter: viewController,
-      dependency: component
+      initialState: component.initialState
     )
-    interactor.listener = listener
+    interactor.listener = payload.listener
 
-    return UserLocationRouter(interactor: interactor, viewController: viewController)
+    return UserLocationRouter(
+      interactor: interactor,
+      viewController: viewController
+    )
   }
 
   // MARK: - UserLocationBuildable
 
   func build(
-    withListener listener: UserLocationListener,
-    annotationMetadata: MapPointAnnotationMetadata
+    with dynamicBuildDependency: UserLocationBuildDependency,
+    _ dynamicComponentDependency: UserLocationComponentDependency
   ) -> UserLocationRouting {
-    return build(withDynamicBuildDependency: listener, dynamicComponentDependency: annotationMetadata)
+    return build(
+      withDynamicBuildDependency: dynamicBuildDependency,
+      dynamicComponentDependency: dynamicComponentDependency
+    )
   }
 }

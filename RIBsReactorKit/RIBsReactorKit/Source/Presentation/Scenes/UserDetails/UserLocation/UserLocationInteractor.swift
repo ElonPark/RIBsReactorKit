@@ -25,12 +25,6 @@ protocol UserLocationListener: AnyObject {
   func detachUserLocationRIB()
 }
 
-// MARK: - UserLocationInteractorDependency
-
-protocol UserLocationInteractorDependency {
-  var initialState: UserLocationPresentableState { get }
-}
-
 // MARK: - UserLocationInteractor
 
 final class UserLocationInteractor:
@@ -54,18 +48,15 @@ final class UserLocationInteractor:
   weak var router: UserLocationRouting?
   weak var listener: UserLocationListener?
 
-  let initialState: State
-
-  private let dependency: UserLocationInteractorDependency
+  let initialState: UserLocationPresentableState
 
   // MARK: - Con(De)structor
 
   init(
     presenter: UserLocationPresentable,
-    dependency: UserLocationInteractorDependency
+    initialState: UserLocationPresentableState
   ) {
-    self.dependency = dependency
-    self.initialState = self.dependency.initialState
+    self.initialState = initialState
     super.init(presenter: presenter)
     presenter.listener = self
   }
