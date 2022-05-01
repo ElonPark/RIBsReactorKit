@@ -67,6 +67,9 @@ private class UserCollectionDependencyc60053073d712d7e03dcProvider: UserCollecti
     var userModelDataStream: UserModelDataStream {
         return appComponent.userModelDataStream
     }
+    var imagePrefetchWorker: ImagePrefetchWorking {
+        return appComponent.imagePrefetchWorker
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent

@@ -14,85 +14,70 @@ import RIBs
 protocol UserCollectionDependency: NeedleFoundation.Dependency {
   var randomUserRepositoryService: RandomUserRepositoryService { get }
   var userModelDataStream: UserModelDataStream { get }
+  var imagePrefetchWorker: ImagePrefetchWorking { get }
+}
+
+// MARK: - UserCollectionBuildDependency
+
+struct UserCollectionBuildDependency {
+  let listener: UserCollectionListener
 }
 
 // MARK: - UserCollectionComponent
 
-final class UserCollectionComponent:
-  NeedleFoundation.Component<UserCollectionDependency>,
-  UserCollectionInteractorDependency
-{
-
+final class UserCollectionComponent: NeedleFoundation.Component<UserCollectionDependency> {
   var initialState: UserCollectionState {
     UserCollectionState()
-  }
-
-  var randomUserRepositoryService: RandomUserRepositoryService {
-    dependency.randomUserRepositoryService
-  }
-
-  var userModelDataStream: UserModelDataStream {
-    dependency.userModelDataStream
   }
 
   var mutableSelectedUserModelStream: MutableSelectedUserModelStream {
     shared { SelectedUserModelStreamImpl() }
   }
 
-  var imagePrefetchWorker: ImagePrefetchWorking {
-    ImagePrefetchWorker()
-  }
-
-  fileprivate var userInformationComponent: UserInformationComponent {
-    UserInformationComponent(parent: self)
-  }
-}
-
-extension UserCollectionComponent {
   var selectedUserModelStream: SelectedUserModelStream {
     mutableSelectedUserModelStream
+  }
+
+  fileprivate var userInformationBuilder: UserInformationBuildable {
+    UserInformationBuilder {
+      UserInformationComponent(parent: self)
+    }
   }
 }
 
 // MARK: - UserCollectionBuildable
 
 protocol UserCollectionBuildable: Buildable {
-  func build(withListener listener: UserCollectionListener) -> UserCollectionRouting
+  func build(with dynamicBuildDependency: UserCollectionBuildDependency) -> UserCollectionRouting
 }
 
 // MARK: - UserCollectionBuilder
 
 final class UserCollectionBuilder:
-  ComponentizedBuilder<UserCollectionComponent, UserCollectionRouting, UserCollectionListener, Void>,
+  ComponentizedBuilder<UserCollectionComponent, UserCollectionRouting, UserCollectionBuildDependency, Void>,
   UserCollectionBuildable
 {
 
   override func build(
     with component: UserCollectionComponent,
-    _ listener: UserCollectionListener
+    _ payload: UserCollectionBuildDependency
   ) -> UserCollectionRouting {
     let viewController = UserCollectionViewController()
     let presenter = UserCollectionPresenter(viewController: viewController)
     let interactor = UserCollectionInteractor(
       presenter: presenter,
-      dependency: component
+      initialState: component.initialState,
+      randomUserRepositoryService: component.randomUserRepositoryService,
+      userModelDataStream: component.userModelDataStream,
+      mutableSelectedUserModelStream: component.mutableSelectedUserModelStream,
+      imagePrefetchWorker: component.imagePrefetchWorker
     )
-    interactor.listener = listener
-
-    let userInformationBuilder = UserInformationBuilder {
-      component.userInformationComponent
-    }
+    interactor.listener = payload.listener
 
     return UserCollectionRouter(
-      userInformationBuilder: userInformationBuilder,
+      userInformationBuilder: component.userInformationBuilder,
       interactor: interactor,
       viewController: viewController
     )
-  }
-
-  // MARK: - UserCollectionBuildable
-
-  func build(withListener listener: UserCollectionListener) -> UserCollectionRouting {
-    return build(withDynamicBuildDependency: listener, dynamicComponentDependency: Void())
   }
 }

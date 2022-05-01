@@ -27,16 +27,6 @@ protocol UserCollectionPresentable: Presentable {
 
 protocol UserCollectionListener: AnyObject {}
 
-// MARK: - UserCollectionInteractorDependency
-
-protocol UserCollectionInteractorDependency {
-  var initialState: UserCollectionState { get }
-  var randomUserRepositoryService: RandomUserRepositoryService { get }
-  var userModelDataStream: UserModelDataStream { get }
-  var mutableSelectedUserModelStream: MutableSelectedUserModelStream { get }
-  var imagePrefetchWorker: ImagePrefetchWorking { get }
-}
-
 // MARK: - UserCollectionInteractor
 
 final class UserCollectionInteractor:
@@ -64,23 +54,34 @@ final class UserCollectionInteractor:
   weak var listener: UserCollectionListener?
 
   let initialState: UserCollectionState
-  let requestItemCount: Int = 50
+  let randomUserRepositoryService: RandomUserRepositoryService
+  let userModelDataStream: UserModelDataStream
+  let mutableSelectedUserModelStream: MutableSelectedUserModelStream
+  let imagePrefetchWorker: ImagePrefetchWorking
 
-  private let dependency: UserCollectionInteractorDependency
+ private let requestItemCount: Int = 50
 
   init(
     presenter: UserCollectionPresentable,
-    dependency: UserCollectionInteractorDependency
+    initialState: UserCollectionState,
+    randomUserRepositoryService: RandomUserRepositoryService,
+    userModelDataStream: UserModelDataStream,
+    mutableSelectedUserModelStream: MutableSelectedUserModelStream,
+    imagePrefetchWorker: ImagePrefetchWorking
   ) {
-    self.dependency = dependency
-    self.initialState = self.dependency.initialState
+    self.initialState = initialState
+    self.randomUserRepositoryService = randomUserRepositoryService
+    self.userModelDataStream = userModelDataStream
+    self.mutableSelectedUserModelStream = mutableSelectedUserModelStream
+    self.imagePrefetchWorker = imagePrefetchWorker
+
     super.init(presenter: presenter)
     presenter.listener = self
   }
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    dependency.imagePrefetchWorker.start(self)
+    imagePrefetchWorker.start(self)
   }
 
   // MARK: - UserCollectionPresentableListener
@@ -115,7 +116,7 @@ extension UserCollectionInteractor {
   private func loadDataMutation() -> Observable<Mutation> {
     guard !currentState.isLoading && currentState.userModels.isEmpty else { return .empty() }
 
-    let loadDataMutation: Observable<Mutation> = dependency.randomUserRepositoryService
+    let loadDataMutation: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setLoading(false))
@@ -130,7 +131,7 @@ extension UserCollectionInteractor {
   }
 
   private func refreshMutation() -> Observable<Mutation> {
-    let refreshDataMutation: Observable<Mutation> = dependency.randomUserRepositoryService
+    let refreshDataMutation: Observable<Mutation> = randomUserRepositoryService
       .loadData(isRefresh: true, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
@@ -149,22 +150,22 @@ extension UserCollectionInteractor {
     let lastIndex = userModelCount - 1
     guard userModelCount >= requestItemCount && currentItemIndex == lastIndex else { return .empty() }
 
-    return dependency.randomUserRepositoryService
+    return randomUserRepositoryService
       .loadData(isRefresh: false, itemCount: requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
   }
 
   private func prefetchResourceMutation(withItemURLs urls: [URL]) -> Observable<Mutation> {
-    dependency.imagePrefetchWorker.startPrefetch(withURLs: urls)
+    imagePrefetchWorker.startPrefetch(withURLs: urls)
     return .empty()
   }
 
   private func itemSelectedMutation(bySelectedItemIndex itemIndex: Int) -> Observable<Mutation> {
     guard let item = currentState.userModels[safe: itemIndex] else { return .empty() }
-    guard let user = dependency.userModelDataStream.userModel(byUUID: item.uuid) else { return .empty() }
+    guard let user = userModelDataStream.userModel(byUUID: item.uuid) else { return .empty() }
 
-    dependency.mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
+    mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
     return .just(.attachUserInformationRIB)
   }
 }
@@ -187,7 +188,7 @@ extension UserCollectionInteractor {
   }
 
   private func updateUserModelsTransform() -> Observable<Mutation> {
-    return dependency.userModelDataStream.userModels
+    return userModelDataStream.userModels
       .filter { !$0.isEmpty }
       .distinctUntilChanged()
       .map(Mutation.setUserModels)
