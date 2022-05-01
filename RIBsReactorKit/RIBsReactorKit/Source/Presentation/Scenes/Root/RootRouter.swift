@@ -10,11 +10,13 @@ import RIBs
 
 // MARK: - RootInteractable
 
+/// @mockable
 protocol RootInteractable: Interactable, MainTabBarListener {
   var router: RootRouting? { get set }
   var listener: RootListener? { get set }
 }
 
+/// @mockable
 protocol RootViewControllable: ViewControllable {}
 
 // MARK: - RootRouter

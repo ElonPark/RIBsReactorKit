@@ -113,10 +113,9 @@ targets:
       - RIBsReactorKitTests
     dependencies:
       - target: RIBsReactorKit
-      - framework: "Carthage/Build/Quick.xcframework"
       - framework: "Carthage/Build/Nimble.xcframework"
       - framework: "Carthage/Build/RxBlocking.xcframework"
-      - framework: "Carthage/Build/RxNimRxNimbleRxBlockingble.xcframework"
+      - framework: "Carthage/Build/RxNimbleRxBlocking.xcframework"
       - framework: "Carthage/Build/RxTest.xcframework"
       - framework: "Carthage/Build/RxNimbleRxTest.xcframework"
 

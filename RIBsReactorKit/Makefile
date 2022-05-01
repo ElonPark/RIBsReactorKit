@@ -1,17 +1,29 @@
 setup:
 	brew bundle
 	$$(make bootstrap)
-	$$(make xcodegen)
+	$$(make xcode_gen)
 	$$(make clean_unuse_libs)
 
 bootstrap:
 	carthage bootstrap --platform iOS --new-resolver --no-use-binaries --use-xcframeworks
 
 update:
-	carthage update --platform iOS --new-resolver --no-use-binaries --use-xcframeworks
+	carthage update --platform iOS --new-resolver --no-use-binaries --use-xcframeworks --cache-builds
 
-xcodegen:
+xcode_gen:
 	xcodegen generate
+
+ribs_mock:
+		mockolo -s ./Carthage/Checkouts/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs
+
+mock:
+	mockolo -s ./RIBsReactorKit/Source \
+	 --mockfiles ./RIBsReactorKitTests/RIBsMocks.swift \
+	 -d ./RIBsReactorKitTests/OutputMocks.swift \
+	 -i RIBsReactorKit \
+	 --use-mock-observable \
+	 --mock-final \
+	 --exclude-imports Kingfisher MapKit NeedleFoundation RxCocoa RxDataSources RxViewController SkeletonView SwiftUI
 
 clean_unuse_libs:
 	rm -rf ./Carthage/Checkouts/ReactiveSwift

@@ -11,11 +11,13 @@ import RxSwift
 
 // MARK: - RootRouting
 
+/// @mockable
 protocol RootRouting: Routing {
   func attachMainTabBarRIB()
   func cleanupViews()
 }
 
+/// @mockable
 protocol RootListener: AnyObject {}
 
 // MARK: - RootInteractor
