@@ -11,6 +11,7 @@ import RxSwift
 
 // MARK: - MainTabBarRouting
 
+/// @mockable
 protocol MainTabBarRouting: ViewableRouting {
   func attachTabs()
 }

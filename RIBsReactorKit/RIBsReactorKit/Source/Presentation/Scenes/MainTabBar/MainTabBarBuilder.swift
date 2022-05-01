@@ -40,6 +40,7 @@ final class MainTabBarComponent: NeedleFoundation.Component<MainTabBarDependency
 
 // MARK: - MainTabBarBuildable
 
+/// @mockable
 protocol MainTabBarBuildable: Buildable {
   func build(with dynamicBuildDependency: MainTabBarBuildDependency) -> MainTabBarRouting
 }
