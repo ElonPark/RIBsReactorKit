@@ -16,14 +16,14 @@ xcode_gen:
 ribs_mock:
 		mockolo -s ./Carthage/Checkouts/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs
 
-# make mock rib=RIB_NAME
-mock_riblet:
-	mockolo -s ./RIBsReactorKit/Source/Presentation/Scenes/$(rib) \
+mock:
+	mockolo -s ./RIBsReactorKit/Source \
 	 --mockfiles ./RIBsReactorKitTests/RIBsMocks.swift \
-	 -d ./RIBsReactorKitTests/$(rib)/$(rib)Mocks.swift \
+	 -d ./RIBsReactorKitTests/OutputMocks.swift \
 	 -i RIBsReactorKit \
 	 --use-mock-observable \
-	 --mock-final
+	 --mock-final \
+	 --exclude-imports Kingfisher MapKit NeedleFoundation RxCocoa RxDataSources RxViewController SkeletonView SwiftUI
 
 clean_unuse_libs:
 	rm -rf ./Carthage/Checkouts/ReactiveSwift
