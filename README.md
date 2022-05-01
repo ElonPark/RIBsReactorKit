@@ -16,7 +16,7 @@
 
 Required Xcode 12.5 or above
 ```shell
-$ sh install.sh
+$ make setup
 ```
 
 ---
@@ -24,25 +24,13 @@ $ sh install.sh
 
 ### Installing 
 
-```
+```shell
 $ npm install yarn
+$ make setup_tree_viewer
 ```
 
-### Starting the websocket server
+### Starting the websocket server & Open RIBsTreeViewer page.
 
 ```shell
-$ cd ./RIBsTreeViewer/WebSocketServer
-$ npx yarn install
-$ node index.js
+$ make show_tree_viewer
 ```
-
-## Open the page.
-
-```shell
-$ cd ./RIBsTreeViewer/Browser
-$ npx yarn install
-$ npx webpack
-$ open ./public/index.html
-```
-
-
