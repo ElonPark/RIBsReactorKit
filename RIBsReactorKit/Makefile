@@ -1,18 +1,20 @@
 setup:
 	brew bundle
-	$$(make bootstrap)
-	$$(make xcode_gen)
-	$$(make clean_unuse_libs)
+	make bootstrap
+	make xcode_gen
+	make clean_unuse_libs
 
 bootstrap:
-	carthage bootstrap --platform iOS --new-resolver --no-use-binaries --use-xcframeworks
+	rome download --platform iOS
+	carthage bootstrap --platform iOS --new-resolver --no-use-binaries --use-xcframeworks --cache-builds
+	rome list --missing --platform iOS | awk '{print $1}' | xargs -I {} rome upload "{}" --platform iOS
 
 update:
 	carthage update --platform iOS --new-resolver --no-use-binaries --use-xcframeworks --cache-builds
+	rome list --missing --platform iOS | awk '{print $1}' | xargs -I {} rome upload "{}" --platform iOS
 
 xcode_gen:
 	xcodegen generate
-	xed .
 
 ribs_mock:
 		mockolo -s ./Carthage/Checkouts/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs

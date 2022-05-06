@@ -1,0 +1,8 @@
+.DS_Store
+sourcekitten-output.json
+docs/
+/.build
+/Packages
+Pods/
+Carthage/
+Examples/Examples.xcworkspace

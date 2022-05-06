@@ -1,9 +1,11 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+tap "tmspzz/tap", "https://github.com/tmspzz/homebrew-tap.git"
 
 brew "carthage"
 brew "xcodegen"
 brew "swiftgen"
 brew "swiftlint"
 brew "swiftformat"
+brew "tmspzz/homebrew-tap/rome"

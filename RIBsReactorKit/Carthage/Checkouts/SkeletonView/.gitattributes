@@ -1,0 +1,2 @@
+*.sh linguist-language=Swift
+*.podspec linguist-language=Swift

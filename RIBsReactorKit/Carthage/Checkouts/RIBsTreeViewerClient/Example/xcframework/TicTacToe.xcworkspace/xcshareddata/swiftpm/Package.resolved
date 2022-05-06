@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "RIBsTreeViewerClient",
+        "repositoryURL": "https://github.com/srea/RIBsTreeViewerClient.git",
+        "state": {
+          "branch": "master",
+          "revision": "d8ceb216c7e836e2a8effaf2b71fe72e78181da3",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
