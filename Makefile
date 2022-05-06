@@ -1,5 +1,12 @@
 setup:
 	brew bundle
+	bundle install
+	make bootstrap
+	make xcode_gen
+	make clean_unuse_libs
+
+setup_ci:
+	brew bundle --file=Brewfile_ci
 	make bootstrap
 	make xcode_gen
 	make clean_unuse_libs
@@ -38,3 +45,6 @@ setup_tree_viewer:
 
 show_tree_viewer:
 	(cd ./Scripts && sh start_server.sh)
+
+test:
+	bundle exec fastlane ios ci_test

@@ -88,3 +88,4 @@ node_modules
 **/Brewfile.lock.json
 **/RIBsReactorKit.xcodeproj/*
 
+Brewfile_ci.lock.json

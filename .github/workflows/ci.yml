@@ -13,7 +13,7 @@ jobs:
 
       - name: Setup Project Environment
         run: |
-          make setup
+          make setup_ci
         
       - name: Run Test
         run: |
