@@ -22,12 +22,12 @@ struct Location:
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    street = try container.decode(Street.self, forKey: .street)
-    city = try container.decode(String.self, forKey: .city)
-    state = try container.decode(String.self, forKey: .state)
-    country = try container.decode(String.self, forKey: .country)
-    coordinates = try container.decode(Coordinates.self, forKey: .coordinates)
-    timezone = try container.decode(Timezone.self, forKey: .timezone)
+    self.street = try container.decode(Street.self, forKey: .street)
+    self.city = try container.decode(String.self, forKey: .city)
+    self.state = try container.decode(String.self, forKey: .state)
+    self.country = try container.decode(String.self, forKey: .country)
+    self.coordinates = try container.decode(Coordinates.self, forKey: .coordinates)
+    self.timezone = try container.decode(Timezone.self, forKey: .timezone)
 
     if let value = try? container.decode(Int.self, forKey: .postcode) {
       self.postcode = String(value)

@@ -33,7 +33,7 @@ final class UserLocationComponent: NeedleFoundation.Component<UserLocationDepend
 
   fileprivate var initialState: UserLocationPresentableState {
     UserLocationPresentableState(
-      annotationMetadata: payload.annotationMetadata
+      annotationMetadata: self.payload.annotationMetadata
     )
   }
 
@@ -57,7 +57,12 @@ protocol UserLocationBuildable: Buildable {
 // MARK: - UserLocationBuilder
 
 final class UserLocationBuilder:
-  ComponentizedBuilder<UserLocationComponent, UserLocationRouting, UserLocationBuildDependency, UserLocationComponentDependency>,
+  ComponentizedBuilder<
+    UserLocationComponent,
+    UserLocationRouting,
+    UserLocationBuildDependency,
+    UserLocationComponentDependency
+  >,
   UserLocationBuildable
 {
 
@@ -84,7 +89,7 @@ final class UserLocationBuilder:
     with dynamicBuildDependency: UserLocationBuildDependency,
     _ dynamicComponentDependency: UserLocationComponentDependency
   ) -> UserLocationRouting {
-    return build(
+    return self.build(
       withDynamicBuildDependency: dynamicBuildDependency,
       dynamicComponentDependency: dynamicComponentDependency
     )

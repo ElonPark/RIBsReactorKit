@@ -35,7 +35,7 @@ final class UserCollectionComponent: NeedleFoundation.Component<UserCollectionDe
   }
 
   var selectedUserModelStream: SelectedUserModelStream {
-    mutableSelectedUserModelStream
+    self.mutableSelectedUserModelStream
   }
 
   fileprivate var userInformationBuilder: UserInformationBuildable {

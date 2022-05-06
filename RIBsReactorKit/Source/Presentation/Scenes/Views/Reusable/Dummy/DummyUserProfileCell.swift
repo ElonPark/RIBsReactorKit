@@ -16,8 +16,8 @@ final class DummyUserProfileCell: UserProfileCell {
   override func initUI() {
     profileBackgroundImage = nil
     userProfileImage = nil
-    userTitleWithLastName = dummyUserTitleWithLastName
-    userFirstName = dummyUserFirstName
+    userTitleWithLastName = self.dummyUserTitleWithLastName
+    userFirstName = self.dummyUserFirstName
     showAnimatedGradientSkeleton()
   }
 }

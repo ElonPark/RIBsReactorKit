@@ -59,14 +59,14 @@ final class UserLocationViewController:
     super.viewDidLoad()
     setupUI()
     bindUI()
-    bind(to: listener)
+    bind(to: self.listener)
   }
 }
 
 // MARK: - Bind UI
 
-private extension UserLocationViewController {
-  func bindUI() {
+extension UserLocationViewController {
+  private func bindUI() {
     guard needHeaderView else { return }
     bindCloseButtonTapAction()
   }
@@ -74,16 +74,16 @@ private extension UserLocationViewController {
 
 // MARK: - Bind listener
 
-private extension UserLocationViewController {
-  func bind(to listener: UserLocationPresentableListener?) {
+extension UserLocationViewController {
+  private func bind(to listener: UserLocationPresentableListener?) {
     guard let listener = listener else { return }
-    bindActionRelay()
-    bindAction()
-    bindState(from: listener)
+    self.bindActionRelay()
+    self.bindAction()
+    self.bindState(from: listener)
   }
 
-  func bindActionRelay() {
-    actionRelay.asObservable()
+  private func bindActionRelay() {
+    self.actionRelay.asObservable()
       .bind(with: self) { this, action in
         this.listener?.sendAction(action)
       }
@@ -92,21 +92,21 @@ private extension UserLocationViewController {
 
   // MARK: - Binding State
 
-  func bindAction() {
-    bindDetachAction()
+  private func bindAction() {
+    self.bindDetachAction()
   }
 
-  func bindDetachAction() {
+  private func bindDetachAction() {
     detachAction
       .map { .detachAction }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
   // MARK: - Binding State
 
-  func bindState(from listener: UserLocationPresentableListener) {
-    bindAnnotationMetadata(from: listener)
+  private func bindState(from listener: UserLocationPresentableListener) {
+    self.bindAnnotationMetadata(from: listener)
   }
 
   private func bindAnnotationMetadata(from listener: UserLocationPresentableListener) {
@@ -123,29 +123,29 @@ private extension UserLocationViewController {
       latitude: metadata.coordinate.latitude,
       longitude: metadata.coordinate.longitude
     )
-    setRegion(to: mapView, center: coordinate)
-    addMapAnnotation(to: mapView, coordinate: coordinate, title: metadata.title, subtitle: metadata.subtitle)
+    setRegion(to: self.mapView, center: coordinate)
+    addMapAnnotation(to: self.mapView, coordinate: coordinate, title: metadata.title, subtitle: metadata.subtitle)
   }
 }
 
 // MARK: - SetupUI
 
-private extension UserLocationViewController {
-  func setupUI() {
+extension UserLocationViewController {
+  private func setupUI() {
     view.backgroundColor = Asset.Colors.backgroundColor.color
     addHeaderViewIfNeeded(to: view)
-    view.addSubview(mapView)
+    view.addSubview(self.mapView)
 
-    layout()
+    self.layout()
   }
 
-  func layout() {
+  private func layout() {
     makeHeaderViewConstraintsIfNeeded()
-    makeMapViewConstraints()
+    self.makeMapViewConstraints()
   }
 
-  func makeMapViewConstraints() {
-    mapView.snp.makeConstraints {
+  private func makeMapViewConstraints() {
+    self.mapView.snp.makeConstraints {
       if needHeaderView {
         $0.top.equalTo(headerView.snp.bottom)
         $0.leading.trailing.bottom.equalToSuperview()

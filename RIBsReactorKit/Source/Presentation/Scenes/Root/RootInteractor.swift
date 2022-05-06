@@ -29,11 +29,11 @@ final class RootInteractor: Interactor, RootInteractable {
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    router?.attachMainTabBarRIB()
+    self.router?.attachMainTabBarRIB()
   }
 
   override func willResignActive() {
     super.willResignActive()
-    router?.cleanupViews()
+    self.router?.cleanupViews()
   }
 }

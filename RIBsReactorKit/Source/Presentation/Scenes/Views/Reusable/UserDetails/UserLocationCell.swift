@@ -46,14 +46,14 @@ final class UserLocationCell:
   func configure(by viewModel: UserLocationViewModel) {
     guard let coordinate2D = viewModel.location.coordinates.locationCoordinate2D else { return }
     let coordinate = CLLocationCoordinate2D(latitude: coordinate2D.latitude, longitude: coordinate2D.longitude)
-    setRegion(to: mapView, center: coordinate)
-    addAnnotation(by: viewModel.location, with: coordinate)
+    setRegion(to: self.mapView, center: coordinate)
+    self.addAnnotation(by: viewModel.location, with: coordinate)
   }
 
   // MARK: - Private methods
 
   private func addAnnotation(by location: Location, with coordinate: CLLocationCoordinate2D) {
-    addMapAnnotation(to: mapView, coordinate: coordinate, title: location.city, subtitle: location.street.name)
+    addMapAnnotation(to: self.mapView, coordinate: coordinate, title: location.city, subtitle: location.street.name)
   }
 }
 
@@ -62,11 +62,11 @@ final class UserLocationCell:
 extension UserLocationCell {
   private func setupUI() {
     isSkeletonable = true
-    skeletonViews.forEach { contentView.addSubview($0) }
+    self.skeletonViews.forEach { contentView.addSubview($0) }
   }
 
   private func layout() {
-    mapView.snp.makeConstraints {
+    self.mapView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
   }

@@ -11,6 +11,8 @@ import XCTest
 
 import Nimble
 
+// MARK: - MainTabBarRouterTests
+
 final class MainTabBarRouterTests: XCTestCase {
 
   private var userListBuilder: UserListBuildableMock!
@@ -18,9 +20,9 @@ final class MainTabBarRouterTests: XCTestCase {
   private var interactor: MainTabBarInteractableMock!
   private var viewController: MainTabBarViewControllableMock!
   private var router: MainTabBarRouter!
-  
+
   // TODO: declare other objects and mocks you need as private vars
-  
+
   override func setUp() {
     super.setUp()
     self.userListBuilder = .init()
@@ -36,7 +38,6 @@ final class MainTabBarRouterTests: XCTestCase {
     )
   }
 }
-
 
 // MARK: - Tests
 

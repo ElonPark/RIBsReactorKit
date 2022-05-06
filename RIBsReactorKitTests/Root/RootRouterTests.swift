@@ -11,6 +11,8 @@ import XCTest
 
 import Nimble
 
+// MARK: - RootRouterTests
+
 final class RootRouterTests: XCTestCase {
 
   private var router: RootRouter!
@@ -41,7 +43,6 @@ extension RootRouterTests {
     // then
     expect(self.mainTabBarBuilder.buildCallCount) == 1
   }
-
 
   func test_when_cleanupViews_called_it_should_be_detach_all_children() {
     // given

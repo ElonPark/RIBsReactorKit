@@ -42,35 +42,35 @@ final class UserModelDataStreamImpl: MutableUserModelDataStream {
 
   // MARK: - Properties
 
-  var userModels: Observable<[UserModel]> { userModelDataRelay.asObservable().map(\.models) }
+  var userModels: Observable<[UserModel]> { self.userModelDataRelay.asObservable().map(\.models) }
   private let userModelDataRelay = BehaviorRelay<UserModelData>(value: UserModelData())
 
   // MARK: - Internal methods
 
   func userModel(byUUID uuid: String) -> UserModel? {
-    return userModelDataRelay.value.modelByUUID[uuid]
+    return self.userModelDataRelay.value.modelByUUID[uuid]
   }
 
   func updateUserModels(with userModels: [UserModel]) {
     let userModelByUUID = userModels.reduce(into: [String: UserModel]()) { $0[$1.uuid] = $1 }
     let data = UserModelData(models: userModels, modelByUUID: userModelByUUID)
-    userModelDataRelay.accept(data)
+    self.userModelDataRelay.accept(data)
   }
 
   func appendUserModels(with userModels: [UserModel]) {
     var newUserModals: [UserModel] {
-      var modals = userModelDataRelay.value.models
+      var modals = self.userModelDataRelay.value.models
       modals.append(contentsOf: userModels)
       return modals
     }
 
     var newUserModelByUUID: [String: UserModel] {
-      var modelByUUID = userModelDataRelay.value.modelByUUID
+      var modelByUUID = self.userModelDataRelay.value.modelByUUID
       modelByUUID = userModels.reduce(into: modelByUUID) { $0[$1.uuid] = $1 }
       return modelByUUID
     }
 
     let data = UserModelData(models: newUserModals, modelByUUID: newUserModelByUUID)
-    userModelDataRelay.accept(data)
+    self.userModelDataRelay.accept(data)
   }
 }

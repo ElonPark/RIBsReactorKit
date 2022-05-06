@@ -30,7 +30,7 @@ class BaseCollectionReusableView:
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    initialize()
+    self.initialize()
   }
 
   @available(*, unavailable)
@@ -52,7 +52,7 @@ class BaseCollectionReusableView:
   // MARK: - Layout Constraints
 
   override func updateConstraints() {
-    setupConstraintsIfNeeded()
+    self.setupConstraintsIfNeeded()
     super.updateConstraints()
   }
 
@@ -70,8 +70,8 @@ class BaseCollectionReusableView:
   // MARK: - Private methods
 
   private func setupConstraintsIfNeeded() {
-    guard !didSetupConstraints else { return }
-    setupConstraints()
-    didSetupConstraints = true
+    guard !self.didSetupConstraints else { return }
+    self.setupConstraints()
+    self.didSetupConstraints = true
   }
 }

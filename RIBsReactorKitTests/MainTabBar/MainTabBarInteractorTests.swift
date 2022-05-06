@@ -11,6 +11,8 @@ import XCTest
 
 import Nimble
 
+// MARK: - MainTabBarInteractorTests
+
 final class MainTabBarInteractorTests: XCTestCase {
 
   private var presenter: MainTabBarPresentableMock!
@@ -33,7 +35,6 @@ final class MainTabBarInteractorTests: XCTestCase {
     self.interactor.listener = self.listener
   }
 }
-
 
 // MARK: - Tests
 

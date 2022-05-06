@@ -42,10 +42,10 @@ final class UserListComponent: NeedleFoundation.Component<UserListDependency> {
   }
 
   var selectedUserModelStream: SelectedUserModelStream {
-    mutableSelectedUserModelStream
+    self.mutableSelectedUserModelStream
   }
 
-  fileprivate var userInformationBuilder: UserInformationBuildable{
+  fileprivate var userInformationBuilder: UserInformationBuildable {
     UserInformationBuilder {
       UserInformationComponent(parent: self)
     }

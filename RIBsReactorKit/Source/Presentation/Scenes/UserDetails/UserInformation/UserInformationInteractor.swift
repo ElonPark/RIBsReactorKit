@@ -92,10 +92,10 @@ extension UserInformationInteractor {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .viewWillAppear:
-      return setUserInformationSectionsMutation()
+      return self.setUserInformationSectionsMutation()
 
     case let .itemSelected(indexPath):
-      return itemSelectedMutation(with: indexPath)
+      return self.itemSelectedMutation(with: indexPath)
 
     case .detach:
       return .just(.detach)
@@ -103,7 +103,7 @@ extension UserInformationInteractor {
   }
 
   private func setUserInformationSectionsMutation() -> Observable<Mutation> {
-    return selectedUserModelStream.userModel
+    return self.selectedUserModelStream.userModel
       .withUnretained(self)
       .flatMap { this, userModel -> Observable<Mutation> in
         let sections = this.userInformationSectionListFactory.makeSections(by: userModel)
@@ -117,7 +117,7 @@ extension UserInformationInteractor {
 
     switch item {
     case let .location(viewModel):
-      return attachUserLocationRIBMutation(location: viewModel.location)
+      return self.attachUserLocationRIBMutation(location: viewModel.location)
 
     default:
       return .never()
@@ -155,12 +155,12 @@ extension UserInformationInteractor {
   }
 
   private func attachUserLocationRIBTransform(metadata: MapPointAnnotationMetadata) -> Observable<Mutation> {
-    router?.attachUserLocationRIB(annotationMetadata: metadata)
+    self.router?.attachUserLocationRIB(annotationMetadata: metadata)
     return .empty()
   }
 
   private func detachTransform() -> Observable<Mutation> {
-    listener?.detachUserInformationRIB()
+    self.listener?.detachUserInformationRIB()
     return .empty()
   }
 
@@ -186,6 +186,6 @@ extension UserInformationInteractor {
 
 extension UserInformationInteractor {
   func detachUserLocationRIB() {
-    router?.detachUserLocationRIB()
+    self.router?.detachUserLocationRIB()
   }
 }

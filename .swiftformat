@@ -4,7 +4,7 @@
 --indent 2
 --extensionacl on-extension
 --modifierorder
---self init-only
+--self insert
 --semicolons inline
 --trailingclosures
 --commas inline
@@ -24,6 +24,10 @@
 --markextensions always
 --extensionmark  "MARK: - %t + %c"
 --groupedextension "MARK: - %c"
+--elseposition "same-line"
+--emptybraces "no-space"
+--extensionacl on-declarations
+--trailingclosures
 
 # file options
 --exclude Scripts, Carthage, Resource, **/Generated
@@ -33,6 +37,17 @@
 --enable enumNamespaces
 --enable isEmpty
 --enable markTypes
+--enable redundantBreak
+--enable redundantInit
+--enable redundantLet
+--enable redundantLetError
+--enable redundantNilInit
+--enable leadingDelimiters
+--enable spaceAroundBraces
+--enable spaceAroundBrackets
+--enable spaceAroundComments
+--enable spaceInsideBraces
+--enable spaceInsideBrackets
 
 --disable andOperator
 --disable blankLinesAtStartOfScope
@@ -40,4 +55,3 @@
 --disable sortedSwitchCases
 --disable redundantReturn
 --disable void
---disable wrapMultilineStatementBraces

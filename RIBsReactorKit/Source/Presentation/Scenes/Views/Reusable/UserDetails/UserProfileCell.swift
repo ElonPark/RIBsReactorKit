@@ -50,25 +50,25 @@ class UserProfileCell:
 
   var profileBackgroundImage: UIImage? {
     didSet {
-      profileBackgroundImageView.image = profileBackgroundImage
+      self.profileBackgroundImageView.image = self.profileBackgroundImage
     }
   }
 
   var userProfileImage: UIImage? {
     didSet {
-      profileImageView.image = userProfileImage
+      self.profileImageView.image = self.userProfileImage
     }
   }
 
   var userTitleWithLastName: String = "" {
     didSet {
-      titleWithLastNameLabel.text = userTitleWithLastName
+      self.titleWithLastNameLabel.text = self.userTitleWithLastName
     }
   }
 
   var userFirstName: String = "" {
     didSet {
-      firstNameLabel.text = userFirstName
+      self.firstNameLabel.text = self.userFirstName
     }
   }
 
@@ -120,7 +120,7 @@ class UserProfileCell:
   override func initialize() {
     super.initialize()
     setupUI()
-    initUI()
+    self.initUI()
   }
 
   override func setupConstraints() {
@@ -130,23 +130,23 @@ class UserProfileCell:
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    profileBackgroundImageView.cancelDownloadTask()
-    profileImageView.cancelDownloadTask()
-    initUI()
+    self.profileBackgroundImageView.cancelDownloadTask()
+    self.profileImageView.cancelDownloadTask()
+    self.initUI()
   }
 
   func initUI() {
-    profileBackgroundImage = nil
-    userProfileImage = nil
-    userTitleWithLastName = ""
-    userFirstName = ""
+    self.profileBackgroundImage = nil
+    self.userProfileImage = nil
+    self.userTitleWithLastName = ""
+    self.userFirstName = ""
   }
 
   func configure(by viewModel: UserProfileViewModel) {
-    profileBackgroundImageView.setImage(with: viewModel.profileBackgroundImageURL)
-    profileImageView.setImage(with: viewModel.profileImageURL)
-    titleWithLastNameLabel.text = viewModel.titleWithLastName
-    firstNameLabel.text = viewModel.firstName
+    self.profileBackgroundImageView.setImage(with: viewModel.profileBackgroundImageURL)
+    self.profileImageView.setImage(with: viewModel.profileImageURL)
+    self.titleWithLastNameLabel.text = viewModel.titleWithLastName
+    self.firstNameLabel.text = viewModel.firstName
   }
 }
 
@@ -155,31 +155,31 @@ class UserProfileCell:
 extension UserProfileCell {
   private func setupUI() {
     isSkeletonable = true
-    skeletonViews.forEach { contentView.addSubview($0) }
+    self.skeletonViews.forEach { contentView.addSubview($0) }
   }
 
   private func layout() {
-    profileBackgroundImageView.snp.makeConstraints {
+    self.profileBackgroundImageView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(UI.profileBackgroundImageTopMargin)
       $0.leading.equalToSuperview().offset(UI.profileBackgroundImageLeadingMargin)
       $0.trailing.equalToSuperview().offset(-UI.profileBackgroundImageViewTrailingMargin)
       $0.height.equalTo(UI.profileBackgroundImageViewHeight)
     }
 
-    profileImageView.snp.makeConstraints {
+    self.profileImageView.snp.makeConstraints {
       $0.size.equalTo(UI.profileImageViewSize)
       $0.centerX.equalToSuperview()
       $0.centerY.equalTo(profileBackgroundImageView.snp.bottom)
     }
 
-    titleWithLastNameLabel.snp.makeConstraints {
+    self.titleWithLastNameLabel.snp.makeConstraints {
       $0.top.equalTo(profileImageView.snp.bottom).offset(UI.titleWithLastNameLabelTopMargin)
       $0.leading.greaterThanOrEqualToSuperview().offset(UI.labelMinimumSideMargin)
       $0.trailing.lessThanOrEqualToSuperview().offset(-UI.labelMinimumSideMargin)
       $0.centerX.equalToSuperview()
     }
 
-    firstNameLabel.snp.makeConstraints {
+    self.firstNameLabel.snp.makeConstraints {
       $0.top.equalTo(titleWithLastNameLabel.snp.bottom).offset(UI.firstNameLabelTopMargin)
       $0.bottom.lessThanOrEqualToSuperview().offset(-UI.firstNameLabelBottomMargin)
       $0.leading.greaterThanOrEqualToSuperview().offset(UI.labelMinimumSideMargin)

@@ -86,7 +86,7 @@ final class UserListInteractor:
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    imagePrefetchWorker.start(self)
+    self.imagePrefetchWorker.start(self)
   }
 
   // MARK: - UserListPresentableListener
@@ -102,19 +102,19 @@ extension UserListInteractor {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .loadData:
-      return loadDataMutation()
+      return self.loadDataMutation()
 
     case .refresh:
-      return refreshMutation()
+      return self.refreshMutation()
 
     case let .loadMore(indexPath):
-      return loadMoreMutation(withCurrentItemIndexPath: indexPath)
+      return self.loadMoreMutation(withCurrentItemIndexPath: indexPath)
 
     case let .prefetchItems(indexPath):
-      return prefetchItemsMutation(withItemIndexPaths: indexPath)
+      return self.prefetchItemsMutation(withItemIndexPaths: indexPath)
 
     case let .itemSelected(indexPath):
-      return itemSelectedMutation(bySelectedItemIndexPath: indexPath)
+      return self.itemSelectedMutation(bySelectedItemIndexPath: indexPath)
     }
   }
 
@@ -122,12 +122,12 @@ extension UserListInteractor {
     let needLoadingData = currentState.userListSections.first?.items.contains(.dummy) ?? true
     guard needLoadingData else { return .empty() }
 
-    return refreshMutation()
+    return self.refreshMutation()
   }
 
   private func refreshMutation() -> Observable<Mutation> {
-    let loadDataMutation: Observable<Mutation> = randomUserRepositoryService
-      .loadData(isRefresh: true, itemCount: requestItemCount)
+    let loadDataMutation: Observable<Mutation> = self.randomUserRepositoryService
+      .loadData(isRefresh: true, itemCount: self.requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
 
@@ -147,8 +147,8 @@ extension UserListInteractor {
     let lastItemRow = currentState.userListSections[indexPath.section].items.count - 1
     guard indexPath.row == lastItemRow else { return .empty() }
 
-    return randomUserRepositoryService
-      .loadData(isRefresh: false, itemCount: requestItemCount)
+    return self.randomUserRepositoryService
+      .loadData(isRefresh: false, itemCount: self.requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
   }
@@ -161,7 +161,7 @@ extension UserListInteractor {
         return viewModel.profileImageURL
       }
 
-    imagePrefetchWorker.startPrefetch(withURLs: urls)
+    self.imagePrefetchWorker.startPrefetch(withURLs: urls)
     return .empty()
   }
 
@@ -173,7 +173,7 @@ extension UserListInteractor {
     switch item {
     case let .user(viewModel):
       guard let user = userModelDataStream.userModel(byUUID: viewModel.uuid) else { return .empty() }
-      mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
+      self.mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
       return .just(.attachUserInformationRIB)
 
     case .dummy:
@@ -186,7 +186,7 @@ extension UserListInteractor {
 
 extension UserListInteractor {
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-    return .merge(mutation, updateUserModelsTransform())
+    return .merge(mutation, self.updateUserModelsTransform())
       .withUnretained(self)
       .flatMap { this, mutation -> Observable<Mutation> in
         switch mutation {
@@ -200,7 +200,7 @@ extension UserListInteractor {
   }
 
   private func updateUserModelsTransform() -> Observable<Mutation> {
-    return userModelDataStream.userModels
+    return self.userModelDataStream.userModels
       .filter { !$0.isEmpty }
       .distinctUntilChanged()
       .map { $0.map(UserListItemViewModel.init) }
@@ -211,7 +211,7 @@ extension UserListInteractor {
 
   /// Show selected user information
   private func attachUserInformationRIBTransform() -> Observable<Mutation> {
-    router?.attachUserInformationRIB()
+    self.router?.attachUserInformationRIB()
     return .empty()
   }
 }
@@ -244,6 +244,6 @@ extension UserListInteractor {
 
 extension UserListInteractor {
   func detachUserInformationRIB() {
-    router?.detachUserInformationRIB()
+    self.router?.detachUserInformationRIB()
   }
 }

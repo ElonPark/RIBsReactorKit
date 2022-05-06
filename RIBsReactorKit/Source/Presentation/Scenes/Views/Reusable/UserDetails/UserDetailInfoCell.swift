@@ -110,27 +110,27 @@ final class UserDetailInfoCell:
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    initUI()
+    self.initUI()
   }
 
   // MARK: - Internal methods
 
   func configure(by viewModel: UserDetailInfoItemViewModel) {
-    iconImageView.image = viewModel.icon
-    titleLabel.text = viewModel.title
-    separatorLineView.isHidden = !viewModel.showSeparatorLine
+    self.iconImageView.image = viewModel.icon
+    self.titleLabel.text = viewModel.title
+    self.separatorLineView.isHidden = !viewModel.showSeparatorLine
 
     guard viewModel.hasSubtitle else { return }
-    subtitleLabel.text = viewModel.subtitle
-    textLabelStackView.addArrangedSubview(subtitleLabel)
+    self.subtitleLabel.text = viewModel.subtitle
+    self.textLabelStackView.addArrangedSubview(self.subtitleLabel)
   }
 
   // MARK: - Private methods
 
   private func initUI() {
-    iconImageView.image = nil
-    titleLabel.text = dummyTitleString
-    separatorLineView.isHidden = false
+    self.iconImageView.image = nil
+    self.titleLabel.text = self.dummyTitleString
+    self.separatorLineView.isHidden = false
   }
 }
 
@@ -139,16 +139,16 @@ final class UserDetailInfoCell:
 extension UserDetailInfoCell {
   private func setupUI() {
     isSkeletonable = true
-    contentView.addSubview(iconImageView)
-    contentView.addSubview(textLabelStackView)
-    contentView.addSubview(separatorLineView)
-    textLabelStackView.addArrangedSubview(titleLabel)
+    contentView.addSubview(self.iconImageView)
+    contentView.addSubview(self.textLabelStackView)
+    contentView.addSubview(self.separatorLineView)
+    self.textLabelStackView.addArrangedSubview(self.titleLabel)
 
-    initUI()
+    self.initUI()
   }
 
   private func layout() {
-    iconImageView.snp.makeConstraints {
+    self.iconImageView.snp.makeConstraints {
       $0.size.equalTo(UI.iconImageViewSize)
       $0.centerY.equalToSuperview()
       $0.top.greaterThanOrEqualToSuperview().offset(UI.iconTopMargin)
@@ -156,7 +156,7 @@ extension UserDetailInfoCell {
       $0.leading.equalToSuperview().offset(UI.iconLeadingMargin)
     }
 
-    textLabelStackView.snp.makeConstraints {
+    self.textLabelStackView.snp.makeConstraints {
       $0.top.greaterThanOrEqualToSuperview()
       $0.bottom.lessThanOrEqualToSuperview()
       $0.leading.equalTo(iconImageView.snp.trailing).offset(UI.textLabelStackViewLeadingMargin)
@@ -164,7 +164,7 @@ extension UserDetailInfoCell {
       $0.centerY.equalToSuperview()
     }
 
-    separatorLineView.snp.makeConstraints {
+    self.separatorLineView.snp.makeConstraints {
       $0.height.equalTo(UI.separatorLineViewHeight)
       $0.leading.equalTo(textLabelStackView.snp.leading)
       $0.trailing.equalToSuperview()
@@ -174,8 +174,8 @@ extension UserDetailInfoCell {
 }
 
 #if canImport(SwiftUI) && DEBUG
-  fileprivate extension UserDetailInfoCell {
-    func dummyUserModel() -> UserModel? {
+  extension UserDetailInfoCell {
+    fileprivate func dummyUserModel() -> UserModel? {
       let decoder = JSONDecoder()
       decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
       guard let randomUser = try? decoder.decode(RandomUser.self, from: RandomUserFixture.data) else { return nil }

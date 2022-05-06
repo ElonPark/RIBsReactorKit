@@ -20,6 +20,8 @@ protocol MainTabBarInteractable:
   var listener: MainTabBarListener? { get set }
 }
 
+// MARK: - MainTabBarViewControllable
+
 /// @mockable
 protocol MainTabBarViewControllable: ViewControllable {
   func setViewControllers(_ viewControllers: [ViewControllable], animated: Bool)
@@ -70,23 +72,23 @@ extension MainTabBarRouter {
   }
 
   private func attachUserListRIB() -> ViewControllable {
-    let router = userListBuilder.build(
+    let router = self.userListBuilder.build(
       with: UserListBuildDependency(
         listener: interactor
       )
     )
-    userListRouter = router
+    self.userListRouter = router
     attachChild(router)
     return router.viewControllable
   }
 
   private func attachUserCollectionRIB() -> ViewControllable {
-    let router = userCollectionBuilder.build(
+    let router = self.userCollectionBuilder.build(
       with: UserCollectionBuildDependency(
         listener: interactor
       )
     )
-    userCollectionRouter = router
+    self.userCollectionRouter = router
     attachChild(router)
     return router.viewControllable
   }

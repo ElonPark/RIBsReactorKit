@@ -37,6 +37,6 @@ struct UserInfoSectionListFactoryImpl: UserInfoSectionListFactory {
   }
 
   func makeSections(by userModel: UserModel) -> [UserInfoSectionModel] {
-    factories.map { $0.makeSection(from: userModel) }
+    self.factories.map { $0.makeSection(from: userModel) }
   }
 }

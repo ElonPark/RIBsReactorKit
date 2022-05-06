@@ -14,29 +14,29 @@ final class NetworkError {
   let error: Error
 
   var moyaError: MoyaError? {
-    error as? MoyaError
+    self.error as? MoyaError
   }
 
   var moyaUnderlyingError: Error? {
-    guard case let .underlying(underlyingError, _) = moyaError else { return nil }
+    guard case let .underlying(underlyingError, _) = self.moyaError else { return nil }
     return underlyingError
   }
 
   var isMoyaUnderlyingError: Bool {
-    moyaUnderlyingError != nil
+    self.moyaUnderlyingError != nil
   }
 
   var afError: AFError? {
-    guard let moyaUnderlyingError = moyaUnderlyingError else { return error.asAFError }
+    guard let moyaUnderlyingError = moyaUnderlyingError else { return self.error.asAFError }
     return moyaUnderlyingError.asAFError
   }
 
   var afUnderlyingError: Error? {
-    afError?.underlyingError
+    self.afError?.underlyingError
   }
 
   var urlError: URLError? {
-    afUnderlyingError as? URLError
+    self.afUnderlyingError as? URLError
   }
 
   init(error: Error) {

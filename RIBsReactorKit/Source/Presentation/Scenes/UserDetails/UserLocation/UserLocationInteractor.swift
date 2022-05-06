@@ -97,7 +97,7 @@ extension UserLocationInteractor {
   }
 
   private func detachUserLocationRIBTransform() -> Observable<Mutation> {
-    listener?.detachUserLocationRIB()
+    self.listener?.detachUserLocationRIB()
     return .empty()
   }
 

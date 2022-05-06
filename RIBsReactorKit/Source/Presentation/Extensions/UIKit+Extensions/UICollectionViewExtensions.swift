@@ -10,11 +10,11 @@ import UIKit
 
 extension UICollectionView {
   func register<Cell: UICollectionViewCell>(_: Cell.Type) where Cell: Reusable {
-    register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
+    self.register(Cell.self, forCellWithReuseIdentifier: Cell.identifier)
   }
 
   func register<View: UICollectionReusableView>(_: View.Type) where View: Reusable & HasElementKind {
-    register(
+    self.register(
       View.self,
       forSupplementaryViewOfKind: View.elementKind,
       withReuseIdentifier: View.identifier

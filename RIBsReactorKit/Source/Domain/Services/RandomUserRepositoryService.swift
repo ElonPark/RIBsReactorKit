@@ -26,11 +26,11 @@ final class RandomUserRepositoryServiceImpl: RandomUserRepositoryService {
   private let mutableUserModelDataStream: MutableUserModelDataStream
 
   private let userItemInfoRelay = BehaviorRelay(value: RandomUserItemInfo())
-  private var userItemInfoRelayBuilder: PropertyBuilder<RandomUserItemInfo> { userItemInfoRelay.value.builder }
+  private var userItemInfoRelayBuilder: PropertyBuilder<RandomUserItemInfo> { self.userItemInfoRelay.value.builder }
 
-  private var responseInfo: Info? { userItemInfoRelay.value.info }
-  private var userByUUID: [String: User] { userItemInfoRelay.value.userByUUID }
-  private var isLastItems: Bool { userItemInfoRelay.value.isLastItems }
+  private var responseInfo: Info? { self.userItemInfoRelay.value.info }
+  private var userByUUID: [String: User] { self.userItemInfoRelay.value.userByUUID }
+  private var isLastItems: Bool { self.userItemInfoRelay.value.isLastItems }
 
   // MARK: - Initialization & Deinitialization
 
@@ -47,7 +47,7 @@ final class RandomUserRepositoryServiceImpl: RandomUserRepositoryService {
   // MARK: - Internal methods
 
   func loadData(isRefresh: Bool, itemCount: Int) -> Observable<Void> {
-    return randomUsers(isRefresh: isRefresh, itemCount: itemCount)
+    return self.randomUsers(isRefresh: isRefresh, itemCount: itemCount)
       .map(\.results)
       .withUnretained(self)
       .map { this, results in
@@ -68,9 +68,9 @@ final class RandomUserRepositoryServiceImpl: RandomUserRepositoryService {
     let randomUsers: Single<RandomUser>
     if let info = responseInfo, !isRefresh {
       let page = info.page + 1
-      randomUsers = repository.randomUsers(withPageNumber: page, count: itemCount, seed: info.seed)
+      randomUsers = self.repository.randomUsers(withPageNumber: page, count: itemCount, seed: info.seed)
     } else {
-      randomUsers = repository.randomUsers(withResultCount: itemCount)
+      randomUsers = self.repository.randomUsers(withResultCount: itemCount)
     }
 
     return randomUsers
@@ -85,28 +85,28 @@ final class RandomUserRepositoryServiceImpl: RandomUserRepositoryService {
   }
 
   private func updateResponseInfo(by responseInfo: Info) {
-    userItemInfoRelay.accept(userItemInfoRelayBuilder.info(responseInfo))
+    self.userItemInfoRelay.accept(self.userItemInfoRelayBuilder.info(responseInfo))
   }
 
   private func updateUserByUUID(by users: [User]) {
     let userByUUID = users.reduce(into: userByUUID) { userDictionary, user in
       userDictionary[user.login.uuid] = user
     }
-    userItemInfoRelay.accept(userItemInfoRelayBuilder.userByUUID(userByUUID))
+    self.userItemInfoRelay.accept(self.userItemInfoRelayBuilder.userByUUID(userByUUID))
   }
 
   private func setIsLastItems(by results: [User], itemCount: Int) {
     let isLastItems = results.isEmpty || results.count < itemCount
-    userItemInfoRelay.accept(userItemInfoRelayBuilder.isLastItems(isLastItems))
+    self.userItemInfoRelay.accept(self.userItemInfoRelayBuilder.isLastItems(isLastItems))
   }
 
   private func updateUserModels(by results: [User]) {
-    let userModels = translator.translateToUserModel(by: results)
-    mutableUserModelDataStream.updateUserModels(with: userModels)
+    let userModels = self.translator.translateToUserModel(by: results)
+    self.mutableUserModelDataStream.updateUserModels(with: userModels)
   }
 
   private func appendUserModels(by results: [User]) {
-    let userModels = translator.translateToUserModel(by: results)
-    mutableUserModelDataStream.appendUserModels(with: userModels)
+    let userModels = self.translator.translateToUserModel(by: results)
+    self.mutableUserModelDataStream.appendUserModels(with: userModels)
   }
 }

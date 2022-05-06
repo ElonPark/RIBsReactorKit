@@ -60,7 +60,7 @@ final class UserCollectionInteractor:
   let mutableSelectedUserModelStream: MutableSelectedUserModelStream
   let imagePrefetchWorker: ImagePrefetchWorking
 
- private let requestItemCount: Int = 50
+  private let requestItemCount: Int = 50
 
   init(
     presenter: UserCollectionPresentable,
@@ -82,7 +82,7 @@ final class UserCollectionInteractor:
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    imagePrefetchWorker.start(self)
+    self.imagePrefetchWorker.start(self)
   }
 
   // MARK: - UserCollectionPresentableListener
@@ -98,27 +98,27 @@ extension UserCollectionInteractor {
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .loadData:
-      return loadDataMutation()
+      return self.loadDataMutation()
 
     case .refresh:
-      return refreshMutation()
+      return self.refreshMutation()
 
     case let .loadMore(indexPath):
-      return loadMoreMutation(withCurrentItemIndex: indexPath)
+      return self.loadMoreMutation(withCurrentItemIndex: indexPath)
 
     case let .prefetchResource(itemURLs):
-      return prefetchResourceMutation(withItemURLs: itemURLs)
+      return self.prefetchResourceMutation(withItemURLs: itemURLs)
 
     case let .itemSelected(indexPath):
-      return itemSelectedMutation(bySelectedItemIndex: indexPath)
+      return self.itemSelectedMutation(bySelectedItemIndex: indexPath)
     }
   }
 
   private func loadDataMutation() -> Observable<Mutation> {
     guard !currentState.isLoading && currentState.userModels.isEmpty else { return .empty() }
 
-    let loadDataMutation: Observable<Mutation> = randomUserRepositoryService
-      .loadData(isRefresh: false, itemCount: requestItemCount)
+    let loadDataMutation: Observable<Mutation> = self.randomUserRepositoryService
+      .loadData(isRefresh: false, itemCount: self.requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setLoading(false))
 
@@ -132,8 +132,8 @@ extension UserCollectionInteractor {
   }
 
   private func refreshMutation() -> Observable<Mutation> {
-    let refreshDataMutation: Observable<Mutation> = randomUserRepositoryService
-      .loadData(isRefresh: true, itemCount: requestItemCount)
+    let refreshDataMutation: Observable<Mutation> = self.randomUserRepositoryService
+      .loadData(isRefresh: true, itemCount: self.requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
 
@@ -149,16 +149,16 @@ extension UserCollectionInteractor {
   private func loadMoreMutation(withCurrentItemIndex currentItemIndex: Int) -> Observable<Mutation> {
     let userModelCount = currentState.userModels.count
     let lastIndex = userModelCount - 1
-    guard userModelCount >= requestItemCount && currentItemIndex == lastIndex else { return .empty() }
+    guard userModelCount >= self.requestItemCount && currentItemIndex == lastIndex else { return .empty() }
 
-    return randomUserRepositoryService
-      .loadData(isRefresh: false, itemCount: requestItemCount)
+    return self.randomUserRepositoryService
+      .loadData(isRefresh: false, itemCount: self.requestItemCount)
       .flatMap { Observable.empty() }
       .catchAndReturn(.setRefresh(false))
   }
 
   private func prefetchResourceMutation(withItemURLs urls: [URL]) -> Observable<Mutation> {
-    imagePrefetchWorker.startPrefetch(withURLs: urls)
+    self.imagePrefetchWorker.startPrefetch(withURLs: urls)
     return .empty()
   }
 
@@ -166,7 +166,7 @@ extension UserCollectionInteractor {
     guard let item = currentState.userModels[safe: itemIndex] else { return .empty() }
     guard let user = userModelDataStream.userModel(byUUID: item.uuid) else { return .empty() }
 
-    mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
+    self.mutableSelectedUserModelStream.updateSelectedUserModel(by: user)
     return .just(.attachUserInformationRIB)
   }
 }
@@ -175,7 +175,7 @@ extension UserCollectionInteractor {
 
 extension UserCollectionInteractor {
   func transform(mutation: Observable<Mutation>) -> Observable<Mutation> {
-    return .merge(mutation, updateUserModelsTransform())
+    return .merge(mutation, self.updateUserModelsTransform())
       .withUnretained(self)
       .flatMap { this, mutation -> Observable<Mutation> in
         switch mutation {
@@ -189,7 +189,7 @@ extension UserCollectionInteractor {
   }
 
   private func updateUserModelsTransform() -> Observable<Mutation> {
-    return userModelDataStream.userModels
+    return self.userModelDataStream.userModels
       .filter { !$0.isEmpty }
       .distinctUntilChanged()
       .map(Mutation.setUserModels)
@@ -197,7 +197,7 @@ extension UserCollectionInteractor {
 
   /// Show selected user information
   private func attachUserInformationRIBTransform() -> Observable<Mutation> {
-    router?.attachUserInformationRIB()
+    self.router?.attachUserInformationRIB()
     return .empty()
   }
 }
@@ -230,6 +230,6 @@ extension UserCollectionInteractor {
 
 extension UserCollectionInteractor {
   func detachUserInformationRIB() {
-    router?.detachUserInformationRIB()
+    self.router?.detachUserInformationRIB()
   }
 }

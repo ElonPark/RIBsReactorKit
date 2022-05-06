@@ -50,7 +50,7 @@ final class MainTabBarInteractor:
 
   override func didBecomeActive() {
     super.didBecomeActive()
-    router?.attachTabs()
+    self.router?.attachTabs()
   }
 
   override func willResignActive() {

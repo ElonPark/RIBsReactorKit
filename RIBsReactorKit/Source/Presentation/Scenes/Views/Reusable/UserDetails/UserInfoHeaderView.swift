@@ -64,19 +64,19 @@ final class UserInfoHeaderView:
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    initUI()
+    self.initUI()
   }
 
   // MARK: - Internal methods
 
   func configure(by viewModel: UserInfoSectionHeaderViewModel) {
-    titleLabel.text = viewModel.title
+    self.titleLabel.text = viewModel.title
   }
 
   // MARK: - Private methods
 
   private func initUI() {
-    titleLabel.text = ""
+    self.titleLabel.text = ""
   }
 }
 
@@ -85,13 +85,13 @@ final class UserInfoHeaderView:
 extension UserInfoHeaderView {
   private func setupUI() {
     isSkeletonable = true
-    skeletonViews.forEach { self.addSubview($0) }
+    self.skeletonViews.forEach { self.addSubview($0) }
 
-    initUI()
+    self.initUI()
   }
 
   private func layout() {
-    titleLabel.snp.makeConstraints {
+    self.titleLabel.snp.makeConstraints {
       $0.top.greaterThanOrEqualToSuperview().offset(UI.titleLabelTopMargin)
       $0.bottom.equalToSuperview().offset(-UI.titleLabelBottomMargin)
       $0.leading.equalToSuperview().offset(UI.titleLabelLeadingMargin)

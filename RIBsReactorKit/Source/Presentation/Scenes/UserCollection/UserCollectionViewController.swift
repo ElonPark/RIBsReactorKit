@@ -84,14 +84,14 @@ final class UserCollectionViewController:
     super.viewDidLoad()
     setupUI()
     bindUI()
-    bind(listener: listener)
+    bind(listener: self.listener)
   }
 }
 
 // MARK: - Private methods
 
-private extension UserCollectionViewController {
-  func setTabBarItem() {
+extension UserCollectionViewController {
+  private func setTabBarItem() {
     tabBarItem = UITabBarItem(
       title: Strings.TabBarTitle.collection,
       image: Asset.Images.TabBarIcons.collectionTab.image,
@@ -99,7 +99,7 @@ private extension UserCollectionViewController {
     )
   }
 
-  static func dataSource() -> UserCollectionDataSource {
+  fileprivate static func dataSource() -> UserCollectionDataSource {
     return UserCollectionDataSource(
       configureCell: { _, collectionView, indexPath, section in
         switch section {
@@ -119,30 +119,30 @@ private extension UserCollectionViewController {
 
 // MARK: - Bind UI
 
-private extension UserCollectionViewController {
-  func bindUI() {
+extension UserCollectionViewController {
+  private func bindUI() {
     bindRefreshControlEvent()
-    bindCollectionViewSetDelegate()
+    self.bindCollectionViewSetDelegate()
   }
 
-  func bindCollectionViewSetDelegate() {
-    collectionView.rx.setDelegate(self)
+  private func bindCollectionViewSetDelegate() {
+    self.collectionView.rx.setDelegate(self)
       .disposed(by: disposeBag)
   }
 }
 
 // MARK: - Bind listener
 
-private extension UserCollectionViewController {
-  func bind(listener: UserCollectionViewControllableListener?) {
+extension UserCollectionViewController {
+  private func bind(listener: UserCollectionViewControllableListener?) {
     guard let listener = listener else { return }
-    bindActionRelay()
+    self.bindActionRelay()
     bindActions()
     bindState(from: listener)
   }
 
-  func bindActionRelay() {
-    actionRelay.asObservable()
+  private func bindActionRelay() {
+    self.actionRelay.asObservable()
       .bind(with: self) { this, action in
         this.listener?.sendAction(action)
       }
@@ -152,83 +152,83 @@ private extension UserCollectionViewController {
 
 // MARK: - Binding Action
 
-private extension UserCollectionViewController {
-  func bindActions() {
-    bindViewWillAppearAction()
-    bindRefreshControlAction()
-    bindLoadMoreAction()
-    bindPrefetchItemsAction()
-    bindItemSelectedAction()
+extension UserCollectionViewController {
+  private func bindActions() {
+    self.bindViewWillAppearAction()
+    self.bindRefreshControlAction()
+    self.bindLoadMoreAction()
+    self.bindPrefetchItemsAction()
+    self.bindItemSelectedAction()
   }
 
-  func bindViewWillAppearAction() {
+  private func bindViewWillAppearAction() {
     rx.viewWillAppear
       .throttle(.seconds(1), latest: false, scheduler: MainScheduler.instance)
       .map { _ in .loadData }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindRefreshControlAction() {
-    refreshEvent
+  private func bindRefreshControlAction() {
+    self.refreshEvent
       .map { .refresh }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindLoadMoreAction() {
-    collectionView.rx.willDisplayCell
+  private func bindLoadMoreAction() {
+    self.collectionView.rx.willDisplayCell
       .map { .loadMore($0.at) }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindPrefetchItemsAction() {
-    collectionView.rx.prefetchItems
+  private func bindPrefetchItemsAction() {
+    self.collectionView.rx.prefetchItems
       .map { .prefetchItems($0) }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindItemSelectedAction() {
-    collectionView.rx.itemSelected
+  private func bindItemSelectedAction() {
+    self.collectionView.rx.itemSelected
       .map { .itemSelected($0) }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 }
 
 // MARK: - Binding State
 
-private extension UserCollectionViewController {
-  func bindState(from listener: UserCollectionViewControllableListener) {
+extension UserCollectionViewController {
+  private func bindState(from listener: UserCollectionViewControllableListener) {
     bindLoadingStream(from: listener)
     bindRefreshStream(from: listener)
-    bindUserListSectionsState(from: listener)
+    self.bindUserListSectionsState(from: listener)
   }
 
-  func bindUserListSectionsState(from listener: UserCollectionViewControllableListener) {
+  private func bindUserListSectionsState(from listener: UserCollectionViewControllableListener) {
     listener.viewModel.map(\.userCollectionSections)
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
-      .drive(collectionView.rx.items(dataSource: dataSource))
+      .drive(self.collectionView.rx.items(dataSource: self.dataSource))
       .disposed(by: disposeBag)
   }
 }
 
 // MARK: - Layout
 
-private extension UserCollectionViewController {
-  func setupUI() {
+extension UserCollectionViewController {
+  private func setupUI() {
     navigationItem.title = Strings.UserCollection.title
-    view.addSubview(collectionView)
+    view.addSubview(self.collectionView)
 
     setRefreshControl()
-    layout()
+    self.layout()
   }
 
-  func layout() {
-    collectionView.snp.makeConstraints {
+  private func layout() {
+    self.collectionView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
   }

@@ -54,30 +54,30 @@ final class AppDelegate:
 
 // MARK: - Private methods
 
-private extension AppDelegate {
-  func setWindow() {
+extension AppDelegate {
+  private func setWindow() {
     let window = UIWindow(frame: UIScreen.main.bounds)
     self.window = window
   }
 
-  func setLaunchRouter() {
+  private func setLaunchRouter() {
     guard let window = self.window else { return }
     let appComponent = AppComponent()
-    launchRouter = appComponent.rootBuilder.build()
-    launchRouter?.launch(from: window)
+    self.launchRouter = appComponent.rootBuilder.build()
+    self.launchRouter?.launch(from: window)
   }
 
-  func startRIBsTreeViewer() {
+  private func startRIBsTreeViewer() {
     guard let launchRouter = self.launchRouter else { return }
     #if DEBUG
-      startRIBsTreeViewer(launchRouter: launchRouter)
+      self.startRIBsTreeViewer(launchRouter: launchRouter)
     #endif
   }
 
-  func setReachability() {
+  private func setReachability() {
     do {
-      reachability = try Reachability()
-      try reachability?.startNotifier()
+      self.reachability = try Reachability()
+      try self.reachability?.startNotifier()
     } catch {
       Log.error(error)
     }
@@ -93,14 +93,14 @@ private extension AppDelegate {
     private func startRIBsTreeViewer(launchRouter: Routing) {
       guard ProcessInfo.processInfo.environment["UseRIBsTreeViewer"] != nil else { return }
 
-      ribsTreeViewer = RIBsTreeViewerImpl(
+      self.ribsTreeViewer = RIBsTreeViewerImpl(
         router: launchRouter,
         options: [
           .webSocketURL("ws://0.0.0.0:8080"),
           .monitoringIntervalMillis(1000)
         ]
       )
-      ribsTreeViewer?.start()
+      self.ribsTreeViewer?.start()
     }
   }
 #endif

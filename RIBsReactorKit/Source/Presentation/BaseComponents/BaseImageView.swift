@@ -26,17 +26,17 @@ class BaseImageView:
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    initialize()
+    self.initialize()
   }
 
   override init(image: UIImage?) {
     super.init(image: image)
-    initialize()
+    self.initialize()
   }
 
   override init(image: UIImage?, highlightedImage: UIImage?) {
     super.init(image: image, highlightedImage: highlightedImage)
-    initialize()
+    self.initialize()
   }
 
   @available(*, unavailable)
@@ -49,7 +49,7 @@ class BaseImageView:
   // MARK: - Layout Constraints
 
   override func updateConstraints() {
-    setupConstraintsIfNeeded()
+    self.setupConstraintsIfNeeded()
     super.updateConstraints()
   }
 
@@ -67,8 +67,8 @@ class BaseImageView:
   // MARK: - Private methods
 
   private func setupConstraintsIfNeeded() {
-    guard !didSetupConstraints else { return }
-    setupConstraints()
-    didSetupConstraints = true
+    guard !self.didSetupConstraints else { return }
+    self.setupConstraints()
+    self.didSetupConstraints = true
   }
 }

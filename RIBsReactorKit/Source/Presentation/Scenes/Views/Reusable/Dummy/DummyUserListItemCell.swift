@@ -16,8 +16,8 @@ final class DummyUserListItemCell: UserListItemCell {
   override func initUI() {
     super.initUI()
     userProfileImage = nil
-    userName = dummyUserName
-    userLocation = dummyUserLocation
+    userName = self.dummyUserName
+    userLocation = self.dummyUserLocation
     showAnimatedGradientSkeleton()
   }
 }

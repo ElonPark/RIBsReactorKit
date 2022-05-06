@@ -20,6 +20,6 @@ class Backoff {
   }
 
   func exponential(attempt: Double) -> Double {
-    return min(maxDelay, pow(2, attempt) * initialDelay)
+    return min(self.maxDelay, pow(2, attempt) * self.initialDelay)
   }
 }

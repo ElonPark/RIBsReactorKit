@@ -18,7 +18,7 @@ final class BlurEffectImageView: BaseImageView {
 
   var blurStyle: UIBlurEffect.Style = .light {
     didSet {
-      blurView.effect = UIBlurEffect(style: blurStyle)
+      self.blurView.effect = UIBlurEffect(style: self.blurStyle)
     }
   }
 
@@ -28,16 +28,16 @@ final class BlurEffectImageView: BaseImageView {
 
   override func initialize() {
     super.initialize()
-    addSubview(blurView)
+    addSubview(self.blurView)
   }
 
   override func setupConstraints() {
     super.setupConstraints()
-    makeBlurViewConstraints()
+    self.makeBlurViewConstraints()
   }
 
   private func makeBlurViewConstraints() {
-    blurView.snp.makeConstraints {
+    self.blurView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
   }

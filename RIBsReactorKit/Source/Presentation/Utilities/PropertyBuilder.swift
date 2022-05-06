@@ -36,23 +36,23 @@ struct PropertyBuilder<Base> {
   }
 
   func set<Value>(_ keyPath: WritableKeyPath<Base, Value>, to value: Value) -> PropertyBuilder<Base> {
-    var object = base
+    var object = self.base
     object[keyPath: keyPath] = value
     return PropertyBuilder(object)
   }
 
   func build() -> Base {
-    return base
+    return self.base
   }
 }
 
 extension PropertyBuilder {
   func with(_ handler: (inout Base) -> Void) -> PropertyBuilder<Base> {
-    PropertyBuilder(with(handler))
+    PropertyBuilder(self.with(handler))
   }
 
   func with(_ handler: (inout Base) -> Void) -> Base {
-    var object = base
+    var object = self.base
     handler(&object)
     return object
   }

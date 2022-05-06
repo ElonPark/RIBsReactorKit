@@ -50,7 +50,7 @@ class BaseViewController:
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     guard isMovingFromParent || isBeingDismissed else { return }
-    detachAction.accept(Void())
+    self.detachAction.accept(Void())
   }
 
   // MARK: - Inheritance
@@ -58,7 +58,7 @@ class BaseViewController:
   // MARK: - Layout Constraints
 
   override func updateViewConstraints() {
-    setupConstraintsIfNeeded()
+    self.setupConstraintsIfNeeded()
     super.updateViewConstraints()
   }
 
@@ -71,8 +71,8 @@ class BaseViewController:
   // MARK: - Private methods
 
   private func setupConstraintsIfNeeded() {
-    guard !didSetupConstraints else { return }
-    setupConstraints()
-    didSetupConstraints = true
+    guard !self.didSetupConstraints else { return }
+    self.setupConstraints()
+    self.didSetupConstraints = true
   }
 }

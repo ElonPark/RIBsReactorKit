@@ -48,19 +48,19 @@ class UserListItemCell:
 
   var userProfileImage: UIImage? {
     didSet {
-      profileImageView.image = userProfileImage
+      self.profileImageView.image = self.userProfileImage
     }
   }
 
   var userName: String = "" {
     didSet {
-      nameLabel.text = userName
+      self.nameLabel.text = self.userName
     }
   }
 
   var userLocation: String = "" {
     didSet {
-      locationLabel.text = userLocation
+      self.locationLabel.text = self.userLocation
     }
   }
 
@@ -95,7 +95,7 @@ class UserListItemCell:
   override func initialize() {
     super.initialize()
     setUpUI()
-    initUI()
+    self.initUI()
   }
 
   override func setupConstraints() {
@@ -105,20 +105,20 @@ class UserListItemCell:
 
   override func prepareForReuse() {
     super.prepareForReuse()
-    profileImageView.cancelDownloadTask()
-    initUI()
+    self.profileImageView.cancelDownloadTask()
+    self.initUI()
   }
 
   func initUI() {
-    userProfileImage = nil
-    userName = ""
-    userLocation = ""
+    self.userProfileImage = nil
+    self.userName = ""
+    self.userLocation = ""
   }
 
   func configure(by viewModel: UserListItemViewModel) {
-    profileImageView.setImage(with: viewModel.profileImageURL)
-    userName = viewModel.titleWithFullName
-    userLocation = viewModel.location
+    self.profileImageView.setImage(with: viewModel.profileImageURL)
+    self.userName = viewModel.titleWithFullName
+    self.userLocation = viewModel.location
   }
 }
 
@@ -127,11 +127,11 @@ class UserListItemCell:
 extension UserListItemCell {
   private func setUpUI() {
     isSkeletonable = true
-    skeletonViews.forEach { contentView.addSubview($0) }
+    self.skeletonViews.forEach { contentView.addSubview($0) }
   }
 
   private func layout() {
-    profileImageView.snp.makeConstraints {
+    self.profileImageView.snp.makeConstraints {
       $0.size.equalTo(UI.profileImageViewSize)
       $0.top.greaterThanOrEqualToSuperview().offset(UI.profileImageViewTopMargin)
       $0.bottom.lessThanOrEqualToSuperview().offset(-UI.profileImageViewBottomMargin)
@@ -139,13 +139,13 @@ extension UserListItemCell {
       $0.centerY.equalToSuperview()
     }
 
-    nameLabel.snp.makeConstraints {
+    self.nameLabel.snp.makeConstraints {
       $0.top.equalTo(profileImageView.snp.top)
       $0.leading.equalTo(profileImageView.snp.trailing).offset(UI.nameLabelLeadingMargin)
       $0.trailing.lessThanOrEqualToSuperview().offset(-UI.nameLabelTrailingMargin)
     }
 
-    locationLabel.snp.makeConstraints {
+    self.locationLabel.snp.makeConstraints {
       $0.top.equalTo(nameLabel.snp.bottom).offset(UI.locationLabelTopMargin)
       $0.bottom.lessThanOrEqualTo(profileImageView.snp.bottom)
       $0.leading.equalTo(nameLabel.snp.leading)

@@ -10,11 +10,11 @@ import UIKit
 
 extension UITableView {
   func register<Cell: UITableViewCell>(_: Cell.Type) where Cell: Reusable {
-    register(Cell.self, forCellReuseIdentifier: Cell.identifier)
+    self.register(Cell.self, forCellReuseIdentifier: Cell.identifier)
   }
 
   func register<View: UITableViewHeaderFooterView>(_: View.Type) where View: Reusable {
-    register(View.self, forHeaderFooterViewReuseIdentifier: View.identifier)
+    self.register(View.self, forHeaderFooterViewReuseIdentifier: View.identifier)
   }
 
   func dequeue<Cell: UITableViewCell>(_: Cell.Type, indexPath: IndexPath) -> Cell where Cell: Reusable {

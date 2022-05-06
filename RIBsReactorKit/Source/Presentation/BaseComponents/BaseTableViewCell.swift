@@ -30,7 +30,7 @@ class BaseTableViewCell:
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    initialize()
+    self.initialize()
   }
 
   @available(*, unavailable)
@@ -52,7 +52,7 @@ class BaseTableViewCell:
   // MARK: - Layout Constraints
 
   override func updateConstraints() {
-    setupConstraintsIfNeeded()
+    self.setupConstraintsIfNeeded()
     super.updateConstraints()
   }
 
@@ -71,8 +71,8 @@ class BaseTableViewCell:
   // MARK: - Private methods
 
   private func setupConstraintsIfNeeded() {
-    guard !didSetupConstraints else { return }
-    setupConstraints()
-    didSetupConstraints = true
+    guard !self.didSetupConstraints else { return }
+    self.setupConstraints()
+    self.didSetupConstraints = true
   }
 }

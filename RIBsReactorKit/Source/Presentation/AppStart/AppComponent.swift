@@ -8,6 +8,8 @@
 
 import NeedleFoundation
 
+// MARK: - AppComponent
+
 final class AppComponent: BootstrapComponent, RootDependency {
   var rootBuilder: RootBuildable {
     RootBuilder {
@@ -34,16 +36,16 @@ final class AppComponent: BootstrapComponent, RootDependency {
   }
 }
 
-private extension AppComponent {
-  var randomUserRepository: RandomUserRepository {
+extension AppComponent {
+  private var randomUserRepository: RandomUserRepository {
     RandomUserRepositoryImpl(networkingProvider: Networking())
   }
 
-  var userModelTranslator: UserModelTranslator {
+  private var userModelTranslator: UserModelTranslator {
     UserModelTranslatorImpl()
   }
 
-  var mutableUserModelDataStream: MutableUserModelDataStream {
+  private var mutableUserModelDataStream: MutableUserModelDataStream {
     shared { UserModelDataStreamImpl() }
   }
 }

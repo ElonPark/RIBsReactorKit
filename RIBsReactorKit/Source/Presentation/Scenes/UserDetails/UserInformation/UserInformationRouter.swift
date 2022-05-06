@@ -42,9 +42,9 @@ final class UserInformationRouter:
 
 extension UserInformationRouter {
   func attachUserLocationRIB(annotationMetadata: MapPointAnnotationMetadata) {
-    guard userLocationRouter == nil else { return }
+    guard self.userLocationRouter == nil else { return }
 
-    let router = userLocationBuilder.build(
+    let router = self.userLocationBuilder.build(
       with: UserLocationBuildDependency(
         listener: interactor
       ),
@@ -52,14 +52,14 @@ extension UserInformationRouter {
         annotationMetadata: annotationMetadata
       )
     )
-    userLocationRouter = router
+    self.userLocationRouter = router
     attachChild(router)
     viewController.show(router.viewControllable)
   }
 
   func detachUserLocationRIB() {
     guard let router = userLocationRouter else { return }
-    userLocationRouter = nil
+    self.userLocationRouter = nil
     detachChild(router)
     viewController.remove(router.viewControllable)
   }

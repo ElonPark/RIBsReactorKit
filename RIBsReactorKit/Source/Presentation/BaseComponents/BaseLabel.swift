@@ -26,7 +26,7 @@ class BaseLabel:
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    initialize()
+    self.initialize()
   }
 
   @available(*, unavailable)
@@ -39,7 +39,7 @@ class BaseLabel:
   // MARK: - Layout Constraints
 
   override func updateConstraints() {
-    setupConstraintsIfNeeded()
+    self.setupConstraintsIfNeeded()
     super.updateConstraints()
   }
 
@@ -57,8 +57,8 @@ class BaseLabel:
   // MARK: - Private methods
 
   private func setupConstraintsIfNeeded() {
-    guard !didSetupConstraints else { return }
-    setupConstraints()
-    didSetupConstraints = true
+    guard !self.didSetupConstraints else { return }
+    self.setupConstraints()
+    self.didSetupConstraints = true
   }
 }

@@ -31,11 +31,11 @@ final class RandomUserRepositoryImpl: NetworkRepository<RandomUserAPI>, RandomUs
 
   func randomUsers(withResultCount resultCount: Int) -> Single<RandomUser> {
     return provider.request(.multipleUsers(resultCount: resultCount))
-      .map(RandomUser.self, using: jsonDecoder, failsOnEmptyData: false)
+      .map(RandomUser.self, using: self.jsonDecoder, failsOnEmptyData: false)
   }
 
   func randomUsers(withPageNumber page: Int, count: Int, seed: String) -> Single<RandomUser> {
     provider.request(.pagination(page: page, resultCount: count, seed: seed))
-      .map(RandomUser.self, using: jsonDecoder, failsOnEmptyData: false)
+      .map(RandomUser.self, using: self.jsonDecoder, failsOnEmptyData: false)
   }
 }

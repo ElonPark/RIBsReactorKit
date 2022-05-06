@@ -21,7 +21,7 @@ import UIKit
     // MARK: - UIViewControllerRepresentable
 
     func makeUIViewController(context: Context) -> ViewController {
-      viewController
+      self.viewController
     }
 
     func updateUIViewController(_ uiViewController: ViewController, context: Context) {}

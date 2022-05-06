@@ -18,7 +18,7 @@ final class ExponentialBackoffDecorrelatedJitter: Backoff, BackoffStrategy {
   }
 
   func backoff(attempt: Int) -> Double {
-    delay = min(maxDelay, Double.random(in: initialDelay...delay * 3))
-    return delay
+    self.delay = min(maxDelay, Double.random(in: initialDelay...self.delay * 3))
+    return self.delay
   }
 }

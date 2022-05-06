@@ -47,7 +47,7 @@ final class UserInfoFooterView:
   }
 
   func hideSeparator(_ isHidden: Bool) {
-    separatorLineView.isHidden = isHidden
+    self.separatorLineView.isHidden = isHidden
   }
 }
 
@@ -55,11 +55,11 @@ final class UserInfoFooterView:
 
 extension UserInfoFooterView {
   private func setupUI() {
-    addSubview(separatorLineView)
+    addSubview(self.separatorLineView)
   }
 
   private func layout() {
-    separatorLineView.snp.makeConstraints {
+    self.separatorLineView.snp.makeConstraints {
       $0.height.equalTo(UI.separatorLineViewHeight)
       $0.centerY.equalToSuperview()
       $0.leading.trailing.equalToSuperview()

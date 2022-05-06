@@ -94,14 +94,14 @@ final class UserListViewController:
     super.viewDidLoad()
     setupUI()
     bindUI()
-    bind(listener: listener)
+    bind(listener: self.listener)
   }
 }
 
 // MARK: - Private methods
 
-private extension UserListViewController {
-  func setTabBarItem() {
+extension UserListViewController {
+  private func setTabBarItem() {
     tabBarItem = UITabBarItem(
       title: Strings.TabBarTitle.list,
       image: Asset.Images.TabBarIcons.listTab.image,
@@ -109,7 +109,7 @@ private extension UserListViewController {
     )
   }
 
-  static func dataSource() -> UserListDataSource {
+  fileprivate static func dataSource() -> UserListDataSource {
     return UserListDataSource(
       configureCell: { _, tableView, indexPath, sectionItem in
         switch sectionItem {
@@ -129,24 +129,24 @@ private extension UserListViewController {
 
 // MARK: - Bind UI
 
-private extension UserListViewController {
-  func bindUI() {
+extension UserListViewController {
+  private func bindUI() {
     bindRefreshControlEvent()
   }
 }
 
 // MARK: - Bind listener
 
-private extension UserListViewController {
-  func bind(listener: UserListPresentableListener?) {
+extension UserListViewController {
+  private func bind(listener: UserListPresentableListener?) {
     guard let listener = listener else { return }
-    bindActionRelay()
+    self.bindActionRelay()
     bindActions()
     bindState(from: listener)
   }
 
-  func bindActionRelay() {
-    actionRelay.asObservable()
+  private func bindActionRelay() {
+    self.actionRelay.asObservable()
       .bind(with: self) { this, action in
         this.listener?.sendAction(action)
       }
@@ -156,66 +156,66 @@ private extension UserListViewController {
 
 // MARK: - Binding Action
 
-private extension UserListViewController {
-  func bindActions() {
-    bindViewWillAppearAction()
-    bindRefreshControlAction()
-    bindLoadMoreAction()
-    bindPrefetchItemsAction()
-    bindItemSelectedAction()
+extension UserListViewController {
+  private func bindActions() {
+    self.bindViewWillAppearAction()
+    self.bindRefreshControlAction()
+    self.bindLoadMoreAction()
+    self.bindPrefetchItemsAction()
+    self.bindItemSelectedAction()
   }
 
-  func bindViewWillAppearAction() {
+  private func bindViewWillAppearAction() {
     rx.viewWillAppear
       .throttle(.seconds(1), latest: false, scheduler: MainScheduler.instance)
       .map { _ in .loadData }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindRefreshControlAction() {
-    refreshEvent
+  private func bindRefreshControlAction() {
+    self.refreshEvent
       .map { .refresh }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindLoadMoreAction() {
-    tableView.rx.willDisplayCell
+  private func bindLoadMoreAction() {
+    self.tableView.rx.willDisplayCell
       .map { .loadMore($0.indexPath) }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindPrefetchItemsAction() {
-    tableView.rx.prefetchRows
+  private func bindPrefetchItemsAction() {
+    self.tableView.rx.prefetchRows
       .map { .prefetchItems($0) }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 
-  func bindItemSelectedAction() {
-    tableView.rx.itemSelected
+  private func bindItemSelectedAction() {
+    self.tableView.rx.itemSelected
       .map { .itemSelected($0) }
-      .bind(to: actionRelay)
+      .bind(to: self.actionRelay)
       .disposed(by: disposeBag)
   }
 }
 
 // MARK: - Binding State
 
-private extension UserListViewController {
-  func bindState(from listener: UserListPresentableListener) {
+extension UserListViewController {
+  private func bindState(from listener: UserListPresentableListener) {
     bindLoadingStream(from: listener)
     bindRefreshStream(from: listener)
-    bindUserListSectionsState(from: listener)
+    self.bindUserListSectionsState(from: listener)
   }
 
-  func bindUserListSectionsState(from listener: UserListPresentableListener) {
+  private func bindUserListSectionsState(from listener: UserListPresentableListener) {
     listener.state.map(\.userListSections)
       .distinctUntilChanged()
       .asDriver(onErrorJustReturn: [])
-      .drive(tableView.rx.items(dataSource: dataSource))
+      .drive(self.tableView.rx.items(dataSource: self.dataSource))
       .disposed(by: disposeBag)
   }
 }
@@ -225,22 +225,22 @@ private extension UserListViewController {
 extension UserListViewController {
   private func setupUI() {
     navigationItem.title = Strings.UserList.title
-    view.addSubview(tableView)
+    view.addSubview(self.tableView)
 
     setRefreshControl()
-    layout()
+    self.layout()
   }
 
   private func layout() {
-    tableView.snp.makeConstraints {
+    self.tableView.snp.makeConstraints {
       $0.edges.equalToSuperview()
     }
   }
 }
 
 #if canImport(SwiftUI) && DEBUG
-  fileprivate extension UserListViewController {
-    func bindDummyItems() {
+  extension UserListViewController {
+    fileprivate func bindDummyItems() {
       let decoder = JSONDecoder()
       decoder.dateDecodingStrategy = .iso8601withFractionalSeconds
       guard let randomUser = try? decoder.decode(RandomUser.self, from: RandomUserFixture.data) else { return }
@@ -253,7 +253,7 @@ extension UserListViewController {
       Observable.just([.randomUser(dummySectionItems)])
         .distinctUntilChanged()
         .asDriver(onErrorJustReturn: [])
-        .drive(tableView.rx.items(dataSource: dataSource))
+        .drive(self.tableView.rx.items(dataSource: self.dataSource))
         .disposed(by: disposeBag)
     }
   }

@@ -19,7 +19,7 @@ struct BasicInfoSectionFactory: UserInfoSectionFactory {
 
   func makeSection(from userModel: UserModel) -> UserInfoSectionModel {
     let headerViewModel = UserInfoSectionHeaderViewModel(title: Strings.UserInfoTitle.basicInfo)
-    let items = factories.enumerated().map {
+    let items = self.factories.enumerated().map {
       $0.element.makeSectionItem(from: userModel, isLastItem: $0.offset == factories.endIndex)
     }
 

@@ -11,6 +11,8 @@ import XCTest
 
 import Nimble
 
+// MARK: - RootInteractorTests
+
 final class RootInteractorTests: XCTestCase {
 
   private var interactor: RootInteractor!
@@ -28,7 +30,6 @@ final class RootInteractorTests: XCTestCase {
     self.interactor.listener = self.listener
   }
 }
-
 
 // MARK: - Tests
 

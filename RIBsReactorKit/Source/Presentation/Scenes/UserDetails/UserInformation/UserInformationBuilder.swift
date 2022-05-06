@@ -30,7 +30,7 @@ final class UserInformationComponent: NeedleFoundation.Component<UserInformation
   }
 
   fileprivate var userInformationSectionListFactory: UserInfoSectionListFactory {
-    UserInfoSectionListFactoryImpl(factories: userInformationSectionFactories)
+    UserInfoSectionListFactoryImpl(factories: self.userInformationSectionFactories)
   }
 
   private var userInformationSectionFactories: [UserInfoSectionFactory] {

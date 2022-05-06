@@ -21,7 +21,7 @@ import UIKit
     // MARK: - UIViewRepresentable
 
     func makeUIView(context: Context) -> UIView {
-      view
+      self.view
     }
 
     func updateUIView(_ view: UIView, context: Context) {

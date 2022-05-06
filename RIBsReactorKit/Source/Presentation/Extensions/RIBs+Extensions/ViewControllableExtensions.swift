@@ -24,10 +24,10 @@ extension ViewControllable {
     presentedViewControllerDismissAnimated: Bool = false
   ) {
     if shouldHidesBottomBarWhenPushed {
-      setHidesBottomBarWhenPushed(to: viewController)
+      self.setHidesBottomBarWhenPushed(to: viewController)
     }
 
-    checkPresentedViewController(
+    self.checkPresentedViewController(
       of: self,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
       presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
@@ -42,7 +42,7 @@ extension ViewControllable {
 
   private func setHidesBottomBarWhenPushed(to viewController: ViewControllable) {
     // iOS 14.0, 14.1 BottomBar bug https://developer.apple.com/forums/thread/660750
-    let canHideBottomBarWhenPushed = navigationController?.viewControllers.count == 1
+    let canHideBottomBarWhenPushed = self.navigationController?.viewControllers.count == 1
     viewController.uiviewController.hidesBottomBarWhenPushed = canHideBottomBarWhenPushed
   }
 
@@ -55,7 +55,7 @@ extension ViewControllable {
   ) {
     guard !viewController.uiviewController.isMovingFromParent else { return }
     if uiviewController is UIKit.UINavigationController {
-      pop(
+      self.pop(
         viewController: viewController,
         animated: animated,
         completion: completion,
@@ -63,7 +63,7 @@ extension ViewControllable {
         presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
       )
     } else {
-      pop(
+      self.pop(
         to: self,
         animated: animated,
         completion: completion,
@@ -80,7 +80,7 @@ extension ViewControllable {
     needToDismissPresentedViewController: Bool = true,
     presentedViewControllerDismissAnimated: Bool = false
   ) {
-    checkPresentedViewController(
+    self.checkPresentedViewController(
       of: viewController,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
       presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
@@ -100,7 +100,7 @@ extension ViewControllable {
     needToDismissPresentedViewController: Bool,
     presentedViewControllerDismissAnimated: Bool
   ) {
-    checkPresentedViewController(
+    self.checkPresentedViewController(
       of: viewController,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
       presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
@@ -116,7 +116,7 @@ extension ViewControllable {
     needToDismissPresentedViewController: Bool = true,
     presentedViewControllerDismissAnimated: Bool = false
   ) {
-    checkPresentedViewController(
+    self.checkPresentedViewController(
       of: self,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
       presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
@@ -133,7 +133,7 @@ extension ViewControllable {
     needToDismissPresentedViewController: Bool = true,
     presentedViewControllerDismissAnimated: Bool = false
   ) {
-    checkPresentedViewController(
+    self.checkPresentedViewController(
       of: self,
       needToDismissPresentedViewController: needToDismissPresentedViewController,
       presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
@@ -154,8 +154,8 @@ extension ViewControllable {
     needToDismissPresentedViewController: Bool = true,
     presentedViewControllerDismissAnimated: Bool = false
   ) {
-    if navigationController != nil {
-      push(
+    if self.navigationController != nil {
+      self.push(
         viewController: viewController,
         animated: animated,
         completion: completion,
@@ -164,7 +164,7 @@ extension ViewControllable {
         presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
       )
     } else {
-      present(
+      self.present(
         viewController,
         animated: animated,
         completion: completion,
@@ -181,8 +181,8 @@ extension ViewControllable {
     needToDismissPresentedViewController: Bool = true,
     presentedViewControllerDismissAnimated: Bool = false
   ) {
-    if navigationController != nil {
-      pop(
+    if self.navigationController != nil {
+      self.pop(
         viewController,
         animated: animated,
         completion: completion,
@@ -190,7 +190,7 @@ extension ViewControllable {
         presentedViewControllerDismissAnimated: presentedViewControllerDismissAnimated
       )
     } else {
-      dismiss(viewController, animated: animated, completion: completion)
+      self.dismiss(viewController, animated: animated, completion: completion)
     }
   }
 
@@ -228,7 +228,8 @@ extension ViewControllable {
     completion: (() -> Void)?
   ) {
     if needToDismissPresentedViewController,
-       let presentedViewController = viewController.uiviewController.presentedViewController {
+       let presentedViewController = viewController.uiviewController.presentedViewController
+    {
       presentedViewController.dismiss(animated: presentedViewControllerDismissAnimated, completion: completion)
     } else {
       completion?()

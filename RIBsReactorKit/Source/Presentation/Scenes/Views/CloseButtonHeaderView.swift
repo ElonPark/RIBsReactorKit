@@ -31,18 +31,18 @@ final class CloseButtonHeaderView: BaseView {
   override func initialize() {
     super.initialize()
     backgroundColor = Asset.Colors.backgroundColor.color
-    addSubview(closeButton)
+    addSubview(self.closeButton)
   }
 
   override func setupConstraints() {
     super.setupConstraints()
-    makeCloseButtonConstraints()
+    self.makeCloseButtonConstraints()
   }
 
   private func makeCloseButtonConstraints() {
     let safeArea = safeAreaLayoutGuide.snp
 
-    closeButton.snp.makeConstraints {
+    self.closeButton.snp.makeConstraints {
       $0.height.equalTo(UI.buttonHeight)
       $0.centerY.equalToSuperview()
       $0.top.greaterThanOrEqualToSuperview()

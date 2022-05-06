@@ -27,12 +27,12 @@ final class SelectedUserModelStreamImpl: MutableSelectedUserModelStream {
 
   // MARK: - Properties
 
-  var userModel: Observable<UserModel> { userModalRelay.asObservable().compactMap { $0 } }
+  var userModel: Observable<UserModel> { self.userModalRelay.asObservable().compactMap { $0 } }
   private let userModalRelay = BehaviorRelay<UserModel?>(value: nil)
 
   // MARK: - Internal methods
 
   func updateSelectedUserModel(by userModel: UserModel) {
-    userModalRelay.accept(userModel)
+    self.userModalRelay.accept(userModel)
   }
 }

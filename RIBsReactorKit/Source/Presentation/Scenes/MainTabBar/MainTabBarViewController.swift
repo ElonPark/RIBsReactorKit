@@ -29,7 +29,6 @@ final class MainTabBarViewController:
 
   init() {
     super.init(nibName: nil, bundle: nil)
-
   }
 
   @available(*, unavailable)
@@ -45,7 +44,7 @@ final class MainTabBarViewController:
   }
 
   func setViewControllers(_ viewControllers: [ViewControllable], animated: Bool) {
-    setViewControllers(
+    self.setViewControllers(
       viewControllers.map(\.uiviewController),
       animated: animated
     )

@@ -15,7 +15,7 @@ struct Picture:
   let medium: String
   let thumbnail: String
 
-  var largeImageURL: URL? { URL(string: large) }
-  var mediumImageURL: URL? { URL(string: medium) }
-  var thumbnailImageURL: URL? { URL(string: thumbnail) }
+  var largeImageURL: URL? { URL(string: self.large) }
+  var mediumImageURL: URL? { URL(string: self.medium) }
+  var thumbnailImageURL: URL? { URL(string: self.thumbnail) }
 }

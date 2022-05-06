@@ -77,7 +77,7 @@ final class UserCollectionPresenter:
       listener.sendAction(.loadMore(index: indexPath.item))
 
     case let .prefetchItems(indexPaths):
-      sendPrefetchResourceAction(to: listener, withItemIndexPaths: indexPaths)
+      self.sendPrefetchResourceAction(to: listener, withItemIndexPaths: indexPaths)
 
     case let .itemSelected(indexPath):
       listener.sendAction(.itemSelected(index: indexPath.item))
@@ -100,8 +100,8 @@ final class UserCollectionPresenter:
 
 // MARK: - Data Model to ViewModel
 
-private extension UserCollectionPresenter {
-  func transform() -> (UserCollectionPresenter, UserCollectionPresentableListener.State) -> ViewModel {
+extension UserCollectionPresenter {
+  private func transform() -> (UserCollectionPresenter, UserCollectionPresentableListener.State) -> ViewModel {
     return { this, state in
       ViewModel(
         isLoading: state.isLoading,
@@ -111,7 +111,7 @@ private extension UserCollectionPresenter {
     }
   }
 
-  func makeSectionModel(byUserModels userModels: [UserModel]) -> [UserCollectionSectionModel] {
+  private func makeSectionModel(byUserModels userModels: [UserModel]) -> [UserCollectionSectionModel] {
     let sectionItem = userModels
       .map(UserProfileViewModel.init)
       .map(UserCollectionSectionItem.user)
