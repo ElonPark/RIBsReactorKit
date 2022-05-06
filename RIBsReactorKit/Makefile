@@ -12,6 +12,7 @@ update:
 
 xcode_gen:
 	xcodegen generate
+	xed .
 
 ribs_mock:
 		mockolo -s ./Carthage/Checkouts/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs
