@@ -1,0 +1,22 @@
+name: CI
+
+on: [pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    name: Run PR-CI
+    runs-on: macos-latest
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Project Environment
+        run: |
+          make setup
+        
+      - name: Run Test
+        run: |
+          make test
+      - name: Codecov
+        uses: codecov/codecov-action@v2
