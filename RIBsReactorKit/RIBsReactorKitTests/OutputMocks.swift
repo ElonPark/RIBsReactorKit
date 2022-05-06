@@ -268,6 +268,17 @@ final class MainTabBarRoutingMock: MainTabBarRouting {
     }
 }
 
+final class MainTabBarPresentableMock: MainTabBarPresentable {
+    init() { }
+    init(listener: MainTabBarPresentableListener? = nil) {
+        self.listener = listener
+    }
+
+
+    private(set) var listenerSetCallCount = 0
+    var listener: MainTabBarPresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
+}
+
 final class RootListenerMock: RootListener {
     init() { }
 
@@ -282,6 +293,12 @@ final class RootViewControllableMock: RootViewControllable {
 
     public private(set) var uiviewControllerSetCallCount = 0
     public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+}
+
+final class MainTabBarListenerMock: MainTabBarListener {
+    init() { }
+
+
 }
 
 final class MainTabBarBuildableMock: MainTabBarBuildable {
