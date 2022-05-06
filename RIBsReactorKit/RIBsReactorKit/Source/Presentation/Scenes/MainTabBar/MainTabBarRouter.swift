@@ -10,6 +10,7 @@ import RIBs
 
 // MARK: - MainTabBarInteractable
 
+/// @mockable
 protocol MainTabBarInteractable:
   Interactable,
   UserListListener,
@@ -19,6 +20,7 @@ protocol MainTabBarInteractable:
   var listener: MainTabBarListener? { get set }
 }
 
+/// @mockable
 protocol MainTabBarViewControllable: ViewControllable {
   func setViewControllers(_ viewControllers: [ViewControllable], animated: Bool)
 }
@@ -33,9 +35,9 @@ final class MainTabBarRouter:
   // MARK: - Properties
 
   private let userListBuilder: UserListBuildable
-  private let userCollectionBuilder: UserCollectionBuildable
-
   private var userListRouter: UserListRouting?
+
+  private let userCollectionBuilder: UserCollectionBuildable
   private var userCollectionRouter: UserCollectionRouting?
 
   // MARK: - Initialization & Deinitialization

@@ -12,6 +12,7 @@ import RxSwift
 
 // MARK: - UserListRouting
 
+/// @mockable
 protocol UserListRouting: ViewableRouting {
   func attachUserInformationRIB()
   func detachUserInformationRIB()

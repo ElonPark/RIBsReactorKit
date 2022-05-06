@@ -47,6 +47,7 @@ final class UserCollectionComponent: NeedleFoundation.Component<UserCollectionDe
 
 // MARK: - UserCollectionBuildable
 
+/// @mockable
 protocol UserCollectionBuildable: Buildable {
   func build(with dynamicBuildDependency: UserCollectionBuildDependency) -> UserCollectionRouting
 }
