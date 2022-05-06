@@ -54,6 +54,7 @@ final class UserListComponent: NeedleFoundation.Component<UserListDependency> {
 
 // MARK: - UserListBuildable
 
+/// @mockable
 protocol UserListBuildable: Buildable {
   func build(with dynamicBuildDependency: UserListBuildDependency) -> UserListRouting
 }

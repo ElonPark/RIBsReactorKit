@@ -18,10 +18,12 @@ protocol MainTabBarRouting: ViewableRouting {
 
 // MARK: - MainTabBarPresentable
 
+/// @mockable
 protocol MainTabBarPresentable: Presentable {
   var listener: MainTabBarPresentableListener? { get set }
 }
 
+/// @mockable
 protocol MainTabBarListener: AnyObject {}
 
 // MARK: - MainTabBarInteractor

@@ -29,6 +29,9 @@ final class RootInteractorTests: XCTestCase {
   }
 }
 
+
+// MARK: - Tests
+
 extension RootInteractorTests {
   func test_when_didBecomeActive_called_it_should_be_call_attachMainTabBarRIB_from_router() {
     // when
