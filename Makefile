@@ -48,3 +48,6 @@ show_tree_viewer:
 
 test:
 	bundle exec fastlane ios ci_test
+
+ci_test:
+	fastlane ios ci_test
