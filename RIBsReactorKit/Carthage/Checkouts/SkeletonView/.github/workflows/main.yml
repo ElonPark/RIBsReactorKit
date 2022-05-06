@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        build-config:    
+          - { scheme: 'SkeletonView iOS', destination: 'platform=iOS Simulator,name=iPhone 8', sdk: 'iphonesimulator' }
+          - { scheme: 'SkeletonView tvOS', destination: 'platform=tvOS Simulator,name=Apple TV', sdk: 'appletvsimulator' }
+          - { scheme: 'iOS Example', destination: 'platform=iOS Simulator,name=iPhone 8', sdk: 'iphonesimulator' }
+          - { scheme: 'tvOS Example', destination: 'platform=tvOS Simulator,name=Apple TV', sdk: 'appletvsimulator' }
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: xcodebuild clean build -workspace 'SkeletonView.xcworkspace' -scheme '${{ matrix.build-config['scheme'] }}' -sdk '${{ matrix.build-config['sdk'] }}' -destination '${{ matrix.build-config['destination'] }}'
+
