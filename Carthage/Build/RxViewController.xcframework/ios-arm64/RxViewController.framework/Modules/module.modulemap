@@ -1,0 +1,11 @@
+framework module RxViewController {
+  umbrella header "RxViewController.h"
+
+  export *
+  module * { export * }
+}
+
+module RxViewController.Swift {
+    header "RxViewController-Swift.h"
+    requires objc
+}

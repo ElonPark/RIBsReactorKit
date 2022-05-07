@@ -1,0 +1,19 @@
+{
+  "commitish" : "2.0.1",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "d06205e81aea1d262a9f0b9821624ded2dd337e09dc1aa25aa8ea9790a1c025c",
+      "name" : "RxViewController",
+      "container" : "RxViewController.xcframework",
+      "identifier" : "ios-arm64"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "c07d2a9ddab08cbb1532e0ed7dbb7ac9fcbb42e70346b65a4a0c5e62605ee674",
+      "name" : "RxViewController",
+      "container" : "RxViewController.xcframework",
+      "identifier" : "ios-arm64_x86_64-simulator"
+    }
+  ]
+}

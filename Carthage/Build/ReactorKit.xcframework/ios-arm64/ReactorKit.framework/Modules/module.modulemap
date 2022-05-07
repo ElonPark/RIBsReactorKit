@@ -1,0 +1,11 @@
+framework module ReactorKit {
+  umbrella header "ReactorKit.h"
+
+  export *
+  module * { export * }
+}
+
+module ReactorKit.Swift {
+    header "ReactorKit-Swift.h"
+    requires objc
+}

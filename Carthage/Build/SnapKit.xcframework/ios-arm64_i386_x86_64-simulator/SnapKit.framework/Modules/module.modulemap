@@ -1,0 +1,4 @@
+framework module SnapKit {
+  header "SnapKit-Swift.h"
+  requires objc
+}

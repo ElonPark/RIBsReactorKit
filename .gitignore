@@ -10,7 +10,7 @@ xcuserdata/
 *.xccheckout
 
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-build/
+./build/
 DerivedData/
 *.moved-aside
 *.pbxuser
@@ -46,7 +46,7 @@ playground.xcworkspace
 # hence it is not needed unless you have added a package configuration file to your project
 # .swiftpm
 
-.build/
+./.build/
 
 # CocoaPods
 #

@@ -1,0 +1,11 @@
+framework module EPLogger {
+  umbrella header "EPLogger-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module EPLogger.Swift {
+    header "EPLogger-Swift.h"
+    requires objc
+}

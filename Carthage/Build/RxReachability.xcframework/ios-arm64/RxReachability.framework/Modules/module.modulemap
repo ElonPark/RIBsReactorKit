@@ -1,0 +1,11 @@
+framework module RxReachability {
+  umbrella header "RxReachability.h"
+
+  export *
+  module * { export * }
+}
+
+module RxReachability.Swift {
+    header "RxReachability-Swift.h"
+    requires objc
+}

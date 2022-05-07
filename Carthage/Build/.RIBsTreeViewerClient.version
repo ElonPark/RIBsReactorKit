@@ -1,0 +1,19 @@
+{
+  "commitish" : "1.1.3",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "c32dc69d62d3569a82e7cb13674497c0772c70fd7c0e836fd93d72a617ae0765",
+      "name" : "RIBsTreeViewerClient",
+      "container" : "RIBsTreeViewerClient.xcframework",
+      "identifier" : "ios-arm64_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "b8bbf652d0ee53bb10cfba3739eb36f3f042d9b2827e724271a8a2fa64652749",
+      "name" : "RIBsTreeViewerClient",
+      "container" : "RIBsTreeViewerClient.xcframework",
+      "identifier" : "ios-arm64"
+    }
+  ]
+}

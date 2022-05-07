@@ -1,0 +1,11 @@
+framework module WeakMapTable {
+  umbrella header "WeakMapTable.h"
+
+  export *
+  module * { export * }
+}
+
+module WeakMapTable.Swift {
+    header "WeakMapTable-Swift.h"
+    requires objc
+}

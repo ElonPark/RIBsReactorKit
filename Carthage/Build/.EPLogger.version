@@ -1,0 +1,19 @@
+{
+  "commitish" : "1.3.13",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "225f00b51ffcc1909c04bb1046335eb7e4acd7afa0a124b877e2c9061f005c2b",
+      "name" : "EPLogger",
+      "container" : "EPLogger.xcframework",
+      "identifier" : "ios-arm64_i386_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "a2ae46fc35c4bf5de76e68abfcb215e7ed0a95751aea2a388bdd88d1b8a9fd34",
+      "name" : "EPLogger",
+      "container" : "EPLogger.xcframework",
+      "identifier" : "ios-arm64_armv7"
+    }
+  ]
+}

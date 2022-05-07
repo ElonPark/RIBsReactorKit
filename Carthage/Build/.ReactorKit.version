@@ -1,0 +1,19 @@
+{
+  "commitish" : "3.0.2",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "30f6d37d9a923823270cd7b3743f40a35206e96e9b85cc8eff5946a714b52318",
+      "name" : "ReactorKit",
+      "container" : "ReactorKit.xcframework",
+      "identifier" : "ios-arm64_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "54f6130bf11a2e2b016e0580e99fc2960f7514b806b4e0280fd9a62fb97c8fc6",
+      "name" : "ReactorKit",
+      "container" : "ReactorKit.xcframework",
+      "identifier" : "ios-arm64"
+    }
+  ]
+}

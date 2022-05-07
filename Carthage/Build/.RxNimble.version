@@ -1,0 +1,33 @@
+{
+  "commitish" : "5.1.2",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "841163fa10a215cd99f3e9ed39140a839139081c7afc33cfdc43466e268746b8",
+      "name" : "RxNimbleRxBlocking",
+      "container" : "RxNimbleRxBlocking.xcframework",
+      "identifier" : "ios-arm64_armv7"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "b25d77a7484d588bedfdfb6fb74be957adc497dfdf2cf5b2c566a165fbfce75e",
+      "name" : "RxNimbleRxBlocking",
+      "container" : "RxNimbleRxBlocking.xcframework",
+      "identifier" : "ios-arm64_i386_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "64f852cd535b54c3eadfd7217e99cab9b6d6eb074fd4d67834ce7f7f53ebbf11",
+      "name" : "RxNimbleRxTest",
+      "container" : "RxNimbleRxTest.xcframework",
+      "identifier" : "ios-arm64_armv7"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "46aef9d220da896187b061bed09b6f93eb8fa2189bb98cf5223e7db1362e8871",
+      "name" : "RxNimbleRxTest",
+      "container" : "RxNimbleRxTest.xcframework",
+      "identifier" : "ios-arm64_i386_x86_64-simulator"
+    }
+  ]
+}

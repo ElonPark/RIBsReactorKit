@@ -1,0 +1,19 @@
+{
+  "commitish" : "1.2.1",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "47924b39c2a67e6615bfd7159cceac5f1cc9b2c6fd2476af1cd5f647b6be83a5",
+      "name" : "WeakMapTable",
+      "container" : "WeakMapTable.xcframework",
+      "identifier" : "ios-arm64_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "d6696f859a5fef211feae36d710d4044d284962a0a2ecce7289f01b869a8f4e3",
+      "name" : "WeakMapTable",
+      "container" : "WeakMapTable.xcframework",
+      "identifier" : "ios-arm64"
+    }
+  ]
+}

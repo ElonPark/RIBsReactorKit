@@ -1,0 +1,19 @@
+{
+  "commitish" : "v0.18.1",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "7ce21d1bbd80342124ce90e6786143d0ab354a3964b120726aab727147025c38",
+      "name" : "NeedleFoundation",
+      "container" : "NeedleFoundation.xcframework",
+      "identifier" : "ios-arm64_i386_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.5.2 (swiftlang-1300.0.47.5 clang-1300.0.29.30)",
+      "hash" : "62a18f977605cbbdd1b50022bc9a7d0553a870f5a25de3585311c53a4b7ea56b",
+      "name" : "NeedleFoundation",
+      "container" : "NeedleFoundation.xcframework",
+      "identifier" : "ios-arm64_armv7"
+    }
+  ]
+}
