@@ -38,9 +38,6 @@ targets:
           DEVELOPMENT_TEAM: M77W68G9P5
     sources:
       - path: RIBsReactorKit
-    dependencies:
-      - framework: "Carthage/Build/RIBsTreeViewerClient.xcframework"
-        weak: true
     preBuildScripts:
       - name: SwiftGen
         script: |
