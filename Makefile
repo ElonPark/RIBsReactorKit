@@ -6,15 +6,13 @@ setup:
 
 setup_ci:
 	brew bundle --file=Brewfile_ci
-	make install_rbenv_ci
-	gem install bundler
 	bundle install
 	make xcode_gen
 	make pod_install
 
-install_rbenv_ci:
-	echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-	echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+install_rbenv:
+	echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+	echo 'eval "$(rbenv init -)"' >> ~/.zshrc
 	rbenv install $$(make ruby_version)
 	rbenv local $$(make ruby_version)
 
