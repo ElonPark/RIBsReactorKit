@@ -7,23 +7,42 @@ import RIBs
 // swiftlint:disable unused_declaration
 private let needleDependenciesHash : String? = nil
 
-// MARK: - Traversal Helpers
+// MARK: - Registration
 
-private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Scope {
-    return component.parent
-}
-
-private func parent2(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Scope {
-    return component.parent.parent
-}
-
-private func parent3(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Scope {
-    return component.parent.parent.parent
+public func registerProviderFactories() {
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent->UserInformationComponent") { component in
+        return UserInformationDependencybe7700aab05496476ebdProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent") { component in
+        return UserInformationDependencya9d2cce9e772d159ee2bProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent->UserInformationComponent->UserLocationComponent") { component in
+        return UserLocationDependency5cefcfd5d837c6ee54c8Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent->UserLocationComponent") { component in
+        return UserLocationDependencyf0dd14e998fd0f122ea0Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent") { component in
+        return UserCollectionDependencyc60053073d712d7e03dcProvider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent") { component in
+        return UserListDependencya1faf7e4584bd63fc032Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent") { component in
+        return RootDependency3944cc797a4a88956fb5Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent->RootComponent->MainTabBarComponent") { component in
+        return MainTabBarDependency510c3a1e09ee5fb6fb74Provider(component: component)
+    }
+    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: "^->AppComponent") { component in
+        return EmptyDependencyProvider(component: component)
+    }
+    
 }
 
 // MARK: - Providers
 
-private class UserInformationDependencybe7700aab05496476ebdProvider: UserInformationDependency {
+private class UserInformationDependencybe7700aab05496476ebdBaseProvider: UserInformationDependency {
     var selectedUserModelStream: SelectedUserModelStream {
         return userCollectionComponent.selectedUserModelStream
     }
@@ -33,10 +52,12 @@ private class UserInformationDependencybe7700aab05496476ebdProvider: UserInforma
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent->UserInformationComponent
-private func factory496b26e294b421fee4e931742634bcc4288e1d0f(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserInformationDependencybe7700aab05496476ebdProvider(userCollectionComponent: parent1(component) as! UserCollectionComponent)
+private class UserInformationDependencybe7700aab05496476ebdProvider: UserInformationDependencybe7700aab05496476ebdBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(userCollectionComponent: component.parent as! UserCollectionComponent)
+    }
 }
-private class UserInformationDependencya9d2cce9e772d159ee2bProvider: UserInformationDependency {
+private class UserInformationDependencya9d2cce9e772d159ee2bBaseProvider: UserInformationDependency {
     var selectedUserModelStream: SelectedUserModelStream {
         return userListComponent.selectedUserModelStream
     }
@@ -46,10 +67,12 @@ private class UserInformationDependencya9d2cce9e772d159ee2bProvider: UserInforma
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent
-private func factory8b6e97f5917e43e50ef990cbd4f040c4db112586(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserInformationDependencya9d2cce9e772d159ee2bProvider(userListComponent: parent1(component) as! UserListComponent)
+private class UserInformationDependencya9d2cce9e772d159ee2bProvider: UserInformationDependencya9d2cce9e772d159ee2bBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(userListComponent: component.parent as! UserListComponent)
+    }
 }
-private class UserLocationDependency5cefcfd5d837c6ee54c8Provider: UserLocationDependency {
+private class UserLocationDependency5cefcfd5d837c6ee54c8BaseProvider: UserLocationDependency {
 
 
     init() {
@@ -57,10 +80,18 @@ private class UserLocationDependency5cefcfd5d837c6ee54c8Provider: UserLocationDe
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent->UserInformationComponent->UserLocationComponent
-private func factorydb3e187f4f072667c251e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserLocationDependency5cefcfd5d837c6ee54c8Provider()
+private class UserLocationDependency5cefcfd5d837c6ee54c8Provider: UserLocationDependency5cefcfd5d837c6ee54c8BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
 }
-private class UserCollectionDependencyc60053073d712d7e03dcProvider: UserCollectionDependency {
+/// ^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent->UserLocationComponent
+private class UserLocationDependencyf0dd14e998fd0f122ea0Provider: UserLocationDependency5cefcfd5d837c6ee54c8BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
+}
+private class UserCollectionDependencyc60053073d712d7e03dcBaseProvider: UserCollectionDependency {
     var randomUserRepositoryService: RandomUserRepositoryService {
         return appComponent.randomUserRepositoryService
     }
@@ -76,10 +107,12 @@ private class UserCollectionDependencyc60053073d712d7e03dcProvider: UserCollecti
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent
-private func factory5b9bb4416b801c66a218b2702fa908b4cedb8464(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserCollectionDependencyc60053073d712d7e03dcProvider(appComponent: parent3(component) as! AppComponent)
+private class UserCollectionDependencyc60053073d712d7e03dcProvider: UserCollectionDependencyc60053073d712d7e03dcBaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(appComponent: component.parent.parent.parent as! AppComponent)
+    }
 }
-private class UserListDependencya1faf7e4584bd63fc032Provider: UserListDependency {
+private class UserListDependencya1faf7e4584bd63fc032BaseProvider: UserListDependency {
     var randomUserRepositoryService: RandomUserRepositoryService {
         return appComponent.randomUserRepositoryService
     }
@@ -95,10 +128,12 @@ private class UserListDependencya1faf7e4584bd63fc032Provider: UserListDependency
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent
-private func factoryab3dbf100a151adb58d4b2702fa908b4cedb8464(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return UserListDependencya1faf7e4584bd63fc032Provider(appComponent: parent3(component) as! AppComponent)
+private class UserListDependencya1faf7e4584bd63fc032Provider: UserListDependencya1faf7e4584bd63fc032BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(appComponent: component.parent.parent.parent as! AppComponent)
+    }
 }
-private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
+private class RootDependency3944cc797a4a88956fb5BaseProvider: RootDependency {
 
 
     init() {
@@ -106,10 +141,12 @@ private class RootDependency3944cc797a4a88956fb5Provider: RootDependency {
     }
 }
 /// ^->AppComponent->RootComponent
-private func factory264bfc4d4cb6b0629b40e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return RootDependency3944cc797a4a88956fb5Provider()
+private class RootDependency3944cc797a4a88956fb5Provider: RootDependency3944cc797a4a88956fb5BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init()
+    }
 }
-private class MainTabBarDependency510c3a1e09ee5fb6fb74Provider: MainTabBarDependency {
+private class MainTabBarDependency510c3a1e09ee5fb6fb74BaseProvider: MainTabBarDependency {
     var mainTabBarViewController: RootViewControllable & MainTabBarPresentable & MainTabBarViewControllable {
         return rootComponent.mainTabBarViewController
     }
@@ -119,32 +156,8 @@ private class MainTabBarDependency510c3a1e09ee5fb6fb74Provider: MainTabBarDepend
     }
 }
 /// ^->AppComponent->RootComponent->MainTabBarComponent
-private func factoryff9d1aee745bbf1d697cb3a8f24c1d289f2c0f2e(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return MainTabBarDependency510c3a1e09ee5fb6fb74Provider(rootComponent: parent1(component) as! RootComponent)
-}
-
-
-private func factoryEmptyDependencyProvider(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return EmptyDependencyProvider(component: component)
-}
-
-// MARK: - Registration
-private func registerProviderFactory(_ componentPath: String, _ factory: @escaping (NeedleFoundation.Scope) -> AnyObject) {
-    __DependencyProviderRegistry.instance.registerDependencyProviderFactory(for: componentPath, factory)
-}
-
-private func register1() {
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent->UserInformationComponent", factory496b26e294b421fee4e931742634bcc4288e1d0f)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent", factory8b6e97f5917e43e50ef990cbd4f040c4db112586)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent->UserInformationComponent->UserLocationComponent", factorydb3e187f4f072667c251e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent->UserInformationComponent->UserLocationComponent", factorydb3e187f4f072667c251e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserCollectionComponent", factory5b9bb4416b801c66a218b2702fa908b4cedb8464)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent->UserListComponent", factoryab3dbf100a151adb58d4b2702fa908b4cedb8464)
-    registerProviderFactory("^->AppComponent->RootComponent", factory264bfc4d4cb6b0629b40e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->RootComponent->MainTabBarComponent", factoryff9d1aee745bbf1d697cb3a8f24c1d289f2c0f2e)
-    registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
-}
-
-public func registerProviderFactories() {
-    register1()
+private class MainTabBarDependency510c3a1e09ee5fb6fb74Provider: MainTabBarDependency510c3a1e09ee5fb6fb74BaseProvider {
+    init(component: NeedleFoundation.Scope) {
+        super.init(rootComponent: component.parent as! RootComponent)
+    }
 }

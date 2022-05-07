@@ -8,7 +8,6 @@
 
 import Alamofire
 import Moya
-import RxMoya
 import RxSwift
 
 final class Networking<Target: TargetType>: MoyaProvider<Target> {

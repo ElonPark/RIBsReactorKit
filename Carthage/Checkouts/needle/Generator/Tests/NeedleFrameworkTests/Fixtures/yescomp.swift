@@ -1,7 +1,0 @@
-Component
-
-Comoinent
-
-Component<Foo>
-
-

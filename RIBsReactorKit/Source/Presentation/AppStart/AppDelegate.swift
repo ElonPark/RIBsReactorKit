@@ -91,8 +91,6 @@ extension AppDelegate {
 
   extension AppDelegate {
     private func startRIBsTreeViewer(launchRouter: Routing) {
-      guard ProcessInfo.processInfo.environment["UseRIBsTreeViewer"] != nil else { return }
-
       self.ribsTreeViewer = RIBsTreeViewerImpl(
         router: launchRouter,
         options: [
