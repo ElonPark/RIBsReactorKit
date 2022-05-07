@@ -8,7 +8,6 @@ options:
   defaultConfig: Release
   indentWidth: 2
   tabWidth: 2
-  postGenCommand: pod install
   useBaseInternationalization: true
   createIntermediateGroups: true
   groupSortPosition: top

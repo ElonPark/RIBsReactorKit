@@ -17,6 +17,6 @@ jobs:
         
       - name: Run Test
         run: |
-          make ci_test
+          make test
       - name: Codecov
         uses: codecov/codecov-action@v2
