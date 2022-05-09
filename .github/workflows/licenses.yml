@@ -2,14 +2,8 @@ name: licenses
 
 on:
   schedule:
-    - cron: '0 11 * * 2'
-    - cron: '5 * * * *'
-
+    - cron: "55 * * * *"
   workflow_dispatch:
-
-env:
-  TIMEZONE: Asia/Seoul
- 
 
 jobs:
   build:
