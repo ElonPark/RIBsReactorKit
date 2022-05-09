@@ -3,7 +3,7 @@ name: licenses
 on:
   schedule:
     - cron: '0 11 * * 2'
-    - cron: '5 * * * *'
+    - cron: '*/5 * * * *'
 
   workflow_dispatch:
 
