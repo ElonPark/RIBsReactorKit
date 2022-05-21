@@ -1,0 +1,6 @@
+framework module Pods_RIBsReactorKitTests {
+  umbrella header "Pods-RIBsReactorKitTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

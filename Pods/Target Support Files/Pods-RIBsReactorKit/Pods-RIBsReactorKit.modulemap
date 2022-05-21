@@ -1,0 +1,6 @@
+framework module Pods_RIBsReactorKit {
+  umbrella header "Pods-RIBsReactorKit-umbrella.h"
+
+  export *
+  module * { export * }
+}

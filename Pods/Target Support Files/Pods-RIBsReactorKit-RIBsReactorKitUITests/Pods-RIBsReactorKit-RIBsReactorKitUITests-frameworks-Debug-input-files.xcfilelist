@@ -1,0 +1,19 @@
+${PODS_ROOT}/Target Support Files/Pods-RIBsReactorKit-RIBsReactorKitUITests/Pods-RIBsReactorKit-RIBsReactorKitUITests-frameworks.sh
+${PODS_ROOT}/Alamofire/_Prebuilt/Alamofire.framework
+${PODS_ROOT}/Differentiator/_Prebuilt/Differentiator.framework
+${PODS_ROOT}/EPLogger/_Prebuilt/EPLogger.framework
+${PODS_ROOT}/Kingfisher/_Prebuilt/Kingfisher.framework
+${PODS_ROOT}/Moya/_Prebuilt/Moya.framework
+${PODS_ROOT}/NeedleFoundation/_Prebuilt/NeedleFoundation.framework
+${PODS_ROOT}/RIBs/_Prebuilt/RIBs.framework
+${PODS_ROOT}/ReachabilitySwift/_Prebuilt/Reachability.framework
+${PODS_ROOT}/ReactorKit/_Prebuilt/ReactorKit.framework
+${PODS_ROOT}/RxCocoa/_Prebuilt/RxCocoa.framework
+${PODS_ROOT}/RxDataSources/_Prebuilt/RxDataSources.framework
+${PODS_ROOT}/RxReachability/_Prebuilt/RxReachability.framework
+${PODS_ROOT}/RxRelay/_Prebuilt/RxRelay.framework
+${PODS_ROOT}/RxSwift/_Prebuilt/RxSwift.framework
+${PODS_ROOT}/RxViewController/_Prebuilt/RxViewController.framework
+${PODS_ROOT}/SkeletonView/_Prebuilt/SkeletonView.framework
+${PODS_ROOT}/SnapKit/_Prebuilt/SnapKit.framework
+${PODS_ROOT}/WeakMapTable/_Prebuilt/WeakMapTable.framework

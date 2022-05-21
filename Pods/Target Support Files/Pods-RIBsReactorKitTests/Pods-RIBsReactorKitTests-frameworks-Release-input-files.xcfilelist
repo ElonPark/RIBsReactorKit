@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-RIBsReactorKitTests/Pods-RIBsReactorKitTests-frameworks.sh
+${PODS_ROOT}/RxSwift/_Prebuilt/RxSwift.framework
+${PODS_ROOT}/Nimble/_Prebuilt/Nimble.framework
+${PODS_ROOT}/RxBlocking/_Prebuilt/RxBlocking.framework
+${PODS_ROOT}/RxTest/_Prebuilt/RxTest.framework
