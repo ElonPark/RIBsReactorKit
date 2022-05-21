@@ -55,6 +55,8 @@ playground.xcworkspace
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
 Pods/
+_Prebuild/
+_Prebuild_delta/
 
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 *.xcworkspace
