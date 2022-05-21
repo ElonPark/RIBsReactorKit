@@ -1,4 +1,4 @@
---swiftversion 5.4
+--swiftversion 5.5
 
 # format options
 --indent 2
@@ -30,7 +30,7 @@
 --trailingclosures
 
 # file options
---exclude Scripts, Carthage, Resource, **/Generated
+--exclude Scripts, Pods, Carthage, Resource, **/Generated
 
 # rules
 --enable duplicateImports

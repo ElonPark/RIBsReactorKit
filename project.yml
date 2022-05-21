@@ -37,30 +37,6 @@ targets:
           DEVELOPMENT_TEAM: M77W68G9P5
     sources:
       - path: RIBsReactorKit
-        includes:
-          - RIBsReactorKit/*
-    dependencies:
-      - framework: "Carthage/Build/RxSwift.xcframework"
-      - framework: "Carthage/Build/RxRelay.xcframework"
-      - framework: "Carthage/Build/RxCocoa.xcframework"
-      - framework: "Carthage/Build/RxDataSources.xcframework"
-      - framework: "Carthage/Build/RxViewController.xcframework"
-      - framework: "Carthage/Build/Moya.xcframework"
-      - framework: "Carthage/Build/RxMoya.xcframework"
-      - framework: "Carthage/Build/Reachability.xcframework"
-      - framework: "Carthage/Build/RxReachability.xcframework"
-      - framework: "Carthage/Build/RIBs.xcframework"
-      - framework: "Carthage/Build/NeedleFoundation.xcframework"
-      - framework: "Carthage/Build/ReactorKit.xcframework"
-      - framework: "Carthage/Build/WeakMapTable.xcframework"
-      - framework: "Carthage/Build/Alamofire.xcframework"
-      - framework: "Carthage/Build/Kingfisher.xcframework"
-      - framework: "Carthage/Build/SnapKit.xcframework"
-      - framework: "Carthage/Build/Differentiator.xcframework"
-      - framework: "Carthage/Build/SkeletonView.xcframework"
-      - framework: "Carthage/Build/EPLogger.xcframework"
-      - framework: "Carthage/Build/RIBsTreeViewerClient.xcframework"
-        weak: true
     preBuildScripts:
       - name: SwiftGen
         script: |
@@ -78,8 +54,8 @@ targets:
         script: |
           SOURCE_ROOT="RIBsReactorKit/Source"
           FILE_PATH="${SOURCE_ROOT}/Presentation/Utilities/Generated"
-          NEEDLE_PATH="Carthage/Checkouts/needle/Generator/bin"
-          export SOURCEKIT_LOGGING=0 && ${NEEDLE_PATH}/needle generate ${FILE_PATH}/NeedleGenerated.swift ${SOURCE_ROOT}/
+          export PATH="$PATH:/opt/homebrew/bin"
+          export SOURCEKIT_LOGGING=0 && needle generate ${FILE_PATH}/NeedleGenerated.swift ${SOURCE_ROOT}/
     postBuildScripts:
       - name: SwiftFormat
         script: |
@@ -115,11 +91,6 @@ targets:
       - RIBsReactorKitTests
     dependencies:
       - target: RIBsReactorKit
-      - framework: "Carthage/Build/Nimble.xcframework"
-      - framework: "Carthage/Build/RxBlocking.xcframework"
-      - framework: "Carthage/Build/RxNimbleRxBlocking.xcframework"
-      - framework: "Carthage/Build/RxTest.xcframework"
-      - framework: "Carthage/Build/RxNimbleRxTest.xcframework"
 
   RIBsReactorKitUITests:
     type: bundle.ui-testing

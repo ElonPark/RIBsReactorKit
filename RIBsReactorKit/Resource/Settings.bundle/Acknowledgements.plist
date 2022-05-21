@@ -14,6 +14,14 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>Acknowledgements/Differentiator</string>
+			<key>Title</key>
+			<string>Differentiator</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>Acknowledgements/EPLogger</string>
 			<key>Title</key>
 			<string>EPLogger</string>
@@ -38,9 +46,9 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>Acknowledgements/Needle</string>
+			<string>Acknowledgements/NeedleFoundation</string>
 			<key>Title</key>
-			<string>Needle</string>
+			<string>NeedleFoundation</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -54,14 +62,6 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>Acknowledgements/Quick</string>
-			<key>Title</key>
-			<string>Quick</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
 			<string>Acknowledgements/RIBs</string>
 			<key>Title</key>
 			<string>RIBs</string>
@@ -70,17 +70,9 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>Acknowledgements/RIBsTreeViewerClient</string>
+			<string>Acknowledgements/ReachabilitySwift</string>
 			<key>Title</key>
-			<string>RIBsTreeViewerClient</string>
-			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-		</dict>
-		<dict>
-			<key>File</key>
-			<string>Acknowledgements/Reachability.swift</string>
-			<key>Title</key>
-			<string>Reachability.swift</string>
+			<string>ReachabilitySwift</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -94,17 +86,25 @@
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>Acknowledgements/RxDataSources</string>
+			<string>Acknowledgements/RxBlocking</string>
 			<key>Title</key>
-			<string>RxDataSources</string>
+			<string>RxBlocking</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
 		<dict>
 			<key>File</key>
-			<string>Acknowledgements/RxNimble</string>
+			<string>Acknowledgements/RxCocoa</string>
 			<key>Title</key>
-			<string>RxNimble</string>
+			<string>RxCocoa</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Acknowledgements/RxDataSources</string>
+			<key>Title</key>
+			<string>RxDataSources</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>
@@ -118,9 +118,25 @@
 		</dict>
 		<dict>
 			<key>File</key>
+			<string>Acknowledgements/RxRelay</string>
+			<key>Title</key>
+			<string>RxRelay</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
 			<string>Acknowledgements/RxSwift</string>
 			<key>Title</key>
 			<string>RxSwift</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
+			<key>File</key>
+			<string>Acknowledgements/RxTest</string>
+			<key>Title</key>
+			<string>RxTest</string>
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 		</dict>

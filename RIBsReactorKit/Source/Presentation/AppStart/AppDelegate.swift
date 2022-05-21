@@ -30,10 +30,6 @@ final class AppDelegate:
   private var launchRouter: LaunchRouting?
   private var reachability: Reachability?
 
-  #if DEBUG
-    private var ribsTreeViewer: RIBsTreeViewer?
-  #endif
-
   // MARK: - UIApplicationDelegate
 
   func application(
@@ -46,7 +42,6 @@ final class AppDelegate:
 
     setWindow()
     setLaunchRouter()
-    startRIBsTreeViewer()
 
     return true
   }
@@ -67,13 +62,6 @@ extension AppDelegate {
     self.launchRouter?.launch(from: window)
   }
 
-  private func startRIBsTreeViewer() {
-    guard let launchRouter = self.launchRouter else { return }
-    #if DEBUG
-      self.startRIBsTreeViewer(launchRouter: launchRouter)
-    #endif
-  }
-
   private func setReachability() {
     do {
       self.reachability = try Reachability()
@@ -83,24 +71,3 @@ extension AppDelegate {
     }
   }
 }
-
-// MARK: - RIBsTreeViewer
-
-#if DEBUG
-  import RIBsTreeViewerClient
-
-  extension AppDelegate {
-    private func startRIBsTreeViewer(launchRouter: Routing) {
-      guard ProcessInfo.processInfo.environment["UseRIBsTreeViewer"] != nil else { return }
-
-      self.ribsTreeViewer = RIBsTreeViewerImpl(
-        router: launchRouter,
-        options: [
-          .webSocketURL("ws://0.0.0.0:8080"),
-          .monitoringIntervalMillis(1000)
-        ]
-      )
-      self.ribsTreeViewer?.start()
-    }
-  }
-#endif

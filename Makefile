@@ -1,30 +1,33 @@
 setup:
 	brew bundle
 	bundle install
-	make bootstrap
 	make xcode_gen
-	make clean_unuse_libs
+	make pod_install
 
 setup_ci:
 	brew bundle --file=Brewfile_ci
-	make bootstrap
+	bundle install
 	make xcode_gen
-	make clean_unuse_libs
+	make pod_install
 
-bootstrap:
-	rome download --platform iOS
-	carthage bootstrap --platform iOS --new-resolver --no-use-binaries --use-xcframeworks --cache-builds
-	rome list --missing --platform iOS | awk '{print $1}' | xargs -I {} rome upload "{}" --platform iOS
+install_rbenv:
+	echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshrc
+	echo 'eval "$(rbenv init -)"' >> ~/.zshrc
+	rbenv install $$(make ruby_version)
+	rbenv local $$(make ruby_version)
 
-update:
-	carthage update --platform iOS --new-resolver --no-use-binaries --use-xcframeworks --cache-builds
-	rome list --missing --platform iOS | awk '{print $1}' | xargs -I {} rome upload "{}" --platform iOS
+ruby_version:
+	@echo `cat .ruby-version`
+
+project:
+	make xcode_gen
+	bundle exec pod install
 
 xcode_gen:
 	xcodegen generate
 
 ribs_mock:
-		mockolo -s ./Carthage/Checkouts/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs
+		mockolo -s ./Pods/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs
 
 mock:
 	mockolo -s ./RIBsReactorKit/Source \
@@ -35,19 +38,22 @@ mock:
 	 --mock-final \
 	 --exclude-imports Kingfisher MapKit NeedleFoundation RxCocoa RxDataSources RxViewController SkeletonView SwiftUI
 
-clean_unuse_libs:
-	rm -rf ./Carthage/Checkouts/ReactiveSwift
-	rm -rf ./Carthage/Build/iOS/ReactiveSwift.*
-	rm -rf ./Carthage/Build/iOS/ReactiveMoya.*
-
-setup_tree_viewer:
-	(cd ./Scripts && sh install_server.sh)
-
-show_tree_viewer:
-	(cd ./Scripts && sh start_server.sh)
-
 test:
 	bundle exec fastlane ios ci_test
 
-ci_test:
-	fastlane ios ci_test
+# https://github.com/grab/cocoapods-binary-cache/pull/86
+pod_install:
+	bundle exec pod binary prebuild "swift$$(make swift_version)-$$(make podfile_lock_checksum)" --no-fetch
+	bundle exec pod binary fetch "swift$$(make swift_version)-$$(make podfile_lock_checksum)"
+	bundle exec pod binary push "swift$$(make swift_version)-$$(make podfile_lock_checksum)"
+
+pod_update:
+	bundle exec pod update
+	bundle exec pod binary prebuild --no-fetch --all || bundle exec pod binary prebuild --repo-update --no-fetch --all
+	bundle exec pod binary push "swift-$$(make swift_version)-$$(make podfile_lock_checksum)"
+
+swift_version:
+	@echo `swift --version 2>/dev/null | sed -ne 's/^Apple Swift version \([^\b ]*\).*/\1/p'`
+
+podfile_lock_checksum:
+	@echo `sed -ne '/PODFILE CHECKSUM: /p' Podfile.lock | sed s'/$ PODFILE CHECKSUM: '//`

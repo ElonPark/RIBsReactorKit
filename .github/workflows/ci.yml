@@ -11,12 +11,32 @@ jobs:
       - name: Git Checkout
         uses: actions/checkout@v2
 
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_ed25519
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Cache Ruby Dependencies
+        uses: actions/cache@v2.1.5
+        with:
+          path: vendor/bundle
+          key: ruby-v1-bundle-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: ruby-v1-bundle-
+
+      - name: Install Ruby Dependencies
+        run: |
+          bundle config path vendor/bundle
+          bundle install
+
       - name: Setup Project Environment
         run: |
           make setup_ci
-        
+
       - name: Run Test
         run: |
-          make ci_test
+          make test
+
       - name: Codecov
         uses: codecov/codecov-action@v2

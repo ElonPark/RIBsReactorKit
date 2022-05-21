@@ -18,19 +18,3 @@ Required Xcode 12.5 or above
 ```shell
 $ make setup
 ```
-
----
-## Use RIBsTreeViewer
-
-### Installing 
-
-```shell
-$ npm install yarn
-$ make setup_tree_viewer
-```
-
-### Starting the websocket server & Open RIBsTreeViewer page.
-
-```shell
-$ make show_tree_viewer
-```

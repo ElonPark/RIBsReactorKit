@@ -19,7 +19,7 @@ platform :ios do
   desc 'CI Test'
   lane :ci_test do
     run_tests(
-      project: 'RIBsReactorKit.xcodeproj',
+      workspace: 'RIBsReactorKit.xcworkspace',
       scheme: 'RIBsReactorKit',
       device: 'iPhone 12 Pro',
       ensure_devices_found: true,
