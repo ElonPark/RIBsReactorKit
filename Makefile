@@ -27,7 +27,7 @@ xcode_gen:
 	xcodegen generate
 
 ribs_mock:
-		mockolo -s ./Pods/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs
+	mockolo -s ./Pods/RIBs/ios/RIBs/Classes -d ./RIBsReactorKitTests/RIBsMocks.swift --custom-imports RIBs
 
 mock:
 	mockolo -s ./RIBsReactorKit/Source \
